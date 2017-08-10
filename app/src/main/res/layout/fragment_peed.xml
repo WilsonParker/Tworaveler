@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/fragment_peed$Root"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical">
+
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_peed$menuToptitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:rightButton="@drawable/button_right"
+        app:titleText="@string/fragmentPeed_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_peed$RV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        ></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

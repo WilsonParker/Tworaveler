@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_regist$menuToptitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_top_title_height"
+        android:layout_weight="1"
+        app:leftButton="@drawable/button_left"
+        app:rightButton="@drawable/button_right"
+        app:titleText="@string/fragmentRegist_title" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragment_regist$menuToptitle"
+        android:layout_weight="10"
+        android:fillViewport="true"
+        android:overScrollMode="always"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20">
+
+                <LinearLayout
+                    android:id="@+id/fragment_regist_detail$LL_scrollItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5" />
+
+                    <ImageView
+                        android:id="@+id/fragment_regist_detail$IV_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="10"
+                        android:background="@color/default_Image_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="6"
+                            android:gravity="center_vertical|left"
+                            android:text="Trop to Washington" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical|left"
+                            android:text="2017.08.13~2017.08.20" />
+
+                        <ImageView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shaow" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@drawable/shaow" />
+
+                </LinearLayout>
+
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/fragment_regist_detail$calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fragment_regist_detail$LL_scrollItem"
+                    android:layout_weight="1"
+                    app:mcv_selectionColor="#67b777"
+                    app:mcv_showOtherDates="all" />
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

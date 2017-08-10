@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/bag_delete$topbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_top_title_height"
+        android:layout_weight="0"
+        app:leftButton="@drawable/button_left"
+        app:rightButton="@drawable/button_right"
+        app:titleText="@string/bag_delete_title" />
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:id="@+id/bag_delete$BN_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/navigation_bag"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="33dp" />
+    <FrameLayout
+        android:id="@+id/bag_delete$FL_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/bag_delete$LL_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/bag_delete_nonItem"
+                android:id="@+id/bag_delete$name"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bag_delete$RV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_bag_layout" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

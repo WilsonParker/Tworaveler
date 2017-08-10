@@ -1,0 +1,124 @@
+<resources>
+    <string name="app_name">Tworaveler</string>
+
+    <!-- key hash -->
+    <string name="kakao_app_key">24a1dd382f073b0b884987243830b44b</string>
+    <string name="facebook_app_id">155809951644243</string>.
+    <string name="fb_login_protocol_scheme">fb155809951644243</string>
+    <!--<string name="fb_secret_code">4675e710332af2378e67a95dfe1a6d48</string>-->
+    <!--<string name="fb_hash">AV4A36DcA2EO/8A2IXQSts7NwsU=</string>-->
+
+    <!--
+      ############################################################################################
+                                                Activity
+      ############################################################################################
+    -->
+
+    <!-- Activity//SignUp -->
+    <string name="signUp_fail_alert_title_fail">회원가입 실패</string>
+    <string name="signUp_fail_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
+    <string name="signUp_fail_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
+    <string name="signUp_fail_alert_title_success">회원가입 성공</string>
+    <string name="signUp_fail_alert_content_success">회원가입에 성공 하였습니다</string>
+
+    <!-- Activity//SignIn -->
+    <string name="signIn_fail_alert_title_fail">로그인 실패</string>
+    <string name="signIn_fail_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
+    <string name="signIn_fail_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
+    <string name="signIn_fail_alert_title_success">로그인 성공</string>
+    <string name="signIn_fail_alert_content_success">로그인에 성공 하였습니다</string>
+
+    <!--
+        ############################################################################################
+                                                   Layout
+        ############################################################################################
+    -->
+
+    <!-- layout/activity_sign_in-->
+    <string name="activity_login$hint_ET_email">이메일</string>
+    <string name="activity_login$hint_ET_password">비밀번호</string>
+
+    <!-- layout/activity_search_city-->
+    <string name="activity_search_city$title">도시 검색</string>
+
+    <!-- layout/activity_regist_day_detail-->
+    <string name="activity_regist_day_detail_title">추가</string>
+    <string name="activity_regist_day_detail_text_0">장소 제목</string>
+    <string name="activity_regist_day_detail_text_1">어디를 가시나요?</string>
+    <string name="activity_regist_day_detail_text_2">언제 가시나요?</string>
+    <string name="activity_regist_day_detail_text_3">위치 검색</string>
+    <string name="activity_regist_day_detail_text_4">시작 시간</string>
+    <string name="activity_regist_day_detail_text_5">종료 시간</string>
+
+    <!-- menu/navigation-->
+    <string name="navigation_title_activity_home">Main</string>
+    <string name="navigation_title_home">홈</string>
+    <string name="navigation_title_alarm">알람</string>
+    <string name="navigation_title_regist">일정 등록</string>
+    <string name="navigation_title_peed">피드</string>
+    <string name="navigation_title_bag">여행 가방</string>
+
+    <!-- menu/navigation_bag-->
+    <string name="navigation_bag_title_ticket">교통티켓</string>
+    <string name="navigation_bag_title_sale">할인권</string>
+    <string name="navigation_bag_title_root">노선도</string>
+    <string name="navigation_bag_title_map">지도</string>
+    <string name="navigation_bag_title_shopping">쇼핑</string>
+
+    <!-- layout/FragmentRegist-->
+    <string name="fragmentRegist_title">Regist</string>
+    <string name="fragmentRegist_text_1">어디를 가시나요?</string>
+    <string name="fragmentRegist_text_2">언제 가시나요?</string>
+    <string name="fragmentRegist_text_3">도시검색</string>
+    <string name="fragmentRegist_text_4">여행시작날짜</string>
+    <string name="fragmentRegist_text_5">여행종료날짜</string>
+
+    <!-- layout/FragmentRegistDetail-->
+    <string name="fragmentRegist_detail_title">Regist Detail</string>
+
+    <!-- layout/FragmentPeed-->
+    <string name="fragmentPeed_title">피드</string>
+
+    <!-- layout/FragmentMyPage-->
+    <string name="fragmentMyPage_title">로그인이 필요합니다.</string>
+    <string name="fragmentMyPage_profile">로그인</string>
+    <string name="fragmentMypage_notice">로그인 후 이용해주세요</string>
+
+    <!-- layout/FragmentMyPageHome-->
+    <string name="fragmentMyPage_home_title">나의 여행</string>
+    <string name="fragmentMyPage_home_profile">프로필</string>
+
+    <!-- layout/FragmentMyPageProfile-->
+    <string name="fragmentMyPage_profile_title">프로필</string>
+    <string name="fragmentMyPage_profile_follower">팔로워</string>
+    <string name="fragmentMypage_profile_following">팔로잉</string>
+    <string name="fragmentMypage_profile_nickname">닉네임</string>
+    <string name="fragmentMypage_profile_message">상태 메세지</string>
+
+    <!-- layout/ProfileSet-->
+    <string name="profileSet_logout">로그아웃</string>
+    <string name="profileSet_withdrawal">회원탈퇴</string>
+
+    <!-- layout/fragment_bag-->
+    <string name="fragment_bag_title">여행가방</string>
+    <string name="fragment_bag_backButton">뒤로가기</string>
+    <string name="fragment_bag_plusButton">추가</string>
+    <string name="fragment_bag_nonItem">여행 가방에 사진을 추가해 보세요</string>
+    <string name="fragment_bag_picture">사진첩</string>
+
+    <!-- layout/bag_delete-->
+    <string name="bag_delete_nonItem">여행 가방에 사진을 추가해 보세요</string>
+    <string name="bag_delete_title">삭제하기</string>
+
+    <string name="hello_blank_fragment">Hello blank default_fragment</string>
+
+
+    <!--
+        ############################################################################################
+                                                   Data
+        ############################################################################################
+    -->
+    <string name="DEVICE_WIDTH">1080</string>
+    <string name="DEVICE_HEIGHT">1920</string>
+
+</resources>

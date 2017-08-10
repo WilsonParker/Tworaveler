@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--
+        <LinearLayout
+            android:id="@+id/main$LL"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <Button
+                android:id="@+id/main$BT_kakao"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="KaKao" />
+
+            <Button
+                android:id="@+id/main$BT_facebook"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="FaceBook" />
+        </LinearLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="always"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/login$BT_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Go to Main" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
+
+                    <com.kakao.usermgmt.LoginButton
+                        android:id="@+id/login$com_kakao_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/login$com_kakao_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="kakao logout"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_sign_in$login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:minHeight="300dp"
+                android:weightSum="400">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="300"
+                    android:weightSum="32">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:orientation="vertical"
+                        android:weightSum="11">
+
+                        <EditText
+                            android:id="@+id/activty_login$ET_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="5"
+                            android:hint="@string/activity_login$hint_ET_email"
+                            android:inputType="textEmailAddress" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <EditText
+                            android:id="@+id/activty_login$ET_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="5"
+                            android:hint="@string/activity_login$hint_ET_password"
+                            android:inputType="textPassword" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="2" />
+
+                    <ImageButton
+                        android:id="@+id/activity_login$IV_signIn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/login$BT_signUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="100"
+                    android:text="Sign Up" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
