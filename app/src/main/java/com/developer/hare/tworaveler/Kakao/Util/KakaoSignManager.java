@@ -60,6 +60,10 @@ public class KakaoSignManager {
                             @Override
                             public void run() {
                                 setLoginButton();
+                                Intent intent = new Intent(activity, SignIn.class);
+//                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                activity.startActivity(intent);
+                                activity.finish();
                             }
                         });
                     }
@@ -141,7 +145,7 @@ public class KakaoSignManager {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Log_HR.log(Log_HR.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", "UserProfile : " + userProfile);
                 Log_HR.log(Log_HR.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", "UserProfile : " + userProfile.toString());
-                redirectMainActivity(); // 로그인 성공시 MainActivity로
+//                redirectMainActivity(); // 로그인 성공시 MainActivity로
             }
         });
     }

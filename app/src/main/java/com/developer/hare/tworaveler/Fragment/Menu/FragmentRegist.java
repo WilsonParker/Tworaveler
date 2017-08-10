@@ -77,7 +77,7 @@ public class FragmentRegist extends BaseFragment {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(getActivity(), "등록 방법 선택", 3, AlertSelectionItemModels);
+                    AlertManager.getInstance().showAlertSelectionMode(getActivity(), "등록 방법 선택", 3, AlertSelectionItemModels).show();
                     break;
             }
         }

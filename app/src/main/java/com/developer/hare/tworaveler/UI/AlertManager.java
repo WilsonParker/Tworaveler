@@ -45,22 +45,29 @@ public class AlertManager {
         return new SweetAlertDialog(context, alertType);
     }
 
-    public SweetAlertDialog showAlert(Context context, int alertType, String title, String content, String confirm, String cancel) {
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, String cancel) {
         SweetAlertDialog dialog = setAlert(context, alertType).setContentText(content).setConfirmText(confirm).setTitleText(title).setCancelText(cancel);
-        dialog.show();
         return dialog;
     }
 
-    public SweetAlertDialog showAlert(Context context, int alertType, String title, String content, String confirm) {
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener confirmClick, String cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm, confirmClick).setCancelText(cancel).setCancelClickListener(cancelClick);
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm) {
         SweetAlertDialog dialog = setAlert(context, alertType).setTitleText(title).setContentText(content).setConfirmText(confirm);
-        dialog.show();
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener clickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm).setConfirmClickListener(clickListener);
         return dialog;
     }
 
 
-    public SweetAlertDialog showAlert(Context context, int alertType, String title, String content) {
-        SweetAlertDialog dialog = showAlert(context, alertType, title, content, "확인");
-        dialog.show();
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인");
         return dialog;
     }
 
@@ -89,16 +96,16 @@ public class AlertManager {
         if (alertDialog.isShowing())
             alertDialog.dismiss();
     }
-    public SweetAlertDialog showLoading(Context context)
-    {
+
+    public SweetAlertDialog showLoading(Context context) {
         return showLoading(context, "Loading");
     }
-    public SweetAlertDialog showLoading(Context context, String msg)
-    {
+
+    public SweetAlertDialog showLoading(Context context, String msg) {
         return showLoading(context, msg, "#A5DC86");
     }
-    public SweetAlertDialog showLoading(Context context, String msg, String color)
-    {
+
+    public SweetAlertDialog showLoading(Context context, String msg, String color) {
         SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("Loading");
@@ -110,8 +117,7 @@ public class AlertManager {
 
     public void showPopup(Context context, String title, String msg,
                           String cName, SweetAlertDialog.OnSweetClickListener cEvent,
-                          String oName, SweetAlertDialog.OnSweetClickListener oEvent)
-    {
+                          String oName, SweetAlertDialog.OnSweetClickListener oEvent) {
         new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(title)
                 .setContentText(msg)
@@ -121,8 +127,8 @@ public class AlertManager {
                 .setCancelClickListener(oEvent)
                 .show();
     }
-    public void showSimplePopup(Context context, String title, String msg, int type)
-    {
+
+    public void showSimplePopup(Context context, String title, String msg, int type) {
         new SweetAlertDialog(context, type)
                 .setTitleText(title)
                 .setContentText(msg)

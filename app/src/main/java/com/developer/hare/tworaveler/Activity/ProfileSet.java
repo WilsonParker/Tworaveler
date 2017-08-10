@@ -93,7 +93,7 @@ public class ProfileSet extends AppCompatActivity {
                     }
 
                 }));
-                AlertManager.getInstance().showAlertSelectionMode(ProfileSet.this, "등록 방법 선택", 2, AlertSelectionItemModels);
+                AlertManager.getInstance().showAlertSelectionMode(ProfileSet.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
 
             }
         });

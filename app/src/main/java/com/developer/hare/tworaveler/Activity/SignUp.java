@@ -56,7 +56,7 @@ public class SignUp extends AppCompatActivity {
                     signUp();
                 } else {
 //                    Log_HR.log(Log_HR.LOG_INFO,getClass(), "onClick(View)","getString : "+resourceManager.getResourceString((R.string.signUp_fail_alert_title)));
-                    AlertManager.getInstance().showAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail)));
+                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail))).show();
                 }
             }
         });
@@ -82,10 +82,14 @@ public class SignUp extends AppCompatActivity {
                 Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
                 if (response.isSuccessful()) {
                     Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
-                    AlertManager.getInstance().showAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
                             , resourceManager.getResourceString(R.string.signUp_fail_alert_title_success)
-                            , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success));
-                    startActivity(new Intent(getBaseContext(), SignIn.class));
+                            , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    startActivity(new Intent(getBaseContext(), SignIn.class));
+                                }
+                            }).show();
                 } else {
                     Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
                     netFail();
@@ -100,8 +104,8 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void netFail(){
-        AlertManager.getInstance().showAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2)));
+    private void netFail() {
+        AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2))).show();
     }
 
 }
