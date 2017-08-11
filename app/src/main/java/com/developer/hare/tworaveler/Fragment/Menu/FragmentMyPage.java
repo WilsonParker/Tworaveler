@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -46,6 +47,12 @@ public class FragmentMyPage extends BaseFragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), SignIn.class));
+            }
+        });
+        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().beginTransaction().replace(R.id.main$FL_content, FragmentMyPageHome.newInstance()).addToBackStack(null).commit();
             }
         });
     }

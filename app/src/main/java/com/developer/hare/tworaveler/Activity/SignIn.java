@@ -68,14 +68,14 @@ public class SignIn extends AppCompatActivity {
         BT_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), Main.class));
+                startActivity(new Intent(SignIn.this, Main.class));
             }
         });
         BT_signUp = uiFactory.createView(R.id.login$BT_signUp);
         BT_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(), SignUp.class));
+                startActivity(new Intent(SignIn.this, SignUp.class));
             }
         });
         BT_facebookLogin = uiFactory.createView(R.id.facebook_sign_in$login_button);
@@ -162,7 +162,7 @@ public class SignIn extends AppCompatActivity {
                                     , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            startActivity(new Intent(getBaseContext(), Main.class));
+                                            startActivity(new Intent(SignIn.this, Main.class));
                                         }
                                     }).show();
                         }
