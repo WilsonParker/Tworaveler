@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_regist_detail_list$menuTopTItle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_top_title_height"
+        android:layout_weight="0"
+        app:leftButton="@drawable/button_left"
+        app:rightButton="@drawable/button_right"
+        app:titleText="아이디" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15">
+
+        <TextView
+            android:id="@+id/fragment_regist_detail_list$TV_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0"
+            android:text="2017-08-11"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:id="@+id/fragment_regist_detail_list$LL_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/fragment_regist_detail_list$IV_nologin"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="#dadada" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/fragment_regist_detail_list_title" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fragment_regist_detail_list$LL_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_regist_detail_list$RV_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

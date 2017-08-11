@@ -110,8 +110,8 @@
     <string name="bag_delete_nonItem">여행 가방에 사진을 추가해 보세요</string>
     <string name="bag_delete_title">삭제하기</string>
 
-    <string name="hello_blank_fragment">Hello blank default_fragment</string>
-
+    <!-- layout/fragment_regist_detail_list-->
+    <string name="fragment_regist_detail_list_title">하루의 세부 일정을 등록해 주세요</string>
 
     <!--
         ############################################################################################

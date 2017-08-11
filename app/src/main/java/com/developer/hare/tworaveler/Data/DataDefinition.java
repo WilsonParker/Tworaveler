@@ -46,9 +46,11 @@ public class DataDefinition {
         public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
                 ,REG_NICKNAME="^([a-zA-Z0-9]){4,16}$"
-                ,REG_STRING_DATE_FOR_INTGER="(년|월|일)"
+                ,REG_STRING_DATE_FOR_INTGER="(-)"
+//                ,REG_STRING_DATE_FOR_INTGER="(년|월|일)"
 
-                ,FORMAT_DATE="yyyy년MM월dd일"
+                ,FORMAT_DATE="yyyy-MM-dd"
+                ,FORMAT_DATETIME="HH:mm:ss"
                 ;
     }
 }
