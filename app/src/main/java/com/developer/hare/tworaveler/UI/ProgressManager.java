@@ -45,7 +45,7 @@ public class ProgressManager {
 
     public void action(OnProgressAction action) {
         alertDialog.show();
-        handler.post(new Runnable() {
+        /*handler.post(new Runnable() {
             @Override
             public void run() {
                 thread = new Thread() {
@@ -61,7 +61,9 @@ public class ProgressManager {
                 action.run();
                 alertDialog.cancel();
             }
-        });
+        });*/
+        action.run();
+        alertDialog.cancel();
     }
 
 }
