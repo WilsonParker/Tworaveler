@@ -9,14 +9,14 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.developer.hare.tworaveler.Data.ItemFactory;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
+import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 
 public class Main extends AppCompatActivity {
     private FrameLayout FL_content;
-    private Fragment default_fragment = new FragmentMyPageHome();
+    private Fragment default_fragment = new FragmentMyPage();
     private UIFactory uiFactory;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -24,29 +24,6 @@ public class Main extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            /* switch (item.getItemId()) {
-                case R.id.navigation$peed:
-                    fragment = new FragmentPeed();
-                    result = true;
-                    break;
-                case R.id.navigation$regist:
-                    fragment = new FragmentRegist();
-                    result = true;
-                    break;
-                case R.id.navigation$alram:
-                    fragment = new FragmentAlarm();
-                    result = true;
-                    break;
-                case R.id.navigation$bag:
-                    fragment = new FragmentBag();
-                    result = true;
-                    break;
-                case R.id.navigation$home:
-                default:
-                    fragment = new FragmentMyPage();
-                    result = true;
-                    break;
-            }*/
             Fragment fragment = ItemFactory.getMainNavigationFragment(item.getItemId());
             setFragmentContent(fragment);
             return true;

@@ -14,6 +14,8 @@ public class DataDefinition {
                 ,KEY_BAGMODEL= "BagModel"
                 ,KEY_BAGMODELS= "BagModels"
                 ,KEY_POSITION= "Position"
+                ,KEY_STARTDATE= "StartDate"
+                ,KEY_ENDDATE= "EndDate"
                 ;
         public static final int
                 RESULT_CODE_SUCCESS = 0x0000
@@ -21,6 +23,13 @@ public class DataDefinition {
                 ,RESULT_CODE_SEARCH_CITY = 0x0001
                 ;
 
+    }
+
+    public class Bundle{
+        public static final String
+                KEY_STARTDATE = "StartDate"
+                ,KEY_ENDDATE = "EndDate"
+                ;
     }
 
     public class Bag{
