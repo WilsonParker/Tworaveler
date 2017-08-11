@@ -21,6 +21,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 public class FragmentPeed extends BaseFragment {
+    private static FragmentPeed instance = new FragmentPeed();
     private PeedListAdapter peedListAdapter;
     private RecyclerView recyclerView;
     private MenuTopTitle menuTopTitle;
@@ -30,10 +31,10 @@ public class FragmentPeed extends BaseFragment {
     public FragmentPeed() {
     }
 
-    /*public static FragmentPeed newInstance() {
-        FragmentPeed fragment = new FragmentPeed();
-        return fragment;
-    }*/
+
+    public static FragmentPeed newInstance() {
+        return instance;
+    }
 
     @Nullable
     @Override
@@ -61,6 +62,7 @@ public class FragmentPeed extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(peedListAdapter);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -68,8 +70,9 @@ public class FragmentPeed extends BaseFragment {
         if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
-                CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-
+                if (data != null) {
+                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
+                }
             }
         }
     }

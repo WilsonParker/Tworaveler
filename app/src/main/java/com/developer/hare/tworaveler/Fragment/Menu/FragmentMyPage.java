@@ -16,16 +16,18 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 
 public class FragmentMyPage extends BaseFragment {
+    private static FragmentMyPage instance = new FragmentMyPage();
     private ImageView IV_login;
     private MenuTopTitle menuTopTitle;
+
     public FragmentMyPage() {
         // Required empty public constructor
     }
 
     public static FragmentMyPage newInstance() {
-        FragmentMyPage fragment = new FragmentMyPage();
-        return fragment;
+        return instance;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

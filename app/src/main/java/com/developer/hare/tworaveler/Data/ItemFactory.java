@@ -39,11 +39,11 @@ public class ItemFactory {
 
     private static void createMainNavigationFragmentMap() {
         MainNavigationFragmentMap = new HashMap<>();
-        MainNavigationFragmentMap.put(R.id.navigation$peed, new FragmentPeed());
-        MainNavigationFragmentMap.put(R.id.navigation$regist, new FragmentRegist());
-        MainNavigationFragmentMap.put(R.id.navigation$alram, new FragmentAlarm());
-        MainNavigationFragmentMap.put(R.id.navigation$bag, new FragmentBag());
-        MainNavigationFragmentMap.put(R.id.navigation$home, new FragmentMyPage());
+        MainNavigationFragmentMap.put(R.id.navigation$peed, FragmentPeed.newInstance());
+        MainNavigationFragmentMap.put(R.id.navigation$regist, FragmentRegist.newInstance());
+        MainNavigationFragmentMap.put(R.id.navigation$alram, FragmentAlarm.newInstance());
+        MainNavigationFragmentMap.put(R.id.navigation$bag, FragmentBag.newInstance());
+        MainNavigationFragmentMap.put(R.id.navigation$home, FragmentMyPage.newInstance());
     }
 
     public static Fragment getMainNavigationFragment(int id) {

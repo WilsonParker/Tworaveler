@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import static com.developer.hare.tworaveler.R.id.fragment_regist$TV_start;
 
 public class FragmentRegist extends BaseFragment {
+    private static FragmentRegist instance = new FragmentRegist();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
@@ -87,6 +88,10 @@ public class FragmentRegist extends BaseFragment {
         // Required empty public constructor
     }
 
+    public static FragmentRegist newInstance() {
+        return instance;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -134,8 +139,10 @@ public class FragmentRegist extends BaseFragment {
         if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
-                CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                TV_citySearch.setText(model.getCityName());
+                if (data != null) {
+                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
+                    TV_citySearch.setText(model.getCityName());
+                }
             }
         }
     }
