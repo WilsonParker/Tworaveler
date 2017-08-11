@@ -21,5 +21,6 @@ public class Intro extends AppCompatActivity {
         ResourceManager.getInstance().setResources(getResources());
 
         startActivity(new Intent(getBaseContext(), Main.class));
+        finish();
     }
 }

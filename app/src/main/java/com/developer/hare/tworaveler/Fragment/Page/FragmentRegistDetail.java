@@ -43,6 +43,7 @@ public class FragmentRegistDetail extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private String startDate, endDate;
     private DateManager dateManager;
+    private Bundle bundle;
 
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView meterialCalendarView;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
@@ -102,9 +103,20 @@ public class FragmentRegistDetail extends BaseFragment {
         }
     };
 
-    public FragmentRegistDetail(String startDate, String endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+
+    public static FragmentRegistDetail newInstance(String startDate, String endDate) {
+        FragmentRegistDetail f = new FragmentRegistDetail();
+
+        // Supply index input as an argument.
+        Bundle args = new Bundle();
+        args.putString(DataDefinition.Bundle.KEY_STARTDATE, startDate);
+        args.putString(DataDefinition.Bundle.KEY_ENDDATE, endDate);
+        f.setArguments(args);
+        return f;
+    }
+
+
+    public FragmentRegistDetail() {
     }
 
     @Nullable
@@ -115,6 +127,12 @@ public class FragmentRegistDetail extends BaseFragment {
 
     @Override
     protected void init(View view) {
+//        startDate = (String) getActivity().getIntent().getExtras().get(DataDefinition.Intent.KEY_STARTDATE);
+//        endDate = (String) getActivity().getIntent().getExtras().get(DataDefinition.Intent.KEY_ENDDATE);
+        bundle = getArguments();
+        startDate = bundle.getString(DataDefinition.Bundle.KEY_STARTDATE);
+        endDate = bundle.getString(DataDefinition.Bundle.KEY_ENDDATE);
+
         uiFactory = UIFactory.getInstance(view);
         dateManager = DateManager.getInstance();
 
@@ -143,7 +161,7 @@ public class FragmentRegistDetail extends BaseFragment {
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
 
         meterialCalendarView.state().edit()
-                .setFirstDayOfWeek(Calendar.MONTH )
+                .setFirstDayOfWeek(Calendar.MONTH)
                 .setMinimumDate(CalendarDay.from(startArr[0], startArr[1], startArr[2]))
                 .setMaximumDate(CalendarDay.from(endArr[0], endArr[1], endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)

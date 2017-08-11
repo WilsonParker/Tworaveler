@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Fragment.Menu;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,13 +23,9 @@ import com.developer.hare.tworaveler.Util.Log_HR;
 public class FragmentPeed extends BaseFragment {
     private PeedListAdapter peedListAdapter;
     private RecyclerView recyclerView;
-    private Context context;
     private MenuTopTitle menuTopTitle;
     private UIFactory uiFactory;
 
-    public FragmentPeed(Context context) {
-        this.context = context;
-    }
 
     public FragmentPeed() {
     }
@@ -63,7 +58,7 @@ public class FragmentPeed extends BaseFragment {
 //        uiFactory = UIFactory.getInstance(view);
         recyclerView = uiFactory.createView(R.id.fragment_peed$RV);
         peedListAdapter = new PeedListAdapter(DummyDataFactory.createPeedItems());
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(peedListAdapter);
     }
     @Override

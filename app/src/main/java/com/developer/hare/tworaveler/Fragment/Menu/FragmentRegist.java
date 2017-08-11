@@ -122,7 +122,9 @@ public class FragmentRegist extends BaseFragment {
     }
 
     private void onRegist() {
-        getFragmentManager().beginTransaction().replace(R.id.main$FL_content, new FragmentRegistDetail(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString())).addToBackStack(null).commit();
+//        getFragmentManager().beginTransaction().replace(R.id.main$FL_content, new FragmentRegistDetail(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString())).addToBackStack(null).commit();
+        FragmentRegistDetail fragment = FragmentRegistDetail.newInstance(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString());
+        getFragmentManager().beginTransaction().replace(R.id.main$FL_content, fragment).addToBackStack(null).commit();
     }
 
     @Override
