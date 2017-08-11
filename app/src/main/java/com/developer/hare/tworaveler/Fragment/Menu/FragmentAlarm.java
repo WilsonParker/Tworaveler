@@ -10,14 +10,14 @@ import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.R;
 
 public class FragmentAlarm extends BaseFragment {
+    private static FragmentAlarm instance = new FragmentAlarm();
 
     public FragmentAlarm() {
         // Required empty public constructor
     }
 
     public static FragmentAlarm newInstance() {
-        FragmentAlarm fragment = new FragmentAlarm();
-        return fragment;
+        return instance;
     }
 
     @Nullable

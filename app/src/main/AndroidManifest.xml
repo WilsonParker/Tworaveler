@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WriteEXTERNAL_STORAGE" />
+
     <!-- android:theme="@style/Theme.AppCompat" -->
     <application
         android:name=".Application.GlobalApplication"
@@ -75,8 +76,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".FaceBook.Activity.FaceBookSignInActivity" />
-        <activity android:name=".FaceBook.Activity.FaceBookActivity" />
+        <!--<activity android:name=".FaceBook.Activity.FaceBookSignInActivity" />
+        <activity android:name=".FaceBook.Activity.FaceBookActivity" />-->
         <activity android:name=".Activity.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -104,11 +105,9 @@
             android:name=".Activity.ProfileSet"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".Activity.BigImage" android:theme="@android:style/Theme.Translucent"
-            android:windowSoftInputMode="adjustNothing"
-            />
             android:name=".Activity.BigImage"
             android:windowSoftInputMode="adjustNothing" />
+
         <activity android:name=".Activity.RegistDayDetail" />
     </application>
 

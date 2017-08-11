@@ -39,6 +39,7 @@ import retrofit2.Response;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
+    private static FragmentBag instance = new FragmentBag();
 
     private UIFactory uiFactory;
     private Fragment default_fragment;
@@ -50,7 +51,7 @@ public class FragmentBag extends BaseFragment {
     private MenuTopTitle menuTopTitle;
 
     private ArrayList<BagModel> items;
-
+//
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -89,8 +90,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     public static FragmentBag newInstance() {
-        FragmentBag fragment = new FragmentBag();
-        return fragment;
+        return instance;
     }
 
     @Nullable
