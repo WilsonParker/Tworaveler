@@ -51,7 +51,7 @@ public class FragmentBag extends BaseFragment {
     private MenuTopTitle menuTopTitle;
 
     private ArrayList<BagModel> items;
-
+//
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
