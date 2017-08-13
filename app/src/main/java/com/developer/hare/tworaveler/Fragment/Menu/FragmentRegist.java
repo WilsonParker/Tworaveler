@@ -11,11 +11,16 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.SearchCity;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.ResourceManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentRegistDetail;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
+import com.developer.hare.tworaveler.Model.Request.RequestModel;
+import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
+import com.developer.hare.tworaveler.Model.SceduleModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
@@ -23,9 +28,15 @@ import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.R.id.fragment_regist$TV_start;
 
@@ -34,6 +45,7 @@ public class FragmentRegist extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
+    private ResourceManager resourceManager;
 
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover;
@@ -102,6 +114,7 @@ public class FragmentRegist extends BaseFragment {
     protected void init(View view) {
         uiFactory = UIFactory.getInstance(view);
         dateManager = DateManager.getInstance();
+        resourceManager = ResourceManager.getInstance();
 
         menuTopTitle = uiFactory.createView(R.id.fragment_regist$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -127,9 +140,28 @@ public class FragmentRegist extends BaseFragment {
     }
 
     private void onRegist() {
-//        getFragmentManager().beginTransaction().replace(R.id.main$FL_content, new FragmentRegistDetail(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString())).addToBackStack(null).commit();
-        FragmentRegistDetail fragment = FragmentRegistDetail.newInstance(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString());
-        getFragmentManager().beginTransaction().replace(R.id.main$FL_content, fragment).addToBackStack(null).commit();
+        SceduleRegistModel model = new SceduleRegistModel(0,"country","city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url","tripName");
+        Call<RequestModel<SceduleModel>> res = Net.getInstance().getFactoryIm().registPlan(model);
+        res.enqueue(new Callback<RequestModel<SceduleModel>>() {
+            @Override
+            public void onResponse(Call<RequestModel<SceduleModel>> call, Response<RequestModel<SceduleModel>> response) {
+                if (response.isSuccessful()) {
+                    SceduleModel result = response.body().getResult();
+                    Log_HR.log(Log_HR.LOG_INFO,FragmentRegist.class,"onResponse()","result : "+result.toString());
+                    FragmentRegistDetail fragment = FragmentRegistDetail.newInstance(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString());
+                    getFragmentManager().beginTransaction().replace(R.id.main$FL_content, fragment).addToBackStack(null).commit();
+                } else
+                    netFail();
+
+            }
+
+            @Override
+            public void onFailure(Call<RequestModel<SceduleModel>> call, Throwable t) {
+                netFail();
+            }
+        });
+
+
     }
 
     @Override
@@ -145,5 +177,9 @@ public class FragmentRegist extends BaseFragment {
                 }
             }
         }
+    }
+
+    private void netFail() {
+        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2))).show();
     }
 }
