@@ -32,6 +32,30 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     android:text="Go to Main" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp">
+
+                    <Button
+                        android:id="@+id/activity_login$BT_kakao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/login$com_kakao_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="kakao logout"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/activity_login$BT_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp" />
             </LinearLayout>
 
             <LinearLayout

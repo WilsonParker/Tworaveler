@@ -37,8 +37,8 @@ public class SignIn extends AppCompatActivity {
     private EditText ET_email, ET_password;
     private ImageButton IV_signIn;
 
-    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
-    private com.facebook.login.widget.LoginButton BT_facebookLogin;
+//    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
+//    private com.facebook.login.widget.LoginButton BT_facebookLogin;
     private KakaoSignManager kakaoSignInManager;
     private FaceBookLoginManager faceBookLoginManager;
 
@@ -80,14 +80,22 @@ public class SignIn extends AppCompatActivity {
                 startActivity(new Intent(SignIn.this, SignUp.class));
             }
         });
-        BT_facebookLogin = uiFactory.createView(R.id.facebook_sign_in$login_button);
-        BT_facebookLogin.setOnClickListener(new View.OnClickListener() {
+
+        // init Facebook
+        BT_facebook = uiFactory.createView(R.id.activity_login$BT_facebook);
+        BT_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!onFacebookLogin) {
-                    faceBookLoginManager.init();
-                    Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "BT_facebookLogin.onClick(View)", "facebook SignIn");
-                }
+                    faceBookLoginManager.onLoginClick();
+            }
+        });
+
+        // init Kakao
+        BT_kakao = uiFactory.createView(R.id.activity_login$BT_kakao);
+        BT_kakao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kakaoSignInManager.onLoginClick();
             }
         });
 

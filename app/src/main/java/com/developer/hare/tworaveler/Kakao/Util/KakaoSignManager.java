@@ -1,6 +1,7 @@
 package com.developer.hare.tworaveler.Kakao.Util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
@@ -11,15 +12,20 @@ import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.kakao.auth.AuthType;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.LoginButton;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
+
+import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Created by Hare on 2017-07-26.
@@ -29,7 +35,8 @@ public class KakaoSignManager {
     private SessionCallback callback;
     private Activity activity;
     private UIFactory uiFactory;
-    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
+//    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
+    private KakaoLoginButton BT_kakaoLogin;
     private Button BT_logout;
 
     public KakaoSignManager(Activity activity) {
@@ -47,7 +54,8 @@ public class KakaoSignManager {
         Session.getCurrentSession().checkAndImplicitOpen();
 
         uiFactory = UIFactory.getInstance(activity);
-        BT_kakaoLogin = uiFactory.createView(R.id.login$com_kakao_login);
+//        BT_kakaoLogin = uiFactory.createView(R.id.activity_login$BT_kakao);
+        BT_kakaoLogin = new KakaoLoginButton(activity);
         BT_logout = uiFactory.createView(R.id.login$com_kakao_logout);
         BT_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +81,11 @@ public class KakaoSignManager {
         setLoginButton();
     }
 
+    public void onLoginClick() {
+//        return BT_kakaoLogin.callOnClick();
+        BT_kakaoLogin.call();
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             return;
@@ -83,23 +96,6 @@ public class KakaoSignManager {
         Session.getCurrentSession().removeCallback(callback);
     }
 
-    private class SessionCallback implements ISessionCallback {
-
-        @Override
-        public void onSessionOpened() {
-            Log_HR.log(Log_HR.LOG_INFO, getClass(), "onSessionOpened()", "sessionOpen");
-            redirectSignupActivity();
-        }
-
-        @Override
-        public void onSessionOpenFailed(KakaoException exception) {
-            Log_HR.log(Log_HR.LOG_INFO, getClass(), "onSessionOpened(KakaoException)", "sessionOpen");
-            if (exception != null) {
-                Log_HR.log(getClass(), "onSessionOpenFailed(KaKaoException)", exception);
-            }
-        }
-    }
-
     protected void redirectSignupActivity() {
         final Intent intent = new Intent(activity, Main.class);
 //        activity.startActivity(intent);
@@ -108,10 +104,10 @@ public class KakaoSignManager {
 
     public void setLoginButton() {
         if (Session.getCurrentSession().isClosed()) {
-            BT_kakaoLogin.setVisibility(View.VISIBLE);
+//            BT_kakaoLogin.setVisibility(View.VISIBLE);
             BT_logout.setVisibility(View.INVISIBLE);
         } else {
-            BT_kakaoLogin.setVisibility(View.INVISIBLE);
+//            BT_kakaoLogin.setVisibility(View.INVISIBLE);
             BT_logout.setVisibility(View.VISIBLE);
             requestMe();
         }
@@ -160,5 +156,46 @@ public class KakaoSignManager {
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+    private class SessionCallback implements ISessionCallback {
+
+        @Override
+        public void onSessionOpened() {
+            Log_HR.log(Log_HR.LOG_INFO, getClass(), "onSessionOpened()", "sessionOpen");
+            redirectSignupActivity();
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            Log_HR.log(Log_HR.LOG_INFO, getClass(), "onSessionOpened(KakaoException)", "sessionOpen");
+            if (exception != null) {
+                Log_HR.log(getClass(), "onSessionOpenFailed(KaKaoException)", exception);
+            }
+        }
+    }
+
+    protected class KakaoLoginButton extends LoginButton {
+
+        public KakaoLoginButton(Context context) {
+            super(context);
+        }
+
+        public void call() {
+            try {
+                Method methodGetAuthTypes = LoginButton.class.getDeclaredMethod("getAuthTypes");
+                methodGetAuthTypes.setAccessible(true);
+                final List<AuthType> authTypes = (List<AuthType>) methodGetAuthTypes.invoke(this);
+                if(authTypes.size() == 1){
+                    Session.getCurrentSession().open(authTypes.get(0), (Activity) getContext());
+                } else {
+                    Method methodOnClickLoginButton = LoginButton.class.getDeclaredMethod("onClickLoginButton",List.class);
+                    methodOnClickLoginButton.setAccessible(true);
+                    methodOnClickLoginButton.invoke(this,authTypes);
+                }
+            } catch (Exception e) {
+                Session.getCurrentSession().open(AuthType.KAKAO_ACCOUNT, (Activity) getContext());
+            }
+        }
     }
 }

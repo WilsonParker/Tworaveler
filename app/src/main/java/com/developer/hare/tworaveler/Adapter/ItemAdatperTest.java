@@ -46,7 +46,7 @@ public class ItemAdatperTest extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 //        if(view == null)
-            view = LayoutInflater.from(context).inflate(R.layout.item_alert_selectionmode, null);
+            view = LayoutInflater.from(context).inflate(R.layout.item_alert_selectionmode, viewGroup, false);
         ViewHolder holder = new ViewHolder(view, context);
         holder.toBind(items.get(i));
         return holder;
