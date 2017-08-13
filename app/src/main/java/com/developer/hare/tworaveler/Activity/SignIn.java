@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.ResourceManager;
@@ -31,7 +32,8 @@ import retrofit2.Response;
 
 public class SignIn extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
-    private Button BT_main, BT_signUp;
+    private Button BT_main;
+    private TextView BT_signUp;
     private EditText ET_email, ET_password;
     private ImageButton IV_signIn;
 

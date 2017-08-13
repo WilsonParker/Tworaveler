@@ -4,25 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!--
-        <LinearLayout
-            android:id="@+id/main$LL"
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
-
-            <Button
-                android:id="@+id/main$BT_kakao"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:text="KaKao" />
-
-            <Button
-                android:id="@+id/main$BT_facebook"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:text="FaceBook" />
-        </LinearLayout>-->
+    android:orientation="vertical"
+    android:background="@drawable/img_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,15 +17,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="640">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="294.7">
 
                 <Button
                     android:id="@+id/login$BT_main"
@@ -50,92 +32,161 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     android:text="Go to Main" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp">
-
-                    <com.kakao.usermgmt.LoginButton
-                        android:id="@+id/login$com_kakao_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <Button
-                        android:id="@+id/login$com_kakao_logout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="kakao logout"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/facebook_sign_in$login_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_height="0dp"
+                android:layout_weight="160"
                 android:minHeight="300dp"
-                android:weightSum="400">
-
+                android:orientation="vertical"
+                android:weightSum="160"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="300"
-                    android:weightSum="32">
+                    android:layout_weight="48">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/activty_login$ET_email"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="20"
-                        android:orientation="vertical"
-                        android:weightSum="11">
-
-                        <EditText
-                            android:id="@+id/activty_login$ET_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="5"
-                            android:hint="@string/activity_login$hint_ET_email"
-                            android:inputType="textEmailAddress" />
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <EditText
-                            android:id="@+id/activty_login$ET_password"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="5"
-                            android:hint="@string/activity_login$hint_ET_password"
-                            android:inputType="textPassword" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="2" />
-
-                    <ImageButton
-                        android:id="@+id/activity_login$IV_signIn"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="10" />
+                        android:background="@drawable/btn_email"
+                        android:hint="@string/activity_login$hint_ET_email"
+                        android:inputType="textEmailAddress"/>
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/login$BT_signUp"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="100"
-                    android:text="Sign Up" />
+                    android:layout_weight="8"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="48">
+                    <EditText
+                        android:id="@+id/activty_login$ET_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_password"
+                        android:hint="@string/activity_login$hint_ET_password"
+                        android:inputType="textPassword"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="48">
+                    <ImageButton
+                        android:id="@+id/activity_login$IV_signIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_login"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="185.3"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="185.3">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="47"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_weight="48">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <!-- 페이스북 버튼은 무조건 이 View를 사용해야
+                            해요  그럼 못바꿔? 예 다른애들은 어케바꾼거?
+                            -->
+                            <com.facebook.login.widget.LoginButton
+                                android:id="@+id/facebook_sign_in$login_button"
+                                android:layout_width="157dp"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/btn_facebook" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
+
+                            <Button
+                                android:id="@+id/login$com_kakao_logout"
+                                android:layout_width="157dp"
+                                android:layout_height="48dp"
+                                android:background="@drawable/btn_kakao"
+                                android:text="kakao logout"
+                                android:visibility="invisible" />
+
+                            <com.kakao.usermgmt.LoginButton
+                                android:id="@+id/login$com_kakao_login"
+                                android:layout_width="157dp"
+                                android:layout_height="48dp"
+                                android:background="@drawable/btn_kakao"
+                                />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="90.3"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="90.3">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="25"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="65.3"
+                                >
+                            <TextView
+                                android:id="@+id/login$BT_signUp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Nwe User?"
+                                android:gravity="top|center_horizontal"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="11sp"
+                                android:textStyle="italic"
+                                />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

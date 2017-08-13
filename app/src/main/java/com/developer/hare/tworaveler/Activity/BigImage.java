@@ -1,7 +1,7 @@
 package com.developer.hare.tworaveler.Activity;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import uk.co.senab.photoview.PhotoView;
 
-public class BigImage extends AppCompatActivity {
+public class BigImage extends Activity {
 
     private PhotoView photoView;
     private RecyclerView recyclerView;

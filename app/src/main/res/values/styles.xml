@@ -9,5 +9,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <style name="MyTheme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!-- 위에 정의한 기본 스타일을 상속받는 스타일 지정 -->
+    <style name="Theme.noTitle" parent="MyTheme">
+        <item name="android:background">@color/colorDark</item>
+    </style>
 </resources>
