@@ -14,7 +14,7 @@
         app:rightButton="@drawable/button_right"
         app:titleText="아이디" />
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="15">
@@ -23,6 +23,7 @@
             android:id="@+id/fragment_regist_detail_list$TV_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0"
             android:text="2017-08-11"
@@ -56,6 +57,7 @@
             android:id="@+id/fragment_regist_detail_list$LL_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/fragment_regist_detail_list$TV_date"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
@@ -70,5 +72,5 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-    </FrameLayout>
+    </RelativeLayout>
 </LinearLayout>

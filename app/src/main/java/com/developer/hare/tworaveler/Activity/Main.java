@@ -16,7 +16,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 
 public class Main extends AppCompatActivity {
     private FrameLayout FL_content;
-    private Fragment default_fragment = new FragmentMyPage();
+    private Fragment default_fragment = FragmentMyPage.newInstance();
     private UIFactory uiFactory;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
