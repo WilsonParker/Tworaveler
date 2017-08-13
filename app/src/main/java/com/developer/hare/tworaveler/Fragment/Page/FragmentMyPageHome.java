@@ -50,7 +50,7 @@ public class FragmentMyPageHome extends BaseFragment {
             @Override
             public void onClick(View view) {
 //                startActivity(new Intent(getActivity(), FragmentMyPageProfile.class));
-                FragmentManager.getInstance().setFragmentContent(new FragmentMyPageProfile());
+                FragmentManager.getInstance().setFragmentContent(FragmentMyPageProfile.newInstance());
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
