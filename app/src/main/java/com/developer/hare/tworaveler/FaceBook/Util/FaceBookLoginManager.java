@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -15,7 +15,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,12 +28,31 @@ import java.util.Arrays;
  */
 
 public class FaceBookLoginManager {
-    private CallbackManager callbackManager;
     private Activity activity;
+    private CallbackManager callbackManager;
+    FacebookCallback callback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            Toast.makeText(activity, "페이스북 로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
+            getUserInfo(loginResult);
+        }
+
+        @Override
+        public void onCancel() {
+
+        }
+
+        @Override
+        public void onError(FacebookException error) {
+
+        }
+    };
+    private LoginManager loginManager;
+    private Button BT_fbLogin;
 
     public FaceBookLoginManager(Activity activity) {
         this.activity = activity;
-//        init();
+        init();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -48,33 +66,23 @@ public class FaceBookLoginManager {
             CookieManager.getInstance().setAcceptThirdPartyCookies(mainWebView, true);
         }*/
 
-        LoginButton loginButton = (LoginButton) activity.findViewById(R.id.facebook_sign_in$login_button);
+//        setLoginPermission(activity);
+//        LoginButton loginButton = activity.findViewById(R.id.facebook_sign_in$login_button);
+        loginManager = LoginManager.getInstance();
+        loginManager.registerCallback(callbackManager, callback);
+//        loginButton.registerCallback(callback);
 
+    }
+
+    public void onLoginClick() {
         setLoginPermission(activity);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(activity, "페이스북 로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
-                getUserInfo(loginResult);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
 
     }
 
     public void setLoginPermission(Activity activity) {
-        LoginManager.getInstance().logInWithReadPermissions(
+        loginManager.logInWithReadPermissions(
                 activity,
-                Arrays.asList("email"));
+                Arrays.asList("public_profile"));
     }
 
     public void getUserInfo(LoginResult loginResult) {
@@ -108,10 +116,12 @@ public class FaceBookLoginManager {
     }
 
     private Bundle getFacebookData(JSONObject object) {
-        String[] params = {"id", "first_name", "last_name", "email", "gender", "birthday", "location","picture"};
+        String[] params = {"id", "first_name", "last_name", "email", "gender", "birthday", "location", "picture"};
         try {
             for (String param : params) {
-                Log_HR.log(Log_HR.LOG_INFO, getClass(), "getFacebookData(JSONObject)", param + " :  " + object.getString(param));
+                String v = object.getString(param);
+                if (!v.isEmpty())
+                    Log_HR.log(Log_HR.LOG_INFO, getClass(), "getFacebookData(JSONObject)", param + " :  " + object.getString(param));
             }
 
             Bundle bundle = new Bundle();

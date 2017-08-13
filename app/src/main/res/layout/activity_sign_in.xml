@@ -56,8 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp">
 
-                    <com.kakao.usermgmt.LoginButton
-                        android:id="@+id/login$com_kakao_login"
+                    <Button
+                        android:id="@+id/activity_login$BT_kakao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -69,8 +69,8 @@
                         android:visibility="invisible" />
                 </RelativeLayout>
 
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/facebook_sign_in$login_button"
+                <Button
+                    android:id="@+id/activity_login$BT_facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp" />
