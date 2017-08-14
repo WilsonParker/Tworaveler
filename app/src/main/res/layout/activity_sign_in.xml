@@ -42,7 +42,7 @@
                         android:id="@+id/activity_login$BT_kakao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
+<!---->
                     <!--<Button
                         android:id="@+id/login$com_kakao_logout"
                         android:layout_width="match_parent"
