@@ -101,6 +101,8 @@ dependencies {
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.tsengvn:Typekit:1.0.0'
+
     testCompile 'junit:junit:4.12'
 }
 

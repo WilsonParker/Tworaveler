@@ -58,7 +58,8 @@
                         android:background="@drawable/btn_email"
                         android:hint="@string/activity_login$hint_ET_email"
                         android:inputType="textEmailAddress"
-                        android:paddingLeft="@dimen/EditText_Left_Padding" />
+                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,7 +79,8 @@
                         android:background="@drawable/btn_password"
                         android:hint="@string/activity_login$hint_ET_password"
                         android:inputType="textPassword"
-                        android:paddingLeft="@dimen/EditText_Left_Padding" />
+                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 
                 <LinearLayout

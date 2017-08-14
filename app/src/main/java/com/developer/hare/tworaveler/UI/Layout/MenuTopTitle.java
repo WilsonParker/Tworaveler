@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 
 /**
  * Created by Hare on 2017-08-02.
@@ -51,6 +52,7 @@ public class MenuTopTitle extends LinearLayout {
         IB_left = uiFactory.createView(R.id.menu_top_title$IB_left);
         IB_right = uiFactory.createView(R.id.menu_top_title$IB_right);
         TV_title = uiFactory.createView(R.id.menu_top_title$TV_title);
+        FontManager.getInstance().setFont(TV_title, "SCRIPTBL.TTF");
     }
 
     private void getAttrs(AttributeSet attrs) {
