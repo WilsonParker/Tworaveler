@@ -5,19 +5,19 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Adapter.ItemAdatperTest;
+import com.developer.hare.tworaveler.Adapter.AlertSelectionModeAdapter;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
 
@@ -79,11 +79,9 @@ public class AlertManager {
         UIFactory uiFactory = UIFactory.getInstance(view);
         TV_title = uiFactory.createView(R.id.alert_selectionmode$TV_title);
         TV_title.setText(title);
-//        RV_items = uiFactory.createView(R.id.alert_selectionmode$RV_items);
-//        RV_items.setLayoutManager(new GridLayoutManager(activity, spanCount, LinearLayoutManager.VERTICAL, false));
-//        RV_items.setAdapter(new AlertSelectionModeAdapter(items));
-        LV_items = uiFactory.createView(R.id.alert_selectionmode$RV_items);
-        LV_items.setAdapter(new ItemAdatperTest(items, activity));
+        RV_items = uiFactory.createView(R.id.alert_selectionmode$RV_items);
+        RV_items.setLayoutManager(new GridLayoutManager(activity, spanCount, LinearLayoutManager.VERTICAL, false));
+        RV_items.setAdapter(new AlertSelectionModeAdapter(items));
         BT_close = uiFactory.createView(R.id.alert_selectionmode$BT_close);
         BT_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,20 +92,6 @@ public class AlertManager {
         alertDialog = new AlertDialog.Builder(activity).setView(view).setCancelable(false).create();
         alertDialog.show();
         return alertDialog;
-    }
-
-    private View setItem(Context context, AlertSelectionItemModel model) {
-        ImageView IV_icon;
-        TextView TV_text;
-        View view = LayoutInflater.from(context).inflate(R.layout.item_alert_selectionmode, null);
-        UIFactory uiFactory = UIFactory.getInstance(view);
-        IV_icon = uiFactory.createView(R.id.item_alert_selectionmode$IV_icon);
-        TV_text = uiFactory.createView(R.id.item_alert_selectionmode$TV_text);
-        ImageManager.getInstance().loadImage(context, model.getImageId(), IV_icon);
-        IV_icon.setOnClickListener(model.getOnClickListener());
-        TV_text.setText(model.getText());
-
-        return view;
     }
 
     public void dismissAlertSelectionMode() {
