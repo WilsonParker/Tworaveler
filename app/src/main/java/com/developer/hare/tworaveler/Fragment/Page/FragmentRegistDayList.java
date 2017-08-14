@@ -13,13 +13,16 @@ import android.widget.TimePicker;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Model.SceduleDayModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
-public class FragmentRegistDayDetail extends BaseFragment {
+import java.util.ArrayList;
+
+public class FragmentRegistDayList extends BaseFragment {
     private UIFactory uiFactory;
     private DateManager dateManager;
     private Bundle bundle;
@@ -29,7 +32,7 @@ public class FragmentRegistDayDetail extends BaseFragment {
     private TextView TV_date;
     private RecyclerView recyclerView;
     private LinearLayout LL_empty, LL_list;
-//    private CalendarView calendar;
+    private ArrayList<SceduleDayModel> items = new ArrayList<>();
 
     private TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -47,8 +50,8 @@ public class FragmentRegistDayDetail extends BaseFragment {
     };
 
 
-    public static FragmentRegistDayDetail newInstance(String date) {
-        FragmentRegistDayDetail f = new FragmentRegistDayDetail();
+    public static FragmentRegistDayList newInstance(String date) {
+        FragmentRegistDayList f = new FragmentRegistDayList();
         // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putString(DataDefinition.Bundle.KEY_STARTDATE, date);
@@ -67,7 +70,7 @@ public class FragmentRegistDayDetail extends BaseFragment {
     protected void init(View view) {
         bundle = getArguments();
         strDate = bundle.getString(DataDefinition.Bundle.KEY_DATE);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDayDetail.class, "init(View)", "strDate " + strDate);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDayList.class, "init(View)", "strDate " + strDate);
 
         uiFactory = UIFactory.getInstance(view);
         dateManager = DateManager.getInstance();

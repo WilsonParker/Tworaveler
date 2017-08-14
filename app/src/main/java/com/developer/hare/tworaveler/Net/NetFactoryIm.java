@@ -9,8 +9,11 @@ import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignInModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
+import com.developer.hare.tworaveler.Model.SceduleDayModel;
 import com.developer.hare.tworaveler.Model.SceduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
+
+import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -67,6 +70,10 @@ public interface NetFactoryIm {
     // 프로필 정보 얻기
     @GET("/profileSet")
     Call<RequestArrayModel<ProfileModel>> getProfile();
+
+    // 시간별 일정 목록 얻기
+    @GET("/profileSet")
+    Call<RequestArrayModel<ArrayList<SceduleDayModel>>> getDayList();
 
     // #############################################################################################
     // DELETE

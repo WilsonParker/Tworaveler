@@ -5,6 +5,7 @@ package com.developer.hare.tworaveler.Model;
  */
 
 public class SceduleModel {
+    // Regist Detail Model
     private int user_no, likes;
     private String country, city, start_date, end_date, trip_pic_url, reg_date, mod_date, del_yn;
 
