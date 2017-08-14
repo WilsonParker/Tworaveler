@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/img_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,16 +57,15 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_email"
                         android:hint="@string/activity_login$hint_ET_email"
+                        android:nextFocusDown="@+id/activty_login$ET_password"
                         android:inputType="textEmailAddress"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="8" />
-
+                    android:layout_weight="8"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -82,7 +81,6 @@
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -92,7 +90,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="48">
-
                     <ImageButton
                         android:id="@+id/activity_login$IV_signIn"
                         android:layout_width="match_parent"
@@ -105,25 +102,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="185.3"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="185.3">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="47"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="47" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="48"
                         android:orientation="horizontal"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        android:layout_weight="48">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -160,45 +158,40 @@
                                 android:id="@+id/activity_login$BT_kakao"
                                 android:layout_width="157dp"
                                 android:layout_height="48dp"
-                                android:layout_alignLeft="@+id/activity_login$BT_kakao_logout"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignStart="@+id/activity_login$BT_kakao_logout"
                                 android:background="@drawable/btn_kakao" />
 
                         </RelativeLayout>
                     </LinearLayout>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="90.3"
                         android:orientation="vertical">
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:weightSum="90.3">
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="25" />
-
+                                android:layout_weight="25"/>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="65.3">
-
-                                <TextView
-                                    android:id="@+id/login$BT_signUp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="top|center_horizontal"
-                                    android:text="Nwe User?"
-                                    android:textColor="@color/colorWhite"
-                                    android:textSize="11sp"
-                                    android:textStyle="italic" />
+                                android:layout_weight="65.3"
+                                >
+                            <TextView
+                                android:id="@+id/login$BT_signUp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Nwe User?"
+                                android:gravity="top|center_horizontal"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="11sp"
+                                android:textStyle="italic"
+                                />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
