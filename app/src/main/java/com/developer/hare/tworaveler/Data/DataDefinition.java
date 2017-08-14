@@ -54,4 +54,36 @@ public class DataDefinition {
                 ,FORMAT_DATETIME="HH:mm:ss"
                 ;
     }
+
+    public class Font{
+        /*public static final String FONT_NotoSansCJKkr_Black = "NotoSansCJKkr-Black.otf"
+                ,FONT_NotoSansCJKkr_Bold ="NotoSansCJKkr-Bold.otf"
+                ,FONT_NotoSansCJKkr_DemiLight ="NotoSansCJKkr-DemiLight.otf"
+                ,FONT_NotoSansCJKkr_Light ="NotoSansCJKkr-Light.otf"
+                ,FONT_NotoSansCJKkr_Medium ="NotoSansCJKkr-Medium.otf"
+                ,FONT_NotoSansCJKkr_Regular ="NotoSansCJKkr-Regular.otf"
+                ,FONT_NotoSansCJKkr_Thin ="NotoSansCJKkr-Thin.otf"
+                ,FONT_ ="NotoSansMonoCJKkr-Bold.otf"
+                ,FONT_ ="NotoSansMonoCJKkr-Regular.otf"
+                ,FONT_ ="Roboto-Black.ttf"
+                ,FONT_ ="Roboto-BlackItalic.ttf"
+                ,FONT_ ="Roboto-Bold.ttf"
+                ,FONT_ ="Roboto-BoldItalic.ttf"
+                ,FONT_ ="Roboto-Italic.ttf"
+                ,FONT_ ="Roboto-Light.ttf"
+                ,FONT_ ="Roboto-LightItalic.ttf"
+                ,FONT_ ="Roboto-Medium.ttf"
+                ,FONT_ ="Roboto-MediumItalic.ttf"
+                ,FONT_ ="Roboto-Regular.ttf"
+                ,FONT_ ="Roboto-Thin.ttf"
+                ,FONT_ ="Roboto-ThinItalic.ttf"
+                ,FONT_ ="RobotoCondensed-Bold.ttf"
+                ,FONT_ ="RobotoCondensed-BoldItalic.ttf"
+                ,FONT_ ="RobotoCondensed-Italic.ttf"
+                ,FONT_ ="RobotoCondensed-Light.ttf"
+                ,FONT_ ="RobotoCondensed-LightItalic.ttf"
+                ,FONT_ ="FONT_RobotoCondensed-Regular.ttf"
+        ;
+        */
+    }
 }

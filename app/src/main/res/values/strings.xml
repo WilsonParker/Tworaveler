@@ -14,14 +14,14 @@
       ############################################################################################
     -->
 
-    <!-- Activity//SignUp -->
+    <!-- Activity/SignUp -->
     <string name="signUp_fail_alert_title_fail">회원가입 실패</string>
     <string name="signUp_fail_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
     <string name="signUp_fail_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
     <string name="signUp_fail_alert_title_success">회원가입 성공</string>
     <string name="signUp_fail_alert_content_success">회원가입에 성공 하였습니다</string>
 
-    <!-- Activity//SignIn -->
+    <!-- Activity/SignIn -->
     <string name="signIn_fail_alert_title_fail">로그인 실패</string>
     <string name="signIn_fail_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
     <string name="signIn_fail_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
@@ -37,6 +37,7 @@
     <!-- layout/activity_sign_in-->
     <string name="activity_login$hint_ET_email">이메일</string>
     <string name="activity_login$hint_ET_password">비밀번호</string>
+    <string name="activity_login$text_signUp">New User?</string>
 
     <!-- layout/activity_search_city-->
     <string name="activity_search_city$title">도시 검색</string>

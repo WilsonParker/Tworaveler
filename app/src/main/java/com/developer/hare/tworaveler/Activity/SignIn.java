@@ -101,8 +101,9 @@ public class SignIn extends AppCompatActivity {
         });
 
         ET_email = uiFactory.createView(R.id.activty_login$ET_email);
-        ET_email.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/MILKYWAY.TTF"));
+        ET_email.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf"));
         ET_password = uiFactory.createView(R.id.activty_login$ET_password);
+        ET_password .setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf"));
         IV_signIn = uiFactory.createView(R.id.activity_login$IV_signIn);
         IV_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
