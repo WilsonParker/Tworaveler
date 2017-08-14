@@ -10,8 +10,10 @@
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="1"
         app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
-        app:titleText="@string/fragmentRegist_title" />
+        app:titleText="@string/fragmentRegist_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
     <ScrollView
@@ -62,6 +64,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/fragment_regist_detail$TV_title"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="6"
@@ -69,6 +72,7 @@
                             android:text="Trop to Washington" />
 
                         <TextView
+                            android:id="@+id/fragment_regist_detail$TV_date"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4"

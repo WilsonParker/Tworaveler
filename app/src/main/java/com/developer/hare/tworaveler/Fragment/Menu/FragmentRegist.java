@@ -66,7 +66,7 @@ public class FragmentRegist extends BaseFragment {
                     break;
                 case R.id.fragment_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.ic_camera_alt_black_24dp, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onCameraSelect(getActivity(), new OnPhotoBindListener() {
@@ -78,7 +78,7 @@ public class FragmentRegist extends BaseFragment {
                             });
                         }
                     }));
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.ic_filter_black_24dp, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.button_left, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {

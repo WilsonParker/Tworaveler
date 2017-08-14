@@ -28,7 +28,6 @@ public class ImageManager {
 
     public void loadImage(Context context, int id, ImageView imageView) {
         requestCreator(Picasso.with(context).load(id)).into(imageView);
-//            Log_HR.log(getClass(), "loadImage(Context, int, ImageView)", e);
     }
 
     public void loadImage(Context context, File file, ImageView imageVIew) {
@@ -36,8 +35,9 @@ public class ImageManager {
     }
 
     private RequestCreator requestCreator(RequestCreator requestCreator) {
-        return requestCreator.error(R.drawable.noimage).fit().centerCrop().
-                memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+        return requestCreator
+                .error(R.drawable.noimage).fit().centerCrop()
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE);
     }
 
