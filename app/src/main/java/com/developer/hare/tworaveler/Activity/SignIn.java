@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class SignIn extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
-    private Button BT_main;
+    private Button BT_main,BT_facebook, BT_kakao ;
     private TextView BT_signUp;
     private EditText ET_email, ET_password;
     private ImageButton IV_signIn;

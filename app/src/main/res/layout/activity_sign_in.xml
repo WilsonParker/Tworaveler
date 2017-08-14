@@ -43,12 +43,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <Button
+                    <!--<Button
                         android:id="@+id/login$com_kakao_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="kakao logout"
-                        android:visibility="invisible" />
+                        android:visibility="invisible" />-->
                 </RelativeLayout>
 
                 <Button
