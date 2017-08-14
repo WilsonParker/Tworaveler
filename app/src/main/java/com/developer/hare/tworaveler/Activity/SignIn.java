@@ -1,6 +1,7 @@
 package com.developer.hare.tworaveler.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -100,6 +101,7 @@ public class SignIn extends AppCompatActivity {
         });
 
         ET_email = uiFactory.createView(R.id.activty_login$ET_email);
+        ET_email.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/MILKYWAY.TTF"));
         ET_password = uiFactory.createView(R.id.activty_login$ET_password);
         IV_signIn = uiFactory.createView(R.id.activity_login$IV_signIn);
         IV_signIn.setOnClickListener(new View.OnClickListener() {
