@@ -29,6 +29,7 @@ public class DataDefinition {
         public static final String
                 KEY_STARTDATE = "StartDate"
                 ,KEY_ENDDATE = "EndDate"
+                ,KEY_DATE = "Date"
                 ;
     }
 

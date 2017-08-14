@@ -56,7 +56,7 @@ public class KakaoSignManager {
         uiFactory = UIFactory.getInstance(activity);
 //        BT_kakaoLogin = uiFactory.createView(R.id.activity_login$BT_kakao);
         BT_kakaoLogin = new KakaoLoginButton(activity);
-        BT_logout = uiFactory.createView(R.id.login$com_kakao_logout);
+        BT_logout = uiFactory.createView(R.id.activity_login$BT_kakao_logout);
         BT_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

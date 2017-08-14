@@ -41,7 +41,7 @@ public class Main extends AppCompatActivity {
     }
 
     private void init() {
-        FragmentManager.setActivity(this);
+        FragmentManager.getInstance().setActivity(this);
         uiFactory = UIFactory.getInstance(this);
 
         FL_content = uiFactory.createView(R.id.main$FL_content);

@@ -11,14 +11,14 @@ import com.developer.hare.tworaveler.R;
 
 public class FragmentManager {
     private static final FragmentManager ourInstance = new FragmentManager();
-    private static Activity activity;
+    private Activity activity;
 
     public static FragmentManager getInstance() {
         return ourInstance;
     }
 
-    public static void setActivity(Activity activity) {
-        FragmentManager.activity = activity;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     public void setFragmentContent(Fragment fragment) {

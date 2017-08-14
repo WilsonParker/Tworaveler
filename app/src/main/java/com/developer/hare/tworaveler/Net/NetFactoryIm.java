@@ -75,3 +75,9 @@ public interface NetFactoryIm {
 
 }
 
+/*
+
+    // 프로필 정보 얻기
+    @GET("/profileSet/{idx}")
+    Call<RequestArrayModel<ProfileModel>> getProfile(@Path("idx") int idx);
+ */

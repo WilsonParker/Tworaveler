@@ -2,6 +2,7 @@ package com.developer.hare.tworaveler.Fragment.Page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,11 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 
 import java.text.SimpleDateFormat;
@@ -95,6 +99,15 @@ public class FragmentRegistDetail extends BaseFragment {
                 .commit();
         meterialCalendarView.setCurrentDate(startDate);
         meterialCalendarView.selectRange(CalendarDay.from(startDate), CalendarDay.from(endDate));
+        meterialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "onClick: " + DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
+                Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "onClick: " + arr[0] + " : " + arr[1] + " : " + arr[2]);
+            }
+        });
+
     }
 
     @Override

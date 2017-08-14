@@ -23,6 +23,7 @@ import com.developer.hare.tworaveler.Model.SceduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -149,10 +150,9 @@ public class FragmentRegist extends BaseFragment {
                     SceduleModel result = response.body().getResult();
                     Log_HR.log(Log_HR.LOG_INFO,FragmentRegist.class,"onResponse()","result : "+result.toString());
                     FragmentRegistDetail fragment = FragmentRegistDetail.newInstance(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString());
-                    getFragmentManager().beginTransaction().replace(R.id.main$FL_content, fragment).addToBackStack(null).commit();
+                    FragmentManager.getInstance().setFragmentContent(fragment);
                 } else
                     netFail();
-
             }
 
             @Override

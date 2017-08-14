@@ -30,7 +30,7 @@ public class DateManager {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 //            stringDate = year + "년" + (monthOfYear + 1) + "월" + dayOfMonth + "일";
-            stringDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth + "-";
+            stringDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
             textView.setText(stringDate);
         }
     };

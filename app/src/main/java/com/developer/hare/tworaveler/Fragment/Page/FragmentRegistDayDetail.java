@@ -41,7 +41,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class FragmentRegistDayDetail extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
-    private String startDate, endDate;
+    private String strDate;
     private DateManager dateManager;
     private Bundle bundle;
 
@@ -104,13 +104,12 @@ public class FragmentRegistDayDetail extends BaseFragment {
     };
 
 
-    public static FragmentRegistDayDetail newInstance(String startDate, String endDate) {
+    public static FragmentRegistDayDetail newInstance(String date) {
         FragmentRegistDayDetail f = new FragmentRegistDayDetail();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
-        args.putString(DataDefinition.Bundle.KEY_STARTDATE, startDate);
-        args.putString(DataDefinition.Bundle.KEY_ENDDATE, endDate);
+        args.putString(DataDefinition.Bundle.KEY_STARTDATE, date);
         f.setArguments(args);
         return f;
     }
@@ -127,11 +126,10 @@ public class FragmentRegistDayDetail extends BaseFragment {
 
     @Override
     protected void init(View view) {
-//        startDate = (String) getActivity().getIntent().getExtras().get(DataDefinition.Intent.KEY_STARTDATE);
+//        strDate = (String) getActivity().getIntent().getExtras().get(DataDefinition.Intent.KEY_STARTDATE);
 //        endDate = (String) getActivity().getIntent().getExtras().get(DataDefinition.Intent.KEY_ENDDATE);
         bundle = getArguments();
-        startDate = bundle.getString(DataDefinition.Bundle.KEY_STARTDATE);
-        endDate = bundle.getString(DataDefinition.Bundle.KEY_ENDDATE);
+        strDate = bundle.getString(DataDefinition.Bundle.KEY_DATE);
 
         uiFactory = UIFactory.getInstance(view);
         dateManager = DateManager.getInstance();
@@ -152,8 +150,7 @@ public class FragmentRegistDayDetail extends BaseFragment {
 
     private void initMaterialCalendarView() {
         meterialCalendarView = uiFactory.createView(R.id.fragment_regist_detail$calendar);
-        Date startDate = DateManager.getInstance().parseDate(this.startDate, DataDefinition.RegularExpression.FORMAT_DATE);
-        Date endDate = DateManager.getInstance().parseDate(this.endDate, DataDefinition.RegularExpression.FORMAT_DATE);
+        Date startDate = DateManager.getInstance().parseDate(this.strDate, DataDefinition.RegularExpression.FORMAT_DATE);
         meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
@@ -172,13 +169,13 @@ public class FragmentRegistDayDetail extends BaseFragment {
 
 
    /* private void initCalendarPicker() {
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "startDate : " + startDate);
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "strDate : " + strDate);
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "endDate : " + endDate);
-        Date today = DateManager.getInstance().parseDate(startDate, DataDefinition.RegularExpression.FORMAT_DATE);
+        Date today = DateManager.getInstance().parseDate(strDate, DataDefinition.RegularExpression.FORMAT_DATE);
         Date nextDate = DateManager.getInstance().parseDate(endDate, DataDefinition.RegularExpression.FORMAT_DATE);
         nextDate.setTime(nextDate.getTime() + 100000000);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "date :  " + nextDate.getTime());
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "date :  " + DateManager.getInstance().formatDate(nextDate.getTime()+100000000, DataDefinition.RegularExpression.FORMAT_DATE));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "strDate :  " + nextDate.getTime());
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "strDate :  " + DateManager.getInstance().formatDate(nextDate.getTime()+100000000, DataDefinition.RegularExpression.FORMAT_DATE));
 
         calendarPickerView.init(today, nextDate).withSelectedDate(today);
         calendarPickerView.init(today, nextDate).inMode(MULTIPLE);
@@ -194,12 +191,12 @@ public class FragmentRegistDayDetail extends BaseFragment {
 
         calendarPickerView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
-            public void onDateSelected(Date date) {
-//                Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "onDateSelected(Date) " + DateManager.getInstance().formatDate(date.getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+            public void onDateSelected(Date strDate) {
+//                Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "onDateSelected(Date) " + DateManager.getInstance().formatDate(strDate.getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
             }
 
             @Override
-            public void onDateUnselected(Date date) {
+            public void onDateUnselected(Date strDate) {
 //                Log_HR.log(Log_HR.LOG_INFO, getClass(), "initCalendarPicker()", "onDateUnselected(Date) ");
 
             }
