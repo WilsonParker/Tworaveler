@@ -52,9 +52,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Kakao.Activity.KakaoSIgnInActivity" />
-        <activity android:name=".Kakao.Activity.KakaoSignUpActivity" />
-        <activity android:name=".Kakao.Activity.KaKaoActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -91,10 +88,10 @@
             android:windowSoftInputMode="adjustUnspecified" />
         <activity
             android:name=".Activity.SignIn"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.SignUp"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BagDelete"
             android:windowSoftInputMode="adjustNothing" />

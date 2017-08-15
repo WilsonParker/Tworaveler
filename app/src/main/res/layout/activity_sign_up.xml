@@ -20,12 +20,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="640">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="319.7" />
-
+                android:layout_weight="319.7"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -39,7 +37,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="48">
-
                     <EditText
                         android:id="@+id/signUp$ET_email"
                         android:layout_width="match_parent"
@@ -48,6 +45,10 @@
                         android:hint="@string/activity_sign_up$hint_ET_email"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
+                        android:hint="Email"
+                        android:background="@drawable/btn_email"
+                        android:nextFocusDown="@+id/signUp$ET_password"
+                        android:paddingLeft="@dimen/EditText_Left_Padding"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -69,6 +70,9 @@
                         android:inputType="textPassword"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
+                        android:background="@drawable/btn_password"
+                        android:nextFocusDown="@+id/signUp$ET_nickname"
+                        android:paddingLeft="@dimen/EditText_Left_Padding"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,6 +94,10 @@
                         android:inputType="textAutoComplete"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
+                        android:hint="NickName"
+                        android:background="@drawable/button_nickname"
+                        android:inputType="text"
+                        android:paddingLeft="@dimen/EditText_Left_Padding"/>
                 </LinearLayout>
 
                 <LinearLayout
