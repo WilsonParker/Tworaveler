@@ -1,13 +1,77 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentRegist">
+    android:weightSum="@string/DEVICE_HEIGHT"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank default_fragment layout -->
-    <TextView
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_alarm$menuTopTItle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="alarm" />
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:titleTextSize="@dimen/TextSize_MenuTop_Title"
+        app:titleText="@string/fragment_bag_title" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="584">
+
+        <TextView
+            android:id="@+id/fragment_alarm$TV_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0"
+            android:text="2017-08-11"
+            android:textAlignment="center" />
+
+        <LinearLayout
+            android:id="@+id/fragment_alarm$LL_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/fragment_alarm$IV_nologin"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="#dadada" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/fragment_alarm_text"
+                android:textSize="@dimen/TextSize_Content_1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fragment_alarm$LL_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/fragment_alarm$TV_date"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_alarm$RV_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

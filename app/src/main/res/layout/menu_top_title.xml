@@ -4,33 +4,90 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
+        android:background="#37c2c4"
         android:weightSum="@string/DEVICE_WIDTH">
 
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
 
-        <ImageButton
-            android:id="@+id/menu_top_title$IB_left"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="150"
-            android:background="@color/default_Image_color" />
+            android:layout_weight="48"
+            android:orientation="vertical"
+            android:weightSum="56">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+            <ImageButton
+                android:id="@+id/menu_top_title$IB_left"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="48"
+                android:background="@color/default_Image_color" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
 
         <TextView
             android:id="@+id/menu_top_title$TV_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="780"
+            android:layout_weight="248"
             android:gravity="center"
             android:text="title" />
 
-        <ImageButton
-            android:id="@+id/menu_top_title$IB_right"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="150"
-            android:background="@color/default_Image_color" />
+            android:layout_weight="48"
+            android:orientation="vertical"
+            android:weightSum="56">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+            <ImageButton
+                android:id="@+id/menu_top_title$IB_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="48"
+                android:background="@color/default_Image_color" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
     </LinearLayout>
 
     <ImageView

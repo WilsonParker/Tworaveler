@@ -110,6 +110,7 @@ public class FragmentRegistDetail extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(fragment);
             }
         });
+//        meterialCalendarView.setTitleFormatter("");
 
     }
 

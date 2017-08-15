@@ -2,6 +2,7 @@ package com.developer.hare.tworaveler.UI;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by Hare on 2017-07-04.
@@ -32,6 +33,7 @@ public class UIFactory {
             e = activity.findViewById(id);
         else
             e = view.findViewById(id);
+        initView(e);
         return e;
     }
 
@@ -41,5 +43,12 @@ public class UIFactory {
 
     public void setResource(View view) {
         this.view = view;
+    }
+
+    private View initView(View view){
+        if(view instanceof TextView){
+//            view.textD
+        }
+        return view;
     }
 }

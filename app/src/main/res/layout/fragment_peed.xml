@@ -11,7 +11,7 @@ android:orientation="vertical">
         android:layout_height="0dp"
         android:layout_weight="1"
         app:rightButton="@drawable/button_right"
-        app:titleText="@string/fragmentPeed_title" />
+        app:titleText="@string/fragment_peed_title" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_peed$RV"

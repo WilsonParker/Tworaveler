@@ -35,9 +35,14 @@
     -->
 
     <!-- layout/activity_sign_in-->
-    <string name="activity_login$hint_ET_email">이메일</string>
-    <string name="activity_login$hint_ET_password">비밀번호</string>
+    <string name="activity_login$hint_ET_email">Email</string>
+    <string name="activity_login$hint_ET_password">Password</string>
     <string name="activity_login$text_signUp">New User?</string>
+
+    <!-- layout/activity_sign_up-->
+    <string name="activity_sign_up$hint_ET_email">Email</string>
+    <string name="activity_sign_up$hint_ET_password">Password</string>
+    <string name="activity_sign_up$hint_ET_nickname">Nickname</string>
 
     <!-- layout/activity_search_city-->
     <string name="activity_search_city$title">도시 검색</string>
@@ -67,26 +72,30 @@
     <string name="navigation_bag_title_shopping">쇼핑</string>
 
     <!-- layout/FragmentRegist-->
-    <string name="fragmentRegist_title">Regist</string>
+    <string name="fragmentRegist_title">add trip</string>
     <string name="fragmentRegist_text_1">어디를 가시나요?</string>
     <string name="fragmentRegist_text_2">언제 가시나요?</string>
     <string name="fragmentRegist_text_3">도시검색</string>
     <string name="fragmentRegist_text_4">여행시작날짜</string>
     <string name="fragmentRegist_text_5">여행종료날짜</string>
 
-    <!-- layout/FragmentRegistDetail-->
-    <string name="fragmentRegist_detail_title">Regist Detail</string>
+    <!-- layout/fragment_regist_detail-->
+    <string name="fragment_regist_detail_title">Regist Detail</string>
 
-    <!-- layout/FragmentPeed-->
-    <string name="fragmentPeed_title">피드</string>
+    <!-- layout/fragment_peed-->
+    <string name="fragment_peed_title">피드</string>
 
-    <!-- layout/FragmentMyPage-->
+    <!-- layout/fragment_alarm-->
+    <string name="fragment_alarm_title">alarm</string>
+    <string name="fragment_alarm_text">알람을 확인하려면 로그인 해주세요</string>
+
+    <!-- layout/fragment_my_page-->
     <string name="fragmentMyPage_title">로그인이 필요합니다.</string>
     <string name="fragmentMyPage_profile">로그인</string>
     <string name="fragmentMypage_notice">로그인 후 이용해주세요</string>
 
     <!-- layout/FragmentMyPageHome-->
-    <string name="fragmentMyPage_home_title">나의 여행</string>
+    <string name="fragmentMyPage_home_title">my trip</string>
     <string name="fragmentMyPage_home_profile">프로필</string>
 
     <!-- layout/FragmentMyPageProfile-->
@@ -101,7 +110,7 @@
     <string name="profileSet_withdrawal">회원탈퇴</string>
 
     <!-- layout/fragment_bag-->
-    <string name="fragment_bag_title">여행가방</string>
+    <string name="fragment_bag_title">trip bag</string>
     <string name="fragment_bag_backButton">뒤로가기</string>
     <string name="fragment_bag_plusButton">추가</string>
     <string name="fragment_bag_nonItem">여행 가방에 사진을 추가해 보세요</string>
@@ -109,7 +118,7 @@
 
     <!-- layout/bag_delete-->
     <string name="bag_delete_nonItem">여행 가방에 사진을 추가해 보세요</string>
-    <string name="bag_delete_title">삭제하기</string>
+    <string name="bag_delete_title">Delete</string>
 
     <!-- layout/fragment_regist_day_detail_list-->
     <string name="fragment_regist_detail_list_title">하루의 세부 일정을 등록해 주세요</string>
@@ -119,7 +128,7 @@
                                                    Data
         ############################################################################################
     -->
-    <string name="DEVICE_WIDTH">1080</string>
-    <string name="DEVICE_HEIGHT">1920</string>
+    <string name="DEVICE_WIDTH">360</string>
+    <string name="DEVICE_HEIGHT">640</string>
 
 </resources>

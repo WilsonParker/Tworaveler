@@ -4,5 +4,6 @@
         <attr name="leftButton" format="reference|integer" />
         <attr name="rightButton" format="reference|integer" />
         <attr name="titleText" format="reference|string" />
+        <attr name="titleTextSize" format="reference|dimension" />
     </declare-styleable>
 </resources>

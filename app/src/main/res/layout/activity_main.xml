@@ -6,22 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="@string/DEVICE_HEIGHT"
     tools:context="com.developer.hare.tworaveler.Activity.Main">
 
     <FrameLayout
         android:id="@+id/main$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="585">
 
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
+    <!--<com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/main$BN_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="55"
+        app:menu="@menu/navigation" />-->
+
+    <!--<LinearLayout
+        android:id="@+id/main$BN_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="55"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_menu_icon_home" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_menu_icon_home" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_menu_icon_home" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_menu_icon_home" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bottom_menu_icon_home" />
+    </LinearLayout>-->
+    <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
+        android:id="@+id/main$BN_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ababab"
+        android:layout_weight="55" />
 
 </LinearLayout>

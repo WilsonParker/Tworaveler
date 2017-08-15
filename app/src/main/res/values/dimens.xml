@@ -24,7 +24,11 @@
     <!-- item_regist_detail -->
     <dimen name="item_regist_dtail$box_width">300dp</dimen>
 
-    <!-- -->
+    <!-- Padding-->
     <dimen name="EditText_Left_Padding">15dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="TextSize_Content_1">13sp</dimen>
+    <dimen name="TextSize_MenuTop_Title">25sp</dimen>
 
 </resources>
