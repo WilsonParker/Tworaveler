@@ -88,7 +88,7 @@
     <string name="fragment_alarm_text">알람을 확인하려면 로그인 해주세요</string>
 
     <!-- layout/fragment_my_page-->
-    <string name="fragmentMyPage_title">로그인이 필요합니다.</string>
+    <string name="fragmentMyPage_title">my trip</string>
     <string name="fragmentMyPage_profile">로그인</string>
     <string name="fragmentMypage_notice">여행등록을 하려면 로그인 해주세요</string>
 
@@ -98,7 +98,7 @@
     <string name="fragmentMyPage_home_regist">여행을 등록해 주세요</string>
 
     <!-- layout/fragment_my_page_profile-->
-    <string name="fragmentMyPage_profile_title">프로필</string>
+    <string name="fragmentMyPage_profile_title">profile</string>
     <string name="fragmentMyPage_profile_follower">팔로워</string>
     <string name="fragmentMypage_profile_following">팔로잉</string>
     <string name="fragmentMypage_profile_nickname">닉네임</string>
@@ -116,7 +116,7 @@
     <string name="fragment_bag_picture">사진첩</string>
 
     <!-- layout/bag_delete-->
-    <string name="bag_delete_nonItem">여행 가방에 사진을 추가해 보세요</string>
+    <string name="bag_delete_nonItem">여행가방에 사진을 추가해주세요</string>
     <string name="bag_delete_title">Delete</string>
 
     <!--

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="@string/FRAGMENT_HEIGHT"
     tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
-    android:weightSum="@string/FRAGMENT_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_mypage_home$topbar"
@@ -55,10 +55,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="14"/>
                 <TextView
+                    android:id="@+id/fragment_mypage_home$TV_noitem"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="12"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="13sp"
                     android:text="@string/fragmentMyPage_home_regist" />
             </LinearLayout>
         <android.support.v7.widget.RecyclerView

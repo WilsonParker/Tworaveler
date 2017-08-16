@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -14,11 +15,13 @@ import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 
 public class FragmentMyPage extends BaseFragment {
     private static FragmentMyPage instance = new FragmentMyPage();
     private ImageView IV_login;
     private MenuTopTitle menuTopTitle;
+    private TextView textView;
 
     public FragmentMyPage() {
         // Required empty public constructor
@@ -57,6 +60,8 @@ public class FragmentMyPage extends BaseFragment {
                 getFragmentManager().beginTransaction().replace(R.id.main$FL_content, FragmentMyPageHome.newInstance()).addToBackStack(null).commit();
             }
         });
+        textView = uiFactory.createView(R.id.fragment_mypage$TV);
+        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
     }
 
 }

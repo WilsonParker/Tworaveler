@@ -6,16 +6,21 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.ProfileSet;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
+
+import java.util.ArrayList;
 
 public class FragmentMyPageProfile extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
+    private TextView TV_follower, TV_cntfollower, TV_following, TV_cntfollowing, TV_nickname, TV_message;
 
     public FragmentMyPageProfile() {
         // Required empty public constructor
@@ -46,5 +51,19 @@ public class FragmentMyPageProfile extends BaseFragment {
                 startActivity(new Intent(getActivity(), ProfileSet.class));
             }
         });
+        TV_follower = uiFactory.createView(R.id.fragment_mypage_profile$TV_follower);
+        TV_cntfollower = uiFactory.createView(R.id.fragment_mypage_profile$TV_cntfollower);
+        TV_following = uiFactory.createView(R.id.fragment_mypage_profile$TV_following);
+        TV_cntfollowing = uiFactory.createView(R.id.fragment_mypage_profile$TV_cntfollowing);
+        TV_nickname = uiFactory.createView(R.id.fragment_mypage_profile$TV_nickname);
+        TV_message = uiFactory.createView(R.id.fragment_mypage_profile$TV_message);
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(TV_follower);
+        textViews.add(TV_following);
+        textViews.add(TV_nickname);
+        textViews.add(TV_message);
+        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(TV_cntfollower, "NotoSansCJKkr-Bold.otf");
+        FontManager.getInstance().setFont(TV_cntfollowing, "NotoSansCJKkr-Bold.otf");
     }
 }

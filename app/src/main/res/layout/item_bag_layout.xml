@@ -4,7 +4,10 @@
     android:id="@+id/cardVIew"
     android:layout_width="@dimen/item_bag$width"
     android:layout_height="@dimen/item_bag$height"
-    android:layout_margin="@dimen/item_bag$margin">
+    android:layout_marginLeft="@dimen/item_bag$marginLeft"
+    android:layout_marginRight="@dimen/item_bag$marginRight"
+    android:layout_marginTop="@dimen/item_bag$marginTop"
+    android:layout_marginBottom="@dimen/item_bag$marginBottom">
     <ImageView
         android:id="@+id/bag_cell_image"
         android:layout_width="match_parent"

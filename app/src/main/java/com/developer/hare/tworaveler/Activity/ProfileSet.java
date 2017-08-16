@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
@@ -18,6 +19,7 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
@@ -31,7 +33,7 @@ import retrofit2.Response;
 
 public class ProfileSet extends AppCompatActivity {
 
-    private EditText editText;
+    private EditText ET_nickname, ET_message;
     private CircleImageView circleImageView;
     private MenuTopTitle menuTopTitle;
     private UIFactory uiFactory;
@@ -46,8 +48,8 @@ public class ProfileSet extends AppCompatActivity {
     private void init(){
         uiFactory = UIFactory.getInstance(this);
 
-        editText        = uiFactory.createView(R.id.profile_set$ET_nickname);
-        editText        = uiFactory.createView(R.id.profile_set$ET_message);
+        ET_nickname     = uiFactory.createView(R.id.profile_set$ET_nickname);
+        ET_message      = uiFactory.createView(R.id.profile_set$ET_message);
         menuTopTitle    = uiFactory.createView(R.id.profile_set$topbar);
         circleImageView = uiFactory.createView(R.id.profile_setIV_profile);
 
@@ -97,6 +99,12 @@ public class ProfileSet extends AppCompatActivity {
 
             }
         });
+        ET_nickname = uiFactory.createView(R.id.profile_set$ET_nickname);
+        ET_message = uiFactory.createView(R.id.profile_set$ET_message);
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(ET_nickname);
+        textViews.add(ET_message);
+        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
     public void onLogout(View view){
         AlertManager.getInstance().showPopup(ProfileSet.this,

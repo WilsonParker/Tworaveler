@@ -4,83 +4,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="@string/FRAGMENT_HEIGHT"
     >
-
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/fragment_bag_title"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/bag_imageplus_btn"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:layout_alignBaseline="@+id/textView2"
-            android:layout_alignBottom="@+id/textView2"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_weight="1"
-            android:onClick="imagePlus"
-            android:text="@string/fragment_bag_plusButton" />
-    </RelativeLayout>-->
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_bag$topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
-        app:leftButton="@drawable/icon_edit"
-        app:rightButton="@drawable/icon_edit"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_deletebag"
+        app:rightButton="@drawable/icon_addbag"
         app:titleText="@string/fragment_bag_title" />
-
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+    <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
         android:id="@+id/fragment_bag$BN_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/navigation_bag"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="33dp" />
-
+        android:layout_height="0dp"
+        android:layout_weight="55"
+        android:layout_marginLeft="@dimen/item_bag$NV_marginLeft"
+        android:layout_marginRight="@dimen/item_bag$NV_marginRight"
+        android:layout_marginTop="@dimen/item_bag$NV_marginTop"
+        android:layout_marginBottom="@dimen/item_bag$NV_marginBottom"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16.3dp"
+        android:layout_marginRight="16.3dp"
+        android:background="#000000" />
     <FrameLayout
         android:id="@+id/fragment_bag$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="449"
+        android:weightSum="449">
 
         <LinearLayout
             android:id="@+id/fragment_bag$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:weightSum="449"
             android:orientation="vertical"
-            android:visibility="gone">
-
+            android:visibility="gone"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="105"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="116"
+                android:weightSum="360"
+                android:gravity="center">
                 <ImageView
                     android:id="@+id/fragment_bag$noimage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="#dadada" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="@string/fragment_bag_nonItem" />
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="116"
+                    android:background="@drawable/btn_addbag" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="14"/>
+            <TextView
+                android:id="@+id/fragment_bag$TV_noItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text="@string/fragment_bag_nonItem" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

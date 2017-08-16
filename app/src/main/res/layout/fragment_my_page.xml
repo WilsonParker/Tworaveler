@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-android:weightSum="616"
+android:weightSum="@string/FRAGMENT_HEIGHT"
 tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
@@ -19,8 +19,8 @@ tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
         android:id="@+id/fragment_mypage$LL_empty"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="560"
-        android:weightSum="560"
+        android:layout_weight="505"
+        android:weightSum="505"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,9 +53,9 @@ tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
                 android:layout_height="0dp"
                 android:layout_weight="14"/>
             <TextView
+                android:id="@+id/fragment_mypage$TV"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="12"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/fragmentMypage_notice"
                 android:textSize="13sp"

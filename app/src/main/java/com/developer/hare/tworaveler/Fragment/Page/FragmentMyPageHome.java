@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
@@ -19,6 +20,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 
 public class FragmentMyPageHome extends BaseFragment {
     private UIFactory uiFactory;
@@ -26,6 +28,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private RecyclerView recyclerView;
     private HomeListAdapter homeListAdapter;
     private Context context;
+    private TextView TV_noItem;
 
     public FragmentMyPageHome() {
     }
@@ -57,6 +60,8 @@ public class FragmentMyPageHome extends BaseFragment {
         homeListAdapter = new HomeListAdapter(DummyDataFactory.createPeedItems());
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(homeListAdapter);
+        TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
+        FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
