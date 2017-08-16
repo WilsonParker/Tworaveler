@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
+        app:leftButton="@drawable/icon_profile"
+        app:rightButton="@drawable/icon_profile"
         app:titleText="@string/fragmentRegist_title" />
 
     <LinearLayout

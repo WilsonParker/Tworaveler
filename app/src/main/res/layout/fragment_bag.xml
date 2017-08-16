@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <!--<RelativeLayout
         android:layout_width="match_parent"
@@ -39,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
+        app:leftButton="@drawable/icon_edit"
+        app:rightButton="@drawable/icon_edit"
         app:titleText="@string/fragment_bag_title" />
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx

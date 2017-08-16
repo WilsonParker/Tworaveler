@@ -83,11 +83,12 @@
     <!-- layout/FragmentMyPage-->
     <string name="fragmentMyPage_title">로그인이 필요합니다.</string>
     <string name="fragmentMyPage_profile">로그인</string>
-    <string name="fragmentMypage_notice">로그인 후 이용해주세요</string>
+    <string name="fragmentMypage_notice">여행등록을 하려면 로그인 해주세요</string>
 
     <!-- layout/FragmentMyPageHome-->
     <string name="fragmentMyPage_home_title">나의 여행</string>
     <string name="fragmentMyPage_home_profile">프로필</string>
+    <string name="fragmentMyPage_home_regist">여행을 등록해 주세요</string>
 
     <!-- layout/FragmentMyPageProfile-->
     <string name="fragmentMyPage_profile_title">프로필</string>

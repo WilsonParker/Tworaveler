@@ -4,22 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:weightSum="616"
     tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_mypage_home$topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_profile"
         app:titleText="@string/fragmentMyPage_home_title" />
 
     <FrameLayout
         android:id="@+id/fragment_mypage_home$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
+        android:layout_weight="560"
+        android:weightSum="560"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="169"/>
+        <LinearLayout
+            android:id="@+id/fragment_mypag_home$LL_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="116"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="360"
+            >
+            <ImageView
+                android:id="@+id/fragment_mypag_home$noimage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="116"
+                android:background="#dadada" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="275"
+            android:weightSum="275"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="14"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="12"
+                    android:gravity="center"
+                    android:text="@string/fragmentMyPage_home_regist" />
+            </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_mypage_home$RV"
             android:layout_width="match_parent"

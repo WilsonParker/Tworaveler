@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
+        app:leftButton="@drawable/back"
+        app:rightButton="@drawable/back"
         app:titleText="@string/bag_delete_title" />
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/bag_delete$BN_navigation"

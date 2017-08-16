@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.developer.hare.tworaveler.Data.ResourceManager;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.Util.FontManager;
 
 public class Intro extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class Intro extends AppCompatActivity {
 
     private void init() {
         ResourceManager.getInstance().setResources(getResources());
-
+        FontManager.getInstance().setAssetManager(getAssets());
         startActivity(new Intent(getBaseContext(), Main.class));
         finish();
     }

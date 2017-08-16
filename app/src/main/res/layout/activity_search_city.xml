@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
+        app:leftButton="@drawable/back"
         app:titleText="@string/activity_search_city$title" />
 
     <LinearLayout

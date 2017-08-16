@@ -4,37 +4,64 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
+android:weightSum="616"
 tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
 
-<com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-    android:id="@+id/fragment_mypage$topbar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/menu_top_title_height"
-    android:layout_weight="0"
-    app:leftButton="@drawable/button_left"
-    app:titleText="@string/fragmentMyPage_title" />
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_mypage$topbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_profile"
+        app:titleText="@string/fragmentMyPage_title" />
 
-<LinearLayout
-    android:id="@+id/fragment_mypage$LL_empty"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/fragment_mypage$LL_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="560"
+        android:weightSum="560"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="169"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="116"
+            android:gravity="center"
+            android:weightSum="360"
+            >
+            <ImageView
+                android:id="@+id/fragment_mypage$IV_nologin"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="116"
+                android:background="@drawable/mypage_login"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="275"
+            android:weightSum="275"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="14"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="12"
+                android:gravity="center"
+                android:text="@string/fragmentMypage_notice"
+                android:textSize="13sp"
+                />
 
-    <ImageView
-        android:id="@+id/fragment_mypage$IV_nologin"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="#dadada" />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/fragmentMypage_notice" />
-</LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -11,4 +11,6 @@
     <color name="profile_text_color">#dadada</color>
     <color name="editText_cursor_color">#33d4d1</color>
 
+    <color name="menu_top_title_color">#37c2c4</color>
+
 </resources>
