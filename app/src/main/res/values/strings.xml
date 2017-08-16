@@ -154,5 +154,6 @@
     -->
     <string name="DEVICE_WIDTH">360</string>
     <string name="DEVICE_HEIGHT">616</string>
+    <string name="FRAGMENT_HEIGHT">561</string>
 
 </resources>

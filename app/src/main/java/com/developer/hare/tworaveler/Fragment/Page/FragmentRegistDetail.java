@@ -107,7 +107,7 @@ public class FragmentRegistDetail extends BaseFragment {
                 Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDetail.class, "initMaterialCalendarView()", "onClick: " + DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
                 Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDetail.class, "initMaterialCalendarView()", "onClick: " + arr[0] + " : " + arr[1] + " : " + arr[2]);
-                FragmentRegistDayDetail fragment = FragmentRegistDayDetail.newInstance(DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+                FragmentRegistDayList fragment = FragmentRegistDayList.newInstance(DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 FragmentManager.getInstance().setFragmentContent(fragment);
             }
         });
