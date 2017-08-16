@@ -28,6 +28,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -138,6 +139,17 @@ public class FragmentRegist extends BaseFragment {
         TV_dateEnd.setOnClickListener(onClickListener);
         IV_cover = uiFactory.createView(R.id.fragment_regist$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
+
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(uiFactory.createView(R.id.fragment_regist$TV_txt_1));
+        textViews.add(uiFactory.createView(R.id.fragment_regist$TV_txt_2));
+        textViews.add(uiFactory.createView(R.id.fragment_regist$TV_txt_3));
+        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
+        textViews.clear();
+        textViews.add(TV_citySearch);
+        textViews.add(TV_dateStart);
+        textViews.add(TV_dateEnd);
+        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
 
     private void onRegist() {

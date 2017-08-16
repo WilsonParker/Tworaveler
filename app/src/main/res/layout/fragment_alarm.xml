@@ -12,7 +12,7 @@
         android:layout_height="0dp"
         android:layout_weight="56"
         app:titleTextSize="@dimen/TextSize_MenuTop_Title"
-        app:titleText="@string/fragment_bag_title" />
+        app:titleText="@string/fragment_alarm_title" />
 
     <RelativeLayout
         android:layout_width="match_parent"

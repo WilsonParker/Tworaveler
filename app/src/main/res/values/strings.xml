@@ -152,6 +152,6 @@
         ############################################################################################
     -->
     <string name="DEVICE_WIDTH">360</string>
-    <string name="DEVICE_HEIGHT">640</string>
+    <string name="DEVICE_HEIGHT">616</string>
 
 </resources>
