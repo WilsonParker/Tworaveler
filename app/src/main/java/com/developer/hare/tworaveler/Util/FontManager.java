@@ -4,6 +4,8 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Hare on 2017-08-14.
  */
@@ -23,5 +25,10 @@ public class FontManager {
 
     public void setFont(TextView textView, String font) {
         textView.setTypeface(Typeface.createFromAsset(assetManager, FontPath + font));
+    }
+
+    public void setFont(ArrayList<TextView> items, String font) {
+        for(TextView textView : items)
+            setFont(textView, font);
     }
 }

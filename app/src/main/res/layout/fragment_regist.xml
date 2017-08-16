@@ -86,6 +86,7 @@
                 android:layout_weight="20" />
 
             <TextView
+                android:id="@+id/fragment_regist$TV_txt_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -115,6 +116,7 @@
                 android:layout_weight="22" />
 
             <TextView
+                android:id="@+id/fragment_regist$TV_txt_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -144,6 +146,7 @@
                 android:layout_weight="22" />
 
             <TextView
+                android:id="@+id/fragment_regist$TV_txt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"

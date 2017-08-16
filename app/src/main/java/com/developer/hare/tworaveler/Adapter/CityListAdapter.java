@@ -11,6 +11,7 @@ import com.developer.hare.tworaveler.Listener.OnSelectCityListener;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
 
         public void toBind(CityModel model) {
             TV_name.setText(model.getCityName());
+            FontManager.getInstance().setFont(TV_name, "NotoSansCJKkr-Medium.otf");
             TV_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
