@@ -17,7 +17,7 @@
     <!-- item_bag -->
     <dimen name="item_bag$NV_marginLeft">12dp</dimen>
     <dimen name="item_bag$NV_marginRight">12dp</dimen>
-    <dimen name="item_bag$NV_marginTop">6dp</dimen>
+    <dimen name="item_bag$NV_marginTop">8dp</dimen>
     <dimen name="item_bag$NV_marginBottom">7dp</dimen>
     <!-- alert_selectionmode -->
     <dimen name="alert_selectionmode$box_width">200dp</dimen>

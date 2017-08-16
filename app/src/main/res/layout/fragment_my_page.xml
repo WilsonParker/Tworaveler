@@ -4,8 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-android:weightSum="@string/FRAGMENT_HEIGHT"
-tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
+android:weightSum="@string/FRAGMENT_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_mypage$topbar"
