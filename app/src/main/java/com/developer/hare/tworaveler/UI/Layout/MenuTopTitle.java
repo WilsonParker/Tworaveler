@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,12 +14,14 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.SizeManager;
 
 /**
  * Created by Hare on 2017-08-02.
  */
 
 public class MenuTopTitle extends LinearLayout {
+    private final float Title_Size_SP = 25;
     private ImageButton IB_left, IB_right;
     private TextView TV_title;
 
@@ -77,6 +80,8 @@ public class MenuTopTitle extends LinearLayout {
         String title = typedArray.getString(R.styleable.menu_top_title_titleText);
         if (!title.isEmpty())
             TV_title.setText(title);
+        float size = typedArray.getDimensionPixelSize(R.styleable.menu_top_title_titleTextSize, SizeManager.getInstance().convertSpToPixels(Title_Size_SP, getContext()));
+        TV_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         typedArray.recycle();
     }
 

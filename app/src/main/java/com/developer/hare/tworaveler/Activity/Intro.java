@@ -21,6 +21,7 @@ public class Intro extends AppCompatActivity {
     private void init() {
         ResourceManager.getInstance().setResources(getResources());
         FontManager.getInstance().setAssetManager(getAssets());
+
         startActivity(new Intent(getBaseContext(), Main.class));
         finish();
     }

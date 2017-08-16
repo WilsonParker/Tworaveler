@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.Fragment.Page;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.developer.hare.tworaveler.Adapter.RegistDayDetailListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
-import com.developer.hare.tworaveler.Model.SceduleDayModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -32,7 +34,7 @@ public class FragmentRegistDayList extends BaseFragment {
     private TextView TV_date;
     private RecyclerView recyclerView;
     private LinearLayout LL_empty, LL_list;
-    private ArrayList<SceduleDayModel> items = new ArrayList<>();
+    private ArrayList<ScheduleDayModel> items = new ArrayList<>();
 
     private TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -86,11 +88,26 @@ public class FragmentRegistDayList extends BaseFragment {
                 onRegist();
             }
         });
-        createListDate();
+        items = createListDate();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        items = createListDate();
+        initLayout();
     }
 
-    private void createListDate() {
+    private void initLayout() {
+        if (items.isEmpty()) {
+            LL_empty.setVisibility(View.VISIBLE);
+            LL_list.setVisibility(View.GONE);
+        } else {
+            LL_empty.setVisibility(View.GONE);
+            LL_list.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(new RegistDayDetailListAdapter(items));
+        }
+    }
 
+    private ArrayList<ScheduleDayModel> createListDate() {
+        ArrayList<ScheduleDayModel> items = new ArrayList<>();
+        return items;
     }
 
     private void onRegist() {

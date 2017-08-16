@@ -9,8 +9,8 @@ import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignInModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
-import com.developer.hare.tworaveler.Model.SceduleDayModel;
-import com.developer.hare.tworaveler.Model.SceduleModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public interface NetFactoryIm {
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<RequestModel<SceduleModel>> registPlan(@Body SceduleRegistModel model);
+    Call<RequestModel<ScheduleModel>> registPlan(@Body SceduleRegistModel model);
 
     @Multipart
     @POST("upload")
@@ -73,7 +73,7 @@ public interface NetFactoryIm {
 
     // 시간별 일정 목록 얻기
     @GET("/profileSet")
-    Call<RequestArrayModel<ArrayList<SceduleDayModel>>> getDayList();
+    Call<RequestArrayModel<ArrayList<ScheduleDayModel>>> getDayList();
 
     // #############################################################################################
     // DELETE

@@ -18,7 +18,6 @@ import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
-import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -41,7 +40,7 @@ public class SearchCity extends AppCompatActivity {
     private CityListAdapter cityListAdapter;
     private ArrayList<CityModel> items = new ArrayList<>();
 
-    private MenuTopTitle menuTopTitle;
+//    private MenuTopTitle menuTopTitle;
     private RecyclerView RV_list;
     private EditText ET_city;
     private ImageButton IB_search;
@@ -56,13 +55,13 @@ public class SearchCity extends AppCompatActivity {
     private void init() {
         uiFactory = UIFactory.getInstance(this);
 
-        menuTopTitle = uiFactory.createView(R.id.search_city$menuToptitle);
+      /*  menuTopTitle = uiFactory.createView(R.id.search_city$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onFinish(DataDefinition.Intent.RESULT_CODE_FAIL, null);
             }
-        });
+        });*/
         RV_list = uiFactory.createView(R.id.search_city$RV_list);
         RV_list.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         cityListAdapter = new CityListAdapter(onSelectCityListener, items, getBaseContext());

@@ -1,0 +1,45 @@
+// weightSum 링크
+// width 와 height 를 모두 같게 하기 위해 string.xml 을 참조
+android:weightSum="@string/DEVICE_WIDTH"
+android:weightSum="@string/DEVICE_HEIGHT"
+
+
+
+// Use in TextView 1
+// 고정된 설명 용 TextView
+android:gravity="center_vertical"
+android:layout_height="wrap_content"
+android:textSize="@dimen/TextSize_Content_1"
+
+// Use in TextView 2
+// 회색 배경의 유동적인 TextView
+android:background="@color/default_theme_text_color"
+android:gravity="center"
+android:textSize="@dimen/TextSize_Content_1"
+
+// Use in EditText
+android:textCursorDrawable="@drawable/cursor_edittext"
+android:textSize="@dimen/TextSize_Content_1"
+
+// Use in ImageButton
+<ImageButton
+    android:background="@null"
+    app:srcCompat="@drawable/icon_cancel" />
+
+// Use in MenuTopTitle
+// MenuTopTitle 이 필요할 경우 사용
+<com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+    android:id="@+id/"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="56"
+    app:leftButton="@drawable/icon_cancel"
+    app:rightButton="@drawable/icon_check"
+    app:titleText="@string/fragment_regist_title" />
+
+// Use in Margin
+// margin 용 ImageView
+<ImageView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_weight="0" />
