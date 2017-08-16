@@ -4,45 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/bag_delete$topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         app:leftButton="@drawable/back"
-        app:rightButton="@drawable/back"
+        app:rightButton="@drawable/icon_check"
         app:titleText="@string/bag_delete_title" />
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:id="@+id/bag_delete$BN_navigation"
+    <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
+        android:id="@+id/fragment_bag$BN_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/navigation_bag"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="33dp" />
-
+        android:layout_height="0dp"
+        android:layout_weight="63"
+        android:layout_marginLeft="@dimen/item_bag$NV_marginLeft"
+        android:layout_marginRight="@dimen/item_bag$NV_marginRight"
+        android:layout_marginTop="@dimen/item_bag$NV_marginTop"
+        android:layout_marginBottom="@dimen/item_bag$NV_marginBottom"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="16.3dp"
+        android:layout_marginRight="16.3dp"
+        android:background="#000000" />
     <FrameLayout
         android:id="@+id/bag_delete$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="496">
 
         <LinearLayout
             android:id="@+id/bag_delete$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:weightSum="496"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
-
+            android:visibility="visible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="105"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="116"
+                android:weightSum="360"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/fragment_delete_bag$noimage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="116"
+                    android:background="@drawable/btn_addbag" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="14"/>
             <TextView
                 android:id="@+id/bag_delete$name"
-                android:layout_width="200dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="13sp"
                 android:text="@string/bag_delete_nonItem" />
         </LinearLayout>
 

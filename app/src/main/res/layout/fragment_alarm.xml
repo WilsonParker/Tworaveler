@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="@string/DEVICE_HEIGHT"
+    android:weightSum="@string/FRAGMENT_HEIGHT"
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
@@ -14,34 +14,56 @@
         app:titleTextSize="@dimen/TextSize_MenuTop_Title"
         app:titleText="@string/fragment_alarm_title" />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="584">
+        android:layout_weight="505"
+        android:weightSum="505">
 
         <LinearLayout
             android:id="@+id/fragment_alarm$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:weightSum="505"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="169"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="116"
+                android:gravity="center"
+                android:weightSum="360"
+            >
             <ImageView
                 android:id="@+id/fragment_alarm$IV_nologin"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="116"
                 android:background="@drawable/btn_add" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/fragment_alarm_text"
-                android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="275"
+                android:weightSum="275"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="14"/>
+                <TextView
+                    android:id="@+id/fragment_alarm$TV_alarm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/fragment_alarm_text"
+                    android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -62,5 +84,5 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
 </LinearLayout>

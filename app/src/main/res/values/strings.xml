@@ -117,7 +117,7 @@
 
     <!-- layout/bag_delete-->
     <string name="bag_delete_nonItem">여행가방에 사진을 추가해주세요</string>
-    <string name="bag_delete_title">Delete</string>
+    <string name="bag_delete_title">delete bag</string>
 
     <!--
       ############################################################################################

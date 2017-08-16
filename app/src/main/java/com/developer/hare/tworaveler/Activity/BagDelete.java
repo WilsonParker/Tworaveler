@@ -16,6 +16,7 @@ import com.developer.hare.tworaveler.Data.DummyDataFactory;
 import com.developer.hare.tworaveler.Data.ItemFactory;
 import com.developer.hare.tworaveler.Model.BagDeleteModel;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -31,10 +32,12 @@ public class BagDelete extends AppCompatActivity {
     private TextView deletename;
     private LinearLayout linearLayout;
     private MenuTopTitle menuTopTitle;
+    private final int imageCount = 3;
 
     private UIFactory uiFactory;
     private ArrayList<BagDeleteModel> items, selected_items;
     private Map<Integer, ArrayList<BagDeleteModel>> bags;
+    private CustomNavigationView customNavigationBagView;
 
 
     private BottomNavigationViewEx.OnNavigationItemSelectedListener onNavigationItemSelectedListener
@@ -44,16 +47,6 @@ public class BagDelete extends AppCompatActivity {
 //            items = new ArrayList<>();
 //            items = DummyDataFactory.createBagDeleteItems();
 
-            setItems(item.getItemId());
-            int imageCount = 3;
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
-            RV_deletelist.setLayoutManager(gridLayoutManager);
-
-            itemEmptyCheck(items);
-            if (bagDeleteAdapter != null)
-                selected_items = bagDeleteAdapter.getSelected_Items();
-            bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
-            RV_deletelist.setAdapter(bagDeleteAdapter);
             return true;
         }
     };
@@ -75,6 +68,15 @@ public class BagDelete extends AppCompatActivity {
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
+        setItems(items.size()); // 이거 수정해야함
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
+        RV_deletelist.setLayoutManager(gridLayoutManager);
+
+        itemEmptyCheck(items);
+        if (bagDeleteAdapter != null)
+            selected_items = bagDeleteAdapter.getSelected_Items();
+        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
+        RV_deletelist.setAdapter(bagDeleteAdapter);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,13 +99,6 @@ public class BagDelete extends AppCompatActivity {
                 selected_items = new ArrayList<BagDeleteModel>();
             }
         });
-
-        BottomNavigationViewEx navigationViewEx = uiFactory.createView(R.id.bag_delete$BN_navigation);
-        navigationViewEx.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        navigationViewEx.setCurrentItem(0);
-        navigationViewEx.enableShiftingMode(false);
-        navigationViewEx.enableItemShiftingMode(false);
-
     }
 
     private void setItems(int id) {
@@ -122,5 +117,36 @@ public class BagDelete extends AppCompatActivity {
             linearLayout.setVisibility(View.VISIBLE);
             RV_deletelist.setVisibility(View.GONE);
         }
+    }
+    private void createNavigationBagView() {
+        customNavigationBagView = uiFactory.createView(R.id.fragment_bag$BN_navigation);
+        ArrayList<CustomNavigationView.NavigationItem> items = new ArrayList<>();
+        items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
+            @Override
+            public void onClick() {
+            }
+        }));
+        items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_map_click, R.drawable.icon_map_unclick, new CustomNavigationView.NavigationOnClickListener() {
+            @Override
+            public void onClick() {
+            }
+        }));
+        items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_subway_click, R.drawable.icon_subway_unclick, new CustomNavigationView.NavigationOnClickListener() {
+            @Override
+            public void onClick() {
+            }
+        }));
+        items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_shop_click, R.drawable.icon_shop_unclick, new CustomNavigationView.NavigationOnClickListener() {
+            @Override
+            public void onClick() {
+            }
+        }));
+        items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_sale_click, R.drawable.icon_sale_unclick, new CustomNavigationView.NavigationOnClickListener() {
+            @Override
+            public void onClick() {
+            }
+        }));
+        customNavigationBagView.bindItemView(this, items);
+        customNavigationBagView.setFirstClickItem(0);
     }
 }

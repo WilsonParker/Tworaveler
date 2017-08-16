@@ -18,7 +18,7 @@
         android:id="@+id/fragment_bag$BN_navigation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="55"
+        android:layout_weight="63"
         android:layout_marginLeft="@dimen/item_bag$NV_marginLeft"
         android:layout_marginRight="@dimen/item_bag$NV_marginRight"
         android:layout_marginTop="@dimen/item_bag$NV_marginTop"
@@ -33,16 +33,16 @@
         android:id="@+id/fragment_bag$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="449"
-        android:weightSum="449">
+        android:layout_weight="442"
+        android:weightSum="442">
 
         <LinearLayout
             android:id="@+id/fragment_bag$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="449"
+            android:weightSum="442"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="116"
+                android:layout_weight="131"
                 android:weightSum="360"
                 android:gravity="center">
                 <ImageView
