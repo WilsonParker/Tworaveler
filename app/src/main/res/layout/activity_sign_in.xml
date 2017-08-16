@@ -57,15 +57,17 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_email"
                         android:hint="@string/activity_login$hint_ET_email"
-                        android:nextFocusDown="@+id/activty_login$ET_password"
                         android:inputType="textEmailAddress"
+                        android:nextFocusDown="@+id/activty_login$ET_password"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
-                        android:textCursorDrawable="@color/editText_cursor_color" />
+                        android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="8"/>
+                    android:layout_weight="8" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -79,7 +81,7 @@
                         android:hint="@string/activity_login$hint_ET_password"
                         android:inputType="textPassword"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
-                        android:textCursorDrawable="@color/editText_cursor_color" />
+                        android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,9 +122,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
+                        android:layout_weight="48"
                         android:orientation="horizontal"
-                        android:weightSum="2"
-                        android:layout_weight="48">
+                        android:weightSum="2">
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -187,18 +189,17 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:layout_weight="65.3"
-                                >
-                            <TextView
-                                android:id="@+id/login$BT_signUp"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Nwe User?"
-                                android:gravity="top|center_horizontal"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="11sp"
-                                android:textStyle="italic"
-                                />
+                                android:layout_weight="65.3">
+
+                                <TextView
+                                    android:id="@+id/login$BT_signUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="top|center_horizontal"
+                                    android:text="Nwe User?"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="11sp"
+                                    android:textStyle="italic" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>

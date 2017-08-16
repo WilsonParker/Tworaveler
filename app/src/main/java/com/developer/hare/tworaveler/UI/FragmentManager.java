@@ -23,6 +23,5 @@ public class FragmentManager {
 
     public void setFragmentContent(Fragment fragment) {
         activity.getFragmentManager().beginTransaction().replace(R.id.main$FL_content, fragment).addToBackStack(null).commit();
-
     }
 }

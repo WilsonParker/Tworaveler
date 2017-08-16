@@ -19,10 +19,11 @@ import java.util.ArrayList;
  * Created by Hare on 2017-08-02.
  */
 
-public class CustomNavigationView extends ViewGroup {
+public class CustomNavigationView extends LinearLayout {
     private View view;
     private ArrayList<NavigationItemView> children;
-    private NavigationItemView clickedItem;
+    private NavigationItemView clickedItemView;
+    private UIFactory uiFactory;
 
     public CustomNavigationView(Context context) {
         super(context);
@@ -36,25 +37,27 @@ public class CustomNavigationView extends ViewGroup {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-
-    }
-
-    public void bindItemView(Context context, ArrayList<NavigationItem> items) {
+    public View bindItemView(Context context, ArrayList<NavigationItem> items) {
         children = new ArrayList<>();
-        view = LayoutInflater.from(context).inflate(R.layout.custom_navigation_view, null);
-        UIFactory uiFactory = UIFactory.getInstance(view);
+        uiFactory = UIFactory.getInstance(this);
+
+        String infService = Context.LAYOUT_INFLATER_SERVICE;
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
+        view = li.inflate(R.layout.custom_navigation_view, this, false);
+        addView(view);
+
         LinearLayout linearLayout = uiFactory.createView(R.id.custom_navigation_view$LL);
         for (NavigationItem item : items) {
             NavigationItemView itemVIew = new NavigationItemView(context, this);
             children.add(itemVIew);
             linearLayout.addView(itemVIew.toBind(item));
         }
-        clickedItem = children.get(0);
-        clickedItem.clickEvent();
+        return view;
     }
 
+    public void setFirstClickItem(int position) {
+        children.get(position).actionClickEvent();
+    }
 
     public class NavigationItemView {
         private View view;
@@ -71,23 +74,29 @@ public class CustomNavigationView extends ViewGroup {
 
         public View toBind(NavigationItem item) {
             this.item = item;
+            ImageManager.getInstance().loadImage(context, item.getDefaultImage(), icon);
             icon.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    item.getOnClickListener().onClick();
-                    clickEvent();
+                    actionClickEvent();
                 }
             });
             return view;
         }
 
-        public void clickEvent() {
-            item.setClicked(!item.isClicked());
-            checkState(item);
+        private void actionClickEvent() {
+            if (!item.isClicked()) {
+                item.getOnClickListener().onClick();
+                setState(true);
+                if (clickedItemView != null)
+                    clickedItemView.setState(false);
+                clickedItemView = this;
+            }
         }
 
-        private void checkState(NavigationItem item) {
-            if (item.isClicked())
+        private void setState(boolean clicked) {
+            item.setClicked(clicked);
+            if (clicked)
                 ImageManager.getInstance().loadImage(context, item.getClickImage(), icon);
             else
                 ImageManager.getInstance().loadImage(context, item.getDefaultImage(), icon);
@@ -97,7 +106,7 @@ public class CustomNavigationView extends ViewGroup {
     public class NavigationItem {
         private int clickImage, defaultImage;
         private NavigationOnClickListener onClickListener;
-        private boolean isClicked;
+        private boolean isClicked = false;
 
         public NavigationItem(int clickImage, int defaultImage, NavigationOnClickListener onClickListener) {
             this.clickImage = clickImage;

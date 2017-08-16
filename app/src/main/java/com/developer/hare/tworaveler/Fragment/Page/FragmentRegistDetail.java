@@ -33,6 +33,7 @@ public class FragmentRegistDetail extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private String startDate, endDate;
+    private final String title_format = "yy - MM - dd";
     private DateManager dateManager;
     private Bundle bundle;
 
@@ -70,7 +71,7 @@ public class FragmentRegistDetail extends BaseFragment {
         TV_date = uiFactory.createView(R.id.fragment_regist_detail$TV_date);
         IV_cover = uiFactory.createView(R.id.fragment_regist_detail$IV_cover);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_regist$menuToptitle);
+        menuTopTitle = uiFactory.createView(R.id.fragment_regist_detail$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,7 +111,7 @@ public class FragmentRegistDetail extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(fragment);
             }
         });
-//        meterialCalendarView.setTitleFormatter("");
+        meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(title_format)));
 
     }
 

@@ -4,12 +4,12 @@ package com.developer.hare.tworaveler.Model;
  * Created by Hare on 2017-08-11.
  */
 
-public class SceduleModel {
+public class ScheduleModel {
     // Regist Detail Model
     private int user_no, likes;
     private String country, city, start_date, end_date, trip_pic_url, reg_date, mod_date, del_yn;
 
-    public SceduleModel(int user_no, int likes, String country, String city, String start_date, String end_date, String trip_pic_url, String reg_date, String mod_date, String del_yn) {
+    public ScheduleModel(int user_no, int likes, String country, String city, String start_date, String end_date, String trip_pic_url, String reg_date, String mod_date, String del_yn) {
         this.user_no = user_no;
         this.likes = likes;
         this.country = country;
@@ -104,7 +104,7 @@ public class SceduleModel {
 
     @Override
     public String toString() {
-        return "SceduleModel{" +
+        return "ScheduleModel{" +
                 "user_no=" + user_no +
                 ", likes=" + likes +
                 ", country='" + country + '\'' +

@@ -19,7 +19,7 @@ import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
-import com.developer.hare.tworaveler.Model.SceduleModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -142,12 +142,12 @@ public class FragmentRegist extends BaseFragment {
 
     private void onRegist() {
         SceduleRegistModel model = new SceduleRegistModel(0,"country","city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url","tripName");
-        Call<RequestModel<SceduleModel>> res = Net.getInstance().getFactoryIm().registPlan(model);
-        res.enqueue(new Callback<RequestModel<SceduleModel>>() {
+        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().registPlan(model);
+        res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
             @Override
-            public void onResponse(Call<RequestModel<SceduleModel>> call, Response<RequestModel<SceduleModel>> response) {
+            public void onResponse(Call<RequestModel<ScheduleModel>> call, Response<RequestModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    SceduleModel result = response.body().getResult();
+                    ScheduleModel result = response.body().getResult();
                     Log_HR.log(Log_HR.LOG_INFO,FragmentRegist.class,"onResponse()","result : "+result.toString());
                     FragmentRegistDetail fragment = FragmentRegistDetail.newInstance(TV_dateStart.getText().toString(), TV_dateEnd.getText().toString());
                     FragmentManager.getInstance().setFragmentContent(fragment);
@@ -156,7 +156,7 @@ public class FragmentRegist extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<RequestModel<SceduleModel>> call, Throwable t) {
+            public void onFailure(Call<RequestModel<ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });
