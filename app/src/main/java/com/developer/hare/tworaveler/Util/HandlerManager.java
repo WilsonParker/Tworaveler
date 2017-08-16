@@ -14,7 +14,7 @@ public class HandlerManager {
         return ourInstance;
     }
 
-    public static Handler getHandler() {
+    public Handler getHandler() {
         return handler;
     }
 }

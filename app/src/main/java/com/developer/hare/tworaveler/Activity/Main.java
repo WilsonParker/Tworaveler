@@ -14,6 +14,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.BackClickManager;
 
 import java.util.ArrayList;
 
@@ -82,4 +83,9 @@ public class Main extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        BackClickManager.getInstance().onBackPressed(this);
+    }
 }

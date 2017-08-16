@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:weightSum="@string/DEVICE_HEIGHT"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/activity_regist_day_detail_list$menuTopTItle"
@@ -13,7 +13,7 @@
         android:layout_weight="56"
         app:leftButton="@drawable/button_left"
         app:rightButton="@drawable/button_right"
-        app:titleText="아이디" />
+        app:titleText="@string/activity_regist_day_detail_list_title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@string/activity_regist_day_detail_list_title" />
+                android:text="@string/activity_regist_day_detail_list_text" />
         </LinearLayout>
 
         <LinearLayout

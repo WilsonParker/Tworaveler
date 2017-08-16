@@ -86,7 +86,7 @@ public class SearchCity extends AppCompatActivity {
                             /*cityListAdapter = new CityListAdapter(onSelectCityListener, result.getResult(), getBaseContext());
                             RV_list.setAdapter(cityListAdapter);*/
                             Log_HR.log(Log_HR.LOG_INFO, SearchCity.class, "afterTextChanged(Editable)", "itemSize" + items.size());
-                            HandlerManager.getHandler().post(new Runnable() {
+                            HandlerManager.getInstance().getHandler().post(new Runnable() {
                                 @Override
                                 public void run() {
 //                                    cityListAdapter.notifyDataSetChanged();

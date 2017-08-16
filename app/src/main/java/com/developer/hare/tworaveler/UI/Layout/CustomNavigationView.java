@@ -1,6 +1,7 @@
 package com.developer.hare.tworaveler.UI.Layout;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -25,17 +26,36 @@ public class CustomNavigationView extends LinearLayout {
     private NavigationItemView clickedItemView;
     private UIFactory uiFactory;
 
+    private int itemId;
     public CustomNavigationView(Context context) {
         super(context);
     }
 
     public CustomNavigationView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        getAttrs(attrs);
     }
 
     public CustomNavigationView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        getAttrs(attrs, defStyleAttr);
     }
+
+    private void getAttrs(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.custom_navigation_view);
+        setTypeArray(typedArray);
+    }
+
+    private void getAttrs(AttributeSet attrs, int defStyle) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.custom_navigation_view, defStyle, 0);
+        setTypeArray(typedArray);
+    }
+
+    private void setTypeArray(TypedArray typedArray) {
+        itemId = typedArray.getResourceId(R.styleable.custom_navigation_view_item_layout, R.layout.custom_navigation_view);
+        typedArray.recycle();
+    }
+
 
     public View bindItemView(Context context, ArrayList<NavigationItem> items) {
         children = new ArrayList<>();
@@ -43,7 +63,7 @@ public class CustomNavigationView extends LinearLayout {
 
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        view = li.inflate(R.layout.custom_navigation_view, this, false);
+        view = li.inflate(itemId, this, false);
         addView(view);
 
         LinearLayout linearLayout = uiFactory.createView(R.id.custom_navigation_view$LL);

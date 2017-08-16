@@ -6,4 +6,8 @@
         <attr name="titleText" format="reference|string" />
         <attr name="titleTextSize" format="reference|dimension" />
     </declare-styleable>
+
+    <declare-styleable name="custom_navigation_view">
+        <attr name="item_layout" format="reference|integer" />
+    </declare-styleable>
 </resources>
