@@ -23,20 +23,32 @@ public class ImageManager {
     }
 
     public void loadImage(Context context, String downloadURI, ImageView imageView) {
-        requestCreator(Picasso.with(context).load(downloadURI)).into(imageView);
+        createRequestCreator(Picasso.with(context).load(downloadURI)).into(imageView);
     }
 
     public void loadImage(Context context, int id, ImageView imageView) {
-        requestCreator(Picasso.with(context).load(id)).into(imageView);
+        createRequestCreator(Picasso.with(context).load(id)).into(imageView);
     }
 
     public void loadImage(Context context, File file, ImageView imageVIew) {
-        requestCreator(Picasso.with(context).load(file)).into(imageVIew);
+        createRequestCreator(Picasso.with(context).load(file)).into(imageVIew);
     }
 
-    private RequestCreator requestCreator(RequestCreator requestCreator) {
+    public void loadImage(Context context, RequestCreator requestCreator, String downloadURI, ImageView imageView) {
+        requestCreator.into(imageView);
+    }
+
+    public void loadImage(Context context, RequestCreator requestCreator, int id, ImageView imageView) {
+        requestCreator.into(imageView);
+    }
+
+    public void loadImage(Context context, RequestCreator requestCreator, File file, ImageView imageVIew) {
+        requestCreator.into(imageVIew);
+    }
+
+    public RequestCreator createRequestCreator(RequestCreator requestCreator) {
         return requestCreator
-                .error(R.drawable.noimage).fit().centerCrop()
+                .error(R.drawable.noimage).fit()
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE);
     }

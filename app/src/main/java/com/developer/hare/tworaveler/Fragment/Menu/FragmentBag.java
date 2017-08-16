@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +42,6 @@ public class FragmentBag extends BaseFragment {
     private UIFactory uiFactory;
     private TextView textView;
     private ImageView IV_noimage;
-    private Button BT_image;
     private RecyclerView RV_list;
     private BagListAdapter bagListAdapter;
     private LinearLayout linearLayout;
@@ -101,6 +99,9 @@ public class FragmentBag extends BaseFragment {
         textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
         linearLayout = uiFactory.createView(R.id.fragment_bag$LL_empty);
+        textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
+        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
+
         createNavigationBagView();
         itemEmptyCheck(items);
 

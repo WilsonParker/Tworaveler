@@ -74,7 +74,7 @@ public class AlertManager {
     }
 
     public AlertDialog showAlertSelectionMode(Activity activity, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
-        handler = HandlerManager.getHandler();
+        handler = HandlerManager.getInstance().getHandler();
         view = LayoutInflater.from(activity).inflate(R.layout.alert_selectionmode, null);
         UIFactory uiFactory = UIFactory.getInstance(view);
         TV_title = uiFactory.createView(R.id.alert_selectionmode$TV_title);

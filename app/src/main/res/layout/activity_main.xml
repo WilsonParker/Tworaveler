@@ -13,9 +13,16 @@
         android:id="@+id/main$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="561">
+        android:layout_weight="@string/FRAGMENT_HEIGHT">
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/default_theme_text_color"
+        android:layout_weight="1" />
+
     <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
         android:id="@+id/main$BN_navigation"
         android:layout_width="match_parent"

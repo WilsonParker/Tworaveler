@@ -20,4 +20,12 @@
     <!-- MenuTopTItle-->
     <color name="menu_top_title_bar_color">#33d4d1</color>
     <color name="menu_top_title_text_color">#ffffff</color>
+
+    <!-- Peed -->
+    <color name="peed_title_color">#434343</color>
+    <color name="peed_date_color">#535353</color>
+    <color name="peed_num_color">#a0a0a0</color>
+
+    <!-- fragment need login-->
+    <color name="fragment_login_text_color">#252525</color>
 </resources>

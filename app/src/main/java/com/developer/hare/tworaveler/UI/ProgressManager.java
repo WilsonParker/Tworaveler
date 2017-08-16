@@ -36,7 +36,7 @@ public class ProgressManager {
         view = LayoutInflater.from(activity).inflate(R.layout.progressbar_simple, null);
         progressBar = UIFactory.getInstance(activity).createView(R.id.progress_bar_simple$PB);
 
-        handler = HandlerManager.getHandler();
+        handler = HandlerManager.getInstance().getHandler();
         alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder.setView(view);
         alertDialogBuilder.setCancelable(false);

@@ -74,14 +74,15 @@
 
 
     <!-- layout/activity_regist_day_detail_list-->
-    <string name="activity_regist_day_detail_list_title">하루의 세부 일정을 등록해 주세요</string>
-    
+    <string name="activity_regist_day_detail_list_title">add plan</string>
+    <string name="activity_regist_day_detail_list_text">하루의 세부 일정을 등록해 주세요</string>
+
     <!--
         ############################################################################################
     -->
 
     <!-- layout/fragment_peed-->
-    <string name="fragment_peed_title">피드</string>
+    <string name="fragment_peed_title">Peed</string>
 
     <!-- layout/fragment_alarm-->
     <string name="fragment_alarm_title">alarm</string>
@@ -145,6 +146,6 @@
     -->
     <string name="DEVICE_WIDTH">360</string>
     <string name="DEVICE_HEIGHT">616</string>
-    <string name="FRAGMENT_HEIGHT">561</string>
+    <string name="FRAGMENT_HEIGHT">560</string>
 
 </resources>

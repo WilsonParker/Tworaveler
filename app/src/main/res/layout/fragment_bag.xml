@@ -14,46 +14,79 @@
         app:leftButton="@drawable/icon_deletebag"
         app:rightButton="@drawable/icon_addbag"
         app:titleText="@string/fragment_bag_title" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="7" />
+
     <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
         android:id="@+id/fragment_bag$BN_navigation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="63"
-        android:layout_marginLeft="@dimen/item_bag$NV_marginLeft"
-        android:layout_marginRight="@dimen/item_bag$NV_marginRight"
-        android:layout_marginTop="@dimen/item_bag$NV_marginTop"
-        android:layout_marginBottom="@dimen/item_bag$NV_marginBottom"/>
+        android:layout_weight="48"
+        app:item_layout="@layout/item_bag_navigation_view" />
+
     <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="7" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="16.3dp"
-        android:layout_marginRight="16.3dp"
-        android:background="#000000" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="@string/DEVICE_WIDTH">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="336"
+            android:background="#000000" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
+    </LinearLayout>
+
+
     <FrameLayout
         android:id="@+id/fragment_bag$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="442"
-        android:weightSum="442">
+        android:layout_weight="441"
+        android:weightSum="441">
 
         <LinearLayout
             android:id="@+id/fragment_bag$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="442"
             android:orientation="vertical"
             android:visibility="visible"
-            >
+            android:weightSum="441">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="105" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="105"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="131"
-                android:weightSum="360"
-                android:gravity="center">
+                android:layout_weight="116"
+                android:weightSum="@string/DEVICE_WIDTH">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="122" />
+
                 <ImageView
                     android:id="@+id/fragment_bag$noimage"
                     android:layout_width="0dp"
@@ -61,17 +94,20 @@
                     android:layout_weight="116"
                     android:background="@drawable/btn_addbag" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <ImageView
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="14"/>
+                android:layout_weight="14" />
+
             <TextView
                 android:id="@+id/fragment_bag$TV_noItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="13sp"
-                android:text="@string/fragment_bag_nonItem" />
+                android:text="@string/fragment_bag_nonItem"
+                android:textColor="@color/fragment_login_text_color"
+                android:textSize="@dimen/TextSize_Content_1" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
