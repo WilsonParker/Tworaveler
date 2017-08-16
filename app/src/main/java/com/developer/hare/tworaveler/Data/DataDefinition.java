@@ -16,11 +16,14 @@ public class DataDefinition {
                 ,KEY_POSITION= "Position"
                 ,KEY_STARTDATE= "StartDate"
                 ,KEY_ENDDATE= "EndDate"
+                ,KEY_DATE = "Date"
                 ;
         public static final int
                 RESULT_CODE_SUCCESS = 0x0000
                 ,RESULT_CODE_FAIL = 0x1111
                 ,RESULT_CODE_SEARCH_CITY = 0x0001
+                ,RESULT_CODE_REGIST_DETAIL= 0x0010
+                , RESULT_CODE_REGIST_DAY_LIST = 0x0011
                 ;
 
     }
@@ -52,6 +55,12 @@ public class DataDefinition {
 
                 ,FORMAT_DATE="yyyy-MM-dd"
                 ,FORMAT_DATETIME="HH:mm:ss"
+                ;
+    }
+
+    public class Network{
+        public static final int CODE_SUCCESS = 200
+                ,CODE_FAIL = 500
                 ;
     }
 

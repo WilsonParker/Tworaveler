@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_regist_detail$menuToptitle"
+        android:id="@+id/activity_regist_detail$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:layout_weight="1"
         app:leftButton="@drawable/button_left"
-        app:titleText="@string/fragment_regist_title"
+        app:titleText="@string/activity_regist_detail_title"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -19,7 +19,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fragment_regist$menuToptitle"
+        android:layout_below="@id/activity_regist_detail$menuToptitle"
         android:layout_weight="10"
         android:fillViewport="true"
         android:overScrollMode="always"
@@ -41,7 +41,7 @@
                 android:layout_weight="20">
 
                 <LinearLayout
-                    android:id="@+id/fragment_regist_detail$LL_scrollItem"
+                    android:id="@+id/activity_regist_detail$LL_scrollItem"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:orientation="vertical">
@@ -52,7 +52,7 @@
                         android:layout_weight="0.5" />
 
                     <ImageView
-                        android:id="@+id/fragment_regist_detail$IV_cover"
+                        android:id="@+id/activity_regist_detail$IV_cover"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="10"
@@ -64,7 +64,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/fragment_regist_detail$TV_title"
+                            android:id="@+id/activity_regist_detail$TV_title"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="6"
@@ -72,7 +72,7 @@
                             android:text="Trop to Washington" />
 
                         <TextView
-                            android:id="@+id/fragment_regist_detail$TV_date"
+                            android:id="@+id/activity_regist_detail$TV_date"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="4"
@@ -93,10 +93,10 @@
                 </LinearLayout>
 
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:id="@+id/fragment_regist_detail$calendar"
+                    android:id="@+id/activity_regist_detail$calendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/fragment_regist_detail$LL_scrollItem"
+                    android:layout_below="@id/activity_regist_detail$LL_scrollItem"
                     android:layout_weight="1"
                     app:mcv_selectionColor="#67b777"
                     app:mcv_showOtherDates="all" />

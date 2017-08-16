@@ -47,44 +47,38 @@
     <!-- layout/activity_search_city-->
     <string name="activity_search_city_hint_1">도시 검색</string>
 
-    <!-- layout/activity_regist_day_detail-->
-    <string name="activity_regist_day_detail_title">추가</string>
-    <string name="activity_regist_day_detail_text_0">장소 제목</string>
-    <string name="activity_regist_day_detail_text_1">어디를 가시나요?</string>
-    <string name="activity_regist_day_detail_text_2">언제 가시나요?</string>
-    <string name="activity_regist_day_detail_text_3">위치 검색</string>
-    <string name="activity_regist_day_detail_text_4">시작 시간</string>
-    <string name="activity_regist_day_detail_text_5">종료 시간</string>
+    <!-- layout/activity_regist-->
+    <string name="activity_regist_title">add trip</string>
+    <string name="activity_regist_text_0">여행 제목</string>
+    <string name="activity_regist_text_1">여행 제목</string>
+    <string name="activity_regist_text_2">어디를 가시나요?</string>
+    <string name="activity_regist_text_3">도시 검색</string>
+    <string name="activity_regist_text_4">언제 가시나요?</string>
+    <string name="activity_regist_text_5">여행 시작 날짜</string>
+    <string name="activity_regist_text_6">여행 종료 날짜</string>
 
+    <!-- layout/activity_regist_detail-->
+    <string name="activity_regist_detail_title">Regist Detail</string>
+
+    <!-- layout/activity_regist_day_detail-->
+    <string name="activity_regist_day_detail_title">add plan</string>
+    <string name="activity_regist_day_detail_text_0">장소 제목</string>
+    <string name="activity_regist_day_detail_text_1">장소 제목</string>
+    <string name="activity_regist_day_detail_text_2">어디를 가시나요?</string>
+    <string name="activity_regist_day_detail_text_3">위치 검색</string>
+    <string name="activity_regist_day_detail_text_4">언제 가시나요?</string>
+    <string name="activity_regist_day_detail_text_5">일정 시작 시간</string>
+    <string name="activity_regist_day_detail_text_6">일정 종료 시간</string>
+    <string name="activity_regist_day_detail_text_7">간단한 일정 메모</string>
+    <string name="activity_regist_day_detail_text_8">일정 메모</string>
+
+
+    <!-- layout/activity_regist_day_detail_list-->
+    <string name="activity_regist_day_detail_list_title">하루의 세부 일정을 등록해 주세요</string>
+    
     <!--
         ############################################################################################
     -->
-
-    <!-- layout/fragment_regist-->
-    <string name="fragment_regist_title">add trip</string>
-    <string name="fragment_regist_text_0">여행 제목</string>
-    <string name="fragment_regist_text_1">여행 제목</string>
-    <string name="fragment_regist_text_2">어디를 가시나요?</string>
-    <string name="fragment_regist_text_3">도시 검색</string>
-    <string name="fragment_regist_text_4">언제 가시나요?</string>
-    <string name="fragment_regist_text_5">여행 시작 날짜</string>
-    <string name="fragment_regist_text_6">여행 종료 날짜</string>
-
-    <!-- layout/fragment_regist_detail-->
-    <string name="fragment_regist_detail_title">Regist Detail</string>
-
-    <!-- layout/fragment_regist_day_detail-->
-    <string name="fragment_regist_day_detail_title">add plan</string>
-    <string name="fragment_regist_day_detail_text_0">장소 제목</string>
-    <string name="fragment_regist_day_detail_text_1">장소 제목</string>
-    <string name="fragment_regist_day_detail_text_2">어디를 가시나요?</string>
-    <string name="fragment_regist_day_detail_text_3">위치 검색</string>
-    <string name="fragment_regist_day_detail_text_4">언제 가시나요?</string>
-    <string name="fragment_regist_day_detail_text_5">일정 시작 시간</string>
-    <string name="fragment_regist_day_detail_text_6">일정 종료 시간</string>
-    <string name="fragment_regist_day_detail_text_7">간단한 일정 메모</string>
-    <string name="fragment_regist_day_detail_text_8">일정 메모</string>
-
 
     <!-- layout/fragment_peed-->
     <string name="fragment_peed_title">피드</string>
@@ -123,9 +117,6 @@
     <!-- layout/bag_delete-->
     <string name="bag_delete_nonItem">여행 가방에 사진을 추가해 보세요</string>
     <string name="bag_delete_title">Delete</string>
-
-    <!-- layout/fragment_regist_day_detail_list-->
-    <string name="fragment_regist_detail_list_title">하루의 세부 일정을 등록해 주세요</string>
 
     <!--
       ############################################################################################

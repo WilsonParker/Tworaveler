@@ -1,17 +1,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
+    android:weightSum="@string/FRAGMENT_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_mypage_home$topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_profile"
         app:titleText="@string/fragmentMyPage_home_title" />
 
     <FrameLayout

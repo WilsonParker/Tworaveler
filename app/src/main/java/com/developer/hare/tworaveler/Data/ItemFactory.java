@@ -6,7 +6,6 @@ import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentPeed;
-import com.developer.hare.tworaveler.Fragment.Menu.FragmentRegist;
 import com.developer.hare.tworaveler.Model.BagDeleteModel;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.R;
@@ -40,7 +39,7 @@ public class ItemFactory {
     private static void createMainNavigationFragmentMap() {
         MainNavigationFragmentMap = new HashMap<>();
         MainNavigationFragmentMap.put(R.id.navigation$peed, FragmentPeed.newInstance());
-        MainNavigationFragmentMap.put(R.id.navigation$regist, FragmentRegist.newInstance());
+//        MainNavigationFragmentMap.put(R.id.navigation$regist, FragmentRegist.newInstance());
         MainNavigationFragmentMap.put(R.id.navigation$alram, FragmentAlarm.newInstance());
         MainNavigationFragmentMap.put(R.id.navigation$bag, FragmentBag.newInstance());
         MainNavigationFragmentMap.put(R.id.navigation$home, FragmentMyPage.newInstance());

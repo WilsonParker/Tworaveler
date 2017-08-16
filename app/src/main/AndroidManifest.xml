@@ -103,10 +103,17 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".Activity.BigImage"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/MyTheme"/>
+            android:theme="@style/MyTheme"
+            android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".Activity.RegistDayDetail" />
+        <activity
+            android:name=".Activity.Regist"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".Activity.RegistDetail" />
+        <activity android:name=".Activity.RegistDayList" />
+        <activity
+            android:name=".Activity.RegistDayDetail"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 
 </manifest>

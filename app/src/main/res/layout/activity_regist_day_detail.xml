@@ -1,148 +1,242 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/regist_day_detail$menuToptitle"
+        android:id="@+id/activity_regist_day_detail$menuToptitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
-        app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_cancel"
+        app:rightButton="@drawable/icon_check"
         app:titleText="@string/activity_regist_day_detail_title" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="26" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="558"
+        android:weightSum="@string/DEVICE_WIDTH">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="16" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:orientation="vertical">
+            android:layout_weight="328"
+            android:orientation="vertical"
+            android:weightSum="558">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="3" />
-
-            <ImageView
-                android:id="@+id/regist_day_detail$IV_cover"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="20"
-                android:background="@color/default_Image_color" />
+                android:layout_weight="171">
+
+                <ImageView
+                    android:id="@+id/activity_regist_day_detail$IV_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_theme_Image_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="328">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="136" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="56"
+                        android:orientation="vertical"
+                        android:weightSum="171">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="62.7" />
+
+                        <ImageView
+                            android:id="@+id/activity_regist_day_detail$IV_camera"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="45.7"
+                            app:srcCompat="@drawable/icon_camera" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="20" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/activity_regist_day_detail$TV_txt_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
-                android:text="@string/activity_regist_day_detail_text_0" />
+                android:text="@string/activity_regist_day_detail_text_0"
+                android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="13" />
 
             <TextView
+                android:id="@+id/activity_regist_day_detail$TV_locationName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="46"
+                android:background="@color/default_theme_text_color"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_regist_day_detail_text_1"
+                android:textSize="@dimen/TextSize_Content_1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="22" />
+
+            <TextView
+                android:id="@+id/activity_regist_day_detail$TV_txt_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
-                android:text="@string/activity_regist_day_detail_text_1" />
+                android:text="@string/activity_regist_day_detail_text_2"
+                android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="13" />
 
             <TextView
-                android:id="@+id/regist_day_detail$TV_citySearch"
+                android:id="@+id/activity_regist_day_detail$TV_locationSearch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:hint="@string/activity_regist_day_detail_text_3" />
+                android:layout_height="0dp"
+                android:layout_weight="46"
+                android:background="@color/default_theme_text_color"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_regist_day_detail_text_3"
+                android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="22" />
 
             <TextView
+                android:id="@+id/activity_regist_day_detail$TV_txt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
-                android:text="@string/activity_regist_day_detail_text_2" />
+                android:text="@string/activity_regist_day_detail_text_4"
+                android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="3" />
+                android:layout_weight="13" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0">
+                android:layout_height="0dp"
+                android:layout_weight="46"
+                android:weightSum="328">
 
                 <TextView
-                    android:id="@+id/regist_day_detail$TV_start"
+                    android:id="@+id/activity_regist_day_detail$TV_start"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="@string/activity_regist_day_detail_text_4" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="142"
+                    android:background="@color/default_theme_text_color"
+                    android:gravity="center"
+                    android:text="@string/activity_regist_day_detail_text_5"
+                    android:textSize="@dimen/TextSize_Content_1" />
 
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="14" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="16"
+                    android:background="@color/default_theme_text_color" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14" />
 
                 <TextView
-                    android:id="@+id/regist_day_detail$TV_end"
+                    android:id="@+id/activity_regist_day_detail$TV_end"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="@string/activity_regist_day_detail_text_5" />
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="142"
+                    android:background="@color/default_theme_text_color"
+                    android:gravity="center"
+                    android:text="@string/activity_regist_day_detail_text_6"
+                    android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="22" />
 
-            <EditText
+            <TextView
+                android:id="@+id/activity_regist_day_detail$TV_txt_4"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
-                android:background="@color/default_Image_color" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center_vertical"
+                android:text="@string/activity_regist_day_detail_text_7"
+                android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="13" />
+
+            <EditText
+                android:id="@+id/activity_regist_day_detail$ET_meno"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="80"
+                android:background="@color/default_theme_text_color"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_regist_day_detail_text_8"
+                android:textCursorDrawable="@drawable/cursor_edittext"
+                android:textSize="@dimen/TextSize_Content_1" />
         </LinearLayout>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="16" />
 
     </LinearLayout>
+
 </LinearLayout>
