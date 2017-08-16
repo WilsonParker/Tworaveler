@@ -2,6 +2,7 @@
 // width 와 height 를 모두 같게 하기 위해 string.xml 을 참조
 android:weightSum="@string/DEVICE_WIDTH"
 android:weightSum="@string/DEVICE_HEIGHT"
+android:weightSum="@string/FRAGMENT_HEIGHT"
 
 
 

@@ -82,13 +82,31 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/search_city$IB_cancel"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="48"
-            android:background="@null"
-            app:srcCompat="@drawable/icon_search_cancel" />
+            android:orientation="vertical"
+            android:weightSum="56">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+
+            <ImageButton
+                android:id="@+id/search_city$IB_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="48"
+                android:background="@drawable/icon_search_cancel" />
+            <!--app:srcCompat="@drawable/icon_search_cancel"-->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="4" />
+        </LinearLayout>
 
     </LinearLayout>
 

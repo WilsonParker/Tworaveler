@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_regist_detail_list$menuTopTItle"
+        android:id="@+id/activity_regist_day_detail_list$menuTopTItle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
@@ -21,7 +21,7 @@
         android:layout_weight="500">
 
         <TextView
-            android:id="@+id/fragment_regist_detail_list$TV_date"
+            android:id="@+id/activity_regist_day_detail_list$TV_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -31,7 +31,7 @@
             android:textAlignment="center" />
 
         <LinearLayout
-            android:id="@+id/fragment_regist_detail_list$LL_empty"
+            android:id="@+id/activity_regist_day_detail_list$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -39,7 +39,7 @@
 
 
             <ImageView
-                android:id="@+id/fragment_regist_detail_list$IV_nologin"
+                android:id="@+id/activity_regist_day_detail_list$IV_nologin"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
@@ -51,18 +51,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@string/fragment_regist_detail_list_title" />
+                android:text="@string/activity_regist_day_detail_list_title" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fragment_regist_detail_list$LL_list"
+            android:id="@+id/activity_regist_day_detail_list$LL_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/fragment_regist_detail_list$TV_date"
+            android:layout_below="@+id/activity_regist_day_detail_list$TV_date"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_regist_detail_list$RV_list"
+                android:id="@+id/activity_regist_day_detail_list$RV_list"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="10" />

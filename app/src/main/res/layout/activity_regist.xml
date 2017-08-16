@@ -6,13 +6,13 @@
     android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_regist$menuToptitle"
+        android:id="@+id/activity_regist$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         app:leftButton="@drawable/icon_cancel"
         app:rightButton="@drawable/icon_check"
-        app:titleText="@string/fragment_regist_title" />
+        app:titleText="@string/activity_regist_title" />
 
     <ImageView
         android:layout_width="0dp"
@@ -43,7 +43,7 @@
                 android:layout_weight="171">
 
                 <ImageView
-                    android:id="@+id/fragment_regist$IV_cover"
+                    android:id="@+id/activity_regist$IV_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/default_theme_Image_color" />
@@ -71,11 +71,11 @@
                             android:layout_weight="62.7" />
 
                         <ImageView
-                            android:id="@+id/fragment_regist$IV_camera"
+                            android:id="@+id/activity_regist$IV_camera"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="45.7"
-                            app:srcCompat="@drawable/icon_camera" />
+                            android:background="@drawable/icon_camera" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -86,12 +86,41 @@
                 android:layout_weight="20" />
 
             <TextView
-                android:id="@+id/fragment_regist$TV_txt_1"
+                android:id="@+id/activity_regist$TV_txt_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
-                android:text="@string/fragment_regist_text_0"
+                android:text="@string/activity_regist_text_0"
+                android:textSize="@dimen/TextSize_Content_1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="13" />
+
+            <TextView
+                android:id="@+id/activity_regist$TV_tripName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="46"
+                android:background="@color/default_theme_text_color"
+                android:gravity="center_vertical"
+                android:hint="@string/activity_regist_text_1"
+                android:textSize="@dimen/TextSize_Content_1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="22" />
+
+            <TextView
+                android:id="@+id/activity_regist$TV_txt_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center_vertical"
+                android:text="@string/activity_regist_text_2"
                 android:textSize="@dimen/TextSize_Content_1" />
             <!--android:layout_weight="12.3"-->
 
@@ -101,13 +130,13 @@
                 android:layout_weight="13" />
 
             <TextView
-                android:id="@+id/fragment_regist$TV_tripName"
+                android:id="@+id/activity_regist$TV_citySearch"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
                 android:gravity="center_vertical"
-                android:hint="@string/fragment_regist_text_1"
+                android:hint="@string/activity_regist_text_3"
                 android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
@@ -116,42 +145,12 @@
                 android:layout_weight="22" />
 
             <TextView
-                android:id="@+id/fragment_regist$TV_txt_2"
+                android:id="@+id/activity_regist$TV_txt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center_vertical"
-                android:text="@string/fragment_regist_text_2"
-                android:textSize="@dimen/TextSize_Content_1" />
-                <!--android:layout_weight="12.3"-->
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="13" />
-
-            <TextView
-                android:id="@+id/fragment_regist$TV_citySearch"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="46"
-                android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:hint="@string/fragment_regist_text_3"
-                android:textSize="@dimen/TextSize_Content_1" />
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="22" />
-
-            <TextView
-                android:id="@+id/fragment_regist$TV_txt_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_vertical"
-                android:text="@string/fragment_regist_text_4"
+                android:text="@string/activity_regist_text_4"
                 android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
@@ -166,13 +165,13 @@
                 android:weightSum="328">
 
                 <TextView
-                    android:id="@+id/fragment_regist$TV_start"
+                    android:id="@+id/activity_regist$TV_start"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="142"
                     android:background="@color/default_theme_text_color"
                     android:gravity="center"
-                    android:text="@string/fragment_regist_text_5"
+                    android:text="@string/activity_regist_text_5"
                     android:textSize="@dimen/TextSize_Content_1" />
 
                 <ImageView
@@ -193,13 +192,13 @@
                     android:layout_weight="14" />
 
                 <TextView
-                    android:id="@+id/fragment_regist$TV_end"
+                    android:id="@+id/activity_regist$TV_end"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="142"
                     android:background="@color/default_theme_text_color"
                     android:gravity="center"
-                    android:text="@string/fragment_regist_text_6"
+                    android:text="@string/activity_regist_text_6"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
 

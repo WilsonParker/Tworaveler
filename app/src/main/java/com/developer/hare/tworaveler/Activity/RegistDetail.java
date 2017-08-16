@@ -1,24 +1,18 @@
-package com.developer.hare.tworaveler.Fragment.Page;
+package com.developer.hare.tworaveler.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.R;
-import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -29,53 +23,42 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class FragmentRegistDetail extends BaseFragment {
+public class RegistDetail extends AppCompatActivity {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private String startDate, endDate;
     private final String title_format = "yy - MM - dd";
     private DateManager dateManager;
-    private Bundle bundle;
+    private Intent intent;
 
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView meterialCalendarView;
     private TextView TV_title, TV_date;
     private ImageView IV_cover;
 
-    public static FragmentRegistDetail newInstance(String startDate, String endDate) {
-        FragmentRegistDetail f = new FragmentRegistDetail();
-
-        // Supply index input as an argument.
-        Bundle args = new Bundle();
-        args.putString(DataDefinition.Bundle.KEY_STARTDATE, startDate);
-        args.putString(DataDefinition.Bundle.KEY_ENDDATE, endDate);
-        f.setArguments(args);
-        return f;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_regist_detail);
+        init();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_regist_detail, null);
-    }
+    protected void init() {
+        intent = getIntent();
+        startDate = intent.getExtras().getString(DataDefinition.Intent.KEY_STARTDATE);
+        endDate = intent.getExtras().getString(DataDefinition.Intent.KEY_ENDDATE);
 
-    @Override
-    protected void init(View view) {
-        bundle = getArguments();
-        startDate = bundle.getString(DataDefinition.Bundle.KEY_STARTDATE);
-        endDate = bundle.getString(DataDefinition.Bundle.KEY_ENDDATE);
-
-        uiFactory = UIFactory.getInstance(view);
+        uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
 
-        TV_title = uiFactory.createView(R.id.fragment_regist_detail$TV_title);
-        TV_date = uiFactory.createView(R.id.fragment_regist_detail$TV_date);
-        IV_cover = uiFactory.createView(R.id.fragment_regist_detail$IV_cover);
+        TV_title = uiFactory.createView(R.id.activity_regist_detail$TV_title);
+        TV_date = uiFactory.createView(R.id.activity_regist_detail$TV_date);
+        IV_cover = uiFactory.createView(R.id.activity_regist_detail$IV_cover);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_regist_detail$menuToptitle);
+        menuTopTitle = uiFactory.createView(R.id.activity_regist_detail$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), RegistDayDetail.class);
+                Intent intent = new Intent(RegistDetail.this, RegistDayDetail.class);
                 startActivity(intent);
             }
         });
@@ -84,7 +67,7 @@ public class FragmentRegistDetail extends BaseFragment {
     }
 
     private void initMaterialCalendarView() {
-        meterialCalendarView = uiFactory.createView(R.id.fragment_regist_detail$calendar);
+        meterialCalendarView = uiFactory.createView(R.id.activity_regist_detail$calendar);
         Date startDate = DateManager.getInstance().parseDate(this.startDate, DataDefinition.RegularExpression.FORMAT_DATE);
         Date endDate = DateManager.getInstance().parseDate(this.endDate, DataDefinition.RegularExpression.FORMAT_DATE);
         meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
@@ -104,11 +87,10 @@ public class FragmentRegistDetail extends BaseFragment {
         meterialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDetail.class, "initMaterialCalendarView()", "onClick: " + DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
-                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
-                Log_HR.log(Log_HR.LOG_INFO, FragmentRegistDetail.class, "initMaterialCalendarView()", "onClick: " + arr[0] + " : " + arr[1] + " : " + arr[2]);
-                FragmentRegistDayList fragment = FragmentRegistDayList.newInstance(DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
-                FragmentManager.getInstance().setFragmentContent(fragment);
+//                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
+                Intent intent = new Intent(RegistDetail.this, RegistDayList.class);
+                intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
             }
         });
         meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(title_format)));
