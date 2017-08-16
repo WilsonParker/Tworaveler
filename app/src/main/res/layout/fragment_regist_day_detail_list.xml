@@ -2,14 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:weightSum="@string/DEVICE_HEIGHT"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_regist_detail_list$menuTopTItle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         app:leftButton="@drawable/button_left"
         app:rightButton="@drawable/button_right"
         app:titleText="아이디" />
@@ -17,7 +18,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15">
+        android:layout_weight="500">
 
         <TextView
             android:id="@+id/fragment_regist_detail_list$TV_date"
