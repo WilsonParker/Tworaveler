@@ -65,7 +65,7 @@ public class Main extends AppCompatActivity {
             public void onClick() {
                 startActivity(new Intent(Main.this, Regist.class));
             }
-        }));
+        }, false));
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_alarm, R.drawable.icon_alarm_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {

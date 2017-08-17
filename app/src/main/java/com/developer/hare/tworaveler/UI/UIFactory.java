@@ -14,13 +14,13 @@ public class UIFactory {
     private Activity activity;
     private View view;
 
-    public static UIFactory getInstance(View view){
+    public static UIFactory getInstance(View view) {
         uiFactory.setResource(view);
         isActivity = false;
         return uiFactory;
     }
 
-    public static UIFactory getInstance(Activity activity){
+    public static UIFactory getInstance(Activity activity) {
         uiFactory.setResource(activity);
         isActivity = true;
         return uiFactory;
@@ -29,7 +29,7 @@ public class UIFactory {
 
     public <E extends View> E createView(int id) {
         E e;
-        if(isActivity)
+        if (isActivity)
             e = activity.findViewById(id);
         else
             e = view.findViewById(id);
@@ -45,8 +45,8 @@ public class UIFactory {
         this.view = view;
     }
 
-    private View initView(View view){
-        if(view instanceof TextView){
+    private View initView(View view) {
+        if (view instanceof TextView) {
 //            view.textD
         }
         return view;
