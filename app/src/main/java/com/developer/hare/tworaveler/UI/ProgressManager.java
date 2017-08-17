@@ -44,11 +44,13 @@ public class ProgressManager {
     }
 
     public void action(OnProgressAction action) {
-        alertDialog.show();
+        if (alertDialog != null && !alertDialog.isShowing())
+            alertDialog.show();
         checkThread = new Thread() {
             @Override
             public void run() {
                 try {
+                    //
                     /*while (!alertDialog.isShowing()) {
                         Thread.sleep(150);
                     }*/
@@ -59,7 +61,8 @@ public class ProgressManager {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                alertDialog.cancel();
+                                if (alertDialog != null && alertDialog.isShowing())
+                                    alertDialog.cancel();
                             }
                         });
                     }
