@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Data.ResourceManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
@@ -31,14 +31,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_INCORRECT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SIGNED_OUT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+
 public class SignIn extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
-    private Button BT_main,BT_facebook, BT_kakao ;
+    private Button BT_main, BT_facebook, BT_kakao;
     private TextView BT_signUp;
     private EditText ET_email, ET_password;
     private ImageButton IV_signIn;
 
-//    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
+    //    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
 //    private com.facebook.login.widget.LoginButton BT_facebookLogin;
     private KakaoSignManager kakaoSignInManager;
     private FaceBookLoginManager faceBookLoginManager;
@@ -80,7 +84,7 @@ public class SignIn extends AppCompatActivity {
         BT_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    faceBookLoginManager.onLoginClick();
+                faceBookLoginManager.onLoginClick();
             }
         });
 
@@ -150,7 +154,7 @@ public class SignIn extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void goToMain(View view){
+    public void goToMain(View view) {
         onBackPressed();
     }
 
@@ -160,23 +164,59 @@ public class SignIn extends AppCompatActivity {
         res.enqueue(new Callback<RequestModel<UserModel>>() {
             @Override
             public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
-                UserModel result = response.body().getResult();
-                Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "body : " + result);
                 if (response.isSuccessful()) {
+                    RequestModel<UserModel> result = response.body();
                     Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "isSuccess ");
-                    progressManager.action(new OnProgressAction() {
-                        @Override
-                        public void run() {
-                            AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_success)
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "body : " + result);
+                    switch (result.getSuccess()) {
+                        case CODE_SUCCESS:
+                            progressManager.action(new OnProgressAction() {
+                                @Override
+                                public void run() {
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_success)
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    startActivity(new Intent(SignIn.this, Main.class));
+                                                    AlertManager.getInstance().dismissAlertSelectionMode();
+                                                }
+                                            }).show();
+                                }
+                            });
+                            break;
+                        case CODE_INCORRECT:
+                            progressManager.action(new OnProgressAction() {
+                                @Override
+                                public void run() {
+                            AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            startActivity(new Intent(SignIn.this, Main.class));
+                                            sweetAlertDialog.dismiss();
                                         }
                                     }).show();
-                        }
-                    });
+                                }
+                            });
+                            break;
+                        case CODE_SIGNED_OUT:
+                            progressManager.action(new OnProgressAction() {
+                                @Override
+                                public void run() {
+                            AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismiss();
+                                        }
+                                    }).show();
+                                }
+                            });
+                            break;
+                    }
+
 
                 } else {
                     Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "isFail");

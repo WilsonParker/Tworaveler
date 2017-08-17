@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Data.ResourceManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.UserModel;

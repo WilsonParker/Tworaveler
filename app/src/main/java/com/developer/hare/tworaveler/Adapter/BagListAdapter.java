@@ -76,7 +76,7 @@ public class BagListAdapter extends RecyclerView.Adapter<BagListAdapter.ViewHold
             if (model.isFile())
                 imageManager.loadImage(activity, model.getFile(), RV_image);
             else
-                imageManager.loadImage(activity, model.getImage(), RV_image);
+                imageManager.loadImage(activity, model.getCategory_pic_thumbnail_url(), RV_image);
         }
 
     }

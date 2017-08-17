@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_MAP;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_ROUTE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SUBWAY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SALE;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOPPING;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TRAFFIC;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOP;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TICKET;
 
 /**
  * Created by Hare on 2017-08-06.
@@ -24,7 +24,7 @@ public class ItemFactory {
     private static Map<String, ArrayList<BagModel>> BagModelsMap;
     private static Map<String, ArrayList<BagDeleteModel>> BagDeleteModelsMap;
 
-    private static final String[] ids = {CATEGORY_TRAFFIC,CATEGORY_MAP,CATEGORY_ROUTE,CATEGORY_SHOPPING,CATEGORY_SALE};
+    private static final String[] ids = {CATEGORY_TICKET,CATEGORY_MAP, CATEGORY_SUBWAY, CATEGORY_SHOP,CATEGORY_SALE};
 
 
     static {

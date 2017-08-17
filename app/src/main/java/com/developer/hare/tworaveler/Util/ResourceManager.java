@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Data;
+package com.developer.hare.tworaveler.Util;
 
 import android.content.res.Resources;
 

@@ -38,10 +38,10 @@ public class DataDefinition {
 
     public class Bag{
         public static final String
-                CATEGORY_TRAFFIC= "ticket"    // 교통티켓
+                CATEGORY_TICKET = "ticket"    // 교통티켓
                 ,CATEGORY_MAP= "map"    // 지도
-                ,CATEGORY_ROUTE= "subway"    // 노선도
-                ,CATEGORY_SHOPPING= "shop"    // 쇼핑
+                ,CATEGORY_SUBWAY = "subway"    // 노선도
+                ,CATEGORY_SHOP = "shop"    // 쇼핑
                 ,CATEGORY_SALE= "sale"    // 할인권
                 ;
     }

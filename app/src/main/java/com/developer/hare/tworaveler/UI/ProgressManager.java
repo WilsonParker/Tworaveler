@@ -24,7 +24,7 @@ public class ProgressManager {
     private View view;
 
     private Handler handler;
-    private Thread thread;
+    private Thread checkThread, runThread;
 
     public ProgressManager(Activity activity) {
         this.activity = activity;
@@ -45,25 +45,36 @@ public class ProgressManager {
 
     public void action(OnProgressAction action) {
         alertDialog.show();
-        /*handler.post(new Runnable() {
+        checkThread = new Thread() {
             @Override
             public void run() {
-                thread = new Thread() {
-                    @Override
-                    public void run() {
-                    }
-                };
                 try {
+                    /*while (!alertDialog.isShowing()) {
+                        Thread.sleep(150);
+                    }*/
+                    runThread.start();
                     Thread.sleep(3000);
-                } catch (InterruptedException e) {
+                    while (runThread.getState() == State.TERMINATED) {
+                        Thread.sleep(150);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                alertDialog.cancel();
+                            }
+                        });
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                action.run();
-                alertDialog.cancel();
             }
-        });*/
-        action.run();
-        alertDialog.cancel();
+        };
+        runThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                action.run();
+            }
+        });
+        checkThread.start();
     }
 
 }

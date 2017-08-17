@@ -26,10 +26,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_MAP;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_ROUTE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SUBWAY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SALE;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOPPING;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TRAFFIC;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOP;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TICKET;
 
 public class BagDelete extends AppCompatActivity {
 
@@ -80,8 +80,6 @@ public class BagDelete extends AppCompatActivity {
 
         createNavigationBagView();
         itemEmptyCheck(items);
-        if (bagDeleteAdapter != null)
-            selected_items = bagDeleteAdapter.getSelected_Items();
         bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
         RV_deletelist.setAdapter(bagDeleteAdapter);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -114,6 +112,10 @@ public class BagDelete extends AppCompatActivity {
             items = DummyDataFactory.createBagDeleteItems();
             ItemFactory.setBagDeleteModelList(id, items);
         }
+        if (bagDeleteAdapter != null)
+            selected_items = bagDeleteAdapter.getSelected_Items();
+        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, this);
+        RV_deletelist.setAdapter(bagDeleteAdapter);
     }
 
     private void itemEmptyCheck(ArrayList<BagDeleteModel> items) {
@@ -125,13 +127,14 @@ public class BagDelete extends AppCompatActivity {
             RV_deletelist.setVisibility(View.GONE);
         }
     }
+
     private void createNavigationBagView() {
         customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         ArrayList<CustomNavigationView.NavigationItem> items = new ArrayList<>();
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setItems(CATEGORY_TRAFFIC);
+                setItems(CATEGORY_TICKET);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_map_click, R.drawable.icon_map_unclick, new CustomNavigationView.NavigationOnClickListener() {
@@ -143,13 +146,13 @@ public class BagDelete extends AppCompatActivity {
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_subway_click, R.drawable.icon_subway_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setItems(CATEGORY_ROUTE);
+                setItems(CATEGORY_SUBWAY);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_shop_click, R.drawable.icon_shop_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setItems(CATEGORY_SHOPPING);
+                setItems(CATEGORY_SHOP);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_sale_click, R.drawable.icon_sale_unclick, new CustomNavigationView.NavigationOnClickListener() {

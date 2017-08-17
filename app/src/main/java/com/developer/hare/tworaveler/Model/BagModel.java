@@ -8,36 +8,86 @@ import java.io.Serializable;
  */
 
 public class BagModel implements Serializable {
-    private String image, theme;
+    private String _id, category_theme, category_pic_url, category_pic_thumbnail_url, mod_date, reg_date;
+    private int item_no, user_no;
     private File file;
     private boolean isFile;
 
-    public BagModel(String image, String theme) {
-        this.image = image;
-        this.theme = theme;
-        this.isFile = false;
-    }
-
-    public BagModel(File file, String theme) {
+    public BagModel(int user_no, File file, String category_theme) {
+        this.user_no = user_no;
         this.file = file;
-        this.theme = theme;
-        this.isFile = true;
+        this.category_theme= category_theme;
+        isFile = true;
     }
 
-    public String getTheme() {
-        return theme;
+    public BagModel(String _id, String category_pic_url, String category_pic_thumbnail_url) {
+        this._id = _id;
+        this.category_pic_url = category_pic_url;
+        this.category_pic_thumbnail_url = category_pic_thumbnail_url;
     }
 
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public String get_id() {
+        return _id;
     }
 
-    public String getImage() {
-        return image;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getCategory_theme() {
+        return category_theme;
+    }
+
+    public void setCategory_theme(String category_theme) {
+        this.category_theme = category_theme;
+    }
+
+    public String getCategory_pic_url() {
+        return category_pic_url;
+    }
+
+    public void setCategory_pic_url(String category_pic_url) {
+        this.category_pic_url = category_pic_url;
+    }
+
+    public String getCategory_pic_thumbnail_url() {
+        return category_pic_thumbnail_url;
+    }
+
+    public void setCategory_pic_thumbnail_url(String category_pic_thumbnail_url) {
+        this.category_pic_thumbnail_url = category_pic_thumbnail_url;
+    }
+
+    public String getMod_date() {
+        return mod_date;
+    }
+
+    public void setMod_date(String mod_date) {
+        this.mod_date = mod_date;
+    }
+
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    public int getItem_no() {
+        return item_no;
+    }
+
+    public void setItem_no(int item_no) {
+        this.item_no = item_no;
+    }
+
+    public int getUser_no() {
+        return user_no;
+    }
+
+    public void setUser_no(int user_no) {
+        this.user_no = user_no;
     }
 
     public File getFile() {
