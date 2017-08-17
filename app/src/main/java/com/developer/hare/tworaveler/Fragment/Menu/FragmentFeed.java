@@ -63,7 +63,7 @@ public class FragmentFeed extends BaseFragment {
         Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "init running");
         uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
-        menuTopTitle = uiFactory.createView(R.id.fragment_peed$menuToptitle);
+        menuTopTitle = uiFactory.createView(R.id.fragment_feed$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +72,7 @@ public class FragmentFeed extends BaseFragment {
             }
         });
 
-        recyclerView = uiFactory.createView(R.id.fragment_peed$RV);
+        recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override
             public void scrollEnd() {

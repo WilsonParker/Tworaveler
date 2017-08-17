@@ -26,7 +26,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
 //    private HomeListAdapter homeListAdapter;
-    private FeedListAdapter peedListAdapter;
+    private FeedListAdapter feedListAdapter;
     private Context context;
     private TextView TV_noItem;
 
@@ -57,9 +57,9 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
-//        peedListAdapter = new FeedListAdapter(DummyDataFactory.createFeedItems());
+//        feedListAdapter = new FeedListAdapter(DummyDataFactory.createFeedItems());
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(peedListAdapter);
+        recyclerView.setAdapter(feedListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
     }

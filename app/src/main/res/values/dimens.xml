@@ -28,7 +28,7 @@
     <dimen name="item_alert_selectionmode$box_width">100dp</dimen>
     <dimen name="item_alert_selectionmode$IV_height">100dp</dimen>
 
-    <!-- Fragment_peed -->
+    <!-- Fragment_feed -->
 
     <!-- item_regist_day_detail -->
     <dimen name="item_regist_day_detail$box_width">300dp</dimen>

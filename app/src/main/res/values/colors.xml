@@ -22,9 +22,9 @@
     <color name="menu_top_title_text_color">#ffffff</color>
 
     <!-- Feed -->
-    <color name="peed_title_color">#434343</color>
-    <color name="peed_date_color">#535353</color>
-    <color name="peed_num_color">#a0a0a0</color>
+    <color name="feed_title_color">#434343</color>
+    <color name="feed_date_color">#535353</color>
+    <color name="feed_num_color">#a0a0a0</color>
 
     <!-- layout/activity_regist-->
     <color name="regist_text_TV_color">#7d7d7d</color>

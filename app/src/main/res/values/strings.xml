@@ -91,7 +91,7 @@
     -->
 
     <!-- layout/fragment_feed-->
-    <string name="fragment_peed_title">Feed</string>
+    <string name="fragment_feed_title">Feed</string>
 
     <!-- layout/fragment_alarm-->
     <string name="fragment_alarm_title">alarm</string>
@@ -138,7 +138,7 @@
     <string name="navigation_title_home">홈</string>
     <string name="navigation_title_alarm">알람</string>
     <string name="navigation_title_regist">일정 등록</string>
-    <string name="navigation_title_peed">피드</string>
+    <string name="navigation_title_feed">피드</string>
     <string name="navigation_title_bag">여행 가방</string>
 
     <!-- menu/navigation_bag-->

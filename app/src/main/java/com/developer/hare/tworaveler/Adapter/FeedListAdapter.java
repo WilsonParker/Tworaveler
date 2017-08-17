@@ -59,15 +59,15 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
-            IV_cover = uiFactory.createView(R.id.item_peed$IV_cover);
-            TV_date = uiFactory.createView(R.id.item_peed$TV_date);
+            IV_cover = uiFactory.createView(R.id.item_feed$IV_cover);
+            TV_date = uiFactory.createView(R.id.item_feed$TV_date);
             //        TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment
-            TV_nickname = uiFactory.createView(R.id.item_peed$TV_nickname);
-            TV_message = uiFactory.createView(R.id.item_peed$TV_message);
-            TV_title = uiFactory.createView(R.id.item_peed$TV_title);
-            TV_date = uiFactory.createView(R.id.item_peed$TV_date);
-            TV_like = uiFactory.createView(R.id.item_peed$TV_like);
-            TV_comment = uiFactory.createView(R.id.item_peed$TV_comment);
+            TV_nickname = uiFactory.createView(R.id.item_feed$TV_nickname);
+            TV_message = uiFactory.createView(R.id.item_feed$TV_message);
+            TV_title = uiFactory.createView(R.id.item_feed$TV_title);
+            TV_date = uiFactory.createView(R.id.item_feed$TV_date);
+            TV_like = uiFactory.createView(R.id.item_feed$TV_like);
+            TV_comment = uiFactory.createView(R.id.item_feed$TV_comment);
 
             ArrayList<TextView> textlist1 = new ArrayList<>();
             ArrayList<TextView> textlist2 = new ArrayList<>();

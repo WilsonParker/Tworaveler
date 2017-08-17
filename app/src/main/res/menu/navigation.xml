@@ -8,9 +8,9 @@
         />
 
     <item
-        android:id="@+id/navigation$peed"
+        android:id="@+id/navigation$feed"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/navigation_title_peed" />
+        android:title="@string/navigation_title_feed" />
 
     <item
         android:id="@+id/navigation$regist"
