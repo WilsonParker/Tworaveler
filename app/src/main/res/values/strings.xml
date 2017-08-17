@@ -117,7 +117,7 @@
     <string name="fragment_bag_picture">사진첩</string>
 
     <!-- layout/bag_delete-->
-    <string name="bag_delete_nonItem">여행가방에 사진을 추가해주세요</string>
+    <string name="bag_delete_nonItem">여행가방에 삭제할 사진이 없습니다</string>
     <string name="bag_delete_title">Delete</string>
 
     <!--

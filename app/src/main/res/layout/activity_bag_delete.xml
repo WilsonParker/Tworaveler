@@ -4,46 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/bag_delete$topbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="0"
-        app:leftButton="@drawable/back"
-        app:rightButton="@drawable/back"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/icon_deletebag"
+        app:rightButton="@drawable/icon_check"
         app:titleText="@string/bag_delete_title" />
 
-    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
-        android:id="@+id/bag_delete$BN_navigation"
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="7" />
+
+    <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
+        android:id="@+id/fragment_bag$BN_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/navigation_bag"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="33dp" />
+        android:layout_height="0dp"
+        android:layout_weight="48"
+        app:item_layout="@layout/item_bag_navigation_view" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="7" />
 
     <FrameLayout
         android:id="@+id/bag_delete$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="441">
 
         <LinearLayout
-            android:id="@+id/bag_delete$LL_empty"
+            android:id="@+id/fragment_bag$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible"
+            android:weightSum="441">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="105" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="116"
+                android:weightSum="@string/DEVICE_WIDTH">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="122" />
+
+                <ImageView
+                    android:id="@+id/fragment_bag$noimage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="116"
+                    android:background="@drawable/btn_addbag" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="14" />
 
             <TextView
                 android:id="@+id/bag_delete$name"
-                android:layout_width="200dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/bag_delete_nonItem" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/bag_delete_nonItem"
+                android:textColor="@color/fragment_login_text_color"
+                android:textSize="@dimen/TextSize_Content_1"/>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
