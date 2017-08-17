@@ -91,7 +91,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="116"
-                    android:background="@drawable/btn_addbag" />
+                    app:srcCompat="@drawable/btn_addbag" />
             </LinearLayout>
 
             <ImageView

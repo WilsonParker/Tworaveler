@@ -48,12 +48,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="21.3"
                     android:orientation="vertical"
+                    android:gravity="center_vertical"
                     android:weightSum="32">
 
-                    <ImageView
+                    <!--<ImageView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="5.3" />
+                        android:layout_weight="5.3" />-->
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -71,11 +72,11 @@
                 <EditText
                     android:id="@+id/search_city$ET_city"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="match_parent"
                     android:layout_weight="251.33"
                     android:background="@null"
                     android:gravity="center_vertical"
+                    android:textAlignment="gravity"
                     android:hint="@string/activity_search_city_hint_1"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/TextSize_Content_1" />

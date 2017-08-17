@@ -55,6 +55,7 @@ public class SearchCity extends AppCompatActivity {
 
     private void init() {
         uiFactory = UIFactory.getInstance(this);
+        RV_list = uiFactory.createView(R.id.search_city$RV_list);
         RV_list.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
         cityListAdapter = new CityListAdapter(onSelectCityListener, items, getBaseContext());
         RV_list.setAdapter(cityListAdapter);
