@@ -70,8 +70,8 @@ public interface NetFactoryIm {
     Call<RequestModel<UserModel>> userSignIn(@Body UserSignInModel model);
 
     // 여행 가방 목록
-    @GET("/bagList")
-    Call<RequestArrayModel<BagModel>> selectBagList();
+    @GET("/backpack/get_category_backpack")
+    Call<RequestArrayModel<BagModel>> selectBagList(@Query("user_no") int user_no, @Query("category_theme") String category_theme);
 
     // 도시 검색
     @GET("/search/city")

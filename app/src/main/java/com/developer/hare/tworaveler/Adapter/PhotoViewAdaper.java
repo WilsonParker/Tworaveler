@@ -57,7 +57,7 @@ public class PhotoViewAdaper extends RecyclerView.Adapter<PhotoViewAdaper.ViewHo
             if (model.isFile())
                 ImageManager.getInstance().loadImage(context, model.getFile(), PV_image);
             else
-                ImageManager.getInstance().loadImage(context, model.getImage(), PV_image);
+                ImageManager.getInstance().loadImage(context, model.getCategory_pic_url(), PV_image);
         }
     }
 }

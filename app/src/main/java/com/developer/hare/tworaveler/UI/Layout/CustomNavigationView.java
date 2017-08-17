@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -65,14 +64,10 @@ public class CustomNavigationView extends LinearLayout {
 
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "item_layout : " + itemId);
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "item_layout : " + R.layout.custom_navigation_view);
         view = li.inflate(R.layout.custom_navigation_view, this, false);
         addView(view);
 
         LinearLayout linearLayout = uiFactory.createView(R.id.custom_navigation_view$LL);
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "view is null : " + (view == null));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "linearLayout is null : " + (linearLayout == null));
         for (NavigationItem item : items) {
             NavigationItemView itemVIew = new NavigationItemView(context, this);
             children.add(itemVIew);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.BagDelete;
 import com.developer.hare.tworaveler.Adapter.BagListAdapter;
+import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.BagModel;
@@ -21,18 +22,23 @@ import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.Data.DataStorage.USER_MODEL;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
@@ -48,7 +54,9 @@ public class FragmentBag extends BaseFragment {
     private MenuTopTitle menuTopTitle;
 
     private ArrayList<BagModel> items;
-//
+    private String theme;
+    private ResourceManager resourceManager;
+
     public FragmentBag() {
         // Required empty public constructor
     }
@@ -66,6 +74,7 @@ public class FragmentBag extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        resourceManager = ResourceManager.getInstance();
         uiFactory = UIFactory.getInstance(view);
         RV_list = uiFactory.createView(R.id.fragment_bag$RV);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), imageCount);
@@ -109,9 +118,9 @@ public class FragmentBag extends BaseFragment {
         PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
             @Override
             public void bindData(FileData fileData) {
-                addData(new BagModel(
+                addData(new BagModel(USER_MODEL.getUser_no(),
                         fileData.getFile()
-                        , ""));
+                        , theme));
             }
         });
     }
@@ -132,62 +141,78 @@ public class FragmentBag extends BaseFragment {
         itemEmptyCheck(items);
     }
 
-    private void setList() {
+    private void setList(String theme) {
         NetFactoryIm im = Net.getInstance().getFactoryIm();
-        Call<RequestArrayModel<BagModel>> result = im.selectBagList();
+        Call<RequestArrayModel<BagModel>> result = im.selectBagList(USER_MODEL.getUser_no(), theme);
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<RequestArrayModel<BagModel>> call, Response<RequestArrayModel<BagModel>> response) {
                 if (response.isSuccessful()) {
                     // 성공했을 경우
-
                     RequestArrayModel<BagModel> rbag = response.body();
                     items = rbag.getResult();
+                    if (items == null) {
+                        items = new ArrayList<BagModel>();
+                        String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
+                        items.add(new BagModel(USER_MODEL.getUser_no()+"", url, url));
+                    }
 
                     itemEmptyCheck(items);
                     bagListAdapter = new BagListAdapter(items, getActivity());
                     RV_list.setAdapter(bagListAdapter);
                     bagListAdapter.notifyDataSetChanged();
+                } else {
+                    netFailAlert();
                 }
             }
 
             @Override
             public void onFailure(Call<RequestArrayModel<BagModel>> call, Throwable t) {
-
+                netFailAlert();
             }
         });
     }
+
+    private void netFailAlert() {
+        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_fail_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_fail_alert_content_fail))).show();
+    }
+
     private void createNavigationBagView() {
         customNavigationBagView = uiFactory.createView(R.id.fragment_bag$BN_navigation);
         ArrayList<CustomNavigationView.NavigationItem> items = new ArrayList<>();
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setList();
+                theme = DataDefinition.Bag.CATEGORY_TICKET;
+                setList(theme);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_map_click, R.drawable.icon_map_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setList();
+                theme = DataDefinition.Bag.CATEGORY_MAP;
+                setList(theme);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_subway_click, R.drawable.icon_subway_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-              setList();
+                theme = DataDefinition.Bag.CATEGORY_SUBWAY;
+                setList(theme);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_shop_click, R.drawable.icon_shop_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setList();
+                theme = DataDefinition.Bag.CATEGORY_SHOP;
+                setList(theme);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_sale_click, R.drawable.icon_sale_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                setList();
+                theme = DataDefinition.Bag.CATEGORY_SALE;
+                setList(theme);
             }
         }));
         customNavigationBagView.bindItemView(getActivity(), items);
