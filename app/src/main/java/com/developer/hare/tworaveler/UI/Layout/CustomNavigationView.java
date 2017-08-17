@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class CustomNavigationView extends LinearLayout {
     private UIFactory uiFactory;
 
     private int itemId;
+
     public CustomNavigationView(Context context) {
         super(context);
     }
@@ -52,7 +54,7 @@ public class CustomNavigationView extends LinearLayout {
     }
 
     private void setTypeArray(TypedArray typedArray) {
-        itemId = typedArray.getResourceId(R.styleable.custom_navigation_view_item_layout, R.layout.custom_navigation_view);
+        itemId = typedArray.getResourceId(R.styleable.custom_navigation_view_item_layout, R.layout.item_custom_navigation_view);
         typedArray.recycle();
     }
 
@@ -63,10 +65,14 @@ public class CustomNavigationView extends LinearLayout {
 
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
-        view = li.inflate(itemId, this, false);
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "item_layout : " + itemId);
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "item_layout : " + R.layout.custom_navigation_view);
+        view = li.inflate(R.layout.custom_navigation_view, this, false);
         addView(view);
 
         LinearLayout linearLayout = uiFactory.createView(R.id.custom_navigation_view$LL);
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "view is null : " + (view == null));
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "bindItemView()", "linearLayout is null : " + (linearLayout == null));
         for (NavigationItem item : items) {
             NavigationItemView itemVIew = new NavigationItemView(context, this);
             children.add(itemVIew);
@@ -88,7 +94,7 @@ public class CustomNavigationView extends LinearLayout {
 
         public NavigationItemView(Context context, ViewGroup viewGroup) {
             this.context = context;
-            view = LayoutInflater.from(context).inflate(R.layout.item_custom_navigation_view, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(itemId, viewGroup, false);
             icon = UIFactory.getInstance(view).createView(R.id.item_custom_navigation_view$IV);
         }
 
@@ -107,10 +113,12 @@ public class CustomNavigationView extends LinearLayout {
         private void actionClickEvent() {
             if (!item.isClicked()) {
                 item.getOnClickListener().onClick();
-                setState(true);
-                if (clickedItemView != null)
-                    clickedItemView.setState(false);
-                clickedItemView = this;
+                if (item.isChangable()) {
+                    setState(true);
+                    if (clickedItemView != null)
+                        clickedItemView.setState(false);
+                    clickedItemView = this;
+                }
             }
         }
 
@@ -126,12 +134,19 @@ public class CustomNavigationView extends LinearLayout {
     public class NavigationItem {
         private int clickImage, defaultImage;
         private NavigationOnClickListener onClickListener;
-        private boolean isClicked = false;
+        private boolean isClicked, changable = true;
 
         public NavigationItem(int clickImage, int defaultImage, NavigationOnClickListener onClickListener) {
             this.clickImage = clickImage;
             this.defaultImage = defaultImage;
             this.onClickListener = onClickListener;
+        }
+
+        public NavigationItem(int clickImage, int defaultImage, NavigationOnClickListener onClickListener, boolean changable) {
+            this.clickImage = clickImage;
+            this.defaultImage = defaultImage;
+            this.onClickListener = onClickListener;
+            this.changable = changable;
         }
 
         public int getClickImage() {
@@ -164,6 +179,14 @@ public class CustomNavigationView extends LinearLayout {
 
         public void setClicked(boolean clicked) {
             isClicked = clicked;
+        }
+
+        public boolean isChangable() {
+            return changable;
+        }
+
+        public void setChangable(boolean changable) {
+            this.changable = changable;
         }
     }
 

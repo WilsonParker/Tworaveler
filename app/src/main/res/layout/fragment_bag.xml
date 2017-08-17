@@ -32,30 +32,6 @@
         android:layout_height="0dp"
         android:layout_weight="7" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="@string/DEVICE_WIDTH">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="12" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="336"
-            android:background="#000000" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="12" />
-    </LinearLayout>
-
-
     <FrameLayout
         android:id="@+id/fragment_bag$FL_content"
         android:layout_width="match_parent"
@@ -117,5 +93,29 @@
             tools:listitem="@layout/item_bag_layout" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="@string/DEVICE_WIDTH">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="336"
+            android:background="#000000" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
+    </LinearLayout>
+
 
 </LinearLayout>
