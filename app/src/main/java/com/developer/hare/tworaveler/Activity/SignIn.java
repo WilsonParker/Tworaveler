@@ -189,14 +189,14 @@ public class SignIn extends AppCompatActivity {
                             progressManager.action(new OnProgressAction() {
                                 @Override
                                 public void run() {
-                            AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            sweetAlertDialog.dismiss();
-                                        }
-                                    }).show();
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                }
+                                            }).show();
                                 }
                             });
                             break;
@@ -204,14 +204,14 @@ public class SignIn extends AppCompatActivity {
                             progressManager.action(new OnProgressAction() {
                                 @Override
                                 public void run() {
-                            AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
-                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            sweetAlertDialog.dismiss();
-                                        }
-                                    }).show();
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                }
+                                            }).show();
                                 }
                             });
                             break;

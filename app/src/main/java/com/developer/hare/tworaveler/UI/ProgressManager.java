@@ -29,7 +29,6 @@ public class ProgressManager {
     public ProgressManager(Activity activity) {
         this.activity = activity;
         initVal();
-
     }
 
     private void initVal() {
@@ -44,11 +43,17 @@ public class ProgressManager {
     }
 
     public void action(OnProgressAction action) {
-        if (alertDialog != null && !alertDialog.isShowing())
-            alertDialog.show();
         checkThread = new Thread() {
             @Override
             public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (alertDialog != null && !alertDialog.isShowing())
+                            alertDialog.show();
+                    }
+                });
+
                 try {
                     //
                     /*while (!alertDialog.isShowing()) {
@@ -61,8 +66,9 @@ public class ProgressManager {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (alertDialog != null && alertDialog.isShowing())
-                                    alertDialog.cancel();
+                                if (alertDialog != null && alertDialog.isShowing()) {
+                                    alertDialog.dismiss();
+                                }
                             }
                         });
                     }
