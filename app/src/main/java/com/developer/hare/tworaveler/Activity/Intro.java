@@ -29,11 +29,11 @@ public class Intro extends AppCompatActivity {
     }
 
     private void init() {
-        initThread.start();
-
         HandlerManager.getInstance().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                initThread.start();
+
                 while (!initComplete) {
                     try {
                         Thread.sleep(300);
