@@ -72,7 +72,7 @@ public class BagDelete extends AppCompatActivity {
         deletename = uiFactory.createView(R.id.bag_delete$name);
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
-        customNavigationView = uiFactory.createView(R.id.bag_delete$BN_navigation);
+        customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
@@ -126,7 +126,7 @@ public class BagDelete extends AppCompatActivity {
         }
     }
     private void createNavigationBagView() {
-        customNavigationBagView = uiFactory.createView(R.id.fragment_bag$BN_navigation);
+        customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         ArrayList<CustomNavigationView.NavigationItem> items = new ArrayList<>();
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
