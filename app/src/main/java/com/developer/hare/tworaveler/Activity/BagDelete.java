@@ -73,7 +73,7 @@ public class BagDelete extends AppCompatActivity {
         deletename = uiFactory.createView(R.id.bag_delete$name);
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
-        linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
+//        linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +98,11 @@ public class BagDelete extends AppCompatActivity {
             }
         });
 
-        BottomNavigationViewEx navigationViewEx = uiFactory.createView(R.id.bag_delete$BN_navigation);
-        navigationViewEx.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        navigationViewEx.setCurrentItem(0);
-        navigationViewEx.enableShiftingMode(false);
-        navigationViewEx.enableItemShiftingMode(false);
+//        BottomNavigationViewEx navigationViewEx = uiFactory.createView(R.id.bag_delete$BN_navigation);
+//        navigationViewEx.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+//        navigationViewEx.setCurrentItem(0);
+//        navigationViewEx.enableShiftingMode(false);
+//        navigationViewEx.enableItemShiftingMode(false);
 
     }
 
