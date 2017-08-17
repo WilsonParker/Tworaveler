@@ -67,13 +67,6 @@ public class SignIn extends AppCompatActivity {
         faceBookLoginManager = new FaceBookLoginManager(SignIn.this);
         kakaoSignInManager = new KakaoSignManager(SignIn.this);
 
-        BT_main = uiFactory.createView(R.id.login$BT_main);
-        BT_main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(SignIn.this, Main.class));
-            }
-        });
         BT_signUp = uiFactory.createView(R.id.login$BT_signUp);
         BT_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,6 +148,10 @@ public class SignIn extends AppCompatActivity {
         kakaoSignInManager.onDestroy();
 //        faceBookLoginManager.onDestroy();
         super.onDestroy();
+    }
+
+    public void goToMain(View view){
+        onBackPressed();
     }
 
     private void signIn() {

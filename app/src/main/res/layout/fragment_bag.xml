@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="@string/FRAGMENT_HEIGHT"
-    >
+    android:weightSum="@string/FRAGMENT_HEIGHT">
+
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_bag$topbar"
         android:layout_width="match_parent"
@@ -27,10 +27,12 @@
         android:layout_weight="48"
         app:item_layout="@layout/item_bag_navigation_view" />
 
+
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="7" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -42,6 +44,11 @@
             android:layout_height="match_parent"
             android:layout_weight="336"
             android:background="#000000" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="12" />
     </LinearLayout>
 
     <FrameLayout
@@ -99,5 +106,6 @@
             tools:listitem="@layout/item_bag_layout" />
 
     </FrameLayout>
+
 
 </LinearLayout>

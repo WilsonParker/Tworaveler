@@ -21,20 +21,33 @@
             android:orientation="vertical"
             android:weightSum="616">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="110" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="270.7"
-                android:orientation="horizontal">
+                android:layout_weight="75"
+                android:weightSum="@string/DEVICE_WIDTH">
 
-                <Button
-                    android:id="@+id/login$BT_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="30dp"
-                    android:text="Go to Main" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="145" />
 
+                <ImageView
+                    android:onClick="goToMain"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="85.7" />
 
             <LinearLayout
                 android:layout_width="match_parent"
