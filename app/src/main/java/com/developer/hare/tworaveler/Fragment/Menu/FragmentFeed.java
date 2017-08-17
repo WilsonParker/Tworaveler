@@ -54,7 +54,7 @@ public class FragmentFeed extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_peed, container, false);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
         return view;
     }
 

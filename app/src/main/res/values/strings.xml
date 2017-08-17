@@ -90,7 +90,7 @@
         ############################################################################################
     -->
 
-    <!-- layout/fragment_peed-->
+    <!-- layout/fragment_feed-->
     <string name="fragment_peed_title">Feed</string>
 
     <!-- layout/fragment_alarm-->
