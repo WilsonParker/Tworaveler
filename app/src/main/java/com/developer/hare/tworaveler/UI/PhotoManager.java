@@ -55,7 +55,6 @@ public class PhotoManager {
         RxPaparazzo.single(activity)
                 .crop(options)
                 .usingGallery()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     if (response.resultCode() != RESULT_OK) {

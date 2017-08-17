@@ -87,7 +87,7 @@
     -->
 
     <!-- layout/fragment_peed-->
-    <string name="fragment_peed_title">Peed</string>
+    <string name="fragment_peed_title">feed</string>
 
     <!-- layout/fragment_alarm-->
     <string name="fragment_alarm_title">alarm</string>

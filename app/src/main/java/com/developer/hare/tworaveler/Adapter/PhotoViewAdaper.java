@@ -54,10 +54,11 @@ public class PhotoViewAdaper extends RecyclerView.Adapter<PhotoViewAdaper.ViewHo
         }
 
         public void toBind(BagModel model) {
+            ImageManager imageManager = ImageManager.getInstance();
             if (model.isFile())
-                ImageManager.getInstance().loadImage(context, model.getFile(), PV_image);
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getFile()).centerCrop(), PV_image);
             else
-                ImageManager.getInstance().loadImage(context, model.getCategory_pic_url(), PV_image);
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getCategory_pic_url()), PV_image);
         }
     }
 }
