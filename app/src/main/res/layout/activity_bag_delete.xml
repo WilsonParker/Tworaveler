@@ -22,7 +22,7 @@
         android:layout_weight="7" />
 
     <com.developer.hare.tworaveler.UI.Layout.CustomNavigationView
-        android:id="@+id/fragment_bag$BN_navigation"
+        android:id="@+id/bag_delete$BN_navigation"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="48"
@@ -40,7 +40,7 @@
         android:layout_weight="441">
 
         <LinearLayout
-            android:id="@+id/fragment_bag$LL_empty"
+            android:id="@+id/bag_delete$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -64,7 +64,7 @@
                     android:layout_weight="122" />
 
                 <ImageView
-                    android:id="@+id/fragment_bag$noimage"
+                    android:id="@+id/bag_delete$noimage"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="116"

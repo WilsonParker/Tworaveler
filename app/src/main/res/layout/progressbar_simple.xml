@@ -8,6 +8,7 @@
         android:id="@+id/progress_bar_simple$PB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/default_theme_Image_color"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 </RelativeLayout>

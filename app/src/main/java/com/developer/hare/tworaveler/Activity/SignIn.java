@@ -168,8 +168,8 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void run() {
                             AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
-                                    , resourceManager.getResourceString(R.string.signUp_fail_alert_title_success)
-                                    , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_title_success)
+                                    , resourceManager.getResourceString(R.string.signIn_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             startActivity(new Intent(SignIn.this, Main.class));
@@ -192,6 +192,6 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2))).show();
+        AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signIn_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signIn_fail_alert_content_fail2))).show();
     }
 }

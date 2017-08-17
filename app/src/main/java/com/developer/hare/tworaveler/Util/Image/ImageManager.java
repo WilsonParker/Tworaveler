@@ -16,37 +16,41 @@ import java.io.File;
  */
 
 public class ImageManager {
-    private static ImageManager imageNanager = new ImageManager();
+    private static ImageManager imageManager = new ImageManager();
 
     public static ImageManager getInstance() {
-        return imageNanager;
+        return imageManager;
     }
 
     public void loadImage(Context context, String downloadURI, ImageView imageView) {
-        createRequestCreator(Picasso.with(context).load(downloadURI)).into(imageView);
+        createRequestCreator(context, downloadURI).into(imageView);
     }
 
     public void loadImage(Context context, int id, ImageView imageView) {
-        createRequestCreator(Picasso.with(context).load(id)).into(imageView);
+        createRequestCreator(context, id).into(imageView);
     }
 
     public void loadImage(Context context, File file, ImageView imageVIew) {
-        createRequestCreator(Picasso.with(context).load(file)).into(imageVIew);
+        createRequestCreator(context, file).into(imageVIew);
     }
 
-    public void loadImage(Context context, RequestCreator requestCreator, String downloadURI, ImageView imageView) {
+    public void loadImage(RequestCreator requestCreator,ImageView imageView) {
         requestCreator.into(imageView);
     }
 
-    public void loadImage(Context context, RequestCreator requestCreator, int id, ImageView imageView) {
-        requestCreator.into(imageView);
+    public RequestCreator createRequestCreator(Context context, int id) {
+        return basicSetting(Picasso.with(context).load(id));
     }
 
-    public void loadImage(Context context, RequestCreator requestCreator, File file, ImageView imageVIew) {
-        requestCreator.into(imageVIew);
+    public RequestCreator createRequestCreator(Context context, String url) {
+        return basicSetting(Picasso.with(context).load(url));
     }
 
-    public RequestCreator createRequestCreator(RequestCreator requestCreator) {
+    public RequestCreator createRequestCreator(Context context, File file) {
+        return basicSetting(Picasso.with(context).load(file));
+    }
+
+    private RequestCreator basicSetting(RequestCreator requestCreator) {
         return requestCreator
                 .error(R.drawable.noimage).fit()
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

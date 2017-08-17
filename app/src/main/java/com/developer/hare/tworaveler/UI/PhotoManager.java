@@ -29,6 +29,7 @@ public class PhotoManager {
 
     private void createOptions(Activity activity) {
         options.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
+
     }
 
     public void onGalleryMultiSelect(Activity activity, OnPhotoBindListener onPhotoBindListener) {
@@ -52,6 +53,7 @@ public class PhotoManager {
         createOptions(activity);
 
         RxPaparazzo.single(activity)
+                .crop(options)
                 .usingGallery()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

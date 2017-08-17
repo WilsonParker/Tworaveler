@@ -35,6 +35,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="32"
                 android:background="@drawable/inputtext_search"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <!--android:background="@drawable/background_edittxet"-->
 
@@ -47,14 +48,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="21.3"
-                    android:orientation="vertical"
                     android:gravity="center_vertical"
+                    android:orientation="vertical"
                     android:weightSum="32">
-
-                    <!--<ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="5.3" />-->
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -72,12 +68,15 @@
                 <EditText
                     android:id="@+id/search_city$ET_city"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="251.33"
                     android:background="@null"
+                    android:paddingTop="1dp"
+                    android:inputType="textAutoComplete"
                     android:gravity="center_vertical"
-                    android:textAlignment="gravity"
                     android:hint="@string/activity_search_city_hint_1"
+                    android:lines="1"
+                    android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>

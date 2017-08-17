@@ -1,12 +1,9 @@
 package com.developer.hare.tworaveler.Activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,10 +13,10 @@ import com.developer.hare.tworaveler.Data.DummyDataFactory;
 import com.developer.hare.tworaveler.Data.ItemFactory;
 import com.developer.hare.tworaveler.Model.BagDeleteModel;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -34,29 +31,8 @@ public class BagDelete extends AppCompatActivity {
 
     private UIFactory uiFactory;
     private ArrayList<BagDeleteModel> items, selected_items;
+    private CustomNavigationView customNavigationView;
     private Map<Integer, ArrayList<BagDeleteModel>> bags;
-
-
-    private BottomNavigationViewEx.OnNavigationItemSelectedListener onNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            items = new ArrayList<>();
-//            items = DummyDataFactory.createBagDeleteItems();
-
-            setItems(item.getItemId());
-            int imageCount = 3;
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
-            RV_deletelist.setLayoutManager(gridLayoutManager);
-
-            itemEmptyCheck(items);
-            if (bagDeleteAdapter != null)
-                selected_items = bagDeleteAdapter.getSelected_Items();
-            bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
-            RV_deletelist.setAdapter(bagDeleteAdapter);
-            return true;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +49,8 @@ public class BagDelete extends AppCompatActivity {
         deletename = uiFactory.createView(R.id.bag_delete$name);
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
-//        linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
+        customNavigationView = uiFactory.createView(R.id.bag_delete$BN_navigation);
+        linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,12 +75,6 @@ public class BagDelete extends AppCompatActivity {
             }
         });
 
-//        BottomNavigationViewEx navigationViewEx = uiFactory.createView(R.id.bag_delete$BN_navigation);
-//        navigationViewEx.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-//        navigationViewEx.setCurrentItem(0);
-//        navigationViewEx.enableShiftingMode(false);
-//        navigationViewEx.enableItemShiftingMode(false);
-
     }
 
     private void setItems(int id) {
@@ -112,6 +83,16 @@ public class BagDelete extends AppCompatActivity {
             items = DummyDataFactory.createBagDeleteItems();
             ItemFactory.setBagDeleteModelList(id, items);
         }
+
+        int imageCount = 3;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
+        RV_deletelist.setLayoutManager(gridLayoutManager);
+
+        itemEmptyCheck(items);
+        if (bagDeleteAdapter != null)
+            selected_items = bagDeleteAdapter.getSelected_Items();
+        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
+        RV_deletelist.setAdapter(bagDeleteAdapter);
     }
 
     private void itemEmptyCheck(ArrayList<BagDeleteModel> items) {

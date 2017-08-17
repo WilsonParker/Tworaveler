@@ -136,7 +136,7 @@ public class FragmentBag extends BaseFragment {
 
     private void setList() {
         NetFactoryIm im = Net.getInstance().getFactoryIm();
-        Call<RequestArrayModel<BagModel>> result = im.getBagList();
+        Call<RequestArrayModel<BagModel>> result = im.selectBagList();
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<RequestArrayModel<BagModel>> call, Response<RequestArrayModel<BagModel>> response) {
@@ -150,7 +150,6 @@ public class FragmentBag extends BaseFragment {
                     bagListAdapter = new BagListAdapter(items, getActivity());
                     RV_list.setAdapter(bagListAdapter);
                     bagListAdapter.notifyDataSetChanged();
-
                 }
             }
 
