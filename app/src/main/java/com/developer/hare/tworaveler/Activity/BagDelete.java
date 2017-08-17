@@ -72,6 +72,7 @@ public class BagDelete extends AppCompatActivity {
         deletename = uiFactory.createView(R.id.bag_delete$name);
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
+        customNavigationView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);

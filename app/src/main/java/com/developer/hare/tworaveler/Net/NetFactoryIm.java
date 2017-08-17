@@ -9,11 +9,8 @@ import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignInModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
-import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
-
-import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -37,7 +34,7 @@ public interface NetFactoryIm {
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<RequestModel<ScheduleModel>> registPlan(@Body SceduleRegistModel model);
+    Call<RequestModel<ScheduleModel>> insertSchedule(@Body SceduleRegistModel model);
 
     @Multipart
     @POST("upload")
@@ -50,35 +47,59 @@ public interface NetFactoryIm {
     // MODIFY
     // #############################################################################################
 
+    // 프로필 정보 수정
+    @POST("/users/profile/modify")
+    Call<RequestModel<ProfileModel>> modifyProfile();
+
+    // 일정 수정
+    @POST("/trips/update_trip")
+    Call<RequestModel<ScheduleModel>> modifySchedule();
+
 
     // #############################################################################################
     // SELECT
     // #############################################################################################
 
     // 로그인
+    /*
+     * 200 : success
+     * 201 : email or password incorrect
+     * 202 : user was signed out
+     */
     @POST("/users/email_login")
     Call<RequestModel<UserModel>> userSignIn(@Body UserSignInModel model);
 
     // 여행 가방 목록
     @GET("/bagList")
-    Call<RequestArrayModel<BagModel>> getBagList();
+    Call<RequestArrayModel<BagModel>> selectBagList();
 
     // 도시 검색
     @GET("/search/city")
     Call<RequestArrayModel<CityModel>> searchCity(@Query("q") String q);
 
+    // 여행 별 일정 조회
+    @GET("/trips/find_trip")
+    Call<RequestModel<ScheduleModel>> selectSchedule(@Query("trip_no") int trip_no);
+
     // 프로필 정보 얻기
     @GET("/profileSet")
     Call<RequestArrayModel<ProfileModel>> getProfile();
 
-    // 시간별 일정 목록 얻기
-    @GET("/profileSet")
-    Call<RequestArrayModel<ArrayList<ScheduleDayModel>>> getDayList();
+    // 프로필 정보 조회
+    @GET("/users/profile")
+    Call<RequestModel<ProfileModel>> seletProfile(@Query("user_no") int user_no);
 
     // #############################################################################################
     // DELETE
     // #############################################################################################
 
+    // 로그 아웃
+    @POST("/users/logout")
+    Call<RequestModel<String>> userLogout();
+
+    // 회원 탈퇴
+    @POST("/users/sign_out")
+    Call<RequestModel<String>> userSignOut();
 
 }
 

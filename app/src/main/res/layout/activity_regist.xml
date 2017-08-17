@@ -22,7 +22,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="558"
+        android:layout_weight="534"
         android:weightSum="@string/DEVICE_WIDTH">
 
         <ImageView
@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="328"
             android:orientation="vertical"
-            android:weightSum="558">
+            android:weightSum="534">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,11 +46,15 @@
                     android:id="@+id/activity_regist$IV_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/default_theme_Image_color" />
+                    android:background="@color/default_theme_Image_color"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:weightSum="328">
 
                     <ImageView
@@ -92,6 +96,7 @@
                 android:layout_weight="0"
                 android:gravity="center_vertical"
                 android:text="@string/activity_regist_text_0"
+                android:textColor="@color/regist_text_TV_color"
                 android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
@@ -99,15 +104,30 @@
                 android:layout_height="0dp"
                 android:layout_weight="13" />
 
-            <TextView
-                android:id="@+id/activity_regist$TV_tripName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:hint="@string/activity_regist_text_1"
-                android:textSize="@dimen/TextSize_Content_1" />
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28.3" />
+
+                <EditText
+                    android:id="@+id/activity_regist$TV_tripName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/activity_regist_text_1"
+                    android:textColor="@color/regist_text_ET_color"
+                    android:textCursorDrawable="@drawable/cursor_edittext"
+                    android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
+
 
             <ImageView
                 android:layout_width="0dp"
@@ -121,23 +141,56 @@
                 android:layout_weight="0"
                 android:gravity="center_vertical"
                 android:text="@string/activity_regist_text_2"
+                android:textColor="@color/regist_text_TV_color"
                 android:textSize="@dimen/TextSize_Content_1" />
-            <!--android:layout_weight="12.3"-->
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="13" />
 
-            <TextView
-                android:id="@+id/activity_regist$TV_citySearch"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:hint="@string/activity_regist_text_3"
-                android:textSize="@dimen/TextSize_Content_1" />
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28.3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="21.3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:weightSum="46">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="20.7"
+                        android:background="@drawable/icon_citysearch" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14.3" />
+
+                <TextView
+                    android:id="@+id/activity_regist$TV_citySearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/activity_regist_text_3"
+                    android:textColor="@color/regist_text_ET_color"
+                    android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
+
 
             <ImageView
                 android:layout_width="0dp"
@@ -151,6 +204,7 @@
                 android:layout_weight="0"
                 android:gravity="center_vertical"
                 android:text="@string/activity_regist_text_4"
+                android:textColor="@color/regist_text_TV_color"
                 android:textSize="@dimen/TextSize_Content_1" />
 
             <ImageView
@@ -172,6 +226,7 @@
                     android:background="@color/default_theme_text_color"
                     android:gravity="center"
                     android:text="@string/activity_regist_text_5"
+                    android:textColor="@color/regist_text_ET_color"
                     android:textSize="@dimen/TextSize_Content_1" />
 
                 <ImageView
@@ -199,6 +254,7 @@
                     android:background="@color/default_theme_text_color"
                     android:gravity="center"
                     android:text="@string/activity_regist_text_6"
+                    android:textColor="@color/regist_text_ET_color"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
 

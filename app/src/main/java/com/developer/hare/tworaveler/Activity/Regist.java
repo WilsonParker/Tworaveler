@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,9 @@ public class Regist extends AppCompatActivity {
     private DateManager dateManager;
     private ResourceManager resourceManager;
 
+    private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
-    private ImageView IV_cover;
+    private ImageView IV_cover, IV_camera;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -68,6 +71,7 @@ public class Regist extends AppCompatActivity {
                                 public void bindData(FileData fileData) {
                                     ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
+                                    IV_camera.setVisibility(View.INVISIBLE);
                                 }
                             });
                         }
@@ -78,8 +82,11 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover);
+                                    ImageManager imageManager =ImageManager.getInstance();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile()).centerCrop();
+                                    imageManager.loadImage(requestCreator,IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
+                                    IV_camera.setVisibility(View.INVISIBLE);
                                 }
                             });
                         }
@@ -115,6 +122,7 @@ public class Regist extends AppCompatActivity {
                 onRegist();
             }
         });
+        ET_tripName = uiFactory.createView(R.id.activity_regist$TV_tripName);
         TV_citySearch = uiFactory.createView(R.id.activity_regist$TV_citySearch);
         TV_citySearch.setOnClickListener(onClickListener);
         TV_dateStart = uiFactory.createView(activity_regist$TV_start);
@@ -123,6 +131,7 @@ public class Regist extends AppCompatActivity {
         TV_dateEnd.setOnClickListener(onClickListener);
         IV_cover = uiFactory.createView(R.id.activity_regist$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
+        IV_camera= uiFactory.createView(R.id.activity_regist$IV_camera);
 
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_1));
@@ -130,6 +139,7 @@ public class Regist extends AppCompatActivity {
         textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_3));
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
         textViews.clear();
+        textViews.add(ET_tripName);
         textViews.add(TV_citySearch);
         textViews.add(TV_dateStart);
         textViews.add(TV_dateEnd);
@@ -138,7 +148,7 @@ public class Regist extends AppCompatActivity {
 
     private void onRegist() {
         SceduleRegistModel model = new SceduleRegistModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().registPlan(model);
+        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
         res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
             @Override
             public void onResponse(Call<RequestModel<ScheduleModel>> call, Response<RequestModel<ScheduleModel>> response) {

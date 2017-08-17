@@ -59,7 +59,10 @@ public class DataDefinition {
     }
 
     public class Network{
-        public static final int CODE_SUCCESS = 200
+        public static final int
+                CODE_SUCCESS = 200
+                ,CODE_INCORRECT = 201
+                ,CODE_SIGNED_OUT = 202
                 ,CODE_FAIL = 500
                 ;
     }
