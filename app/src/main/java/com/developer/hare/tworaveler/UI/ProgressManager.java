@@ -42,45 +42,49 @@ public class ProgressManager {
         alertDialog = alertDialogBuilder.create();
     }
 
-    public void action(OnProgressAction action) {
-        checkThread = new Thread() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (alertDialog != null && !alertDialog.isShowing())
-                            alertDialog.show();
-                    }
-                });
+    public void alertShow() {
+        if (alertDialog != null && !alertDialog.isShowing()) {
+            alertDialog.show();
+        }
+    }
 
-                try {
-                    //
-                    /*while (!alertDialog.isShowing()) {
-                        Thread.sleep(150);
-                    }*/
-                    runThread.start();
-                    Thread.sleep(3000);
-                    while (runThread.getState() == State.TERMINATED) {
-                        Thread.sleep(150);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (alertDialog != null && alertDialog.isShowing()) {
-                                    alertDialog.dismiss();
-                                }
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+    public void alertDismiss() {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+    }
+
+    public void action(OnProgressAction action) {
         runThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 action.run();
+            }
+        });
+        checkThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertShow();
+                        }
+                    });
+//                    Thread.sleep(3000);
+                    runThread.start();
+                    while (!(runThread.getState() == Thread.State.TERMINATED)) {
+                        Thread.sleep(150);
+                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertDismiss();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         checkThread.start();

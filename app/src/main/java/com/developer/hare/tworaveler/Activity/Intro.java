@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.developer.hare.tworaveler.Model.UserModel;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-
-import static com.developer.hare.tworaveler.Data.DataStorage.USER_MODEL;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 
 public class Intro extends AppCompatActivity {
     private Thread initThread = new Thread(new Runnable() {
@@ -20,7 +17,7 @@ public class Intro extends AppCompatActivity {
             FontManager.getInstance().setAssetManager(getAssets());
             initComplete = true;
 
-            USER_MODEL = new UserModel(0,"m_user_email","m_user_pw","m_user_nickname","","","","","");
+//            USER_MODEL = new UserModel(0,"m_user_email","m_user_pw","m_user_nickname","","","","","");
         }
     });
     private boolean initComplete;

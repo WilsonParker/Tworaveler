@@ -40,8 +40,8 @@
     <dimen name="TextSize_Content_1">13sp</dimen>
     <dimen name="TextSize_MenuTop_Title">25sp</dimen>
 
-    <dimen name="TextSize_Peed_Title">12sp</dimen>
-    <dimen name="TextSize_Peed_Date">9sp</dimen>
-    <dimen name="TextSize_Peed_Num">11sp</dimen>
+    <dimen name="TextSize_Feed_Title">12sp</dimen>
+    <dimen name="TextSize_Feed_Date">9sp</dimen>
+    <dimen name="TextSize_Feed_Num">11sp</dimen>
 
 </resources>

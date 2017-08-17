@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.DataStorage;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
@@ -159,36 +160,35 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void signIn() {
-        UserSignInModel signIn = new UserSignInModel(ET_email.getText().toString(), ET_password.getText().toString());
-        Call<RequestModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
-        res.enqueue(new Callback<RequestModel<UserModel>>() {
+        progressManager.action(new OnProgressAction() {
             @Override
-            public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
-                if (response.isSuccessful()) {
-                    RequestModel<UserModel> result = response.body();
-                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "isSuccess ");
-                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "body : " + result);
-                    switch (result.getSuccess()) {
-                        case CODE_SUCCESS:
-                            progressManager.action(new OnProgressAction() {
-                                @Override
-                                public void run() {
+            public void run() {
+                UserSignInModel signIn = new UserSignInModel(ET_email.getText().toString(), ET_password.getText().toString());
+                Call<RequestModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
+                res.enqueue(new Callback<RequestModel<UserModel>>() {
+                    @Override
+                    public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
+                        if (response.isSuccessful()) {
+                            RequestModel<UserModel> result = response.body();
+                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isSuccess ");
+                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result);
+                            progressManager.alertDismiss();
+                            switch (result.getSuccess()) {
+                                case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_title_success)
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                    startActivity(new Intent(SignIn.this, Main.class));
-                                                    AlertManager.getInstance().dismissAlertSelectionMode();
+//                                                    AlertManager.getInstance().dismissAlertSelectionMode();
+                                                    sweetAlertDialog.dismiss();
+//                                                    startActivity(new Intent(SignIn.this, Main.class));
+                                                    DataStorage.USER_MODEL = result.getResult();
+                                                    onBackPressed();
                                                 }
                                             }).show();
-                                }
-                            });
-                            break;
-                        case CODE_INCORRECT:
-                            progressManager.action(new OnProgressAction() {
-                                @Override
-                                public void run() {
+                                    break;
+                                case CODE_INCORRECT:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
@@ -197,13 +197,8 @@ public class SignIn extends AppCompatActivity {
                                                     sweetAlertDialog.dismiss();
                                                 }
                                             }).show();
-                                }
-                            });
-                            break;
-                        case CODE_SIGNED_OUT:
-                            progressManager.action(new OnProgressAction() {
-                                @Override
-                                public void run() {
+                                    break;
+                                case CODE_SIGNED_OUT:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
@@ -212,26 +207,26 @@ public class SignIn extends AppCompatActivity {
                                                     sweetAlertDialog.dismiss();
                                                 }
                                             }).show();
-                                }
-                            });
-                            break;
+                                    break;
+                            }
+
+
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isFail");
+                            netFail();
+                        }
                     }
 
-
-                } else {
-                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signIn - onResponse(Call, Response)", "isFail");
-                    netFail();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
-                netFail();
+                    @Override
+                    public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
+                        netFail();
+                    }
+                });
             }
         });
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signIn_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signIn_fail_alert_content_fail2))).show();
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_fail_alert_title_fail,R.string.signIn_fail_alert_content_fail2);
     }
 }

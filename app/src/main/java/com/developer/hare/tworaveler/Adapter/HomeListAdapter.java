@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Model.PeedItemModel;
+import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
  */
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
-    private ArrayList<PeedItemModel> items;
+    private ArrayList<FeedItemModel> items;
 
-    public HomeListAdapter(ArrayList<PeedItemModel> items) {
+    public HomeListAdapter(ArrayList<FeedItemModel> items) {
         this.items = items;
     }
 
@@ -55,11 +55,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
         }
 
-        public void toBind(PeedItemModel model) {
-//            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(PeedItemModel)", model.toString());
+        public void toBind(FeedItemModel model) {
+//            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(FeedItemModel)", model.toString());
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(context, model.getCoverUri(), IV_cover);
-            TV_date.setText(model.getDate());
+            imageManager.loadImage(context, model.getTrip_pic_url(), IV_cover);
+            TV_date.setText(model.getStart_date()+ " ~ "+model.getEnd_date());
         }
     }
 

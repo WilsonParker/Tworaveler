@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Adapter.PeedListAdapter;
+import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Data.DummyDataFactory;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.R;
@@ -27,7 +26,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
 //    private HomeListAdapter homeListAdapter;
-    private PeedListAdapter peedListAdapter;
+    private FeedListAdapter peedListAdapter;
     private Context context;
     private TextView TV_noItem;
 
@@ -58,7 +57,7 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
-        peedListAdapter = new PeedListAdapter(DummyDataFactory.createPeedItems());
+//        peedListAdapter = new FeedListAdapter(DummyDataFactory.createFeedItems());
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(peedListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);

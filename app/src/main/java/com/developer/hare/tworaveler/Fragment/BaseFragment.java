@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.developer.hare.tworaveler.Listener.OnBackClickListner;
+import com.developer.hare.tworaveler.Listener.OnBackClickListener;
 
 /**
  * Created by Hare on 2017-08-01.
  */
 
-public abstract class BaseFragment extends Fragment implements OnBackClickListner {
+public abstract class BaseFragment extends Fragment implements OnBackClickListener {
 
     @Override
     public void onBackClick() {

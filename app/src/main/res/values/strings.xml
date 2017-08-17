@@ -29,9 +29,13 @@
     <string name="signIn_fail_alert_title_success">로그인 성공</string>
     <string name="signIn_fail_alert_content_success">로그인에 성공 하였습니다</string>
 
-    <!-- Fragment/FragmentB ag-->
+    <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_fail_alert_title_fail">카테고리 불러오기 실패</string>
-    <string name="fragmentBag_fail_alert_content_fail">카테고리 불러오기를 불러오는데 실패 하였습니다</string>
+    <string name="fragmentBag_fail_alert_content_fail">카테고리 를 불러오는데 실패 하였습니다</string>
+
+    <!-- Fragment/FragmentB ag-->
+    <string name="fragmentFeed_fail_alert_title_fail">피드 불러오기 실패</string>
+    <string name="fragmentFeed_fail_alert_content_fail">피드 불러오는데 실패 하였습니다</string>
 
     <!--
         ############################################################################################
@@ -87,7 +91,7 @@
     -->
 
     <!-- layout/fragment_peed-->
-    <string name="fragment_peed_title">Peed</string>
+    <string name="fragment_peed_title">Feed</string>
 
     <!-- layout/fragment_alarm-->
     <string name="fragment_alarm_title">alarm</string>

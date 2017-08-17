@@ -105,7 +105,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2))).show();
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signUp_fail_alert_title_fail,R.string.signUp_fail_alert_content_fail2);
     }
 
 }

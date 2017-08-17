@@ -18,6 +18,7 @@ import com.developer.hare.tworaveler.Adapter.AlertSelectionModeAdapter;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.HandlerManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class AlertManager {
     private static final AlertManager ourInstance = new AlertManager();
 
     private AlertDialog alertDialog;
+    private ResourceManager resourceManager;
     private Handler handler;
 
     private View view;
@@ -137,4 +139,8 @@ public class AlertManager {
                 .show();
     }
 
+    public void showNetFailAlert(Activity activity, int title, int content ) {
+        resourceManager = ResourceManager.getInstance();
+        createAlert(activity, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
+    }
 }

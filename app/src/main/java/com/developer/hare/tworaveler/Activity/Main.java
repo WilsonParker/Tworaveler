@@ -8,8 +8,8 @@ import android.widget.FrameLayout;
 
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
+import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
-import com.developer.hare.tworaveler.Fragment.Menu.FragmentPeed;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
@@ -57,7 +57,7 @@ public class Main extends AppCompatActivity {
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_home_click, R.drawable.icon_feed_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                FragmentManager.getInstance().setFragmentContent(FragmentPeed.newInstance());
+                FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());
             }
         }));
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_add_click, R.drawable.icon_add_unclick, new CustomNavigationView.NavigationOnClickListener() {

@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.Net;
 
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
+import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
@@ -87,7 +88,11 @@ public interface NetFactoryIm {
 
     // 프로필 정보 조회
     @GET("/users/profile")
-    Call<RequestModel<ProfileModel>> seletProfile(@Query("user_no") int user_no);
+    Call<RequestModel<ProfileModel>> selectProfile(@Query("user_no") int user_no);
+
+    // 피드 정보 조회
+    @GET("/feed/:scrollCount")
+    Call<RequestArrayModel<FeedItemModel>> selectFeedList(@Query("scrollCount") int scrollCount);
 
     // #############################################################################################
     // DELETE
