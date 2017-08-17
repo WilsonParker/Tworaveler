@@ -19,6 +19,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -26,16 +27,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_MAP;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SUBWAY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SALE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOP;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SUBWAY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TICKET;
 
 public class BagDelete extends AppCompatActivity {
 
     private RecyclerView RV_deletelist;
     private BagDeleteAdapter bagDeleteAdapter;
-    private TextView deletename;
+    private TextView textView;
     private LinearLayout linearLayout;
     private MenuTopTitle menuTopTitle;
     private final int imageCount = 3;
@@ -69,7 +70,6 @@ public class BagDelete extends AppCompatActivity {
         uiFactory = UIFactory.getInstance(this);
         selected_items = new ArrayList<>();
 
-        deletename = uiFactory.createView(R.id.bag_delete$name);
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
         customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
@@ -100,6 +100,8 @@ public class BagDelete extends AppCompatActivity {
                     }
 
                 }
+                textView = uiFactory.createView(R.id.bag_delete$name);
+                FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
                 bagDeleteAdapter.notifyDataSetChanged();
                 selected_items = new ArrayList<BagDeleteModel>();
             }
