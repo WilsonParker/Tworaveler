@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.SearchCity;
 import com.developer.hare.tworaveler.Adapter.PeedListAdapter;
@@ -55,7 +56,6 @@ public class FragmentPeed extends BaseFragment {
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
             }
         });
-
 //        uiFactory = UIFactory.getInstance(view);
         recyclerView = uiFactory.createView(R.id.fragment_peed$RV);
         peedListAdapter = new PeedListAdapter(DummyDataFactory.createPeedItems());
