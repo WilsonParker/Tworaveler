@@ -117,15 +117,16 @@ public class BagDelete extends AppCompatActivity {
             selected_items = bagDeleteAdapter.getSelected_Items();
         bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, this);
         RV_deletelist.setAdapter(bagDeleteAdapter);
+        itemEmptyCheck(items);
     }
 
     private void itemEmptyCheck(ArrayList<BagDeleteModel> items) {
         if (items.size() > 0) {
-            linearLayout.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.INVISIBLE);
             RV_deletelist.setVisibility(View.VISIBLE);
         } else {
             linearLayout.setVisibility(View.VISIBLE);
-            RV_deletelist.setVisibility(View.GONE);
+            RV_deletelist.setVisibility(View.INVISIBLE);
         }
     }
 
