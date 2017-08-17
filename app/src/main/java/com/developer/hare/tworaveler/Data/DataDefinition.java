@@ -37,13 +37,13 @@ public class DataDefinition {
     }
 
     public class Bag{
-       /* public static final String
-                CATEGORY_TRAFFIC= "traffic"    // 교통티켓
-                ,CATEGORY_SAIL= "sail"    // 할인권
-                ,CATEGORY_ROUTE= "route"    // 노선도
+        public static final String
+                CATEGORY_TRAFFIC= "ticket"    // 교통티켓
                 ,CATEGORY_MAP= "map"    // 지도
-                ,CATEGORY_SHOPPING= "shopping"    // 쇼핑
-                ;*/
+                ,CATEGORY_ROUTE= "subway"    // 노선도
+                ,CATEGORY_SHOPPING= "shop"    // 쇼핑
+                ,CATEGORY_SALE= "sale"    // 할인권
+                ;
     }
 
     public class RegularExpression{

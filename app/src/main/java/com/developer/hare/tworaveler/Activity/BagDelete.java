@@ -25,6 +25,12 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_MAP;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_ROUTE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SALE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOPPING;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TRAFFIC;
+
 public class BagDelete extends AppCompatActivity {
 
     private RecyclerView RV_deletelist;
@@ -68,10 +74,10 @@ public class BagDelete extends AppCompatActivity {
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
 
-        setItems(items.size()); // 이거 수정해야함
         GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
         RV_deletelist.setLayoutManager(gridLayoutManager);
 
+        createNavigationBagView();
         itemEmptyCheck(items);
         if (bagDeleteAdapter != null)
             selected_items = bagDeleteAdapter.getSelected_Items();
@@ -87,7 +93,7 @@ public class BagDelete extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onClick(View)", "selected_size : " + selected_items.size());
-                for (int id : ItemFactory.getIds()) {
+                for (String id : ItemFactory.getIds()) {
                     ArrayList<BagDeleteModel> l1 = ItemFactory.getBagDeleteModelList(id);
                     for (BagDeleteModel bdm : selected_items) {
                         if (l1.contains(bdm))
@@ -101,7 +107,7 @@ public class BagDelete extends AppCompatActivity {
         });
     }
 
-    private void setItems(int id) {
+    private void setItems(String id) {
         items = ItemFactory.getBagDeleteModelList(id);
         if (items.size() == 0) {
             items = DummyDataFactory.createBagDeleteItems();
@@ -124,26 +130,31 @@ public class BagDelete extends AppCompatActivity {
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                setItems(CATEGORY_TRAFFIC);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_map_click, R.drawable.icon_map_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                setItems(CATEGORY_MAP);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_subway_click, R.drawable.icon_subway_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                setItems(CATEGORY_ROUTE);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_shop_click, R.drawable.icon_shop_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                setItems(CATEGORY_SHOPPING);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_sale_click, R.drawable.icon_sale_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                setItems(CATEGORY_SALE);
             }
         }));
         customNavigationBagView.bindItemView(this, items);

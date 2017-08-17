@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="116"
-                android:background="@drawable/btn_add" />
+                app:srcCompat="@drawable/btn_add" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/fragment_alarm_text"
-                    android:textSize="@dimen/TextSize_Content_1" />
+                    android:textSize="@dimen/TextSize_Content_1"
+                    android:textColor="@color/fragment_login_text_color" />
             </LinearLayout>
         </LinearLayout>
 

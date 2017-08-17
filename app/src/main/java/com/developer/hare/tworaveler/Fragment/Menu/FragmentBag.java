@@ -99,8 +99,6 @@ public class FragmentBag extends BaseFragment {
         textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
         linearLayout = uiFactory.createView(R.id.fragment_bag$LL_empty);
-        textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
-        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
 
         createNavigationBagView();
         itemEmptyCheck(items);
