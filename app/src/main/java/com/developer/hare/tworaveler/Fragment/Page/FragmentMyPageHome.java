@@ -19,7 +19,7 @@ import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
-import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -107,13 +107,13 @@ public class FragmentMyPageHome extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
-                result.enqueue(new Callback<RequestArrayModel<FeedItemModel>>() {
+                Call<ResponseArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
+                result.enqueue(new Callback<ResponseArrayModel<FeedItemModel>>() {
                     @Override
-                    public void onResponse(Call<RequestArrayModel<FeedItemModel>> call, Response<RequestArrayModel<FeedItemModel>> response) {
+                    public void onResponse(Call<ResponseArrayModel<FeedItemModel>> call, Response<ResponseArrayModel<FeedItemModel>> response) {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-                            RequestArrayModel<FeedItemModel> model = response.body();
+                            ResponseArrayModel<FeedItemModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
@@ -125,15 +125,15 @@ public class FragmentMyPageHome extends BaseFragment {
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<FeedItemModel>>, Response<ResponseArrayModel<FeedItemModel>>)", "response is not Successful");
                             netFail();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<RequestArrayModel<FeedItemModel>> call, Throwable t) {
-                        Log_HR.log(FragmentFeed.class, "onFailure(Call<RequestArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
+                    public void onFailure(Call<ResponseArrayModel<FeedItemModel>> call, Throwable t) {
+                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

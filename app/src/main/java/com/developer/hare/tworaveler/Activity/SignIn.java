@@ -15,8 +15,8 @@ import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
-import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.UserResModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.Request.UserResModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -172,13 +172,13 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void run() {
                 UserResModel signIn = new UserResModel(ET_email.getText().toString(), ET_password.getText().toString());
-                Call<RequestModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
-                res.enqueue(new Callback<RequestModel<UserModel>>() {
+                Call<ResponseModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
+                res.enqueue(new Callback<ResponseModel<UserModel>>() {
                     @Override
-                    public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
+                    public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-                            RequestModel<UserModel> result = response.body();
+                            ResponseModel<UserModel> result = response.body();
 //                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
@@ -233,7 +233,7 @@ public class SignIn extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
+                    public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                         netFail();
                     }
                 });

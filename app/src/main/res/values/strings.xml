@@ -19,6 +19,9 @@
     <string name="signUp_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
     <string name="signUp_alert_content_fail2">중복된 이메일 입니다</string>
     <string name="signUp_alert_content_fail3">중복된 닉네임 입니다</string>
+    <string name="signUp_alert_content_fail4">이메일 입력이 잘못 되었습니다</string>
+    <string name="signUp_alert_content_fail5">비밀번호는 영,한,숫자,특수문자 8자리 이상 입니다</string>
+    <string name="signUp_alert_content_fail6">닉네임은 영,한,숫자 4자리 이상 입니다</string>
     <string name="signUp_alert_title_success">회원가입 성공</string>
     <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>
 
@@ -44,6 +47,9 @@
     <string name="profileSet_signOut_alert_content3">회원 탈퇴 성공</string>
     <string name="profileSet_signOut_alert_input_messae">비밀번호를 입력해 주세요</string>
 
+    <!-- Activity/Regist-->
+    <string name="regist_alert_title_fail">일정 등록 실패</string>
+    <string name="regist_alert_content_fail">일정 등록 실패 하였습니다</string>
 
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>

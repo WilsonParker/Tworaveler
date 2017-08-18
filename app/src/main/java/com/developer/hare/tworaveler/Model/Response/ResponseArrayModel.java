@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Model.Request;
+package com.developer.hare.tworaveler.Model.Response;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Tacademy on 2017-08-04.
  */
 
-public class RequestArrayModel<T> {
+public class ResponseArrayModel<T> {
     private int success;
     private String message;
     private ArrayList<T> result;

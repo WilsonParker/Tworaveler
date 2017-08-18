@@ -17,7 +17,7 @@ import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
-import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -76,9 +76,7 @@ public class FragmentFeed extends BaseFragment {
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override
             public void scrollEnd() {
-                Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "scroolEnd()", "values : " + feedItemModels.size() + " : " + (ItemsSize * (scrollCount + 1)) + " : " + (feedItemModels.size() == ItemsSize * (scrollCount + 1)));
                 if (feedItemModels.size() == ItemsSize * scrollCount) {
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "scrollEnd()", "update");
                     updateList();
                 }
             }
@@ -106,13 +104,13 @@ public class FragmentFeed extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(scrollCount);
-                result.enqueue(new Callback<RequestArrayModel<FeedItemModel>>() {
+                Call<ResponseArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(scrollCount);
+                result.enqueue(new Callback<ResponseArrayModel<FeedItemModel>>() {
                     @Override
-                    public void onResponse(Call<RequestArrayModel<FeedItemModel>> call, Response<RequestArrayModel<FeedItemModel>> response) {
+                    public void onResponse(Call<ResponseArrayModel<FeedItemModel>> call, Response<ResponseArrayModel<FeedItemModel>> response) {
                         if (response.isSuccessful()) {
-                            RequestArrayModel<FeedItemModel> model = response.body();
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
+                            ResponseArrayModel<FeedItemModel> model = response.body();
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<FeedItemModel>>, Response<ResponseArrayModel<FeedItemModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
@@ -120,22 +118,22 @@ public class FragmentFeed extends BaseFragment {
                                         progressManager.endRunning();
                                         feedItemModels.addAll(model.getResult());
                                         ++scrollCount;
-                                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "items size : " + feedItemModels.size());
+                                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<FeedItemModel>>, Response<ResponseArrayModel<FeedItemModel>>)", "items size : " + feedItemModels.size());
                                         feedListAdapter.notifyDataSetChanged();
                                     }
                                 });
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<FeedItemModel>>, Response<ResponseArrayModel<FeedItemModel>>)", "response is not Successful");
                             netFail();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<RequestArrayModel<FeedItemModel>> call, Throwable t) {
-                        Log_HR.log(FragmentFeed.class, "onFailure(Call<RequestArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
+                    public void onFailure(Call<ResponseArrayModel<FeedItemModel>> call, Throwable t) {
+                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });
@@ -144,6 +142,7 @@ public class FragmentFeed extends BaseFragment {
     }
 
     private void netFail() {
+        progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_alert_title_fail, R.string.fragmentFeed_alert_content_fail);
     }
 

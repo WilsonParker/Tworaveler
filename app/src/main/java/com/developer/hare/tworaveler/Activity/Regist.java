@@ -9,12 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.Request.RequestModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.Request.SceduleResModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -25,12 +24,12 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,9 +81,9 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager imageManager =ImageManager.getInstance();
+                                    ImageManager imageManager = ImageManager.getInstance();
                                     RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile()).centerCrop();
-                                    imageManager.loadImage(requestCreator,IV_cover);
+                                    imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -131,7 +130,7 @@ public class Regist extends AppCompatActivity {
         TV_dateEnd.setOnClickListener(onClickListener);
         IV_cover = uiFactory.createView(R.id.activity_regist$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
-        IV_camera= uiFactory.createView(R.id.activity_regist$IV_camera);
+        IV_camera = uiFactory.createView(R.id.activity_regist$IV_camera);
 
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_1));
@@ -148,12 +147,12 @@ public class Regist extends AppCompatActivity {
 
     private void onRegist() {
         SceduleResModel model = new SceduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
-        res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
+        Call<ResponseModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
+        res.enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
-            public void onResponse(Call<RequestModel<ScheduleModel>> call, Response<RequestModel<ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    RequestModel<ScheduleModel> result = response.body();
+                    ResponseModel<ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                         Intent intent = new Intent(Regist.this, RegistDetail.class);
                         intent.putExtra(DataDefinition.Intent.KEY_STARTDATE, TV_dateStart.getText().toString());
@@ -166,7 +165,7 @@ public class Regist extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RequestModel<ScheduleModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });
@@ -191,7 +190,7 @@ public class Regist extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(Regist.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_alert_content_fail2))).show();
+        AlertManager.getInstance().showNetFailAlert(Regist.this, R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
     }
 
 }

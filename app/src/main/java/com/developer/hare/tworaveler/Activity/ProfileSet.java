@@ -14,8 +14,8 @@ import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
-import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.UserResModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.Request.UserResModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -165,10 +165,10 @@ public class ProfileSet extends AppCompatActivity {
                             @Override
                             public void onConfirmClick(String input) {
                                 sweetAlertDialog.dismissWithAnimation();
-                                Call<RequestModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), input));
-                                result.enqueue(new Callback<RequestModel<String>>() {
+                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), input));
+                                result.enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
-                                    public void onResponse(Call<RequestModel<String>> call, Response<RequestModel<String>> response) {
+                                    public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
                                         progressManager.actionWithState(new OnProgressAction() {
                                             @Override
                                             public void run() {
@@ -195,7 +195,7 @@ public class ProfileSet extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<RequestModel<String>> call, Throwable t) {
+                                    public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                                         netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
                                     }
                                 });

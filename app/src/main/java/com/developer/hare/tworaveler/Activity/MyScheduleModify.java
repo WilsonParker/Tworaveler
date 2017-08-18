@@ -12,8 +12,8 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.Request.SceduleResModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -145,12 +145,12 @@ public class MyScheduleModify extends AppCompatActivity {
 
     private void onModify() {
         SceduleResModel model = new SceduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
-        res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
+        Call<ResponseModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
+        res.enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
-            public void onResponse(Call<RequestModel<ScheduleModel>> call, Response<RequestModel<ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    RequestModel<ScheduleModel> result = response.body();
+                    ResponseModel<ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                         onBackPressed();
                     } else
@@ -160,7 +160,7 @@ public class MyScheduleModify extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RequestModel<ScheduleModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });

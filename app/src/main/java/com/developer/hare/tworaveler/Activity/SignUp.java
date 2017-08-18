@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
-import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.Request.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.Net.NetFactoryIm;
@@ -82,9 +82,20 @@ public class SignUp extends AppCompatActivity {
 
     private boolean validCheck() {
         String email = ET_email.getText().toString(), password = ET_password.getText().toString(), nickName = ET_nickName.getText().toString();
-        if (email.isEmpty() | password.isEmpty() | nickName.isEmpty())
+        boolean result = false;
+        if (email.isEmpty() | !email.matches(DataDefinition.RegularExpression.REG_EMAIL)) {
+            AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.signUp_alert_title_fail), resourceManager.getResourceString(R.string.signUp_alert_content_fail4)).show();
+        }
+        if (password.isEmpty() | !password.matches(DataDefinition.RegularExpression.REG_PASSWORD)) {
+            AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.signUp_alert_title_fail), resourceManager.getResourceString(R.string.signUp_alert_content_fail5)).show();
+        }
+        if (nickName.isEmpty() | !email.matches(DataDefinition.RegularExpression.REG_NICKNAME)) {
+            AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.signUp_alert_title_fail), resourceManager.getResourceString(R.string.signUp_alert_content_fail6)).show();
+        }
+        result = true;
+        /*if (email.isEmpty() | password.isEmpty() | nickName.isEmpty())
             return false;
-        boolean result = email.matches(DataDefinition.RegularExpression.REG_EMAIL) && password.matches(DataDefinition.RegularExpression.REG_PASSWORD) && nickName.matches(DataDefinition.RegularExpression.REG_NICKNAME);
+        boolean result = email.matches(DataDefinition.RegularExpression.REG_EMAIL) && password.matches(DataDefinition.RegularExpression.REG_PASSWORD) && nickName.matches(DataDefinition.RegularExpression.REG_NICKNAME);*/
         return result;
     }
 
@@ -93,10 +104,10 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void run() {
                 UserSignUpModel model = new UserSignUpModel(ET_email.getText().toString(), ET_password.getText().toString(), ET_nickName.getText().toString());
-                Call<RequestModel<UserModel>> res = netFactoryIm.userSignUp(model);
-                res.enqueue(new Callback<RequestModel<UserModel>>() {
+                Call<ResponseModel<UserModel>> res = netFactoryIm.userSignUp(model);
+                res.enqueue(new Callback<ResponseModel<UserModel>>() {
                     @Override
-                    public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
+                    public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         UserModel result = response.body().getResult();
                         Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
                         if (response.isSuccessful()) {
@@ -145,7 +156,7 @@ public class SignUp extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
+                    public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                         Log_HR.log(SignUp.class, "onFailure()", t);
                         netFail();
                     }

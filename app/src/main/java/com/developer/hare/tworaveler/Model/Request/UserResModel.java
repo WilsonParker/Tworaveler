@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Model.Response;
+package com.developer.hare.tworaveler.Model.Request;
 
 /**
  * Created by Hare on 2017-08-10.

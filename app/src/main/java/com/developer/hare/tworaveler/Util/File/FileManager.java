@@ -24,7 +24,7 @@ public class FileManager {
         return ourInstance;
     }
 
-    private void doFileUpload(File file) {
+    private void doFileUpload(File file, String method) {
 
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
@@ -35,14 +35,14 @@ public class FileManager {
         String boundary = "*****";
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024;
+        final int maxBufferSize = 1 * 1024 * 1024;
         String responseFromServer = "";
         String urlString = Net.getU();
         try {
             //------------------ CLIENT REQUEST
             FileInputStream fileInputStream = new FileInputStream(file);
             // open a URL connection to the Servlet
-            URL url = new URL(urlString);
+            URL url = new URL(urlString+method);
             // Open a HTTP connection to the URL
             conn = (HttpURLConnection) url.openConnection();
             // Allow Inputs

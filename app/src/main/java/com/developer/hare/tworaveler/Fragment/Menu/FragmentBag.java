@@ -19,7 +19,7 @@ import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.BagModel;
-import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -164,13 +164,13 @@ public class FragmentBag extends BaseFragment {
         if(!sessionCheck())
             return;
         Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
-        Call<RequestArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
-        result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
+        Call<ResponseArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
+        result.enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
-            public void onResponse(Call<RequestArrayModel<BagModel>> call, Response<RequestArrayModel<BagModel>> response) {
+            public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {
                 if (response.isSuccessful()) {
                     // 성공했을 경우
-                    RequestArrayModel<BagModel> rbag = response.body();
+                    ResponseArrayModel<BagModel> rbag = response.body();
                     items = rbag.getResult();
                     if (items == null) {
                         items = new ArrayList<BagModel>();
@@ -188,7 +188,7 @@ public class FragmentBag extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<RequestArrayModel<BagModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
                 netFailAlert();
             }
         });

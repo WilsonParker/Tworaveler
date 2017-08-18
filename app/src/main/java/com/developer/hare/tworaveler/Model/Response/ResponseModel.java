@@ -1,10 +1,10 @@
-package com.developer.hare.tworaveler.Model.Request;
+package com.developer.hare.tworaveler.Model.Response;
 
 /**
  * Created by Tacademy on 2017-08-04.
  */
 
-public class RequestModel<T> {
+public class ResponseModel<T> {
     private int success;
     private String message;
     private T result;

@@ -15,7 +15,7 @@ import com.developer.hare.tworaveler.Adapter.CityListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnSelectCityListener;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -75,12 +75,12 @@ public class SearchCity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log_HR.log(Log_HR.LOG_INFO, SearchCity.class, "afterTextChanged(Editable)", "running");
-                Call<RequestArrayModel<CityModel>> res = Net.getInstance().getFactoryIm().searchCity(ET_city.getText().toString());
-                res.enqueue(new Callback<RequestArrayModel<CityModel>>() {
+                Call<ResponseArrayModel<CityModel>> res = Net.getInstance().getFactoryIm().searchCity(ET_city.getText().toString());
+                res.enqueue(new Callback<ResponseArrayModel<CityModel>>() {
                     @Override
-                    public void onResponse(Call<RequestArrayModel<CityModel>> call, Response<RequestArrayModel<CityModel>> response) {
+                    public void onResponse(Call<ResponseArrayModel<CityModel>> call, Response<ResponseArrayModel<CityModel>> response) {
                         if (response.isSuccessful()) {
-                            RequestArrayModel<CityModel> result = response.body();
+                            ResponseArrayModel<CityModel> result = response.body();
                             items = result.getResult();
                             /*cityListAdapter = new CityListAdapter(onSelectCityListener, result.getResult(), getBaseContext());
                             RV_list.setAdapter(cityListAdapter);*/
@@ -97,7 +97,7 @@ public class SearchCity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<RequestArrayModel<CityModel>> call, Throwable t) {
+                    public void onFailure(Call<ResponseArrayModel<CityModel>> call, Throwable t) {
 
                     }
                 });
