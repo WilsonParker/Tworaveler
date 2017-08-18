@@ -15,11 +15,13 @@
         app:leftButton="@drawable/back"
         app:rightButton="@drawable/icon_check"
         app:titleText="@string/fragmentMyPage_profile_title" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="560"
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,54 +29,63 @@
             android:fillViewport="true"
             android:overScrollMode="always"
             android:scrollbars="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="560"
                 android:orientation="vertical"
                 android:weightSum="560">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="39"/>
+                    android:layout_weight="39" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="388.3"
                     android:orientation="vertical"
                     android:weightSum="388.3">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="116"
                         android:gravity="center">
+
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_setIV_profile"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:src="@drawable/image_profile" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="40.3"/>
+                        android:layout_weight="40.3" />
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="16.3dp"
                         android:layout_marginRight="16.3dp"
                         android:background="#000000" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="17"/>
+                        android:layout_weight="17" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="215"
-                        android:orientation="vertical"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:layout_weight="215"
+                        android:orientation="vertical"
                         android:weightSum="215">
 
                         <LinearLayout
@@ -98,13 +109,17 @@
                                 android:background="@color/profile_text_color"
                                 android:hint="@string/fragmentMypage_profile_nickname"
                                 android:inputType="text"
-                                android:nextFocusDown="@+id/profile_set$ET_message" />
+                                android:nextFocusDown="@+id/profile_set$ET_message"
+                                android:textCursorDrawable="@drawable/cursor_edittext"
+                                android:textSize="@dimen/EditTextSize_Content_1" />
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="8"/>
+                            android:layout_weight="8" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
@@ -127,49 +142,56 @@
                                 android:background="@color/profile_text_color"
                                 android:ems="10"
                                 android:hint="@string/fragmentMypage_profile_message"
-                                android:inputType="textMultiLine" />
+                                android:inputType="textMultiLine"
+                                android:textCursorDrawable="@drawable/cursor_edittext"
+                                android:textSize="@dimen/EditTextSize_Content_1" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="133"
-                    android:orientation="vertical"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp">
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="133"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="48"
                         android:orientation="vertical">
+
                         <Button
                             android:id="@+id/button2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:onClick="onLogout"
                             android:background="@drawable/btn_logout"
-                            />
+                            android:onClick="onLogout" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="8"/>
+                        android:layout_weight="8" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="48">
+
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:onClick="onWithdrawal"
                             android:background="@drawable/btn_delete"
-                            />
+                            android:onClick="onWithdrawal" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="25"/>
+                        android:layout_weight="25" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

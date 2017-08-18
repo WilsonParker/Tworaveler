@@ -59,6 +59,7 @@ public class FragmentBag extends BaseFragment {
     private String theme;
     private ResourceManager resourceManager;
     private UserModel userModel;
+
     public FragmentBag() {
         // Required empty public constructor
     }
@@ -122,9 +123,14 @@ public class FragmentBag extends BaseFragment {
         sessionCheck();
     }
 
-    private void sessionCheck() {
-        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : "+userModel);
+    private boolean sessionCheck() {
+        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : " + userModel);
         userModel = SessionManager.getInstance().getUserModel();
+        if (!SessionManager.getInstance().isLogin()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void onPhoto() {
@@ -155,11 +161,9 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
-        sessionCheck();
-        if (!SessionManager.getInstance().isLogin()) {
+        if(!sessionCheck())
             return;
-        }
-        Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : "+userModel);
+        Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
         Call<RequestArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
             @Override
