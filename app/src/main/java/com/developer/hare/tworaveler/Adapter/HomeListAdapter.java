@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
@@ -56,8 +57,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
         private TextView TV_title, TV_date, TV_like, TV_commenet;
-        private ImageView IV_cover, IV_btn;
-
+        private ImageView IV_cover;
+        private LinearLayout IV_btn;
         private PopupMenu popupMenu;
 
         public ViewHolder(View itemView, Context context) {

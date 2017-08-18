@@ -24,14 +24,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/default_Image_color" />
-
-            <ImageView
-                android:id="@+id/item_mypage$IV_btn"
-                android:layout_width="25dp"
-                android:layout_height="5dp"
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="25dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="11.3dp"
-                android:background="@drawable/icon_more" />
+                android:id="@+id/item_mypage$IV_btn"
+                >
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="11.3dp"
+                    android:background="@drawable/icon_more" />
+            </LinearLayout>
+
 
         </RelativeLayout>
 
