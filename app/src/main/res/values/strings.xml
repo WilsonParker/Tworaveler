@@ -42,7 +42,7 @@
     <string name="profileSet_signOut_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
     <string name="profileSet_signOut_alert_content2">회원 탈퇴 실패</string>
     <string name="profileSet_signOut_alert_content3">회원 탈퇴 성공</string>
-    <string name="profileSet_signOut_alert_input_messae">비밂번호를 입력해 주세요</string>
+    <string name="profileSet_signOut_alert_input_messae">비밀번호를 입력해 주세요</string>
 
 
     <!-- Fragment/FragmentBag-->

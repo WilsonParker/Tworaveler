@@ -49,7 +49,7 @@ public class DataDefinition {
     public class RegularExpression{
         public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
-                ,REG_NICKNAME="^([a-zA-Z0-9]){4,16}$"
+                ,REG_NICKNAME="^([a-zA-Z0-9가-힣]){4,16}$"
                 ,REG_STRING_DATE_FOR_INTGER="(-)"
 //                ,REG_STRING_DATE_FOR_INTGER="(년|월|일)"
 
@@ -66,7 +66,13 @@ public class DataDefinition {
                 , CODE_NICKNAME_CONFLICT = 202
                 , CODE_SIGNOUT_USER= 203
                 , CODE_EMAIL_PW_INCORRECT = 204
-                ,CODE_FAIL = 500
+                , CODE_PW_INCORREC= 205
+                , CODE_EMAIL_INCORRECT= 206
+                , CODE_NONE_SESSION= 207
+//              , CODE_NICKNAME_CONFLICT= 208
+                , CODE_BAG_ITEM_FIND_FAIL= 209
+                , CODE_USER_OR_BAG_ITEM_INCOREECT= 210
+                , CODE_FAIL = 500
                 ;
     }
 

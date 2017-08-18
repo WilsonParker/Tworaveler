@@ -100,7 +100,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.ProfileSet"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BigImage"
             android:theme="@style/MyTheme"

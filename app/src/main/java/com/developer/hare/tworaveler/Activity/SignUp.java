@@ -114,7 +114,7 @@ public class SignUp extends AppCompatActivity {
                                             }).show();
                                     break;
                                 case CODE_EMAIL_CONFLICT:
-                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.WARNING_TYPE
                                             , resourceManager.getResourceString(R.string.signUp_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signUp_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
@@ -124,7 +124,7 @@ public class SignUp extends AppCompatActivity {
                                             }).show();
                                     break;
                                 case CODE_NICKNAME_CONFLICT:
-                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.ERROR_TYPE
                                             , resourceManager.getResourceString(R.string.signUp_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signUp_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override

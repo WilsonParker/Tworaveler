@@ -151,7 +151,9 @@ public class SignIn extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        kakaoSignInManager.setLoginButton();
+//        kakaoSignInManager.setLoginButton();
+        ET_email.setText("");
+        ET_password.setText("");
     }
 
     @Override
@@ -180,7 +182,7 @@ public class SignIn extends AppCompatActivity {
 //                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
-                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_alert_title_success)
                                             , resourceManager.getResourceString(R.string.signIn_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
@@ -199,7 +201,7 @@ public class SignIn extends AppCompatActivity {
                                             }).show();
                                     break;
                                 case CODE_EMAIL_PW_INCORRECT:
-                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
@@ -209,7 +211,7 @@ public class SignIn extends AppCompatActivity {
                                             }).show();
                                     break;
                                 case CODE_SIGNOUT_USER:
-                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
+                                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
