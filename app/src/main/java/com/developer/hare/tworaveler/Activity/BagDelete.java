@@ -109,7 +109,6 @@ public class BagDelete extends AppCompatActivity {
     }
 
     private void setItems(String id) {
-        itemEmptyCheck(items);
         items = ItemFactory.getBagDeleteModelList(id);
         if (items.size() == 0) {
             items = DummyDataFactory.createBagDeleteItems();

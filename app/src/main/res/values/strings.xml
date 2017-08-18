@@ -17,15 +17,17 @@
     <!-- Activity/SignUp -->
     <string name="signUp_alert_title_fail">회원가입 실패</string>
     <string name="signUp_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
-    <string name="signUp_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
+    <string name="signUp_alert_content_fail2">중복된 이메일 입니다</string>
+    <string name="signUp_alert_content_fail3">중복된 닉네임 입니다</string>
     <string name="signUp_alert_title_success">회원가입 성공</string>
     <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>
 
     <!-- Activity/SignIn -->
     <string name="signIn_alert_title_fail">로그인 실패</string>
     <string name="signIn_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
-    <string name="signIn_alert_content_fail2">이메일 와 비밀번호가 일치하지 않습니다</string>
+    <string name="signIn_alert_content_fail2">이메일과 비밀번호가 일치하지 않습니다</string>
     <string name="signIn_alert_content_fail3">회원 가입하지 않은 계정 입니다</string>
+    <string name="signIn_alert_content_fail4">문제가 발생하여 로그인에 실패하였습니다</string>
     <string name="signIn_alert_title_success">로그인 성공</string>
     <string name="signIn_alert_content_success">로그인에 성공 하였습니다</string>
 
@@ -39,7 +41,9 @@
     <string name="profileSet_signOut_alert_title">회원 탈퇴</string>
     <string name="profileSet_signOut_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
     <string name="profileSet_signOut_alert_content2">회원 탈퇴 실패</string>
+    <string name="profileSet_signOut_alert_content3">회원 탈퇴 성공</string>
     <string name="profileSet_signOut_alert_input_messae">비밂번호를 입력해 주세요</string>
+
 
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>

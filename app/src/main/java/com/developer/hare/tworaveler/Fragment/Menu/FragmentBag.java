@@ -22,7 +22,6 @@ import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
-import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
@@ -30,6 +29,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
@@ -39,6 +39,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.Util.Log_HR.LOG_INFO;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
@@ -111,11 +113,17 @@ public class FragmentBag extends BaseFragment {
 
         createNavigationBagView();
         itemEmptyCheck(items);
-        
+        sessionCheck();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         sessionCheck();
     }
 
     private void sessionCheck() {
+        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : "+userModel);
         userModel = SessionManager.getInstance().getUserModel();
     }
 
@@ -147,12 +155,12 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
-        if (SessionManager.getInstance().isLogin()) {
-            itemEmptyCheck(items);
+        sessionCheck();
+        if (!SessionManager.getInstance().isLogin()) {
             return;
         }
-        NetFactoryIm im = Net.getInstance().getFactoryIm();
-        Call<RequestArrayModel<BagModel>> result = im.selectBagList(userModel.getUser_no(), theme);
+        Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : "+userModel);
+        Call<RequestArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<RequestArrayModel<BagModel>> call, Response<RequestArrayModel<BagModel>> response) {

@@ -34,8 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_INCORRECT;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SIGNED_OUT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_EMAIL_PW_INCORRECT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SIGNOUT_USER;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class SignIn extends AppCompatActivity {
@@ -189,16 +189,16 @@ public class SignIn extends AppCompatActivity {
                                                     sweetAlertDialog.dismiss();
 //                                                    startActivity(new Intent(SignIn.this, Main.class));
                                                     UserModel model = result.getResult();
-                                                    if(model.getFollowees() == null)
+                                                    if (model.getFollowees() == null)
                                                         model.setFollowees(new ArrayList<>());
-                                                    if(model.getFollowers() == null)
+                                                    if (model.getFollowers() == null)
                                                         model.setFollowers(new ArrayList<>());
                                                     SessionManager.getInstance().setUserModel(model);
                                                     onBackPressed();
                                                 }
                                             }).show();
                                     break;
-                                case CODE_INCORRECT:
+                                case CODE_EMAIL_PW_INCORRECT:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
@@ -208,7 +208,7 @@ public class SignIn extends AppCompatActivity {
                                                 }
                                             }).show();
                                     break;
-                                case CODE_SIGNED_OUT:
+                                case CODE_SIGNOUT_USER:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
                                             , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
                                             , resourceManager.getResourceString(R.string.signIn_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
@@ -217,6 +217,9 @@ public class SignIn extends AppCompatActivity {
                                                     sweetAlertDialog.dismiss();
                                                 }
                                             }).show();
+                                    break;
+                                default:
+                                    netFail();
                                     break;
                             }
 
@@ -238,6 +241,6 @@ public class SignIn extends AppCompatActivity {
 
     private void netFail() {
         progressManager.endRunning();
-        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_alert_title_fail, R.string.signIn_alert_content_fail2);
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_alert_title_fail, R.string.signIn_alert_content_fail4);
     }
 }

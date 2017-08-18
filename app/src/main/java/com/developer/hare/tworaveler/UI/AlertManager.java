@@ -82,6 +82,11 @@ public class AlertManager {
         return dialog;
     }
 
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, SweetAlertDialog.OnSweetClickListener onSweetClickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인").setConfirmClickListener(onSweetClickListener);
+        return dialog;
+    }
+
     public AlertDialog showAlertSelectionMode(Activity activity, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
         handler = HandlerManager.getInstance().getHandler();
         view = LayoutInflater.from(activity).inflate(R.layout.alert_selectionmode, null);
