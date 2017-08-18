@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,24 +13,43 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
+import com.developer.hare.tworaveler.Listener.OnListScrollListener;
+import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
+import com.developer.hare.tworaveler.Model.FeedItemModel;
+import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.HandlerManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+import static com.developer.hare.tworaveler.Data.DataStorage.USER_MODEL;
 
 public class FragmentMyPageHome extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
-//    private HomeListAdapter homeListAdapter;
-    private FeedListAdapter feedListAdapter;
-    private Context context;
     private TextView TV_noItem;
 
-    public FragmentMyPageHome() {
-    }
+    private FeedListAdapter feedListAdapter;
+    private ResourceManager resourceManager;
+    private ProgressManager progressManager;
+    private ArrayList<FeedItemModel> items = new ArrayList<>();
 
     public static FragmentMyPageHome newInstance() {
         FragmentMyPageHome fragment = new FragmentMyPageHome();
@@ -46,6 +64,8 @@ public class FragmentMyPageHome extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        resourceManager = ResourceManager.getInstance();
+        progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
 
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_home$topbar); //
@@ -57,12 +77,19 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
-//        feedListAdapter = new FeedListAdapter(DummyDataFactory.createFeedItems());
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        feedListAdapter = new FeedListAdapter(items, new OnListScrollListener() {
+            @Override
+            public void scrollEnd() {
+
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(feedListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+        updateList();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -74,5 +101,46 @@ public class FragmentMyPageHome extends BaseFragment {
 
             }
         }
+    }
+
+    private void updateList() {
+        progressManager.action(new OnProgressAction() {
+            @Override
+            public void run() {
+                Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(USER_MODEL.getUser_no());
+                result.enqueue(new Callback<RequestArrayModel<FeedItemModel>>() {
+                    @Override
+                    public void onResponse(Call<RequestArrayModel<FeedItemModel>> call, Response<RequestArrayModel<FeedItemModel>> response) {
+                        if (response.isSuccessful()) {
+                            RequestArrayModel<FeedItemModel> model = response.body();
+                            if (model.getSuccess() == CODE_SUCCESS) {
+                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        items.addAll(model.getResult());
+                                        feedListAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            }
+
+                        } else {
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "response is not Successful");
+                            netFail();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<RequestArrayModel<FeedItemModel>> call, Throwable t) {
+                        Log_HR.log(FragmentFeed.class, "onFailure(Call<RequestArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
+                        netFail();
+                    }
+                });
+            }
+        });
+    }
+
+    private void netFail() {
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageHome_fail_alert_title_fail, R.string.fragmentMyPageHome_fail_alert_content_fail);
     }
 }

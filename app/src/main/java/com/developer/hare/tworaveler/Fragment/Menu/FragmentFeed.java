@@ -103,7 +103,7 @@ public class FragmentFeed extends BaseFragment {
     }
 
     private void updateList() {
-        progressManager.action(new OnProgressAction() {
+        progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
                 Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(scrollCount);
@@ -117,6 +117,7 @@ public class FragmentFeed extends BaseFragment {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        progressManager.setState(true);
                                         feedItemModels.addAll(model.getResult());
                                         ++scrollCount;
                                         Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "items size : " + feedItemModels.size());

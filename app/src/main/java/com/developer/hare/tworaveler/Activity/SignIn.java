@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.DataStorage;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
@@ -24,8 +23,11 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.KeyManager;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -39,7 +41,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
 public class SignIn extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
     private Button BT_main, BT_facebook, BT_kakao;
-    private TextView BT_signUp;
+    private TextView TV_signUp;
     private EditText ET_email, ET_password;
     private ImageButton IV_signIn;
 
@@ -72,8 +74,8 @@ public class SignIn extends AppCompatActivity {
         faceBookLoginManager = new FaceBookLoginManager(SignIn.this);
         kakaoSignInManager = new KakaoSignManager(SignIn.this);
 
-        BT_signUp = uiFactory.createView(R.id.login$BT_signUp);
-        BT_signUp.setOnClickListener(new View.OnClickListener() {
+        TV_signUp = uiFactory.createView(R.id.login$BT_signUp);
+        TV_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignIn.this, SignUp.class));
@@ -115,9 +117,13 @@ public class SignIn extends AppCompatActivity {
             }
         });
 
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "key hash :  " + KeyManager.getInstance().getKeyHash(this));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "key hash :  " + KeyManager.getInstance().getKeyHash(this));
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(ET_email);
+        textViews.add(ET_password);
+        FontManager.getInstance().setFont(textViews,"Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(TV_signUp,"Roboto-MediumItalic.ttf");
     }
-
 
     private boolean validCheck() {
         String email = ET_email.getText().toString();

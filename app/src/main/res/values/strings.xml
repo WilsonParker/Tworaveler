@@ -37,6 +37,10 @@
     <string name="fragmentFeed_fail_alert_title_fail">피드 불러오기 실패</string>
     <string name="fragmentFeed_fail_alert_content_fail">피드 불러오는데 실패 하였습니다</string>
 
+    <!-- Fragment/FragmentMyPageHome -->
+    <string name="fragmentMyPageHome_fail_alert_title_fail">내 여행 목록불러오기 실패</string>
+    <string name="fragmentMyPageHome_fail_alert_content_fail">여행 목록을 불러오는데 실패 하였습니다</string>
+
     <!--
         ############################################################################################
                                                    Layout

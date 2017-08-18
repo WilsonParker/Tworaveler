@@ -21,6 +21,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetFactoryIm {
@@ -89,6 +90,10 @@ public interface NetFactoryIm {
     // 프로필 정보 조회
     @GET("/users/profile")
     Call<RequestModel<ProfileModel>> selectProfile(@Query("user_no") int user_no);
+
+    // 내 여행 목록 조회
+    @GET("/trips/mytrip/{user_no}")
+    Call<RequestModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
     @GET("/feed/:scrollCount")

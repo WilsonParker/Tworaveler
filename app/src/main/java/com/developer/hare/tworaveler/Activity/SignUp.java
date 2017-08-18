@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.UserModel;
@@ -17,7 +17,11 @@ import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
+
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -62,6 +66,11 @@ public class SignUp extends AppCompatActivity {
         });
 
         netFactoryIm = Net.getInstance().getFactoryIm();
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(ET_email);
+        textViews.add(ET_password);
+        FontManager.getInstance().setFont(textViews,"Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(ET_nickName,"NotoSansCJKkr-Medium.ttf");
     }
 
     private boolean validCheck() {

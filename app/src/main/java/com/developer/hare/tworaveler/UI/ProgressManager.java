@@ -24,7 +24,8 @@ public class ProgressManager {
     private View view;
 
     private Handler handler;
-    private Thread checkThread, runThread;
+    private Thread checkThread, runThread, stateThread;
+    private boolean state = false;
 
     public ProgressManager(Activity activity) {
         this.activity = activity;
@@ -90,4 +91,37 @@ public class ProgressManager {
         checkThread.start();
     }
 
+    public void actionWithState(OnProgressAction action) {
+        state = false;
+        stateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertShow();
+                        }
+                    });
+                    action.run();
+                    while (!state) {
+                        Thread.sleep(150);
+                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            alertDismiss();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        stateThread.start();
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
 }

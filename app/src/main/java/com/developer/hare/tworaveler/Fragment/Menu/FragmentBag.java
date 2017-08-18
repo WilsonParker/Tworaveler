@@ -26,6 +26,7 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
+import com.developer.hare.tworaveler.UI.SessionManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
@@ -142,6 +143,10 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
+        if (SessionManager.getInstance().isLogin()) {
+            itemEmptyCheck(items);
+            return;
+        }
         NetFactoryIm im = Net.getInstance().getFactoryIm();
         Call<RequestArrayModel<BagModel>> result = im.selectBagList(USER_MODEL.getUser_no(), theme);
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
@@ -154,7 +159,7 @@ public class FragmentBag extends BaseFragment {
                     if (items == null) {
                         items = new ArrayList<BagModel>();
                         String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
-                        items.add(new BagModel(USER_MODEL.getUser_no()+"", url, url));
+                        items.add(new BagModel(USER_MODEL.getUser_no() + "", url, url));
                     }
 
                     itemEmptyCheck(items);
