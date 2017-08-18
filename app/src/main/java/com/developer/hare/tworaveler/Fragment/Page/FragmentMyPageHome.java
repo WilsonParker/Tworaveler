@@ -143,6 +143,6 @@ public class FragmentMyPageHome extends BaseFragment {
 
     private void netFail() {
         progressManager.endRunning();
-        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageHome_fail_alert_title_fail, R.string.fragmentMyPageHome_fail_alert_content_fail);
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageHome_alert_title_fail, R.string.fragmentMyPageHome_alert_content_fail);
     }
 }

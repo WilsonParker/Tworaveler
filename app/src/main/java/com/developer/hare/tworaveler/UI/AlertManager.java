@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.UI;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,10 +12,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Adapter.AlertSelectionModeAdapter;
+import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.HandlerManager;
@@ -40,6 +43,10 @@ public class AlertManager {
     private Button BT_close;
     private RecyclerView RV_items;
     private ListView LV_items;
+
+    {
+        resourceManager = ResourceManager.getInstance();
+    }
 
     public static AlertManager getInstance() {
         return ourInstance;
@@ -139,8 +146,36 @@ public class AlertManager {
                 .show();
     }
 
-    public void showNetFailAlert(Activity activity, int title, int content ) {
-        resourceManager = ResourceManager.getInstance();
+    public void showNetFailAlert(Activity activity, int title, int content) {
         createAlert(activity, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
+    }
+
+    public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
+        AlertDialog.Builder ad = new AlertDialog.Builder(activity);
+
+        ad.setTitle(resourceManager.getResourceString(title));       // 제목 설정
+        ad.setMessage(resourceManager.getResourceString(message));   // 내용 설정
+
+        // EditText 삽입하기
+        final EditText et = new EditText(activity);
+        ad.setView(et);
+
+        // 확인 버튼 설정
+        ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                onConfirmClickListener.onConfirmClick(et.getText().toString());
+            }
+        });
+
+        // 취소 버튼 설정
+        ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();     //닫기
+            }
+        });
+
+        ad.show();
     }
 }

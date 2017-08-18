@@ -112,7 +112,7 @@ public class SignIn extends AppCompatActivity {
                     signIn();
                 } else {
                     ResourceManager resourceManager = ResourceManager.getInstance();
-                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signIn_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signIn_fail_alert_content_faile))).show();
+                    AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signIn_alert_title_fail)), resourceManager.getResourceString((R.string.signIn_alert_content_faile))).show();
                 }
             }
         });
@@ -181,8 +181,8 @@ public class SignIn extends AppCompatActivity {
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_success)
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                            , resourceManager.getResourceString(R.string.signIn_alert_title_success)
+                                            , resourceManager.getResourceString(R.string.signIn_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
 //                                                    AlertManager.getInstance().dismissAlertSelectionMode();
@@ -200,8 +200,8 @@ public class SignIn extends AppCompatActivity {
                                     break;
                                 case CODE_INCORRECT:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.ERROR_TYPE
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                            , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signIn_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                     sweetAlertDialog.dismiss();
@@ -210,8 +210,8 @@ public class SignIn extends AppCompatActivity {
                                     break;
                                 case CODE_SIGNED_OUT:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_title_fail)
-                                            , resourceManager.getResourceString(R.string.signIn_fail_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                            , resourceManager.getResourceString(R.string.signIn_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signIn_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                     sweetAlertDialog.dismiss();
@@ -238,6 +238,6 @@ public class SignIn extends AppCompatActivity {
 
     private void netFail() {
         progressManager.endRunning();
-        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_fail_alert_title_fail, R.string.signIn_fail_alert_content_fail2);
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_alert_title_fail, R.string.signIn_alert_content_fail2);
     }
 }
