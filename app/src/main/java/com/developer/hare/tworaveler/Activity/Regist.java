@@ -191,7 +191,7 @@ public class Regist extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(Regist.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_fail_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_fail_alert_content_fail2))).show();
+        AlertManager.getInstance().createAlert(Regist.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.signUp_alert_title_fail)), resourceManager.getResourceString((R.string.signUp_alert_content_fail2))).show();
     }
 
 }

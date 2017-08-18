@@ -10,36 +10,48 @@
 
     <!--
       ############################################################################################
-                                                Activity
+                                                Class
       ############################################################################################
     -->
 
     <!-- Activity/SignUp -->
-    <string name="signUp_fail_alert_title_fail">회원가입 실패</string>
-    <string name="signUp_fail_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
-    <string name="signUp_fail_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
-    <string name="signUp_fail_alert_title_success">회원가입 성공</string>
-    <string name="signUp_fail_alert_content_success">회원가입에 성공 하였습니다</string>
+    <string name="signUp_alert_title_fail">회원가입 실패</string>
+    <string name="signUp_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
+    <string name="signUp_alert_content_fail2">문제가 발생하여 회원가입에 실패 하였습니다</string>
+    <string name="signUp_alert_title_success">회원가입 성공</string>
+    <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>
 
     <!-- Activity/SignIn -->
-    <string name="signIn_fail_alert_title_fail">로그인 실패</string>
-    <string name="signIn_fail_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
-    <string name="signIn_fail_alert_content_fail2">이메일 와 비밀번호가 일치하지 않습니다</string>
-    <string name="signIn_fail_alert_content_fail3">회원 가입하지 않은 계정 입니다</string>
-    <string name="signIn_fail_alert_title_success">로그인 성공</string>
-    <string name="signIn_fail_alert_content_success">로그인에 성공 하였습니다</string>
+    <string name="signIn_alert_title_fail">로그인 실패</string>
+    <string name="signIn_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
+    <string name="signIn_alert_content_fail2">이메일 와 비밀번호가 일치하지 않습니다</string>
+    <string name="signIn_alert_content_fail3">회원 가입하지 않은 계정 입니다</string>
+    <string name="signIn_alert_title_success">로그인 성공</string>
+    <string name="signIn_alert_content_success">로그인에 성공 하였습니다</string>
+
+    <!-- Activity/ProfileSet -->
+    <string name="profileSet_mod_fail_alert_title">수정 실패</string>
+    <string name="profileSet_mod_fail_alert_content">수정 실패 하였습니다</string>
+    <string name="profileSet_mod_success_alert_title">수정 성공</string>
+    <string name="profileSet_mod_success_alert_content">수정 성공 하였습니다</string>
+    <string name="profileSet_logout_alert_title">로그아웃</string>
+    <string name="profileSet_logout_alert_content">로그 아웃 하시겠습니까?</string>
+    <string name="profileSet_signOut_alert_title">회원 탈퇴</string>
+    <string name="profileSet_signOut_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
+    <string name="profileSet_signOut_alert_content2">회원 탈퇴 실패</string>
+    <string name="profileSet_signOut_alert_input_messae">비밂번호를 입력해 주세요</string>
 
     <!-- Fragment/FragmentBag-->
-    <string name="fragmentBag_fail_alert_title_fail">카테고리 불러오기 실패</string>
-    <string name="fragmentBag_fail_alert_content_fail">카테고리를 불러오는데 실패 하였습니다</string>
+    <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>
+    <string name="fragmentBag_alert_content_fail">카테고리를 불러오는데 실패 하였습니다</string>
 
     <!-- Fragment/FragmentFeed -->
-    <string name="fragmentFeed_fail_alert_title_fail">피드 불러오기 실패</string>
-    <string name="fragmentFeed_fail_alert_content_fail">피드 불러오는데 실패 하였습니다</string>
+    <string name="fragmentFeed_alert_title_fail">피드 불러오기 실패</string>
+    <string name="fragmentFeed_alert_content_fail">피드 불러오는데 실패 하였습니다</string>
 
     <!-- Fragment/FragmentMyPageHome -->
-    <string name="fragmentMyPageHome_fail_alert_title_fail">내 여행 목록불러오기 실패</string>
-    <string name="fragmentMyPageHome_fail_alert_content_fail">여행 목록을 불러오는데 실패 하였습니다</string>
+    <string name="fragmentMyPageHome_alert_title_fail">내 여행 목록불러오기 실패</string>
+    <string name="fragmentMyPageHome_alert_content_fail">여행 목록을 불러오는데 실패 하였습니다</string>
 
     <!--
         ############################################################################################

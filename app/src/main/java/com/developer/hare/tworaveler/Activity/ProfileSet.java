@@ -8,8 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
+import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.UserResModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -17,23 +19,31 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileSet extends AppCompatActivity {
 
     private EditText ET_nickname, ET_message;
     private CircleImageView circleImageView;
     private MenuTopTitle menuTopTitle;
+
     private UIFactory uiFactory;
     private UserModel userModel;
+    private ResourceManager resourceManager;
+    private ProgressManager progressManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,8 @@ public class ProfileSet extends AppCompatActivity {
 
     private void init() {
         uiFactory = UIFactory.getInstance(this);
+        resourceManager = ResourceManager.getInstance();
+        progressManager = new ProgressManager(this);
 
         ET_nickname = uiFactory.createView(R.id.profile_set$ET_nickname);
         ET_message = uiFactory.createView(R.id.profile_set$ET_message);
@@ -106,8 +118,8 @@ public class ProfileSet extends AppCompatActivity {
 
     public void onLogout(View view) {
         AlertManager.getInstance().showPopup(ProfileSet.this,
-                "알림",
-                "로그아웃 하시겠습니까?",
+                resourceManager.getResourceString(R.string.profileSet_logout_alert_title),
+                resourceManager.getResourceString(R.string.profileSet_logout_alert_content),
                 "취소",
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -130,8 +142,8 @@ public class ProfileSet extends AppCompatActivity {
 
     public void onWithdrawal(View view) {
         AlertManager.getInstance().showPopup(ProfileSet.this,
-                "알림",
-                "정말이야? 다시 한번 생각해봐 ㅠㅠ",
+                resourceManager.getResourceString(R.string.profileSet_signOut_alert_title),
+                resourceManager.getResourceString(R.string.profileSet_signOut_alert_content),
                 "취소",
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -143,10 +155,28 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), userModel.getPw()));
+                        AlertManager.getInstance().showInputAlert(ProfileSet.this, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
+                            @Override
+                            public void onConfirmClick(String input) {
+                                Call<RequestModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), input));
+                                result.enqueue(new Callback<RequestModel<String>>() {
+                                    @Override
+                                    public void onResponse(Call<RequestModel<String>> call, Response<RequestModel<String>> response) {
+                                        if (response.isSuccessful()) {
+                                            startActivity(new Intent(ProfileSet.this, SignIn.class));
+                                            finish();
+                                        } else {
+                                            netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
+                                        }
+                                    }
 
-                        startActivity(new Intent(ProfileSet.this, SignIn.class));
-                        finish();
+                                    @Override
+                                    public void onFailure(Call<RequestModel<String>> call, Throwable t) {
+                                        netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
+                                    }
+                                });
+                            }
+                        });
                     }
                 }
         );
@@ -168,5 +198,10 @@ public class ProfileSet extends AppCompatActivity {
 
     private void modifyData() {
         Net.getInstance().getFactoryIm().userLogout();
+    }
+
+    private void netFail(int title, int content) {
+        progressManager.endRunning();
+        AlertManager.getInstance().showNetFailAlert(this, title, content);
     }
 }

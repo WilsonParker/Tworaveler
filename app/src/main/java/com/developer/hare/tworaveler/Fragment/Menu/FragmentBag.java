@@ -183,7 +183,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void netFailAlert() {
-        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_fail_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_fail_alert_content_fail))).show();
+        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_alert_content_fail))).show();
     }
 
     private void createNavigationBagView() {

@@ -144,7 +144,7 @@ public class FragmentFeed extends BaseFragment {
     }
 
     private void netFail() {
-        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_fail_alert_title_fail, R.string.fragmentFeed_fail_alert_content_fail);
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_alert_title_fail, R.string.fragmentFeed_alert_content_fail);
     }
 
 }
