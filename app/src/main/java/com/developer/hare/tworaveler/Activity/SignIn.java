@@ -166,7 +166,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void signIn() {
-        progressManager.action(new OnProgressAction() {
+        progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
                 UserSignInModel signIn = new UserSignInModel(ET_email.getText().toString(), ET_password.getText().toString());
@@ -178,7 +178,7 @@ public class SignIn extends AppCompatActivity {
                             RequestModel<UserModel> result = response.body();
                             Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isSuccess ");
                             Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result);
-                            progressManager.alertDismiss();
+                            progressManager.endRunning();
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE

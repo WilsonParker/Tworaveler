@@ -121,7 +121,7 @@ public class ProgressManager {
         stateThread.start();
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void endRunning() {
+        this.state = true;
     }
 }

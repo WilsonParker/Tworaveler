@@ -117,7 +117,7 @@ public class FragmentFeed extends BaseFragment {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        progressManager.setState(true);
+                                        progressManager.endRunning();
                                         feedItemModels.addAll(model.getResult());
                                         ++scrollCount;
                                         Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<RequestArrayModel<FeedItemModel>>, Response<RequestArrayModel<FeedItemModel>>)", "items size : " + feedItemModels.size());
