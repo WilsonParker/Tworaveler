@@ -22,6 +22,7 @@
     <string name="signUp_alert_content_fail4">이메일 입력이 잘못 되었습니다</string>
     <string name="signUp_alert_content_fail5">비밀번호는 영,한,숫자,특수문자 8자리 이상 입니다</string>
     <string name="signUp_alert_content_fail6">닉네임은 영,한,숫자 4자리 이상 입니다</string>
+    <string name="signUp_alert_content_fail7">문제가 발생하여 회원가입을 할 수 가 없습니다</string>
     <string name="signUp_alert_title_success">회원가입 성공</string>
     <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>
 
@@ -41,10 +42,16 @@
     <string name="profileSet_mod_success_alert_content">수정 성공 하였습니다</string>
     <string name="profileSet_logout_alert_title">로그아웃</string>
     <string name="profileSet_logout_alert_content">로그 아웃 하시겠습니까?</string>
+    <string name="profileSet_logout_fail_alert_title">로그아웃 실패</string>
+    <string name="profileSet_logout_fail_alert_content">로그 아웃에 실패하였습니다</string>
     <string name="profileSet_signOut_alert_title">회원 탈퇴</string>
-    <string name="profileSet_signOut_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
-    <string name="profileSet_signOut_alert_content2">회원 탈퇴 실패</string>
-    <string name="profileSet_signOut_alert_content3">회원 탈퇴 성공</string>
+    <string name="profileSet_signOut_fail_alert_title">회원 탈퇴 실패</string>
+    <string name="profileSet_signOut_fail_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
+    <string name="profileSet_signOut_fail_alert_content2">회원 탈퇴 실패</string>
+    <string name="profileSet_signOut_fail_alert_content3">회원 탈퇴 성공</string>
+    <string name="profileSet_signOut_fail_alert_content4">로그인 되어 있지 않습니다</string>
+    <string name="profileSet_signOut_fail_alert_content5">비밀번호가 일치하지 않습니다</string>
+    <string name="profileSet_signOut_fail_alert_content6">이메일이 일치하지 않습니다</string>
     <string name="profileSet_signOut_alert_input_messae">비밀번호를 입력해 주세요</string>
 
     <!-- Activity/Regist-->

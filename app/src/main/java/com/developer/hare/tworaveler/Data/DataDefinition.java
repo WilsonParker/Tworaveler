@@ -66,7 +66,7 @@ public class DataDefinition {
                 , CODE_NICKNAME_CONFLICT = 202
                 , CODE_SIGNOUT_USER= 203
                 , CODE_EMAIL_PW_INCORRECT = 204
-                , CODE_PW_INCORREC= 205
+                , CODE_PW_INCORRECT = 205
                 , CODE_EMAIL_INCORRECT= 206
                 , CODE_NONE_SESSION= 207
 //              , CODE_NICKNAME_CONFLICT= 208

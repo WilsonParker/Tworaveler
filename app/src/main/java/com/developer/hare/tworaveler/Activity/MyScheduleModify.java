@@ -13,7 +13,7 @@ import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.Request.SceduleResModel;
+import com.developer.hare.tworaveler.Model.Request.ScheduleResModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -144,7 +144,7 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     private void onModify() {
-        SceduleResModel model = new SceduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
+        ScheduleResModel model = new ScheduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
         Call<ResponseModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
         res.enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override

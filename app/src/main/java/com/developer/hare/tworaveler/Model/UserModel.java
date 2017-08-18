@@ -7,11 +7,12 @@ import java.util.ArrayList;
  */
 
 public class UserModel {
+    private final String SessionKey = "JSESSIONID=";
     private int user_no;
-    private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionId;
+    private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionID;
     private ArrayList<Integer> followees, followers;
 
-    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn, String sessionId, ArrayList<Integer> followees, ArrayList<Integer> followers) {
+    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn, String sessionID, ArrayList<Integer> followees, ArrayList<Integer> followers) {
         this.user_no = user_no;
         this.email = email;
         this.pw = pw;
@@ -21,7 +22,7 @@ public class UserModel {
         this.status_message = status_message;
         this.reg_date = reg_date;
         this.del_yn = del_yn;
-        this.sessionId = sessionId;
+        this.sessionID = SessionKey+sessionID;
         this.followees = followees;
         this.followers = followers;
     }
@@ -98,12 +99,12 @@ public class UserModel {
         this.del_yn = del_yn;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getSessionID() {
+        return sessionID;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setSessionID(String sessionID) {
+        this.sessionID = SessionKey+sessionID;
     }
 
     public ArrayList<Integer> getFollowees() {
@@ -134,7 +135,7 @@ public class UserModel {
                 ", status_message='" + status_message + '\'' +
                 ", reg_date='" + reg_date + '\'' +
                 ", del_yn='" + del_yn + '\'' +
-                ", sessionId='" + sessionId + '\'' +
+                ", sessionID='" + sessionID + '\'' +
                 ", followees=" + followees +
                 ", followers=" + followers +
                 '}';

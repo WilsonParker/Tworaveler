@@ -5,11 +5,10 @@ import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
+import com.developer.hare.tworaveler.Model.Request.ScheduleResModel;
+import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.Request.SceduleResModel;
-import com.developer.hare.tworaveler.Model.Request.UserResModel;
-import com.developer.hare.tworaveler.Model.Request.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
@@ -18,6 +17,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -32,11 +32,11 @@ public interface NetFactoryIm {
 
     // 회원 가입
     @POST("/users/sign_up")
-    Call<ResponseModel<UserModel>> userSignUp(@Body UserSignUpModel model);
+    Call<ResponseModel<UserModel>> userSignUp(@Body UserReqModel model);
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<ResponseModel<ScheduleModel>> insertSchedule(@Body SceduleResModel model);
+    Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleResModel model);
 
     @Multipart
     @POST("upload")
@@ -51,11 +51,11 @@ public interface NetFactoryIm {
 
     // 프로필 정보 수정
     @POST("/users/profile/modify")
-    Call<ResponseModel<ProfileModel>> modifyProfile();
+    Call<ResponseModel<UserModel>> modifyProfile(@Body UserReqModel model);
 
     // 일정 수정
     @POST("/trips/update_trip")
-    Call<ResponseModel<ScheduleModel>> modifySchedule(@Body SceduleResModel model);
+    Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleResModel model);
 
 
     // #############################################################################################
@@ -69,7 +69,7 @@ public interface NetFactoryIm {
      * 202 : user was signed out
      */
     @POST("/users/email_login")
-    Call<ResponseModel<UserModel>> userSignIn(@Body UserResModel model);
+    Call<ResponseModel<UserModel>> userSignIn(@Body UserReqModel model);
 
     // 여행 가방 목록
     @GET("/backpack/get_category_backpack")
@@ -105,11 +105,11 @@ public interface NetFactoryIm {
 
     // 로그 아웃
     @POST("/users/logout")
-    Call<ResponseModel<String>> userLogout();
+    Call<ResponseModel<String>> userLogout(@Header("Cookie") String sessionID);
 
     // 회원 탈퇴
     @POST("/users/sign_out")
-    Call<ResponseModel<String>> userSignOut(@Body UserResModel model);
+    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String sessionID, @Body UserReqModel model);
 
 }
 

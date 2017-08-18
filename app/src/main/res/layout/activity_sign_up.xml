@@ -91,7 +91,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/button_nickname"
                         android:hint="@string/activity_sign_up$hint_ET_nickname"
-                        android:inputType="textAutoComplete"
+                        android:inputType="textAutoComplete|text"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>

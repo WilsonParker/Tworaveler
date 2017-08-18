@@ -4,11 +4,11 @@ package com.developer.hare.tworaveler.Model.Request;
  * Created by Hare on 2017-08-11.
  */
 
-public class SceduleResModel {
+public class ScheduleResModel {
     private int user_no;
     private String country, city, start_date, end_date, trip_pic_url, tripName;
 
-    public SceduleResModel(int user_no, String country, String city, String start_date, String end_date, String trip_pic_url, String tripName) {
+    public ScheduleResModel(int user_no, String country, String city, String start_date, String end_date, String trip_pic_url, String tripName) {
         this.user_no = user_no;
         this.country = country;
         this.city = city;
@@ -76,7 +76,7 @@ public class SceduleResModel {
 
     @Override
     public String toString() {
-        return "SceduleResModel{" +
+        return "ScheduleResModel{" +
                 "user_no=" + user_no +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +

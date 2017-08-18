@@ -16,7 +16,7 @@ import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.Request.UserResModel;
+import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -171,7 +171,7 @@ public class SignIn extends AppCompatActivity {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                UserResModel signIn = new UserResModel(ET_email.getText().toString(), ET_password.getText().toString());
+                UserReqModel signIn = new UserReqModel(ET_email.getText().toString(), ET_password.getText().toString());
                 Call<ResponseModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
                 res.enqueue(new Callback<ResponseModel<UserModel>>() {
                     @Override
@@ -179,7 +179,7 @@ public class SignIn extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseModel<UserModel> result = response.body();
-//                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
+                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE

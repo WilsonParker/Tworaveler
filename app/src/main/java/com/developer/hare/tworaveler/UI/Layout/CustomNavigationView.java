@@ -119,10 +119,11 @@ public class CustomNavigationView extends LinearLayout {
 
         private void setState(boolean clicked) {
             item.setClicked(clicked);
+            ImageManager imageManager = ImageManager.getInstance();
             if (clicked)
-                ImageManager.getInstance().loadImage(context, item.getClickImage(), icon);
+                imageManager.loadImage(imageManager.createRequestCreator(context, item.getClickImage()).placeholder(item.getDefaultImage()), icon);
             else
-                ImageManager.getInstance().loadImage(context, item.getDefaultImage(), icon);
+                imageManager.loadImage(imageManager.createRequestCreator(context, item.getDefaultImage()).placeholder(item.getDefaultImage()), icon);
         }
     }
 

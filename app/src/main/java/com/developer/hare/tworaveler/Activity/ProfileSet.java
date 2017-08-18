@@ -12,10 +12,9 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
-import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
+import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.Request.UserResModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -37,6 +36,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class ProfileSet extends AppCompatActivity {
 
@@ -137,10 +138,28 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Net.getInstance().getFactoryIm().userLogout();
+                        Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userLogout(SessionManager.getInstance().getUserModel().getSessionID());
+                        result.enqueue(new Callback<ResponseModel<String>>() {
+                            @Override
+                            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                if (response.isSuccessful()) {
+                                    switch (response.body().getSuccess()) {
+                                        case CODE_SUCCESS:
+                                            SessionManager.getInstance().setUserModel(null);
+                                            startActivity(new Intent(activity, SignIn.class));
+                                            finish();
+                                            break;
+                                    }
+                                } else {
+                                    netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
+                                }
+                            }
 
-                        startActivity(new Intent(activity, SignIn.class));
-                        finish();
+                            @Override
+                            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
+                            }
+                        });
                     }
                 }
         );
@@ -149,7 +168,7 @@ public class ProfileSet extends AppCompatActivity {
     public void onWithdrawal(View view) {
         AlertManager.getInstance().showPopup(activity,
                 resourceManager.getResourceString(R.string.profileSet_signOut_alert_title),
-                resourceManager.getResourceString(R.string.profileSet_signOut_alert_content),
+                resourceManager.getResourceString(R.string.profileSet_signOut_fail_alert_content),
                 "취소",
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -165,38 +184,42 @@ public class ProfileSet extends AppCompatActivity {
                             @Override
                             public void onConfirmClick(String input) {
                                 sweetAlertDialog.dismissWithAnimation();
-                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), input));
+                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getSessionID(), new UserReqModel(userModel.getEmail(), input));
                                 result.enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                        progressManager.actionWithState(new OnProgressAction() {
-                                            @Override
-                                            public void run() {
-                                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
-                                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
-                                                if (response.isSuccessful()) {
-                                                    progressManager.endRunning();
-                                                    switch (response.body().getSuccess()) {
-                                                        case DataDefinition.Network.CODE_SUCCESS:
-                                                            AlertManager.getInstance().createAlert(activity, SweetAlertDialog.SUCCESS_TYPE, resourceManager.getResourceString(R.string.profileSet_signOut_alert_title), resourceManager.getResourceString(R.string.profileSet_signOut_alert_content3), new SweetAlertDialog.OnSweetClickListener() {
-                                                                @Override
-                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                    startActivity(new Intent(activity, SignIn.class));
-                                                                    finish();
-                                                                }
-                                                            }).show();
-                                                            break;
-                                                    }
-                                                } else {
-                                                    netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
-                                                }
+                                        Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
+                                        Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
+                                        if (response.isSuccessful()) {
+                                            progressManager.endRunning();
+                                            switch (response.body().getSuccess()) {
+                                                case CODE_SUCCESS:
+                                                    AlertManager.getInstance().createAlert(activity, SweetAlertDialog.SUCCESS_TYPE, resourceManager.getResourceString(R.string.profileSet_signOut_alert_title), resourceManager.getResourceString(R.string.profileSet_signOut_fail_alert_content3), new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            startActivity(new Intent(activity, SignIn.class));
+                                                            finish();
+                                                        }
+                                                    }).show();
+                                                    break;
+                                                case DataDefinition.Network.CODE_NOT_LOGIN:
+                                                    netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content4);
+                                                    break;
+                                                case DataDefinition.Network.CODE_EMAIL_INCORRECT:
+                                                    netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content6);
+                                                    break;
+                                                case DataDefinition.Network.CODE_PW_INCORRECT:
+                                                    netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content5);
+                                                    break;
                                             }
-                                        });
+                                        } else {
+                                            netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content2);
+                                        }
                                     }
 
                                     @Override
                                     public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                                        netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
+                                        netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content2);
                                     }
                                 });
                             }
@@ -221,7 +244,18 @@ public class ProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        Net.getInstance().getFactoryIm().userLogout();
+        Call<ResponseModel<UserModel>> result = Net.getInstance().getFactoryIm().modifyProfile(new UserReqModel(ET_nickname.getText().toString(), ET_message.getText().toString(), userModel.getUser_no()));
+        result.enqueue(new Callback<ResponseModel<UserModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void netFail(int title, int content) {
