@@ -7,7 +7,7 @@ import com.developer.hare.tworaveler.Model.UserModel;
  */
 
 public class SessionManager {
-    private static UserModel USER_MODEL;
+    private UserModel USER_MODEL;
     private static SessionManager sessionManager = new SessionManager();
 
     public static SessionManager getInstance() {
@@ -22,10 +22,10 @@ public class SessionManager {
     }
 
     public UserModel getUserModel() {
-        return USER_MODEL;
+        return this.USER_MODEL;
     }
 
     public void setUserModel(UserModel userModel) {
-        USER_MODEL = userModel;
+        this.USER_MODEL = userModel;
     }
 }

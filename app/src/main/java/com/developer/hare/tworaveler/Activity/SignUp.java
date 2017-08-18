@@ -29,6 +29,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_EMAIL_CONFLICT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NICKNAME_CONFLICT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+
 public class SignUp extends AppCompatActivity {
     private EditText ET_email, ET_password, ET_nickName;
     private Button BT_signUp;
@@ -98,15 +102,42 @@ public class SignUp extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
-                            AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
-                                    , resourceManager.getResourceString(R.string.signUp_alert_title_success)
-                                    , resourceManager.getResourceString(R.string.signUp_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                                    startActivity(new Intent(getBaseContext(), SignIn.class));
-                                            finish();
-                                        }
-                                    }).show();
+                            switch (response.body().getSuccess()) {
+                                case CODE_SUCCESS:
+                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                            , resourceManager.getResourceString(R.string.signUp_alert_title_success)
+                                            , resourceManager.getResourceString(R.string.signUp_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    finish();
+                                                }
+                                            }).show();
+                                    break;
+                                case CODE_EMAIL_CONFLICT:
+                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                            , resourceManager.getResourceString(R.string.signUp_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signUp_alert_content_fail2), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    finish();
+                                                }
+                                            }).show();
+                                    break;
+                                case CODE_NICKNAME_CONFLICT:
+                                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                            , resourceManager.getResourceString(R.string.signUp_alert_title_fail)
+                                            , resourceManager.getResourceString(R.string.signUp_alert_content_fail3), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    finish();
+                                                }
+                                            }).show();
+                                    break;
+                                default:
+                                    netFail();
+                                    break;
+                            }
+
                         } else {
                             Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
                             netFail();

@@ -61,8 +61,11 @@ public class DataDefinition {
     public class Network{
         public static final int
                 CODE_SUCCESS = 200
-                ,CODE_INCORRECT = 201
-                ,CODE_SIGNED_OUT = 202
+                , CODE_NOT_LOGIN = 100
+                , CODE_EMAIL_CONFLICT = 201
+                , CODE_NICKNAME_CONFLICT = 202
+                , CODE_SIGNOUT_USER= 203
+                , CODE_EMAIL_PW_INCORRECT = 204
                 ,CODE_FAIL = 500
                 ;
     }

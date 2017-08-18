@@ -1,5 +1,6 @@
 package com.developer.hare.tworaveler.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
+import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.UserResModel;
@@ -23,6 +26,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
@@ -44,6 +48,7 @@ public class ProfileSet extends AppCompatActivity {
     private UserModel userModel;
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
+    private Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,7 @@ public class ProfileSet extends AppCompatActivity {
     }
 
     private void init() {
+        activity = this;
         uiFactory = UIFactory.getInstance(this);
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(this);
@@ -117,7 +123,7 @@ public class ProfileSet extends AppCompatActivity {
     }
 
     public void onLogout(View view) {
-        AlertManager.getInstance().showPopup(ProfileSet.this,
+        AlertManager.getInstance().showPopup(activity,
                 resourceManager.getResourceString(R.string.profileSet_logout_alert_title),
                 resourceManager.getResourceString(R.string.profileSet_logout_alert_content),
                 "취소",
@@ -133,7 +139,7 @@ public class ProfileSet extends AppCompatActivity {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         Net.getInstance().getFactoryIm().userLogout();
 
-                        startActivity(new Intent(ProfileSet.this, SignIn.class));
+                        startActivity(new Intent(activity, SignIn.class));
                         finish();
                     }
                 }
@@ -141,7 +147,7 @@ public class ProfileSet extends AppCompatActivity {
     }
 
     public void onWithdrawal(View view) {
-        AlertManager.getInstance().showPopup(ProfileSet.this,
+        AlertManager.getInstance().showPopup(activity,
                 resourceManager.getResourceString(R.string.profileSet_signOut_alert_title),
                 resourceManager.getResourceString(R.string.profileSet_signOut_alert_content),
                 "취소",
@@ -155,19 +161,37 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        AlertManager.getInstance().showInputAlert(ProfileSet.this, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
+                        AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
+                                sweetAlertDialog.dismissWithAnimation();
                                 Call<RequestModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), input));
                                 result.enqueue(new Callback<RequestModel<String>>() {
                                     @Override
                                     public void onResponse(Call<RequestModel<String>> call, Response<RequestModel<String>> response) {
-                                        if (response.isSuccessful()) {
-                                            startActivity(new Intent(ProfileSet.this, SignIn.class));
-                                            finish();
-                                        } else {
-                                            netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
-                                        }
+                                        progressManager.actionWithState(new OnProgressAction() {
+                                            @Override
+                                            public void run() {
+                                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
+                                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
+                                                if (response.isSuccessful()) {
+                                                    progressManager.endRunning();
+                                                    switch (response.body().getSuccess()) {
+                                                        case DataDefinition.Network.CODE_SUCCESS:
+                                                            AlertManager.getInstance().createAlert(activity, SweetAlertDialog.SUCCESS_TYPE, resourceManager.getResourceString(R.string.profileSet_signOut_alert_title), resourceManager.getResourceString(R.string.profileSet_signOut_alert_content3), new SweetAlertDialog.OnSweetClickListener() {
+                                                                @Override
+                                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                    startActivity(new Intent(activity, SignIn.class));
+                                                                    finish();
+                                                                }
+                                                            }).show();
+                                                            break;
+                                                    }
+                                                } else {
+                                                    netFail(R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_content2);
+                                                }
+                                            }
+                                        });
                                     }
 
                                     @Override
