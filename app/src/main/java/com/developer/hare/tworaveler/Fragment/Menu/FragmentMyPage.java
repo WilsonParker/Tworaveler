@@ -15,7 +15,7 @@ import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
-import com.developer.hare.tworaveler.UI.SessionManager;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -40,13 +40,13 @@ public class FragmentMyPage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        loginAction();
         Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResum()", "resume");
     }
 
     @Override
     protected void init(View view) {
         Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "init()", "init");
-        loginAction();
         UIFactory uiFactory = UIFactory.getInstance(getActivity());
         IV_login = uiFactory.createView(R.id.fragment_mypage$IV_nologin);
         IV_login.setOnClickListener(new View.OnClickListener() {

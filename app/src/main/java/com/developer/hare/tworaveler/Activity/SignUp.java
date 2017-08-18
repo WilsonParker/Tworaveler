@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.UserModel;
@@ -16,6 +16,7 @@ import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -34,6 +35,7 @@ public class SignUp extends AppCompatActivity {
 
     private NetFactoryIm netFactoryIm;
     private ResourceManager resourceManager;
+    private ProgressManager progressManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class SignUp extends AppCompatActivity {
     private void init() {
         UIFactory uiFactory = UIFactory.getInstance(this);
         resourceManager = ResourceManager.getInstance();
+        progressManager = new ProgressManager(this);
 
         netFactoryIm = Net.getInstance().getFactoryIm();
 
@@ -69,8 +72,8 @@ public class SignUp extends AppCompatActivity {
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_email);
         textViews.add(ET_password);
-        FontManager.getInstance().setFont(textViews,"Roboto-Medium.ttf");
-        FontManager.getInstance().setFont(ET_nickName,"NotoSansCJKkr-Medium.ttf");
+        FontManager.getInstance().setFont(textViews, "Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(ET_nickName, "NotoSansCJKkr-Medium.ttf");
     }
 
     private boolean validCheck() {
@@ -82,39 +85,47 @@ public class SignUp extends AppCompatActivity {
     }
 
     private void signUp() {
-        UserSignUpModel model = new UserSignUpModel(ET_email.getText().toString(), ET_password.getText().toString(), ET_nickName.getText().toString());
-        Call<RequestModel<UserModel>> res = netFactoryIm.userSignUp(model);
-        res.enqueue(new Callback<RequestModel<UserModel>>() {
+        progressManager.actionWithState(new OnProgressAction() {
             @Override
-            public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
-                UserModel result = response.body().getResult();
-                Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
-                if (response.isSuccessful()) {
-                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
-                    AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
-                            , resourceManager.getResourceString(R.string.signUp_fail_alert_title_success)
-                            , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    startActivity(new Intent(getBaseContext(), SignIn.class));
-                                }
-                            }).show();
-                } else {
-                    Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
-                    netFail();
-                }
-            }
+            public void run() {
+                UserSignUpModel model = new UserSignUpModel(ET_email.getText().toString(), ET_password.getText().toString(), ET_nickName.getText().toString());
+                Call<RequestModel<UserModel>> res = netFactoryIm.userSignUp(model);
+                res.enqueue(new Callback<RequestModel<UserModel>>() {
+                    @Override
+                    public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
+                        UserModel result = response.body().getResult();
+                        Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
+                        if (response.isSuccessful()) {
+                            progressManager.endRunning();
+                            Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
+                            AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
+                                    , resourceManager.getResourceString(R.string.signUp_fail_alert_title_success)
+                                    , resourceManager.getResourceString(R.string.signUp_fail_alert_content_success), "확인", new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                                    startActivity(new Intent(getBaseContext(), SignIn.class));
+                                            finish();
+                                        }
+                                    }).show();
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
+                            netFail();
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
-                Log_HR.log(SignUp.class, "onFailure()", t);
-                netFail();
+                    @Override
+                    public void onFailure(Call<RequestModel<UserModel>> call, Throwable t) {
+                        Log_HR.log(SignUp.class, "onFailure()", t);
+                        netFail();
+                    }
+                });
             }
         });
     }
 
     private void netFail() {
-        AlertManager.getInstance().showNetFailAlert(this, R.string.signUp_fail_alert_title_fail,R.string.signUp_fail_alert_content_fail2);
+        progressManager.endRunning();
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signUp_fail_alert_title_fail, R.string.signUp_fail_alert_content_fail2);
     }
 
 }

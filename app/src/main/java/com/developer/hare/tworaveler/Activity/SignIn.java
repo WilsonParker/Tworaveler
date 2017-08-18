@@ -11,12 +11,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Data.DataStorage;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.UserSignInModel;
+import com.developer.hare.tworaveler.Model.Response.UserResModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -121,8 +121,8 @@ public class SignIn extends AppCompatActivity {
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_email);
         textViews.add(ET_password);
-        FontManager.getInstance().setFont(textViews,"Roboto-Medium.ttf");
-        FontManager.getInstance().setFont(TV_signUp,"Roboto-MediumItalic.ttf");
+        FontManager.getInstance().setFont(textViews, "Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(TV_signUp, "Roboto-MediumItalic.ttf");
     }
 
     private boolean validCheck() {
@@ -169,16 +169,15 @@ public class SignIn extends AppCompatActivity {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                UserSignInModel signIn = new UserSignInModel(ET_email.getText().toString(), ET_password.getText().toString());
+                UserResModel signIn = new UserResModel(ET_email.getText().toString(), ET_password.getText().toString());
                 Call<RequestModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
                 res.enqueue(new Callback<RequestModel<UserModel>>() {
                     @Override
                     public void onResponse(Call<RequestModel<UserModel>> call, Response<RequestModel<UserModel>> response) {
                         if (response.isSuccessful()) {
-                            RequestModel<UserModel> result = response.body();
-                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isSuccess ");
-                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result);
                             progressManager.endRunning();
+                            RequestModel<UserModel> result = response.body();
+//                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.WARNING_TYPE
@@ -189,7 +188,12 @@ public class SignIn extends AppCompatActivity {
 //                                                    AlertManager.getInstance().dismissAlertSelectionMode();
                                                     sweetAlertDialog.dismiss();
 //                                                    startActivity(new Intent(SignIn.this, Main.class));
-                                                    DataStorage.USER_MODEL = result.getResult();
+                                                    UserModel model = result.getResult();
+                                                    if(model.getFollowees() == null)
+                                                        model.setFollowees(new ArrayList<>());
+                                                    if(model.getFollowers() == null)
+                                                        model.setFollowers(new ArrayList<>());
+                                                    SessionManager.getInstance().setUserModel(model);
                                                     onBackPressed();
                                                 }
                                             }).show();
@@ -233,6 +237,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_fail_alert_title_fail,R.string.signIn_fail_alert_content_fail2);
+        progressManager.endRunning();
+        AlertManager.getInstance().showNetFailAlert(this, R.string.signIn_fail_alert_title_fail, R.string.signIn_fail_alert_content_fail2);
     }
 }

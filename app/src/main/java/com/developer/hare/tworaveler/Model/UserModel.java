@@ -1,14 +1,17 @@
 package com.developer.hare.tworaveler.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Hare on 2017-08-10.
  */
 
 public class UserModel {
     private int user_no;
-    private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn;
+    private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionId;
+    private ArrayList<Integer> followees, followers;
 
-    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn) {
+    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn, String sessionId, ArrayList<Integer> followees, ArrayList<Integer> followers) {
         this.user_no = user_no;
         this.email = email;
         this.pw = pw;
@@ -18,6 +21,9 @@ public class UserModel {
         this.status_message = status_message;
         this.reg_date = reg_date;
         this.del_yn = del_yn;
+        this.sessionId = sessionId;
+        this.followees = followees;
+        this.followers = followers;
     }
 
     public int getUser_no() {
@@ -92,6 +98,30 @@ public class UserModel {
         this.del_yn = del_yn;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public ArrayList<Integer> getFollowees() {
+        return followees;
+    }
+
+    public void setFollowees(ArrayList<Integer> followees) {
+        this.followees = followees;
+    }
+
+    public ArrayList<Integer> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(ArrayList<Integer> followers) {
+        this.followers = followers;
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
@@ -104,6 +134,9 @@ public class UserModel {
                 ", status_message='" + status_message + '\'' +
                 ", reg_date='" + reg_date + '\'' +
                 ", del_yn='" + del_yn + '\'' +
+                ", sessionId='" + sessionId + '\'' +
+                ", followees=" + followees +
+                ", followers=" + followers +
                 '}';
     }
 }

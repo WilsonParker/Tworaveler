@@ -7,8 +7,8 @@ import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
-import com.developer.hare.tworaveler.Model.Response.UserSignInModel;
+import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
+import com.developer.hare.tworaveler.Model.Response.UserResModel;
 import com.developer.hare.tworaveler.Model.Response.UserSignUpModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
@@ -36,7 +36,7 @@ public interface NetFactoryIm {
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<RequestModel<ScheduleModel>> insertSchedule(@Body SceduleRegistModel model);
+    Call<RequestModel<ScheduleModel>> insertSchedule(@Body SceduleResModel model);
 
     @Multipart
     @POST("upload")
@@ -69,7 +69,7 @@ public interface NetFactoryIm {
      * 202 : user was signed out
      */
     @POST("/users/email_login")
-    Call<RequestModel<UserModel>> userSignIn(@Body UserSignInModel model);
+    Call<RequestModel<UserModel>> userSignIn(@Body UserResModel model);
 
     // 여행 가방 목록
     @GET("/backpack/get_category_backpack")
@@ -109,7 +109,7 @@ public interface NetFactoryIm {
 
     // 회원 탈퇴
     @POST("/users/sign_out")
-    Call<RequestModel<String>> userSignOut();
+    Call<RequestModel<String>> userSignOut(@Body UserResModel model);
 
 }
 

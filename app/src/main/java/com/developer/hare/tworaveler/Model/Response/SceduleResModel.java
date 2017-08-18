@@ -4,11 +4,11 @@ package com.developer.hare.tworaveler.Model.Response;
  * Created by Hare on 2017-08-11.
  */
 
-public class SceduleRegistModel {
+public class SceduleResModel {
     private int user_no;
     private String country, city, start_date, end_date, trip_pic_url, tripName;
 
-    public SceduleRegistModel(int user_no, String country, String city, String start_date, String end_date, String trip_pic_url, String tripName) {
+    public SceduleResModel(int user_no, String country, String city, String start_date, String end_date, String trip_pic_url, String tripName) {
         this.user_no = user_no;
         this.country = country;
         this.city = city;
@@ -76,7 +76,7 @@ public class SceduleRegistModel {
 
     @Override
     public String toString() {
-        return "SceduleRegistModel{" +
+        return "SceduleResModel{" +
                 "user_no=" + user_no +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +

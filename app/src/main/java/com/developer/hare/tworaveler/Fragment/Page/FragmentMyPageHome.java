@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
+import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
@@ -38,7 +39,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
-import static com.developer.hare.tworaveler.Data.DataStorage.USER_MODEL;
 
 public class FragmentMyPageHome extends BaseFragment {
     private UIFactory uiFactory;
@@ -46,7 +46,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private RecyclerView recyclerView;
     private TextView TV_noItem;
 
-    private FeedListAdapter feedListAdapter;
+    private HomeListAdapter homeListAdapter;
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
     private ArrayList<FeedItemModel> items = new ArrayList<>();
@@ -77,14 +77,14 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
-        feedListAdapter = new FeedListAdapter(items, new OnListScrollListener() {
+        homeListAdapter = new HomeListAdapter(items, new OnListScrollListener() {
             @Override
             public void scrollEnd() {
-
+                updateList();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(feedListAdapter);
+        recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
@@ -104,21 +104,22 @@ public class FragmentMyPageHome extends BaseFragment {
     }
 
     private void updateList() {
-        progressManager.action(new OnProgressAction() {
+        progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(USER_MODEL.getUser_no());
+                Call<RequestArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
                 result.enqueue(new Callback<RequestArrayModel<FeedItemModel>>() {
                     @Override
                     public void onResponse(Call<RequestArrayModel<FeedItemModel>> call, Response<RequestArrayModel<FeedItemModel>> response) {
                         if (response.isSuccessful()) {
+                            progressManager.endRunning();
                             RequestArrayModel<FeedItemModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         items.addAll(model.getResult());
-                                        feedListAdapter.notifyDataSetChanged();
+                                        homeListAdapter.notifyDataSetChanged();
                                     }
                                 });
                             }
@@ -141,6 +142,7 @@ public class FragmentMyPageHome extends BaseFragment {
     }
 
     private void netFail() {
+        progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageHome_fail_alert_title_fail, R.string.fragmentMyPageHome_fail_alert_content_fail);
     }
 }

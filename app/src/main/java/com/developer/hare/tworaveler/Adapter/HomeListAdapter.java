@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private ArrayList<FeedItemModel> items;
+    private OnListScrollListener onListScrollListener;
 
-    public HomeListAdapter(ArrayList<FeedItemModel> items) {
+    public HomeListAdapter(ArrayList<FeedItemModel> items, OnListScrollListener onListScrollListener) {
         this.items = items;
+        this.onListScrollListener = onListScrollListener;
     }
 
     @Override
@@ -34,6 +37,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.toBind(items.get(position));
+        if (items.size() - 1 == position)
+            onListScrollListener.scrollEnd();
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "onBindViewHolder(ViewHolder, int)", "binding");
     }
 
@@ -45,21 +50,26 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
         private ImageView IV_cover;
-        private TextView TV_date;
+        private TextView TV_title, TV_date, TV_like, TV_commenet;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+            TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
             TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
+            TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
+            TV_commenet = uiFactory.createView(R.id.item_mypage$TV_comment);
         }
 
         public void toBind(FeedItemModel model) {
-//            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(FeedItemModel)", model.toString());
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(context, model.getTrip_pic_url(), IV_cover);
-            TV_date.setText(model.getStart_date()+ " ~ "+model.getEnd_date());
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url()).centerCrop(), IV_cover);
+            TV_title.setText(model.getTripName());
+            TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
+            TV_like.setText(model.getLikeCount() + "");
+            TV_commenet.setText(model.getCommentCount() + "");
         }
     }
 

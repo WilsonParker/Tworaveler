@@ -17,7 +17,7 @@ public class Intro extends AppCompatActivity {
             FontManager.getInstance().setAssetManager(getAssets());
             initComplete = true;
 
-//            USER_MODEL = new UserModel(0,"m_user_email","m_user_pw","m_user_nickname","","","","","");
+//            SessionManager.getInstance().setUserModel(new UserModel(0,"m_user_email","m_user_pw","m_user_nickname","","","","",""));
         }
     });
     private boolean initComplete;

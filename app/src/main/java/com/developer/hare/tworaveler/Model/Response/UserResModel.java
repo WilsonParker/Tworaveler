@@ -4,10 +4,10 @@ package com.developer.hare.tworaveler.Model.Response;
  * Created by Hare on 2017-08-10.
  */
 
-public class UserSignInModel {
+public class UserResModel {
     private String email, pw;
 
-    public UserSignInModel(String email, String pw) {
+    public UserResModel(String email, String pw) {
         this.email = email;
         this.pw = pw;
     }

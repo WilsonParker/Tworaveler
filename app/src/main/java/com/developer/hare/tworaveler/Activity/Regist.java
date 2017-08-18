@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
-import com.developer.hare.tworaveler.Model.Response.SceduleRegistModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -147,7 +147,7 @@ public class Regist extends AppCompatActivity {
     }
 
     private void onRegist() {
-        SceduleRegistModel model = new SceduleRegistModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
+        SceduleResModel model = new SceduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
         Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
         res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
             @Override

@@ -61,7 +61,6 @@
                         android:id="@+id/item_mypage$TV_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="title"
                         android:textColor="@color/feed_title_color"
                         android:textSize="@dimen/TextSize_Feed_Title" />
 
@@ -69,7 +68,6 @@
                         android:id="@+id/item_mypage$TV_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017..8.04 ~ 2017.09.30"
                         android:textColor="@color/feed_date_color"
                         android:textSize="@dimen/TextSize_Feed_Date" />
                 </LinearLayout>
@@ -100,7 +98,6 @@
                             android:id="@+id/item_mypage$TV_like"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="11"
                             android:textColor="@color/feed_num_color"
                             android:textSize="@dimen/TextSize_Feed_Num" />
 
@@ -120,7 +117,6 @@
                             android:id="@+id/item_mypage$TV_comment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="11"
                             android:textColor="@color/feed_num_color"
                             android:textSize="@dimen/TextSize_Feed_Num" />
 

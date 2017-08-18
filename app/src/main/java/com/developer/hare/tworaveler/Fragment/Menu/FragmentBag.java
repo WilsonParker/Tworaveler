@@ -15,10 +15,12 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.BagDelete;
 import com.developer.hare.tworaveler.Adapter.BagListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
@@ -26,7 +28,6 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
-import com.developer.hare.tworaveler.UI.SessionManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
@@ -38,8 +39,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.developer.hare.tworaveler.Data.DataStorage.USER_MODEL;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
@@ -57,7 +56,7 @@ public class FragmentBag extends BaseFragment {
     private ArrayList<BagModel> items;
     private String theme;
     private ResourceManager resourceManager;
-
+    private UserModel userModel;
     public FragmentBag() {
         // Required empty public constructor
     }
@@ -112,14 +111,19 @@ public class FragmentBag extends BaseFragment {
 
         createNavigationBagView();
         itemEmptyCheck(items);
+        
+        sessionCheck();
+    }
 
+    private void sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
     }
 
     public void onPhoto() {
         PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
             @Override
             public void bindData(FileData fileData) {
-                addData(new BagModel(USER_MODEL.getUser_no(),
+                addData(new BagModel(userModel.getUser_no(),
                         fileData.getFile()
                         , theme));
             }
@@ -148,7 +152,7 @@ public class FragmentBag extends BaseFragment {
             return;
         }
         NetFactoryIm im = Net.getInstance().getFactoryIm();
-        Call<RequestArrayModel<BagModel>> result = im.selectBagList(USER_MODEL.getUser_no(), theme);
+        Call<RequestArrayModel<BagModel>> result = im.selectBagList(userModel.getUser_no(), theme);
         result.enqueue(new Callback<RequestArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<RequestArrayModel<BagModel>> call, Response<RequestArrayModel<BagModel>> response) {
@@ -159,7 +163,7 @@ public class FragmentBag extends BaseFragment {
                     if (items == null) {
                         items = new ArrayList<BagModel>();
                         String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
-                        items.add(new BagModel(USER_MODEL.getUser_no() + "", url, url));
+                        items.add(new BagModel(userModel.getUser_no() + "", url, url));
                     }
 
                     itemEmptyCheck(items);

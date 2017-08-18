@@ -3,17 +3,16 @@ package com.developer.hare.tworaveler.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
-import com.developer.hare.tworaveler.Model.ProfileModel;
-import com.developer.hare.tworaveler.Model.Request.RequestArrayModel;
+import com.developer.hare.tworaveler.Model.Response.UserResModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
-import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
@@ -27,9 +26,6 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProfileSet extends AppCompatActivity {
 
@@ -37,6 +33,7 @@ public class ProfileSet extends AppCompatActivity {
     private CircleImageView circleImageView;
     private MenuTopTitle menuTopTitle;
     private UIFactory uiFactory;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +42,12 @@ public class ProfileSet extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         uiFactory = UIFactory.getInstance(this);
 
-        ET_nickname     = uiFactory.createView(R.id.profile_set$ET_nickname);
-        ET_message      = uiFactory.createView(R.id.profile_set$ET_message);
-        menuTopTitle    = uiFactory.createView(R.id.profile_set$topbar);
+        ET_nickname = uiFactory.createView(R.id.profile_set$ET_nickname);
+        ET_message = uiFactory.createView(R.id.profile_set$ET_message);
+        menuTopTitle = uiFactory.createView(R.id.profile_set$topbar);
         circleImageView = uiFactory.createView(R.id.profile_setIV_profile);
 
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -62,7 +59,7 @@ public class ProfileSet extends AppCompatActivity {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                modifyData();
             }
         });
 
@@ -106,7 +103,8 @@ public class ProfileSet extends AppCompatActivity {
         textViews.add(ET_message);
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
-    public void onLogout(View view){
+
+    public void onLogout(View view) {
         AlertManager.getInstance().showPopup(ProfileSet.this,
                 "알림",
                 "로그아웃 하시겠습니까?",
@@ -121,12 +119,16 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Net.getInstance().getFactoryIm().userLogout();
+
                         startActivity(new Intent(ProfileSet.this, SignIn.class));
+                        finish();
                     }
                 }
         );
     }
-    public void onWithdrawal(View view){
+
+    public void onWithdrawal(View view) {
         AlertManager.getInstance().showPopup(ProfileSet.this,
                 "알림",
                 "정말이야? 다시 한번 생각해봐 ㅠㅠ",
@@ -141,34 +143,30 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Net.getInstance().getFactoryIm().userSignOut(new UserResModel(userModel.getEmail(), userModel.getPw()));
+
                         startActivity(new Intent(ProfileSet.this, SignIn.class));
+                        finish();
                     }
                 }
         );
     }
 
-    private void bind(FileData fileData)
-    {
-        final SweetAlertDialog sweetAlertDialog = AlertManager.getInstance().showLoading(this);
-        NetFactoryIm im = Net.getInstance().getFactoryIm();
-        Call<RequestArrayModel<ProfileModel>> res = im.getProfile();
-        res.enqueue(new Callback<RequestArrayModel<ProfileModel>>() {
-            @Override
-            public void onResponse(Call<RequestArrayModel<ProfileModel>> call, Response<RequestArrayModel<ProfileModel>> response) {
-
-                sweetAlertDialog.dismissWithAnimation();
-                AlertManager.getInstance().showSimplePopup(ProfileSet.this, "알림",
-                        "사진 업로드가 성공하였습니다.", SweetAlertDialog.ERROR_TYPE);
-            }
-
-            @Override
-            public void onFailure(Call<RequestArrayModel<ProfileModel>> call, Throwable t) {
-                Log.i("TAG", "업로드 실패 : " + t.getMessage());
-                sweetAlertDialog.dismissWithAnimation();
-                AlertManager.getInstance().showSimplePopup(ProfileSet.this, "알림",
-                        "사진 업로드가 실패하였습니다. 잠시 후 다시 이용해주세요.", SweetAlertDialog.ERROR_TYPE);
-            }
-        });
+    @Override
+    public void onResume() {
+        super.onResume();
+        setData();
     }
 
+    private void setData() {
+        userModel = SessionManager.getInstance().getUserModel();
+        ET_nickname.setText(userModel.getNickname());
+        ET_message.setText(userModel.getStatus_message());
+        ImageManager imageManager = ImageManager.getInstance();
+        imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url_thumbnail()).placeholder(R.drawable.image_profile), circleImageView);
+    }
+
+    private void modifyData() {
+        Net.getInstance().getFactoryIm().userLogout();
+    }
 }
