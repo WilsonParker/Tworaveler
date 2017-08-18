@@ -73,8 +73,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".FaceBook.Activity.FaceBookSignInActivity" />
-        <activity android:name=".FaceBook.Activity.FaceBookActivity" />-->
+        <!--
+        <activity android:name=".FaceBook.Activity.FaceBookSignInActivity" />
+        <activity android:name=".FaceBook.Activity.FaceBookActivity" />
+        -->
         <activity android:name=".Activity.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,12 +102,11 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.ProfileSet"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BigImage"
             android:theme="@style/MyTheme"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity
             android:name=".Activity.Regist"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -114,6 +115,7 @@
         <activity
             android:name=".Activity.RegistDayDetail"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".Activity.MyScheduleModify"></activity>
     </application>
 
 </manifest>

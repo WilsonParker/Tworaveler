@@ -55,7 +55,7 @@ public interface NetFactoryIm {
 
     // 일정 수정
     @POST("/trips/update_trip")
-    Call<RequestModel<ScheduleModel>> modifySchedule();
+    Call<RequestModel<ScheduleModel>> modifySchedule(@Body SceduleResModel model);
 
 
     // #############################################################################################

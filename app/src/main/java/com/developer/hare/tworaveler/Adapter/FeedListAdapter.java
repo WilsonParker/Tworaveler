@@ -54,7 +54,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
         private ImageView IV_cover;
         private TextView TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment;
 
-
         public ViewHolder(View itemView, Context context) {
             super(itemView);
             this.context = context;
@@ -79,6 +78,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             textlist2.add(TV_message);
             textlist2.add(TV_title);
             FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Regular.otf");
+
         }
 
         public void toBind(FeedItemModel model) {

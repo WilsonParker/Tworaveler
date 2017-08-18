@@ -79,6 +79,8 @@ dependencies {
     //    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     //    compile 'com.facebook.android:audience-network-sdk:4.+'
     //    compile 'com.android.support:multidex:1.0.1'
+
+
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
@@ -102,7 +104,6 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.tsengvn:Typekit:1.0.0'
-
     testCompile 'junit:junit:4.12'
 }
 

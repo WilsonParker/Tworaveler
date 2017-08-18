@@ -9,12 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
-import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Request.RequestModel;
+import com.developer.hare.tworaveler.Model.Response.SceduleResModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -25,6 +24,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
 
@@ -35,9 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.R.id.activity_regist$TV_start;
-
-public class Regist extends AppCompatActivity {
+public class MyScheduleModify extends AppCompatActivity {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
@@ -51,25 +49,25 @@ public class Regist extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case activity_regist$TV_start:
-                    dateManager.getDateTime(Regist.this, TV_dateStart);
+                case R.id.activity_myschedule_modify$TV_start:
+                    dateManager.getDateTime(MyScheduleModify.this, TV_dateStart);
                     break;
-                case R.id.activity_regist$TV_end:
-                    dateManager.getDateTime(Regist.this, TV_dateEnd);
+                case R.id.activity_myschedule_modify$TV_end:
+                    dateManager.getDateTime(MyScheduleModify.this, TV_dateEnd);
                     break;
-                case R.id.activity_regist$TV_citySearch:
-                    Intent intent = new Intent(Regist.this, SearchCity.class);
+                case R.id.activity_myschedule_modify$TV_citySearch:
+                    Intent intent = new Intent(MyScheduleModify.this, SearchCity.class);
                     startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
                     break;
-                case R.id.activity_regist$IV_cover:
+                case R.id.activity_myschedule_modify$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
                     AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {
+                            PhotoManager.getInstance().onCameraSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover);
+                                    ImageManager.getInstance().loadImage(MyScheduleModify.this, fileData.getFile(), IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -79,11 +77,11 @@ public class Regist extends AppCompatActivity {
                     AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.button_left, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
+                            PhotoManager.getInstance().onGallerySingleSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     ImageManager imageManager =ImageManager.getInstance();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile()).centerCrop();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, fileData.getFile()).centerCrop();
                                     imageManager.loadImage(requestCreator,IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
@@ -91,16 +89,15 @@ public class Regist extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
+                    AlertManager.getInstance().showAlertSelectionMode(MyScheduleModify.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
                     break;
             }
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist);
+        setContentView(R.layout.activity_myschedule_modify);
         init();
     }
 
@@ -109,34 +106,34 @@ public class Regist extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
 
-        menuTopTitle = uiFactory.createView(R.id.activity_regist$menuToptitle);
+        menuTopTitle = uiFactory.createView(R.id.activity_myschedule_modify$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Regist.this.onBackPressed();
+                MyScheduleModify.this.onBackPressed();
             }
         });
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onRegist();
+                onModify();
             }
         });
-        ET_tripName = uiFactory.createView(R.id.activity_regist$TV_tripName);
-        TV_citySearch = uiFactory.createView(R.id.activity_regist$TV_citySearch);
+        ET_tripName = uiFactory.createView(R.id.activity_myschedule_modify$TV_tripName);
+        TV_citySearch = uiFactory.createView(R.id.activity_myschedule_modify$TV_citySearch);
         TV_citySearch.setOnClickListener(onClickListener);
-        TV_dateStart = uiFactory.createView(activity_regist$TV_start);
+        TV_dateStart = uiFactory.createView(R.id.activity_myschedule_modify$TV_start);
         TV_dateStart.setOnClickListener(onClickListener);
-        TV_dateEnd = uiFactory.createView(R.id.activity_regist$TV_end);
+        TV_dateEnd = uiFactory.createView(R.id.activity_myschedule_modify$TV_end);
         TV_dateEnd.setOnClickListener(onClickListener);
-        IV_cover = uiFactory.createView(R.id.activity_regist$IV_cover);
+        IV_cover = uiFactory.createView(R.id.activity_myschedule_modify$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
-        IV_camera= uiFactory.createView(R.id.activity_regist$IV_camera);
+        IV_camera= uiFactory.createView(R.id.activity_myschedule_modify$IV_camera);
 
         ArrayList<TextView> textViews = new ArrayList<>();
-        textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_1));
-        textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_2));
-        textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_3));
+        textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_1));
+        textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_2));
+        textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_3));
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
         textViews.clear();
         textViews.add(ET_tripName);
@@ -146,19 +143,16 @@ public class Regist extends AppCompatActivity {
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
 
-    private void onRegist() {
+    private void onModify() {
         SceduleResModel model = new SceduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
+        Call<RequestModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
         res.enqueue(new Callback<RequestModel<ScheduleModel>>() {
             @Override
             public void onResponse(Call<RequestModel<ScheduleModel>> call, Response<RequestModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
                     RequestModel<ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                        Intent intent = new Intent(Regist.this, RegistDetail.class);
-                        intent.putExtra(DataDefinition.Intent.KEY_STARTDATE, TV_dateStart.getText().toString());
-                        intent.putExtra(DataDefinition.Intent.KEY_ENDDATE, TV_dateEnd.getText().toString());
-                        startActivity(intent);
+                        onBackPressed();
                     } else
                         netFail();
                 } else
@@ -191,7 +185,7 @@ public class Regist extends AppCompatActivity {
     }
 
     private void netFail() {
-        AlertManager.getInstance().createAlert(Regist.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.regist_fail_alert_title_fail)), resourceManager.getResourceString((R.string.regist_fail_alert_content_fail2))).show();
+        AlertManager.getInstance().createAlert(MyScheduleModify.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.myschedule_modify_fail_alert_title_fail)), resourceManager.getResourceString((R.string.myschedule_modify_fail_alert_content_fail2))).show();
     }
 
 }

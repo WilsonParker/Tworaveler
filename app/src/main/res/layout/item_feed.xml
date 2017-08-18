@@ -86,15 +86,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
-
-            <ImageView
-                android:id="@+id/item_feed$IV_btn"
-                android:layout_width="25dp"
-                android:layout_height="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_margin="11.3dp"
-                android:background="@drawable/icon_more" />
-
         </RelativeLayout>
 
         <LinearLayout

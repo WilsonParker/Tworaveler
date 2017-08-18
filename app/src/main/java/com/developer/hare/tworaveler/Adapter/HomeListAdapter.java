@@ -1,13 +1,19 @@
 package com.developer.hare.tworaveler.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.R;
@@ -49,8 +55,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
-        private ImageView IV_cover;
         private TextView TV_title, TV_date, TV_like, TV_commenet;
+        private ImageView IV_cover, IV_btn;
+
+        private PopupMenu popupMenu;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -61,6 +69,36 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
             TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
             TV_commenet = uiFactory.createView(R.id.item_mypage$TV_comment);
+            IV_btn = uiFactory.createView(R.id.item_mypage$IV_btn);
+
+            IV_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popupMenu = new PopupMenu(context, view);
+                    MenuInflater inflater = popupMenu.getMenuInflater();
+                    Menu menu = popupMenu.getMenu();
+
+                    inflater.inflate(R.menu.popup_menu, menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Intent intent;
+                            switch(item.getItemId()){
+                                case R.id.popup_menu$modify:
+                                    intent = new Intent(context, MyScheduleModify.class);
+                                    context.startActivity(intent);
+                                    break;
+                                case R.id.popup_menu$delete:
+                                    intent = new Intent(context, MyScheduleModify.class);
+                                    context.startActivity(intent);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                }
+            });
         }
 
         public void toBind(FeedItemModel model) {

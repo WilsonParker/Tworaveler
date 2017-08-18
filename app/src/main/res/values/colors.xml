@@ -30,6 +30,9 @@
     <color name="regist_text_TV_color">#7d7d7d</color>
     <color name="regist_text_ET_color">#868686</color>
 
+    <!-- layout/activity_myschedule_modify-->
+    <color name="modify_IV_color">#48000000</color>
+
     <!-- fragment need login-->
     <color name="fragment_login_text_color">#252525</color>
 </resources>

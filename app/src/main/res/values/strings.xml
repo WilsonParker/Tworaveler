@@ -69,6 +69,13 @@
     <string name="activity_regist_text_4">언제 가시나요?</string>
     <string name="activity_regist_text_5">여행 시작 날짜</string>
     <string name="activity_regist_text_6">여행 종료 날짜</string>
+    <string name="regist_fail_alert_title_fail">여행등록 실패</string>
+    <string name="regist_fail_alert_content_fail2">문제가 발생하여 여행등록에 실패 하였습니다</string>
+
+    <!-- layout/activity_myschedule_modify-->
+    <string name="activity_myschedule_modify_title">edit trip</string>
+    <string name="myschedule_modify_fail_alert_title_fail">여행수정 실패</string>
+    <string name="myschedule_modify_fail_alert_content_fail2">문제가 발생하여 여행수정에 실패 하였습니다</string>
 
     <!-- layout/activity_regist_detail-->
     <string name="activity_regist_detail_title">Regist Detail</string>
@@ -152,6 +159,9 @@
     <string name="navigation_bag_title_map">지도</string>
     <string name="navigation_bag_title_shopping">쇼핑</string>
 
+    <!-- menu/popup_menu-->
+    <string name="popup_menu_modify">수정</string>
+    <string name="popup_menu_delete">삭제</string>
     <!--
         ############################################################################################
                                                    Data
