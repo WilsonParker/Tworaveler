@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -25,15 +27,16 @@ import java.util.Date;
 
 public class RegistDetail extends AppCompatActivity {
     private UIFactory uiFactory;
-    private MenuTopTitle menuTopTitle;
-    private String startDate, endDate;
-    private final String title_format = "yy - MM - dd";
+    private ImageManager imageManager;
     private DateManager dateManager;
     private Intent intent;
+    private ScheduleModel scheduleModel;
 
-    private com.prolificinteractive.materialcalendarview.MaterialCalendarView meterialCalendarView;
-    private TextView TV_title, TV_date;
+    private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
+    private MenuTopTitle menuTopTitle;
+    private TextView TV_title, TV_date,TV_like, TV_comment;
     private ImageView IV_cover;
+    private View scheduleItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +47,15 @@ public class RegistDetail extends AppCompatActivity {
 
     protected void init() {
         intent = getIntent();
-        startDate = intent.getExtras().getString(DataDefinition.Intent.KEY_STARTDATE);
-        endDate = intent.getExtras().getString(DataDefinition.Intent.KEY_ENDDATE);
+//        startDate = intent.getExtras().getString(DataDefinition.Intent.KEY_STARTDATE);
+//        endDate = intent.getExtras().getString(DataDefinition.Intent.KEY_ENDDATE);
+        scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
 
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
+        imageManager = ImageManager.getInstance();
 
-        TV_title = uiFactory.createView(R.id.activity_regist_detail$TV_title);
-        TV_date = uiFactory.createView(R.id.activity_regist_detail$TV_date);
-        IV_cover = uiFactory.createView(R.id.activity_regist_detail$IV_cover);
-
+        scheduleItem = uiFactory.createView(R.id.activity_regist_detail$IC_schedul_item);
         menuTopTitle = uiFactory.createView(R.id.activity_regist_detail$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,28 +65,39 @@ public class RegistDetail extends AppCompatActivity {
             }
         });
 
+        uiFactory.setResource(scheduleItem);
+        TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
+        TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
+        IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+        uiFactory.createView(R.id.item_mypage$IV_like).setVisibility(View.GONE);
+        uiFactory.createView(R.id.item_mypage$IV_comment).setVisibility(View.GONE);
+        uiFactory.createView(R.id.item_mypage$IV_route).setVisibility(View.GONE);
+
         initMaterialCalendarView();
+        setDatas();
     }
 
     private void initMaterialCalendarView() {
-        meterialCalendarView = uiFactory.createView(R.id.activity_regist_detail$calendar);
-        Date startDate = DateManager.getInstance().parseDate(this.startDate, DataDefinition.RegularExpression.FORMAT_DATE);
-        Date endDate = DateManager.getInstance().parseDate(this.endDate, DataDefinition.RegularExpression.FORMAT_DATE);
-        meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
+        materialCalendarView = uiFactory.createView(R.id.activity_regist_detail$calendar);
+        Date startDate = DateManager.getInstance().parseDate(scheduleModel.getStart_date(), DataDefinition.RegularExpression.FORMAT_DATE);
+        Date endDate = DateManager.getInstance().parseDate(scheduleModel.getEnd_date(), DataDefinition.RegularExpression.FORMAT_DATE);
+        materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
 
-        meterialCalendarView.state().edit()
+        materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
                 .setMinimumDate(CalendarDay.from(startArr[0], startArr[1], startArr[2]))
                 .setMaximumDate(CalendarDay.from(endArr[0], endArr[1], endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
-        meterialCalendarView.setCurrentDate(startDate);
-        meterialCalendarView.selectRange(CalendarDay.from(startDate), CalendarDay.from(endDate));
-        meterialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        materialCalendarView.setCurrentDate(startDate);
+        materialCalendarView.selectRange(CalendarDay.from(startDate), CalendarDay.from(endDate));
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 //                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
@@ -93,10 +106,18 @@ public class RegistDetail extends AppCompatActivity {
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
             }
         });
-        meterialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(title_format)));
-
+        materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
+        materialCalendarView.setTopbarVisible(true);
+//        materialCalendarView.setBackgroundColor(Color.BLUE);
+//        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
+    private void setDatas(){
+//        menuTopTitle.getTV_title().setText("");
+        TV_title.setText(scheduleModel.getTripName());
+        TV_date.setText(scheduleModel.getStart_date()+" ~ "+scheduleModel.getEnd_date());
+        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url()),IV_cover);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

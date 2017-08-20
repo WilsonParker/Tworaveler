@@ -12,7 +12,6 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.Request.ScheduleResModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -30,6 +29,7 @@ import com.squareup.picasso.RequestCreator;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +41,8 @@ public class Regist extends AppCompatActivity {
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
     private ResourceManager resourceManager;
+    private ImageManager imageManager;
+
 
     private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
@@ -55,10 +57,6 @@ public class Regist extends AppCompatActivity {
                     break;
                 case R.id.activity_regist$TV_end:
                     dateManager.getDateTime(Regist.this, TV_dateEnd);
-                    break;
-                case R.id.activity_regist$TV_citySearch:
-                    Intent intent = new Intent(Regist.this, SearchCity.class);
-                    startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
                     break;
                 case R.id.activity_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
@@ -81,7 +79,6 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager imageManager = ImageManager.getInstance();
                                     RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile()).centerCrop();
                                     imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
@@ -107,6 +104,7 @@ public class Regist extends AppCompatActivity {
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
+        imageManager = ImageManager.getInstance();
 
         menuTopTitle = uiFactory.createView(R.id.activity_regist$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -118,7 +116,11 @@ public class Regist extends AppCompatActivity {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onRegist();
+//                onRegister();
+                ScheduleModel model = new ScheduleModel(0, 0, "country", TV_citySearch.getText().toString(), ET_tripName.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName", "", "");
+                Intent intent = new Intent(Regist.this, RegistDetail.class);
+                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                startActivity(intent);
             }
         });
         ET_tripName = uiFactory.createView(R.id.activity_regist$TV_tripName);
@@ -143,20 +145,28 @@ public class Regist extends AppCompatActivity {
         textViews.add(TV_dateStart);
         textViews.add(TV_dateEnd);
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init", "TV_citySearch text : " + TV_citySearch.getText().toString());
     }
 
-    private void onRegist() {
-        ScheduleResModel model = new ScheduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<ResponseModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
-        res.enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+    public void searchCity(View view) {
+        Intent intent = new Intent(Regist.this, SearchCity.class);
+        startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+    }
+
+    private void onRegister() {
+        if (!checkValidation())
+            return;
+        ScheduleModel model = new ScheduleModel(0, 0, "country", TV_citySearch.getText().toString(), ET_tripName.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName", "", "");
+        Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
+        res.enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
             @Override
-            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Response<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    ResponseModel<ScheduleModel> result = response.body();
+                    ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                         Intent intent = new Intent(Regist.this, RegistDetail.class);
-                        intent.putExtra(DataDefinition.Intent.KEY_STARTDATE, TV_dateStart.getText().toString());
-                        intent.putExtra(DataDefinition.Intent.KEY_ENDDATE, TV_dateEnd.getText().toString());
+                        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
                         startActivity(intent);
                     } else
                         netFail();
@@ -165,12 +175,26 @@ public class Regist extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });
+    }
 
-
+    private boolean checkValidation() {
+        boolean result = false;
+        String starDate = TV_dateStart.getText().toString();
+        String endDate = TV_dateEnd.getText().toString();
+        if (ET_tripName.getText().toString().isEmpty()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_2)).show();
+        } else if (TV_citySearch.getText().toString().isEmpty()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
+        } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
+        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
+            result = true;
+        }
+        return result;
     }
 
     @Override
@@ -182,8 +206,13 @@ public class Regist extends AppCompatActivity {
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                    if (model != null)
-                        TV_citySearch.setText(model.getCityName());
+                    if (model != null) {
+                        TV_citySearch.setText(model.getCity());
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_thumbnail_url()).centerCrop();
+                        imageManager.loadImage(requestCreator, IV_camera);
+                        IV_camera.setVisibility(View.INVISIBLE);
+                    }
+
                 }
             }
         }

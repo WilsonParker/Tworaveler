@@ -3,9 +3,9 @@
     android:id="@+id/item_mypage$Root"
     android:layout_width="match_parent"
     android:layout_height="216dp"
-    android:layout_marginTop="9dp"
     android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="9dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,12 +24,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/default_Image_color" />
+
             <LinearLayout
+                android:id="@+id/item_mypage$IV_btn"
                 android:layout_width="50dp"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:id="@+id/item_mypage$IV_btn"
-                >
+                android:layout_alignParentRight="true">
 
                 <ImageView
                     android:layout_width="25dp"

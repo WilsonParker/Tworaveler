@@ -13,7 +13,6 @@ import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.Request.ScheduleResModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -144,13 +143,13 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     private void onModify() {
-        ScheduleResModel model = new ScheduleResModel(0, "country", "city", TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName");
-        Call<ResponseModel<ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
-        res.enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+        ScheduleModel model = new ScheduleModel(0, 0, "country", TV_citySearch.getText().toString(), ET_tripName.getText().toString(),TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url","","","");
+        Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
+        res.enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
             @Override
-            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Response<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    ResponseModel<ScheduleModel> result = response.body();
+                    ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                         onBackPressed();
                     } else
@@ -160,7 +159,7 @@ public class MyScheduleModify extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });
@@ -178,7 +177,7 @@ public class MyScheduleModify extends AppCompatActivity {
                 if (data != null) {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (model != null)
-                        TV_citySearch.setText(model.getCityName());
+                        TV_citySearch.setText(model.getCity());
                 }
             }
         }

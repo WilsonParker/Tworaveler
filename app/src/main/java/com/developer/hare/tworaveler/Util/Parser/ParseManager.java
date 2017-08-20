@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Util.Date;
+package com.developer.hare.tworaveler.Util.Parser;
 
 /**
  * Created by Hare on 2017-08-07.

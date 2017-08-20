@@ -52,7 +52,7 @@ public class ImageManager {
 
     private RequestCreator basicSetting(RequestCreator requestCreator) {
         return requestCreator
-                .error(R.drawable.noimage).fit()
+                .error(R.drawable.noimage).resize(1280, 960)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE);
     }

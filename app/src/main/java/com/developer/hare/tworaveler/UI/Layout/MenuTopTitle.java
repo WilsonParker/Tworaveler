@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
-import com.developer.hare.tworaveler.Util.SizeManager;
+import com.developer.hare.tworaveler.Util.Parser.SizeManager;
 
 /**
  * Created by Hare on 2017-08-02.

@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Util;
+package com.developer.hare.tworaveler.Util.Parser;
 
 import android.content.Context;
 import android.util.TypedValue;

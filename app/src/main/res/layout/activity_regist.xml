@@ -154,6 +154,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
+                android:onClick="searchCity"
                 android:weightSum="328">
 
                 <ImageView
@@ -186,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/activity_regist_text_3"
+                    android:hint="@string/activity_regist_text_3"
                     android:textColor="@color/regist_text_ET_color"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>

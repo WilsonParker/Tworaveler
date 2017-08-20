@@ -57,7 +57,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
         }
 
         public void toBind(CityModel model) {
-            TV_name.setText(model.getCityName());
+            TV_name.setText(model.getCity());
             FontManager.getInstance().setFont(TV_name, "NotoSansCJKkr-Medium.otf");
             TV_name.setOnClickListener(new View.OnClickListener() {
                 @Override

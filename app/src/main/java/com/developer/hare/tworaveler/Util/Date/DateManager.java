@@ -24,6 +24,7 @@ public class DateManager {
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialog;
     private String stringDate;
+    private final int StartYear = 1900;
 
     private TextView textView;
     private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -86,7 +87,13 @@ public class DateManager {
     }
 
     public int[] getTimeArr(Date date) {
-        int[] is = {Integer.parseInt(formatDate(date.getTime(), "yyyy")),Integer.parseInt(formatDate(date.getTime(), "MM")),Integer.parseInt(formatDate(date.getTime(), "dd"))};
+        int[] is = {Integer.parseInt(formatDate(date.getTime(), "yyyy")), Integer.parseInt(formatDate(date.getTime(), "MM")), Integer.parseInt(formatDate(date.getTime(), "dd"))};
         return is;
+    }
+
+    public boolean compareDate(String start, String end, String pattern) {
+        Date startDate = parseDate(start, pattern);
+        Date endDate = parseDate(end, pattern);
+        return startDate.getTime() < endDate.getTime();
     }
 }

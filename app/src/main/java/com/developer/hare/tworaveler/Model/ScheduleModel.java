@@ -1,19 +1,22 @@
 package com.developer.hare.tworaveler.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Hare on 2017-08-11.
  */
 
-public class ScheduleModel {
+public class ScheduleModel implements Serializable {
     // Regist Detail Model
     private int user_no, likes;
-    private String country, city, start_date, end_date, trip_pic_url, reg_date, mod_date, del_yn;
+    private String country, city, start_date, end_date, trip_pic_url, reg_date, mod_date, del_yn, tripName;
 
-    public ScheduleModel(int user_no, int likes, String country, String city, String start_date, String end_date, String trip_pic_url, String reg_date, String mod_date, String del_yn) {
+    public ScheduleModel(int user_no, int likes, String country, String city, String tripName, String start_date, String end_date, String trip_pic_url, String reg_date, String mod_date, String del_yn) {
         this.user_no = user_no;
         this.likes = likes;
         this.country = country;
         this.city = city;
+        this.tripName = tripName;
         this.start_date = start_date;
         this.end_date = end_date;
         this.trip_pic_url = trip_pic_url;
@@ -102,6 +105,14 @@ public class ScheduleModel {
         this.del_yn = del_yn;
     }
 
+    public String getTripName() {
+        return tripName;
+    }
+
+    public void setTripName(String tripName) {
+        this.tripName = tripName;
+    }
+
     @Override
     public String toString() {
         return "ScheduleModel{" +
@@ -115,6 +126,7 @@ public class ScheduleModel {
                 ", reg_date='" + reg_date + '\'' +
                 ", mod_date='" + mod_date + '\'' +
                 ", del_yn='" + del_yn + '\'' +
+                ", tripName='" + tripName + '\'' +
                 '}';
     }
 }

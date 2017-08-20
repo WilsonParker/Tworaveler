@@ -8,12 +8,13 @@
         android:id="@+id/activity_regist_detail$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
-        android:layout_weight="1"
-        app:leftButton="@drawable/button_left"
-        app:titleText="@string/activity_regist_detail_title"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        app:leftButton="@drawable/icon_back"
+        app:rightButton="@drawable/icon_edit"
+        app:titleText="@string/activity_regist_detail_title" />
 
 
     <ScrollView
@@ -30,82 +31,37 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="20">
+                android:layout_weight="328">
 
                 <LinearLayout
                     android:id="@+id/activity_regist_detail$LL_scrollItem"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="216dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.5" />
-
-                    <ImageView
-                        android:id="@+id/activity_regist_detail$IV_cover"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="10"
-                        android:background="@color/default_Image_color" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/activity_regist_detail$TV_title"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="6"
-                            android:gravity="center_vertical|left"
-                            android:text="Trop to Washington" />
-
-                        <TextView
-                            android:id="@+id/activity_regist_detail$TV_date"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="4"
-                            android:gravity="center_vertical|left"
-                            android:text="2017.08.13~2017.08.20" />
-
-                        <ImageView
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/shaow" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@drawable/shaow" />
+                    <include
+                        android:id="@+id/activity_regist_detail$IC_schedul_item"
+                        layout="@layout/item_mypage" />
 
                 </LinearLayout>
+
 
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/activity_regist_detail$calendar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/activity_regist_detail$LL_scrollItem"
+                    android:layout_marginLeft="15.3dp"
+                    android:layout_marginRight="15.3dp"
+                    android:layout_marginTop="11.3dp"
                     android:layout_weight="1"
                     app:mcv_selectionColor="#67b777"
                     app:mcv_showOtherDates="all" />
             </RelativeLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
         </LinearLayout>
     </ScrollView>
 

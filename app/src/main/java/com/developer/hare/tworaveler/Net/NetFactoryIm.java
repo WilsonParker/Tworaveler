@@ -5,7 +5,6 @@ import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
-import com.developer.hare.tworaveler.Model.Request.ScheduleResModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
@@ -36,7 +35,7 @@ public interface NetFactoryIm {
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleResModel model);
+    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> insertSchedule(@Body ScheduleModel model);
 
     @Multipart
     @POST("upload")
@@ -55,7 +54,7 @@ public interface NetFactoryIm {
 
     // 일정 수정
     @POST("/trips/update_trip")
-    Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleResModel model);
+    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> modifySchedule(@Body ScheduleModel model);
 
 
     // #############################################################################################
@@ -76,12 +75,15 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<BagModel>> selectBagList(@Query("user_no") int user_no, @Query("category_theme") String category_theme);
 
     // 도시 검색
-    @GET("/search/city")
-    Call<ResponseArrayModel<CityModel>> searchCity(@Query("q") String q);
+//    @GET("/search/city")
+//    Call<ResponseArrayModel<CityModel>> searchCity(@Query("q") String q);
+
+    @GET("/city/get_all_location")
+    Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
     // 여행 별 일정 조회
     @GET("/trips/find_trip")
-    Call<ResponseModel<ScheduleModel>> selectSchedule(@Query("trip_no") int trip_no);
+    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectSchedule(@Query("trip_no") int trip_no);
 
     // 프로필 정보 얻기
     @GET("/profileSet")
@@ -93,7 +95,7 @@ public interface NetFactoryIm {
 
     // 내 여행 목록 조회
     @GET("/trips/mytrip/{user_no}")
-    Call<ResponseModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
+    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
     @GET("/feed/:scrollCount")

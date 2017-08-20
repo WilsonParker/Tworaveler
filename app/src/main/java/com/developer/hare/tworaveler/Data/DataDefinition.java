@@ -17,6 +17,8 @@ public class DataDefinition {
                 ,KEY_STARTDATE= "StartDate"
                 ,KEY_ENDDATE= "EndDate"
                 ,KEY_DATE = "Date"
+
+                ,KEY_SCHEDULE_MODEL= "StartDate"
                 ;
         public static final int
                 RESULT_CODE_SUCCESS = 0x0000
@@ -50,10 +52,12 @@ public class DataDefinition {
         public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
                 ,REG_NICKNAME="^([a-zA-Z0-9가-힣]){4,16}$"
+                ,REG_DATE="^([0-9]){4}-([0-9]){1,2}-([0-9]){1,2}$"
                 ,REG_STRING_DATE_FOR_INTGER="(-)"
 //                ,REG_STRING_DATE_FOR_INTGER="(년|월|일)"
 
                 ,FORMAT_DATE="yyyy-MM-dd"
+                ,FORMAT_DATE_REGIST_DETAIL="yyyy.MM"
                 ,FORMAT_DATETIME="HH:mm:ss"
                 ;
     }
