@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMypageDetail;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
@@ -108,7 +108,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(model));
+                    FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(model));
                 }
             });
             ImageManager imageManager = ImageManager.getInstance();

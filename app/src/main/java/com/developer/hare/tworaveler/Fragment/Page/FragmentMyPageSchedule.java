@@ -33,8 +33,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
-    private Intent intent;
-    private ScheduleModel scheduleModel;
+    private static ScheduleModel scheduleModel;
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
     private TextView TV_title, TV_date, TV_like, TV_comment;
@@ -44,8 +43,9 @@ public class FragmentMyPageSchedule extends BaseFragment {
     public FragmentMyPageSchedule() {
     }
 
-    public static FragmentMyPageSchedule newInstance() {
+    public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
         FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
+        scheduleModel = model;
         return fragment;
     }
 
@@ -58,7 +58,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     @Override
     protected void init(View view) {
-        scheduleModel = (ScheduleModel) intent. getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(getActivity());
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();

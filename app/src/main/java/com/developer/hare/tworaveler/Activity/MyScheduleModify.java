@@ -138,12 +138,13 @@ public class MyScheduleModify extends AppCompatActivity {
         textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_2));
         textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_3));
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
-        textViews.clear();
-        textViews.add(ET_tripName);
-        textViews.add(TV_citySearch);
-        textViews.add(TV_dateStart);
-        textViews.add(TV_dateEnd);
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+//        textViews.clear();
+        ArrayList<TextView> textViews2 = new ArrayList<>();
+        textViews2.add(ET_tripName);
+        textViews2.add(TV_citySearch);
+        textViews2.add(TV_dateStart);
+        textViews2.add(TV_dateEnd);
+        FontManager.getInstance().setFont(textViews2, "NotoSansCJKkr-Medium.otf");
     }
 
     private void onModify() {

@@ -17,7 +17,6 @@ public class DataDefinition {
                 ,KEY_STARTDATE= "StartDate"
                 ,KEY_ENDDATE= "EndDate"
                 ,KEY_DATE = "Date"
-
                 ,KEY_SCHEDULE_MODEL= "StartDate"
                 ;
         public static final int

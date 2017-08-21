@@ -1,5 +1,6 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -71,6 +73,12 @@ public class FragmentMypageDetail extends BaseFragment {
             public void onClick(View view) {
 //                FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance());
 
+            }
+        });
+        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), RegistDayDetail.class));
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV);

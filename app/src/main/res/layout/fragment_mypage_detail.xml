@@ -13,6 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="56"
         app:leftButton="@drawable/icon_profile"
+        app:rightButton="@drawable/icon_addplan"
         app:titleText="@string/fragment_mypage_detail_title" />
 
     <FrameLayout

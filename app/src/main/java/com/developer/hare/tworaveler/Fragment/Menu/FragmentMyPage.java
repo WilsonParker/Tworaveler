@@ -62,12 +62,6 @@ public class FragmentMyPage extends BaseFragment {
                 startActivity(new Intent(getActivity(), SignIn.class));
             }
         });
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
-            }
-        });
         textView = uiFactory.createView(R.id.fragment_mypage$TV);
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
     }
