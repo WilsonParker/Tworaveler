@@ -56,7 +56,7 @@ public class AlertSelectionModeAdapter extends RecyclerView.Adapter<AlertSelecti
         }
 
         public void toBind(AlertSelectionItemModel model) {
-            ImageManager.getInstance().loadImage(this.context, model.getImageId(), this.IV_icon);
+            ImageManager.getInstance().loadImage(this.context, model.getImageId(), this.IV_icon, ImageManager.ICON_TYPE);
             IV_icon.setOnClickListener(model.getOnClickListener());
             TV_text.setText(model.getText());
         }

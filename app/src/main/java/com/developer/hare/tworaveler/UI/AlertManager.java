@@ -3,7 +3,6 @@ package com.developer.hare.tworaveler.UI;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
@@ -155,9 +154,8 @@ public class AlertManager {
         createAlert(activity, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
     }
 
-    public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
+   /* public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
         AlertDialog.Builder ad = new AlertDialog.Builder(activity);
-
         ad.setTitle(resourceManager.getResourceString(title));       // 제목 설정
         ad.setMessage(resourceManager.getResourceString(message));   // 내용 설정
 
@@ -182,5 +180,31 @@ public class AlertManager {
         });
 
         ad.show();
+    }*/
+
+    public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
+        AlertDialog.Builder ad = new AlertDialog.Builder(activity);
+        View view = activity.getLayoutInflater().inflate(R.layout.alert_input_check, null);
+        ad.setView(view);
+        UIFactory uiFactory = UIFactory.getInstance(view);
+        AlertDialog dialog = ad.create();
+
+        ((TextView) uiFactory.createView(R.id.alert_input_check$TV_title)).setText(resourceManager.getResourceString(title));
+        ((TextView) uiFactory.createView(R.id.alert_input_check$TV_content)).setText(resourceManager.getResourceString(message));
+        EditText ET_input = uiFactory.createView(R.id.alert_input_check$ET_input);
+        uiFactory.createView(R.id.alert_input_check$TV_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onConfirmClickListener.onConfirmClick(ET_input.getText().toString());
+            }
+        });
+        uiFactory.createView(R.id.alert_input_check$TV_confirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+//        ad.show();
     }
 }

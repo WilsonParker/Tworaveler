@@ -78,7 +78,7 @@ public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.View
             this.model = model;
             CB.setChecked(model.isChecked());
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getImage()).centerCrop(), RV_image);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getImage(), ImageManager.THUMBNAIL_TYPE).centerCrop(), RV_image);
         }
     }
 }

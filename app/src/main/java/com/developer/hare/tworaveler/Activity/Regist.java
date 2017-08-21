@@ -66,7 +66,7 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover);
+                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover, ImageManager.PICTURE_TYPE);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -79,7 +79,7 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile()).centerCrop();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.PICTURE_TYPE).centerCrop();
                                     imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
@@ -208,7 +208,7 @@ public class Regist extends AppCompatActivity {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (model != null) {
                         TV_citySearch.setText(model.getCity());
-                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_thumbnail_url()).centerCrop();
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_thumbnail_url(), ImageManager.PICTURE_TYPE).centerCrop();
                         imageManager.loadImage(requestCreator, IV_camera);
                         IV_camera.setVisibility(View.INVISIBLE);
                     }

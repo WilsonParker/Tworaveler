@@ -92,7 +92,7 @@ public class ProfileSet extends AppCompatActivity {
                         PhotoManager.getInstance().onCameraSelect(ProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView);
+                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -104,7 +104,7 @@ public class ProfileSet extends AppCompatActivity {
                         PhotoManager.getInstance().onGallerySingleSelect(ProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView);
+                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -185,6 +185,7 @@ public class ProfileSet extends AppCompatActivity {
                             public void onConfirmClick(String input) {
                                 sweetAlertDialog.dismissWithAnimation();
                                 Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getSessionID(), new UserReqModel(userModel.getEmail(), input));
+                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "sessionId : " + SessionManager.getInstance().getUserModel().getSessionID());
                                 result.enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
@@ -240,7 +241,7 @@ public class ProfileSet extends AppCompatActivity {
         ET_nickname.setText(userModel.getNickname());
         ET_message.setText(userModel.getStatus_message());
         ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url_thumbnail()).placeholder(R.drawable.image_profile), circleImageView);
+        imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
     }
 
     private void modifyData() {

@@ -79,7 +79,7 @@ public interface NetFactoryIm {
 //    @GET("/search/city")
 //    Call<ResponseArrayModel<CityModel>> searchCity(@Query("q") String q);
 
-    @GET("/city/get_all_location")
+    @GET("/location/get_location")
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
     // 여행 별 상세일정 조회

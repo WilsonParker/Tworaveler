@@ -2,152 +2,173 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_mypage$Root"
     android:layout_width="match_parent"
-    android:layout_height="216dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="9dp">
+    android:layout_height="216dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="216">
+        android:orientation="horizontal"
+        android:weightSum="@string/DEVICE_WIDTH">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="170">
-
-
-            <ImageView
-                android:id="@+id/item_mypage$IV_cover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/default_Image_color" />
-
-            <LinearLayout
-                android:id="@+id/item_mypage$IV_btn"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_margin="11.3dp"
-                    android:background="@drawable/icon_more" />
-            </LinearLayout>
-        </RelativeLayout>
+            android:layout_weight="16" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
-            android:weightSum="328">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="328"
+            android:orientation="vertical"
+            android:weightSum="216">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="16" />
+                android:layout_weight="6" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="296"
-                android:gravity="center_vertical"
-                android:weightSum="296">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="170">
+
+
+                <ImageView
+                    android:id="@+id/item_mypage$IV_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_Image_color" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="187"
-                    android:orientation="vertical">
+                    android:id="@+id/item_mypage$IV_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true">
 
-                    <TextView
-                        android:id="@+id/item_mypage$TV_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/feed_title_color"
-                        android:textSize="@dimen/TextSize_Feed_Title" />
-
-                    <TextView
-                        android:id="@+id/item_mypage$TV_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/feed_date_color"
-                        android:textSize="@dimen/TextSize_Feed_Date" />
+                    <ImageView
+                        android:id="@+id/item_mypage$IV_more"
+                        android:layout_width="25dp"
+                        android:layout_height="5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="11.3dp"
+                        android:background="@drawable/icon_more" />
                 </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="16" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="109"
+                    android:layout_weight="296"
                     android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:weightSum="40">
+                    android:weightSum="296">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="187"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/item_mypage$TV_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/feed_title_color"
+                            android:textSize="@dimen/TextSize_Feed_Title" />
+
+                        <TextView
+                            android:id="@+id/item_mypage$TV_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/feed_date_color"
+                            android:textSize="@dimen/TextSize_Feed_Date" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="109"
                         android:gravity="center_vertical"
-                        android:weightSum="128">
+                        android:orientation="vertical"
+                        android:weightSum="40">
 
-                        <ImageView
-                            android:id="@+id/item_mypage$IV_like"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="24"
-                            android:background="@drawable/icon_heart_unclick" />
-
-                        <TextView
-                            android:id="@+id/item_mypage$TV_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/feed_num_color"
-                            android:textSize="@dimen/TextSize_Feed_Num" />
-
-                        <ImageView
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="7.7" />
-
-                        <ImageView
-                            android:id="@+id/item_mypage$IV_comment"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
                             android:layout_weight="24"
-                            android:background="@drawable/icon_comment" />
+                            android:gravity="center_vertical"
+                            android:weightSum="128">
 
-                        <TextView
-                            android:id="@+id/item_mypage$TV_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/feed_num_color"
-                            android:textSize="@dimen/TextSize_Feed_Num" />
+                            <ImageView
+                                android:id="@+id/item_mypage$IV_like"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="24"
+                                android:background="@drawable/icon_heart_unclick" />
 
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="7.7" />
+                            <TextView
+                                android:id="@+id/item_mypage$TV_like"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/feed_num_color"
+                                android:textSize="@dimen/TextSize_Feed_Num" />
 
-                        <ImageView
-                            android:id="@+id/item_mypage$IV_route"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="24"
-                            android:background="@drawable/icon_route" />
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="7.7" />
 
+                            <ImageView
+                                android:id="@+id/item_mypage$IV_comment"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="24"
+                                android:background="@drawable/icon_comment" />
+
+                            <TextView
+                                android:id="@+id/item_mypage$TV_comment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/feed_num_color"
+                                android:textSize="@dimen/TextSize_Feed_Num" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="7.7" />
+
+                            <ImageView
+                                android:id="@+id/item_mypage$IV_route"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="24"
+                                android:background="@drawable/icon_route" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="16" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="16" />
+            </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="16" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

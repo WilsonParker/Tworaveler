@@ -66,7 +66,7 @@ public class MyScheduleModify extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(MyScheduleModify.this, fileData.getFile(), IV_cover);
+                                    ImageManager.getInstance().loadImage(MyScheduleModify.this, fileData.getFile(), IV_cover, ImageManager.THUMBNAIL_TYPE);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -80,7 +80,7 @@ public class MyScheduleModify extends AppCompatActivity {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     ImageManager imageManager =ImageManager.getInstance();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, fileData.getFile()).centerCrop();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, fileData.getFile(), ImageManager.THUMBNAIL_TYPE).centerCrop();
                                     imageManager.loadImage(requestCreator,IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);

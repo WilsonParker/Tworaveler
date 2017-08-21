@@ -52,10 +52,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:weightSum="328"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:weightSum="328">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -118,7 +118,8 @@
 
                 <EditText
                     android:id="@+id/activity_regist$TV_tripName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="299.7"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical"
@@ -188,6 +189,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:hint="@string/activity_regist_text_3"
+                    android:onClick="searchCity"
                     android:textColor="@color/regist_text_ET_color"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>

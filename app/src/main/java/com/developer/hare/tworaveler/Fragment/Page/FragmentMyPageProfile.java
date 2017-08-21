@@ -81,11 +81,11 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     private void setData() {
         UserModel userModel = SessionManager.getInstance().getUserModel();
-        TV_cntFollower.setText(userModel.getFollowers().size()+"");
-        TV_cntFollowing.setText(userModel.getFollowees().size()+"");
+        TV_cntFollower.setText(userModel.getFollowers().size() + "");
+        TV_cntFollowing.setText(userModel.getFollowees().size() + "");
         TV_nickname.setText(userModel.getNickname());
         TV_message.setText(userModel.getStatus_message());
         ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), userModel.getProfile_pic_url_thumbnail()).placeholder(R.drawable.image_profile), IV_profile);
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), userModel.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
     }
 }

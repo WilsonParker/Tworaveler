@@ -95,7 +95,7 @@ public class CustomNavigationView extends LinearLayout {
 
         public View toBind(NavigationItem item) {
             this.item = item;
-            ImageManager.getInstance().loadImage(context, item.getDefaultImage(), icon);
+            ImageManager.getInstance().loadImage(context, item.getDefaultImage(), icon, ImageManager.FIT_TYPE);
             icon.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -121,9 +121,9 @@ public class CustomNavigationView extends LinearLayout {
             item.setClicked(clicked);
             ImageManager imageManager = ImageManager.getInstance();
             if (clicked)
-                imageManager.loadImage(imageManager.createRequestCreator(context, item.getClickImage()).placeholder(item.getDefaultImage()), icon);
+                imageManager.loadImage(imageManager.createRequestCreator(context, item.getClickImage(), ImageManager.FIT_TYPE).placeholder(item.getDefaultImage()), icon);
             else
-                imageManager.loadImage(imageManager.createRequestCreator(context, item.getDefaultImage()).placeholder(item.getDefaultImage()), icon);
+                imageManager.loadImage(imageManager.createRequestCreator(context, item.getDefaultImage(), ImageManager.FIT_TYPE).placeholder(item.getDefaultImage()), icon);
         }
     }
 

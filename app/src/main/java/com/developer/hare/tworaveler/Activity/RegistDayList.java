@@ -72,7 +72,7 @@ public class RegistDayList extends AppCompatActivity {
         IV_noData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onRegist();
+                onRegister();
             }
         });
         recyclerView = uiFactory.createView(R.id.activity_regist_day_detail_list$RV_list);
@@ -80,7 +80,7 @@ public class RegistDayList extends AppCompatActivity {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onRegist();
+                onRegister();
             }
         });
         items = createListDate();
@@ -105,7 +105,7 @@ public class RegistDayList extends AppCompatActivity {
         return items;
     }
 
-    private void onRegist() {
+    private void onRegister() {
     }
 
 }

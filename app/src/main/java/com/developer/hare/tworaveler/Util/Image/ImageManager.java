@@ -17,44 +17,66 @@ import java.io.File;
 
 public class ImageManager {
     private static ImageManager imageManager = new ImageManager();
+    public static final int BASIC_TYPE = 0x0000, FIT_TYPE = 0x0001, PICTURE_TYPE = 0x0010, THUMBNAIL_TYPE = 0x0011, ICON_TYPE = 0x0100;
 
     public static ImageManager getInstance() {
         return imageManager;
     }
 
-    public void loadImage(Context context, String downloadURI, ImageView imageView) {
-        createRequestCreator(context, downloadURI).into(imageView);
+    public void loadImage(Context context, String downloadURI, ImageView imageView, int type) {
+        createRequestCreator(context, downloadURI, type).into(imageView);
     }
 
-    public void loadImage(Context context, int id, ImageView imageView) {
-        createRequestCreator(context, id).into(imageView);
+    public void loadImage(Context context, int id, ImageView imageView, int type) {
+        createRequestCreator(context, id, type).into(imageView);
     }
 
-    public void loadImage(Context context, File file, ImageView imageVIew) {
-        createRequestCreator(context, file).into(imageVIew);
+    public void loadImage(Context context, File file, ImageView imageVIew, int type) {
+        createRequestCreator(context, file, type).into(imageVIew);
     }
 
-    public void loadImage(RequestCreator requestCreator,ImageView imageView) {
+    public void loadImage(RequestCreator requestCreator, ImageView imageView) {
         requestCreator.into(imageView);
     }
 
-    public RequestCreator createRequestCreator(Context context, int id) {
-        return basicSetting(Picasso.with(context).load(id));
+    public RequestCreator createRequestCreator(Context context, int id, int type) {
+        return requestCreatorSetCase(Picasso.with(context).load(id), type);
     }
 
-    public RequestCreator createRequestCreator(Context context, String url) {
-        return basicSetting(Picasso.with(context).load(url));
+    public RequestCreator createRequestCreator(Context context, String url, int type) {
+        return requestCreatorSetCase(Picasso.with(context).load(url), type);
     }
 
-    public RequestCreator createRequestCreator(Context context, File file) {
-        return basicSetting(Picasso.with(context).load(file));
+    public RequestCreator createRequestCreator(Context context, File file, int type) {
+        return requestCreatorSetCase(Picasso.with(context).load(file), type);
     }
 
     private RequestCreator basicSetting(RequestCreator requestCreator) {
         return requestCreator
-                .error(R.drawable.noimage).resize(1280, 960)
+                .error(R.drawable.noimage)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE);
+    }
+
+    private RequestCreator requestCreatorSetCase(RequestCreator requestCreator, int type) {
+        requestCreator = basicSetting(requestCreator);
+        switch (type) {
+            case BASIC_TYPE:
+                break;
+            case FIT_TYPE:
+                requestCreator.fit();
+                break;
+            case PICTURE_TYPE:
+                requestCreator.resize(1280, 720);
+                break;
+            case THUMBNAIL_TYPE:
+                requestCreator.resize(640, 360);
+                break;
+            case ICON_TYPE:
+                requestCreator.resize(320, 180);
+                break;
+        }
+        return requestCreator;
     }
 
 }

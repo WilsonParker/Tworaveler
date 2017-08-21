@@ -74,6 +74,7 @@ public class RegistDetail extends AppCompatActivity {
         uiFactory.createView(R.id.item_mypage$IV_like).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_comment).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_route).setVisibility(View.GONE);
+        uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
 
         initMaterialCalendarView();
         setDatas();
@@ -116,7 +117,7 @@ public class RegistDetail extends AppCompatActivity {
 //        menuTopTitle.getTV_title().setText("");
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date()+" ~ "+scheduleModel.getEnd_date());
-        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url()),IV_cover);
+        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.PICTURE_TYPE),IV_cover);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -105,14 +105,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance());
+                    FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(null));
                 }
             });
         }
 
         public void toBind(FeedItemModel model) {
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url()).centerCrop(), IV_cover);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             TV_title.setText(model.getTripName());
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
             TV_like.setText(model.getLikeCount() + "");

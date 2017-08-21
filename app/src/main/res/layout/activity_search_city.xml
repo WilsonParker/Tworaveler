@@ -71,11 +71,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="251.33"
                     android:background="@null"
-                    android:paddingTop="1dp"
-                    android:inputType="textAutoComplete"
                     android:gravity="center_vertical"
                     android:hint="@string/activity_search_city_hint_1"
+                    android:inputType="textAutoComplete"
                     android:lines="1"
+                    android:paddingTop="1dp"
                     android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/TextSize_Content_1" />
@@ -118,6 +118,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_city$RV_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="0dp"
+        android:layout_weight="551.3" />
 </LinearLayout>
