@@ -184,7 +184,7 @@ public class MyProfileSet extends AppCompatActivity {
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + userModel.getCookie());
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + userModel.getCookie());
                                 Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + userModel.getEmail() + " / " + input);
                                 Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getCookie(), new UserReqModel(userModel.getEmail(), input));
                                 result.enqueue(new Callback<ResponseModel<String>>() {
@@ -250,8 +250,24 @@ public class MyProfileSet extends AppCompatActivity {
         result.enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
+                    ResponseModel<UserModel> result = response.body();
+                    switch (result.getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            UserModel model = response.body().getResult();
+                            SessionManager.getInstance().setUserModel(model);
+                            finish();
+                            break;
+                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
+                            break;
+                        case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
+                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
+                            break;
+                    }
 
+                } else {
+                    netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
                 }
             }
 
