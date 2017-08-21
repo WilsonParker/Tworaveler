@@ -46,8 +46,8 @@ public class FragmentMyPageHome extends BaseFragment {
     private RecyclerView recyclerView;
     private TextView TV_noItem;
 
-    private HomeListAdapter homeListAdapter;
     private ResourceManager resourceManager;
+    private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
     private ArrayList<FeedItemModel> items = new ArrayList<>();
 

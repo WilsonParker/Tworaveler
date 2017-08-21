@@ -8,6 +8,7 @@ import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
@@ -81,9 +82,9 @@ public interface NetFactoryIm {
     @GET("/city/get_all_location")
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
-    // 여행 별 일정 조회
-    @GET("/trips/find_trip")
-    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectSchedule(@Query("trip_no") int trip_no);
+    // 여행 별 상세일정 조회
+    @GET("/trips/find_dtrip/{trip_no}")
+    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Query("trip_no") int trip_no);
 
     // 프로필 정보 얻기
     @GET("/profileSet")
@@ -98,7 +99,7 @@ public interface NetFactoryIm {
     Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
-    @GET("/feed/:scrollCount")
+    @GET("/feed/{scrollCount}")
     Call<ResponseArrayModel<FeedItemModel>> selectFeedList(@Query("scrollCount") int scrollCount);
 
     // #############################################################################################

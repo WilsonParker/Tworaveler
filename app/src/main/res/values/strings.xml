@@ -73,6 +73,10 @@
     <string name="fragmentMyPageHome_alert_title_fail">내 여행 목록불러오기 실패</string>
     <string name="fragmentMyPageHome_alert_content_fail">여행 목록을 불러오는데 실패 하였습니다</string>
 
+    <!-- Fragment/FragmentMyPageDetail -->
+    <string name="fragmentMyPageDetail_alert_title_fail">세부일정 목록 불러오기 실패</string>
+    <string name="fragmentMyPageDetail_alert_content_fail">세부일정 목록을 불러오는데 실패 하였습니다</string>
+
     <!--
         ############################################################################################
                                                    Layout
