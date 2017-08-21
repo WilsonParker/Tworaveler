@@ -33,15 +33,17 @@
             android:orientation="vertical">
             <ImageView
                 android:layout_width="1dp"
-                android:layout_height="12.3dp" />
+                android:layout_height="12dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:gravity="center_vertical"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/fragment_feed_schedule$CV_profile"
                     android:layout_width="60dp"
                     android:layout_height="match_parent" />
                 <ImageView
@@ -52,6 +54,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/fragment_feed_schedule$TV_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="33dp"
                         android:text="에비츄~"
@@ -59,6 +62,7 @@
                         android:gravity="center_vertical"
                         />
                     <TextView
+                        android:id="@+id/fragment_feed_schedule$TV_message"
                         android:layout_width="match_parent"
                         android:layout_height="27dp"
                         android:gravity="top"
@@ -69,6 +73,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    android:background="@drawable/icon_follow"
                     />
             </LinearLayout>
 

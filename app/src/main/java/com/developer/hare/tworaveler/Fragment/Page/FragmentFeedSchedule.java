@@ -65,7 +65,7 @@ public class FragmentFeedSchedule extends BaseFragment {
         imageManager = ImageManager.getInstance();
 
         scheduleItem = uiFactory.createView(R.id.fragment_feed_schedule$IC_schedul_item);
-        CV_profile = uiFactory.createView(R.id.item_feed$CV_profile);
+        CV_profile = uiFactory.createView(R.id.fragment_feed_schedule$CV_profile);
         menuTopTitle = uiFactory.createView(R.id.fragment_feed_schedule$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +74,11 @@ public class FragmentFeedSchedule extends BaseFragment {
             }
         });
         uiFactory.setResource(scheduleItem);
-        TV_title = uiFactory.createView(R.id.item_feed$TV_title);
-        TV_date = uiFactory.createView(R.id.item_feed$TV_date);
-        TV_like = uiFactory.createView(R.id.item_feed$TV_date);
-        TV_comment = uiFactory.createView(R.id.item_feed$TV_date);
-        IV_cover = uiFactory.createView(R.id.item_feed$IV_cover);
+        TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
+        TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
+        IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         initMaterialCalendarView();
         setDatas();
     }
