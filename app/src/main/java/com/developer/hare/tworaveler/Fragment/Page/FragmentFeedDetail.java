@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentMypageDetail extends BaseFragment {
+public class FragmentFeedDetail extends BaseFragment {
 
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
@@ -49,11 +49,11 @@ public class FragmentMypageDetail extends BaseFragment {
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
     private static ScheduleModel scheduleModel;
 
-    public FragmentMypageDetail() {
+    public FragmentFeedDetail() {
     }
 
-    public static FragmentMypageDetail newInstance(ScheduleModel model) {
-        FragmentMypageDetail fragment = new FragmentMypageDetail();
+    public static FragmentFeedDetail newInstance(ScheduleModel model) {
+        FragmentFeedDetail fragment = new FragmentFeedDetail();
         scheduleModel = model;
         return fragment;
     }
@@ -61,16 +61,16 @@ public class FragmentMypageDetail extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mypage_detail, container, false);
+        return inflater.inflate(R.layout.fragment_feed_detail, container, false);
     }
     @Override
     protected void init(View view) {
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
-        linearLayout = uiFactory.createView(R.id.fragment_mypage_detail$LL_empty);
+        linearLayout = uiFactory.createView(R.id.fragment_feed_detail$LL_empty);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$topbar); //
+        menuTopTitle = uiFactory.createView(R.id.fragment_feed_detail$topbar); //
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,11 +83,11 @@ public class FragmentMypageDetail extends BaseFragment {
                 startActivity(new Intent(getActivity(), RegistDayDetail.class));
             }
         });
-        recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV);
+        recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(mypageDetailAdapter);
 
-        TV_noItem = uiFactory.createView(R.id.fragment_mypage_detail$TV_noitem);
+        TV_noItem = uiFactory.createView(R.id.fragment_feed_detail$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
     }
@@ -105,13 +105,13 @@ public class FragmentMypageDetail extends BaseFragment {
                                 itemEmptyCheck(items);
                             }else
                            {
-                               Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
+                               Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
                                netFail();
                            }
                         }
                        @Override
                        public void onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Throwable t) {
-                           Log_HR.log(FragmentMypageDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
+                           Log_HR.log(FragmentFeedDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
                            netFail();
                        }
                    });

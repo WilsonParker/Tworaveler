@@ -74,8 +74,8 @@
     <string name="fragmentMyPageHome_alert_content_fail">여행 목록을 불러오는데 실패 하였습니다</string>
 
     <!-- Fragment/FragmentMyPageDetail -->
-    <string name="fragmentMyPageDetail_alert_title_fail">세부일정 목록 불러오기 실패</string>
-    <string name="fragmentMyPageDetail_alert_content_fail">세부일정 목록을 불러오는데 실패 하였습니다</string>
+    <string name="fragmentMyPageDetail_alert_title_fail">세부일정 목록이 없습니다.</string>
+    <string name="fragmentMyPageDetail_alert_content_fail">세부일정 목록을 추가해 주세요</string>
 
     <!--
         ############################################################################################
@@ -149,6 +149,13 @@
     <string name="fragmentMyPage_profile">로그인</string>
     <string name="fragmentMypage_notice">여행등록을 하려면 로그인 해주세요</string>
 
+    <!-- layout/fragment_my_page_profile-->
+    <string name="fragmentMyPage_profile_title">profile</string>
+    <string name="fragmentMyPage_profile_follower">팔로워</string>
+    <string name="fragmentMypage_profile_following">팔로잉</string>
+    <string name="fragmentMypage_profile_nickname">닉네임</string>
+    <string name="fragmentMypage_profile_message">상태 메세지</string>
+
     <!-- layout/Fragment_mypage_home-->
     <string name="fragmentMyPage_home_title">my trip</string>
     <string name="fragmentMyPage_home_profile">프로필</string>
@@ -158,12 +165,10 @@
     <string name="fragment_mypage_detail_title">nickname</string>
     <string name="fragment_mypage_detail_regist">하루의 일정을 등록해 주세요</string>
 
-    <!-- layout/fragment_my_page_profile-->
-    <string name="fragmentMyPage_profile_title">profile</string>
-    <string name="fragmentMyPage_profile_follower">팔로워</string>
-    <string name="fragmentMypage_profile_following">팔로잉</string>
-    <string name="fragmentMypage_profile_nickname">닉네임</string>
-    <string name="fragmentMypage_profile_message">상태 메세지</string>
+    <!-- layout/Fragment_feed_detail-->
+    <string name="fragment_feed_detail_title">nickname</string>
+    <string name="fragment_feed_detail_regist">해당 날짜에 대한 등록된 일정이 없습니다.</string>
+
 
     <!-- layout/profile_set-->
     <string name="profileSet_logout">로그아웃</string>
