@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Activity.ProfileSet;
+import com.developer.hare.tworaveler.Activity.MyProfileSet;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
@@ -53,7 +53,7 @@ public class FragmentMyPageProfile extends BaseFragment {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ProfileSet.class));
+                startActivity(new Intent(getActivity(), MyProfileSet.class));
             }
         });
         IV_profile = uiFactory.createView(R.id.fragment_mypage_profile$IV_profile);

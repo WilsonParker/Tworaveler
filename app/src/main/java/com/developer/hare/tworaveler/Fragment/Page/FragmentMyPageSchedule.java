@@ -37,22 +37,25 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private ScheduleModel scheduleModel;
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
-    private TextView TV_title, TV_date,TV_like, TV_comment;
+    private TextView TV_title, TV_date, TV_like, TV_comment;
     private ImageView IV_cover;
     private View scheduleItem;
 
     public FragmentMyPageSchedule() {
     }
+
     public static FragmentMyPageSchedule newInstance() {
         FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_page_schedule, container, false);
     }
+
     @Override
     protected void init(View view) {
         scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
@@ -118,11 +121,11 @@ public class FragmentMyPageSchedule extends BaseFragment {
 //        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
-    private void setDatas(){
+    private void setDatas() {
 //        menuTopTitle.getTV_title().setText("");
         TV_title.setText(scheduleModel.getTripName());
-        TV_date.setText(scheduleModel.getStart_date()+" ~ "+scheduleModel.getEnd_date());
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url()),IV_cover);
+        TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
     }
 
 }

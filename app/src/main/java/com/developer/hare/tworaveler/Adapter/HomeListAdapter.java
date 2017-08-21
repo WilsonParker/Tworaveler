@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMypageDetail;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.R;

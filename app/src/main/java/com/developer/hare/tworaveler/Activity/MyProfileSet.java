@@ -39,7 +39,7 @@ import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
-public class ProfileSet extends AppCompatActivity {
+public class MyProfileSet extends AppCompatActivity {
 
     private EditText ET_nickname, ET_message;
     private CircleImageView circleImageView;
@@ -89,10 +89,10 @@ public class ProfileSet extends AppCompatActivity {
                 AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.ic_camera_alt_black_24dp, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        PhotoManager.getInstance().onCameraSelect(ProfileSet.this, new OnPhotoBindListener() {
+                        PhotoManager.getInstance().onCameraSelect(MyProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -101,17 +101,17 @@ public class ProfileSet extends AppCompatActivity {
                 AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.ic_filter_black_24dp, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        PhotoManager.getInstance().onGallerySingleSelect(ProfileSet.this, new OnPhotoBindListener() {
+                        PhotoManager.getInstance().onGallerySingleSelect(MyProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(ProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
                     }
 
                 }));
-                AlertManager.getInstance().showAlertSelectionMode(ProfileSet.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
+                AlertManager.getInstance().showAlertSelectionMode(MyProfileSet.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
 
             }
         });
@@ -180,17 +180,17 @@ public class ProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
-                                sweetAlertDialog.dismissWithAnimation();
                                 Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getSessionID(), new UserReqModel(userModel.getEmail(), input));
-                                Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "sessionId : " + SessionManager.getInstance().getUserModel().getSessionID());
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + SessionManager.getInstance().getUserModel().getSessionID());
                                 result.enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                        Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
-                                        Log_HR.log(Log_HR.LOG_INFO, ProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
+                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
+                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
                                         if (response.isSuccessful()) {
                                             progressManager.endRunning();
                                             switch (response.body().getSuccess()) {

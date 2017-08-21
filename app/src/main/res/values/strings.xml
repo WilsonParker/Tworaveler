@@ -35,7 +35,7 @@
     <string name="signIn_alert_title_success">로그인 성공</string>
     <string name="signIn_alert_content_success">로그인에 성공 하였습니다</string>
 
-    <!-- Activity/ProfileSet -->
+    <!-- Activity/MyProfileSet -->
     <string name="profileSet_mod_fail_alert_title">수정 실패</string>
     <string name="profileSet_mod_fail_alert_content">수정 실패 하였습니다</string>
     <string name="profileSet_mod_success_alert_title">수정 성공</string>

@@ -101,7 +101,7 @@
             android:name=".Activity.SearchCity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".Activity.ProfileSet"
+            android:name=".Activity.MyProfileSet"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BigImage"

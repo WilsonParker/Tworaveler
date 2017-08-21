@@ -196,6 +196,7 @@ public class AlertManager {
             @Override
             public void onClick(View view) {
                 onConfirmClickListener.onConfirmClick(ET_input.getText().toString());
+                dialog.dismiss();
             }
         });
         uiFactory.createView(R.id.alert_input_check$TV_confirm).setOnClickListener(new View.OnClickListener() {
