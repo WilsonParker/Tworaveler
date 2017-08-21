@@ -60,8 +60,8 @@ public class RegistDayDetailListAdapter extends RecyclerView.Adapter<RegistDayDe
 
         public void toBind(ScheduleDayModel model) {
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(context, model.getImangeUrl(), IV_cover);
-            TV_city.setText(model.getCity());
+            imageManager.loadImage(context, model.getdPicture_url(), IV_cover);
+//            TV_city.setText(model.getCity());
             TV_time.setText(model.getStartTime()+" ~ "+model.getEndTime());
             TV_memo.setText(model.getMemo());
         }

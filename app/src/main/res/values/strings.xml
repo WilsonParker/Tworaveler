@@ -145,10 +145,14 @@
     <string name="fragmentMyPage_profile">로그인</string>
     <string name="fragmentMypage_notice">여행등록을 하려면 로그인 해주세요</string>
 
-    <!-- layout/FragmentMyPageHome-->
+    <!-- layout/Fragment_mypage_home-->
     <string name="fragmentMyPage_home_title">my trip</string>
     <string name="fragmentMyPage_home_profile">프로필</string>
     <string name="fragmentMyPage_home_regist">여행을 등록해 주세요</string>
+
+    <!-- layout/Fragment_mypage_detail-->
+    <string name="fragment_mypage_detail_title">nickname</string>
+    <string name="fragment_mypage_detail_regist">하루의 일정을 등록해 주세요</string>
 
     <!-- layout/fragment_my_page_profile-->
     <string name="fragmentMyPage_profile_title">profile</string>
@@ -202,5 +206,8 @@
     <string name="DEVICE_WIDTH">360</string>
     <string name="DEVICE_HEIGHT">616</string>
     <string name="FRAGMENT_HEIGHT">560</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

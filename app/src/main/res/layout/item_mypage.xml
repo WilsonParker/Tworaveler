@@ -38,8 +38,6 @@
                     android:layout_margin="11.3dp"
                     android:background="@drawable/icon_more" />
             </LinearLayout>
-
-
         </RelativeLayout>
 
         <LinearLayout

@@ -8,15 +8,15 @@
     tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_mypage_home$topbar"
+        android:id="@+id/fragment_mypage_detail$topbar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         app:leftButton="@drawable/icon_profile"
-        app:titleText="@string/fragmentMyPage_home_title" />
+        app:titleText="@string/fragment_mypage_detail_title" />
 
     <FrameLayout
-        android:id="@+id/fragment_mypage_home$FL_content"
+        android:id="@+id/fragment_mypage_detail$FL_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="560"
@@ -27,7 +27,7 @@
             android:layout_height="0dp"
             android:layout_weight="169"/>
         <LinearLayout
-            android:id="@+id/fragment_mypag_home$LL_empty"
+            android:id="@+id/fragment_mypage_detail$LL_empty"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="116"
@@ -37,7 +37,7 @@
             android:weightSum="360"
             >
             <ImageView
-                android:id="@+id/fragment_mypag_home$noimage"
+                android:id="@+id/fragment_mypage_detail$noimage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="116"
@@ -54,19 +54,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="14"/>
-                <TextView
-                    android:id="@+id/fragment_mypage_home$TV_noitem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:text="@string/fragmentMyPage_home_regist" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/fragment_mypage_detail$TV_noitem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text="@string/fragment_mypage_detail_regist" />
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_mypage_home$RV"
+            android:id="@+id/fragment_mypage_detail$RV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_mypage" />
+            tools:listitem="@layout/item_mypage_detail" />
 
     </FrameLayout>
 </LinearLayout>

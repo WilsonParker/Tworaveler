@@ -88,6 +88,9 @@ public class FragmentMyPageHome extends BaseFragment {
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
+
+
+
     }
 
     @Override

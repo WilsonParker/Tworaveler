@@ -6,30 +6,39 @@ package com.developer.hare.tworaveler.Model;
 
 public class ScheduleDayModel {
     // Regist Day Detail Model
-    private String imangeUrl, city, startTime, endTime, memo;
+    private int trip_no, likeCount, CommentCount;
+    private String dPicture_url, startTime, endTime, memo, address, trip_date;
 
-    public ScheduleDayModel(String imangeUrl, String city, String startTime, String endTime, String memo) {
-        this.imangeUrl = imangeUrl;
-        this.city = city;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.memo = memo;
+    public int getTrip_no() {
+        return trip_no;
     }
 
-    public String getImangeUrl() {
-        return imangeUrl;
+    public void setTrip_no(int trip_no) {
+        this.trip_no = trip_no;
     }
 
-    public void setImangeUrl(String imangeUrl) {
-        this.imangeUrl = imangeUrl;
+    public int getLikeCount() {
+        return likeCount;
     }
 
-    public String getCity() {
-        return city;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public int getCommentCount() {
+        return CommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        CommentCount = commentCount;
+    }
+
+    public String getdPicture_url() {
+        return dPicture_url;
+    }
+
+    public void setdPicture_url(String dPicture_url) {
+        this.dPicture_url = dPicture_url;
     }
 
     public String getStartTime() {
@@ -54,5 +63,21 @@ public class ScheduleDayModel {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTrip_date() {
+        return trip_date;
+    }
+
+    public void setTrip_date(String trip_date) {
+        this.trip_date = trip_date;
     }
 }

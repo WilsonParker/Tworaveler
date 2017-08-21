@@ -35,7 +35,6 @@ import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.util.ArrayList;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -195,7 +194,8 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void netFailAlert() {
-        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_alert_content_fail))).show();
+//        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_alert_content_fail))).show();
+        AlertManager.getInstance().showNetFailAlert(getActivity(),R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail );
     }
 
     private void createNavigationBagView() {
