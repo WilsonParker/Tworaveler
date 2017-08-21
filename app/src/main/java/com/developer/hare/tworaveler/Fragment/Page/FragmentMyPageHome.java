@@ -18,8 +18,8 @@ import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -49,7 +49,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private ResourceManager resourceManager;
     private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
-    private ArrayList<FeedItemModel> items = new ArrayList<>();
+    private ArrayList<ScheduleModel> items = new ArrayList<>();
 
     public static FragmentMyPageHome newInstance() {
         FragmentMyPageHome fragment = new FragmentMyPageHome();
@@ -110,13 +110,13 @@ public class FragmentMyPageHome extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<FeedItemModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
-                result.enqueue(new Callback<ResponseArrayModel<FeedItemModel>>() {
+                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
+                result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
-                    public void onResponse(Call<ResponseArrayModel<FeedItemModel>> call, Response<ResponseArrayModel<FeedItemModel>> response) {
+                    public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-                            ResponseArrayModel<FeedItemModel> model = response.body();
+                            ResponseArrayModel<ScheduleModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
@@ -128,15 +128,15 @@ public class FragmentMyPageHome extends BaseFragment {
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<FeedItemModel>>, Response<ResponseArrayModel<FeedItemModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
 
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseArrayModel<FeedItemModel>> call, Throwable t) {
-                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<FeedItemModel>> ,Throwable)", "Fail", t);
+                    public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
+                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

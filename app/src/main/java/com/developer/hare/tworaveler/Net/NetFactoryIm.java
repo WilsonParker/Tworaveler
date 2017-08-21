@@ -3,7 +3,6 @@ package com.developer.hare.tworaveler.Net;
 
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
-import com.developer.hare.tworaveler.Model.FeedItemModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -100,7 +99,7 @@ public interface NetFactoryIm {
 
     // 피드 정보 조회
     @GET("/feed/{scrollCount}")
-    Call<ResponseArrayModel<FeedItemModel>> selectFeedList(@Query("scrollCount") int scrollCount);
+    Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Query("scrollCount") int scrollCount);
 
     // #############################################################################################
     // DELETE

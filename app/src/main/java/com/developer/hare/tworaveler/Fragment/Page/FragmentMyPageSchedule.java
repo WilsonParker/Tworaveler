@@ -58,8 +58,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     @Override
     protected void init(View view) {
-        scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
-
+        scheduleModel = (ScheduleModel) intent. getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(getActivity());
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();

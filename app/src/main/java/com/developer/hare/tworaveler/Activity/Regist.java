@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -43,7 +45,7 @@ public class Regist extends AppCompatActivity {
     private ResourceManager resourceManager;
     private ImageManager imageManager;
 
-
+    private UserModel userModel;
     private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover, IV_camera;
@@ -105,6 +107,7 @@ public class Regist extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
         imageManager = ImageManager.getInstance();
+        userModel = SessionManager.getInstance().getUserModel();
 
         menuTopTitle = uiFactory.createView(R.id.activity_regist$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -117,7 +120,7 @@ public class Regist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                onRegister();
-                ScheduleModel model = new ScheduleModel(0, 0, "country", TV_citySearch.getText().toString(), ET_tripName.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName", "", "");
+                ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
                 Intent intent = new Intent(Regist.this, RegistDetail.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
                 startActivity(intent);
@@ -157,7 +160,8 @@ public class Regist extends AppCompatActivity {
     private void onRegister() {
         if (!checkValidation())
             return;
-        ScheduleModel model = new ScheduleModel(0, 0, "country", TV_citySearch.getText().toString(), ET_tripName.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), "trip_pic_url", "tripName", "", "");
+        ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
+
         Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
         res.enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
             @Override

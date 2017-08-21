@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMypageDetail;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
-import com.developer.hare.tworaveler.Model.FeedItemModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -30,10 +30,10 @@ import java.util.ArrayList;
  */
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
-    private ArrayList<FeedItemModel> items;
+    private ArrayList<ScheduleModel> items;
     private OnListScrollListener onListScrollListener;
 
-    public HomeListAdapter(ArrayList<FeedItemModel> items, OnListScrollListener onListScrollListener) {
+    public HomeListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListener) {
         this.items = items;
         this.onListScrollListener = onListScrollListener;
     }
@@ -102,15 +102,15 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     popupMenu.show();
                 }
             });
+        }
+
+        public void toBind(ScheduleModel model) {
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(null));
+                    FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(model));
                 }
             });
-        }
-
-        public void toBind(FeedItemModel model) {
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             TV_title.setText(model.getTripName());

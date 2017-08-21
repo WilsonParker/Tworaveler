@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
-import com.developer.hare.tworaveler.Model.FeedItemModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
@@ -22,11 +22,11 @@ import java.util.ArrayList;
  */
 
 public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHolder> {
-    private ArrayList<FeedItemModel> items;
+    private ArrayList<ScheduleModel> items;
     private OnListScrollListener onListScrollListenrer;
     private int scrollCount = 0;
 
-    public FeedListAdapter(ArrayList<FeedItemModel> items, OnListScrollListener onListScrollListenrer) {
+    public FeedListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListenrer) {
         this.items = items;
         this.onListScrollListenrer = onListScrollListenrer;
     }
@@ -81,8 +81,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
         }
 
-        public void toBind(FeedItemModel model) {
-//            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(FeedItemModel)", model.toString());
+        public void toBind(ScheduleModel model) {
+//            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(ScheduleModel)", model.toString());
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());

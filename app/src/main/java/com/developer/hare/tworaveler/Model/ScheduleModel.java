@@ -8,21 +8,21 @@ import java.io.Serializable;
 
 public class ScheduleModel implements Serializable {
     // Regist Detail Model
-    private int user_no, likes;
-    private String country, city, start_date, end_date, trip_pic_url, reg_date, mod_date, del_yn, tripName;
+    private int user_no, trip_no, likeCount, CommentCount;
+    private String nickname, status_message, country, city, start_date, end_date, profile_pic_thumbnail, trip_pic_url, reg_date, mod_date, tripName;
+    private boolean isLike;
 
-    public ScheduleModel(int user_no, int likes, String country, String city, String tripName, String start_date, String end_date, String trip_pic_url, String reg_date, String mod_date, String del_yn) {
+    public ScheduleModel(int user_no, String nickname, String status_message, String country, String city, String start_date, String end_date, String profile_pic_thumbnail, String trip_pic_url, String tripName) {
         this.user_no = user_no;
-        this.likes = likes;
+        this.nickname = nickname;
+        this.status_message = status_message;
         this.country = country;
         this.city = city;
-        this.tripName = tripName;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.profile_pic_thumbnail = profile_pic_thumbnail;
         this.trip_pic_url = trip_pic_url;
-        this.reg_date = reg_date;
-        this.mod_date = mod_date;
-        this.del_yn = del_yn;
+        this.tripName = tripName;
     }
 
     public int getUser_no() {
@@ -33,12 +33,44 @@ public class ScheduleModel implements Serializable {
         this.user_no = user_no;
     }
 
-    public int getLikes() {
-        return likes;
+    public int getTrip_no() {
+        return trip_no;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setTrip_no(int trip_no) {
+        this.trip_no = trip_no;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public int getCommentCount() {
+        return CommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        CommentCount = commentCount;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getStatus_message() {
+        return status_message;
+    }
+
+    public void setStatus_message(String status_message) {
+        this.status_message = status_message;
     }
 
     public String getCountry() {
@@ -73,6 +105,14 @@ public class ScheduleModel implements Serializable {
         this.end_date = end_date;
     }
 
+    public String getProfile_pic_thumbnail() {
+        return profile_pic_thumbnail;
+    }
+
+    public void setProfile_pic_thumbnail(String profile_pic_thumbnail) {
+        this.profile_pic_thumbnail = profile_pic_thumbnail;
+    }
+
     public String getTrip_pic_url() {
         return trip_pic_url;
     }
@@ -97,14 +137,6 @@ public class ScheduleModel implements Serializable {
         this.mod_date = mod_date;
     }
 
-    public String getDel_yn() {
-        return del_yn;
-    }
-
-    public void setDel_yn(String del_yn) {
-        this.del_yn = del_yn;
-    }
-
     public String getTripName() {
         return tripName;
     }
@@ -113,20 +145,11 @@ public class ScheduleModel implements Serializable {
         this.tripName = tripName;
     }
 
-    @Override
-    public String toString() {
-        return "ScheduleModel{" +
-                "user_no=" + user_no +
-                ", likes=" + likes +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", start_date='" + start_date + '\'' +
-                ", end_date='" + end_date + '\'' +
-                ", trip_pic_url='" + trip_pic_url + '\'' +
-                ", reg_date='" + reg_date + '\'' +
-                ", mod_date='" + mod_date + '\'' +
-                ", del_yn='" + del_yn + '\'' +
-                ", tripName='" + tripName + '\'' +
-                '}';
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }
