@@ -184,8 +184,9 @@ public class MyProfileSet extends AppCompatActivity {
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
-                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getSessionID(), new UserReqModel(userModel.getEmail(), input));
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + SessionManager.getInstance().getUserModel().getSessionID());
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + userModel.getCookie());
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + userModel.getEmail() + " / " + input);
+                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getCookie(), new UserReqModel(userModel.getEmail(), input));
                                 result.enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
@@ -249,12 +250,14 @@ public class MyProfileSet extends AppCompatActivity {
         result.enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                if(response.isSuccessful()){
 
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-
+                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
             }
         });
     }

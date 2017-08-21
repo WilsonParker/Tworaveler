@@ -34,6 +34,7 @@
                     android:layout_weight="17.3"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/item_feed$CV_profile"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="40"

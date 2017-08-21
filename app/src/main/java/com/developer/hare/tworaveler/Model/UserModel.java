@@ -22,8 +22,8 @@ public class UserModel {
         this.status_message = status_message;
         this.reg_date = reg_date;
         this.del_yn = del_yn;
-        this.sessionID = SessionKey + sessionID;
-        this.Cookie = SessionKey + sessionID;
+        this.sessionID = sessionID;
+        this.Cookie = sessionID;
         this.followees = followees;
         this.followers = followers;
     }
@@ -105,11 +105,11 @@ public class UserModel {
     }
 
     public void setSessionID(String sessionID) {
-        this.sessionID = SessionKey + sessionID;
+        this.sessionID = sessionID;
     }
 
     public String getCookie() {
-        return Cookie;
+        return SessionKey+sessionID;
     }
 
     public void setCookie(String cookie) {

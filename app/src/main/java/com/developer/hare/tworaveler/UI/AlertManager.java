@@ -183,12 +183,10 @@ public class AlertManager {
     }*/
 
     public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(activity);
         View view = activity.getLayoutInflater().inflate(R.layout.alert_input_check, null);
-        ad.setView(view);
         UIFactory uiFactory = UIFactory.getInstance(view);
-        AlertDialog dialog = ad.create();
-
+        AlertDialog dialog = new AlertDialog.Builder(activity).setView(view).setCancelable(false).create();
+        dialog.setView(view);
         ((TextView) uiFactory.createView(R.id.alert_input_check$TV_title)).setText(resourceManager.getResourceString(title));
         ((TextView) uiFactory.createView(R.id.alert_input_check$TV_content)).setText(resourceManager.getResourceString(message));
         EditText ET_input = uiFactory.createView(R.id.alert_input_check$ET_input);
@@ -199,7 +197,7 @@ public class AlertManager {
                 dialog.dismiss();
             }
         });
-        uiFactory.createView(R.id.alert_input_check$TV_confirm).setOnClickListener(new View.OnClickListener() {
+        uiFactory.createView(R.id.alert_input_check$TV_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();

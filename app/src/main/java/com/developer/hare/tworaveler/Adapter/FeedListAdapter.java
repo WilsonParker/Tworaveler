@@ -17,6 +17,8 @@ import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Hare on 2017-08-01.
  */
@@ -52,6 +54,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
         private ImageView IV_cover;
+        private CircleImageView CV_profile;
         private TextView TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment;
 
         public ViewHolder(View itemView, Context context) {
@@ -59,6 +62,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             IV_cover = uiFactory.createView(R.id.item_feed$IV_cover);
+            CV_profile = uiFactory.createView(R.id.item_feed$CV_profile);
             TV_date = uiFactory.createView(R.id.item_feed$TV_date);
             //        TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment
             TV_nickname = uiFactory.createView(R.id.item_feed$TV_nickname);
@@ -85,6 +89,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 //            Log_HR.log(Log_HR.LOG_INFO, getClass(), "toBint(ScheduleModel)", model.toString());
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.noimage).centerCrop(), CV_profile);
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
 
         }
