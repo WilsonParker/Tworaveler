@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 
 public class UserModel {
-    private final String SessionKey = "JSESSIONID=";
     private int user_no;
     private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionID, Cookie;
     private ArrayList<Integer> followees, followers;
@@ -23,7 +22,6 @@ public class UserModel {
         this.reg_date = reg_date;
         this.del_yn = del_yn;
         this.sessionID = sessionID;
-        this.Cookie = sessionID;
         this.followees = followees;
         this.followers = followers;
     }
@@ -109,14 +107,16 @@ public class UserModel {
     }
 
     public String getCookie() {
-        return SessionKey+sessionID;
+        return Cookie;
     }
 
     public void setCookie(String cookie) {
-        Cookie = cookie;
+        this.Cookie = cookie;
     }
 
     public ArrayList<Integer> getFollowees() {
+        if(followees == null)
+            followees = new ArrayList<>();
         return followees;
     }
 
@@ -125,6 +125,8 @@ public class UserModel {
     }
 
     public ArrayList<Integer> getFollowers() {
+        if(followers == null)
+            followers = new ArrayList<>();
         return followers;
     }
 

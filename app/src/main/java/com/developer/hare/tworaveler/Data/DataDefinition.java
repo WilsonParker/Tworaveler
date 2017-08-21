@@ -72,7 +72,6 @@ public class DataDefinition {
                 , CODE_PW_INCORRECT = 205
                 , CODE_EMAIL_INCORRECT= 206
                 , CODE_NONE_SESSION= 207
-//              , CODE_NICKNAME_CONFLICT= 208
                 , CODE_BAG_ITEM_FIND_FAIL= 209
                 , CODE_USER_OR_BAG_ITEM_INCOREECT= 210
                 , CODE_FAIL = 500

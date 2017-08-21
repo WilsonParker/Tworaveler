@@ -111,7 +111,7 @@ public interface NetFactoryIm {
 
     // 회원 탈퇴
     @POST("/users/sign_out")
-    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String sessionID, @Body UserReqModel model);
+    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
 
 }
 

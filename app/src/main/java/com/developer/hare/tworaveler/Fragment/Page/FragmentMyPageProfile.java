@@ -20,6 +20,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,8 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     private void setData() {
         UserModel userModel = SessionManager.getInstance().getUserModel();
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "TV_cntFollower is Null? : " + (TV_cntFollower == null));
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "getFollowers is Null? : " + (userModel.getFollowers() == null));
         TV_cntFollower.setText(userModel.getFollowers().size() + "");
         TV_cntFollowing.setText(userModel.getFollowees().size() + "");
         TV_nickname.setText(userModel.getNickname());
