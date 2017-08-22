@@ -78,6 +78,7 @@ public interface NetFactoryIm {
 //    @GET("/search/city")
 //    Call<ResponseArrayModel<CityModel>> searchCity(@Query("q") String q);
 
+    // 도시 검색
     @GET("/location/get_location")
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
@@ -98,8 +99,8 @@ public interface NetFactoryIm {
     Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
-    @GET("/feed/{scrollCount}")
-    Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Query("scrollCount") int scrollCount);
+    @GET("/feed/{user_no}/{scrollCount}")
+    Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Path("user_no") int user_no,@Path("scrollCount") int scrollCount);
 
     // #############################################################################################
     // DELETE

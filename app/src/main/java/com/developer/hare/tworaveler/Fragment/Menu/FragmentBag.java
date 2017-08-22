@@ -97,7 +97,12 @@ public class FragmentBag extends BaseFragment {
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), BagDelete.class));
+                SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
+                    @Override
+                    public void action() {
+                        startActivity(new Intent(getActivity(), BagDelete.class));
+                    }
+                });
             }
         });
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
@@ -133,12 +138,17 @@ public class FragmentBag extends BaseFragment {
     }
 
     public void onPhoto() {
-        PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
+        SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
             @Override
-            public void bindData(FileData fileData) {
-                addData(new BagModel(userModel.getUser_no(),
-                        fileData.getFile()
-                        , theme));
+            public void action() {
+                PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
+                    @Override
+                    public void bindData(FileData fileData) {
+                        addData(new BagModel(userModel.getUser_no(),
+                                fileData.getFile()
+                                , theme));
+                    }
+                });
             }
         });
     }
@@ -160,7 +170,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
-        if(!sessionCheck())
+        if (!sessionCheck())
             return;
         Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
         Call<ResponseArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
@@ -195,7 +205,7 @@ public class FragmentBag extends BaseFragment {
 
     private void netFailAlert() {
 //        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_alert_content_fail))).show();
-        AlertManager.getInstance().showNetFailAlert(getActivity(),R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail );
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
     }
 
     private void createNavigationBagView() {

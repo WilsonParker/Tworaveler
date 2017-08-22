@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.developer.hare.tworaveler.Activity.SearchCity;
 import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
@@ -104,7 +105,7 @@ public class FragmentFeed extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(scrollCount);
+                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no(),scrollCount);
                 result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {

@@ -19,8 +19,8 @@ public class AddCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
         // Preference에서 cookies를 가져오는 작업을 수행
-        Set<String> preferences = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<String>());
-        if (builder != null)
+        Set<String> preferences = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>());
+        if (builder != null && preferences != null)
             for (String cookie : preferences) {
                 if (cookie != null)
                     builder.addHeader("Cookie", cookie);

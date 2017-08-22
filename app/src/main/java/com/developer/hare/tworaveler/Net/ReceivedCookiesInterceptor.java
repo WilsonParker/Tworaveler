@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 import okhttp3.Interceptor;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -16,9 +17,22 @@ import okhttp3.Response;
 public class ReceivedCookiesInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Response originalResponse = chain.proceed(chain.request());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie").isEmpty()));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookie is empty? " + (originalResponse.headers("Cookie").isEmpty()));
+        Request orgRequest = chain.request();
+        Request request = orgRequest.newBuilder()
+//                .header("Accept", "application/json")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .method(orgRequest.method(), orgRequest.body())
+                .build();
+
+        Response originalResponse = chain.proceed(request);
+
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("set-cookie")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookie is empty? " + (originalResponse.headers("Cookie")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookies is empty? " + (originalResponse.headers("Cookies")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "connect.sid is empty? " + (originalResponse.headers("connect.sid")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", (originalResponse.headers().toString()));
+
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
             HashSet<String> cookies = new HashSet<>();
             for (String header : originalResponse.headers("Set-Cookie")) {

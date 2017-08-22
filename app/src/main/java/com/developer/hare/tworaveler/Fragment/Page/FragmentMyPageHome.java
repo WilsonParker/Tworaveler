@@ -50,6 +50,8 @@ public class FragmentMyPageHome extends BaseFragment {
     private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
     private ArrayList<ScheduleModel> items = new ArrayList<>();
+    private int scrollCount = 0;
+    private final int ItemsSize = 5;
 
     public static FragmentMyPageHome newInstance() {
         FragmentMyPageHome fragment = new FragmentMyPageHome();
@@ -80,17 +82,17 @@ public class FragmentMyPageHome extends BaseFragment {
         homeListAdapter = new HomeListAdapter(items, new OnListScrollListener() {
             @Override
             public void scrollEnd() {
-                updateList();
+                if (items.size() == ItemsSize * scrollCount) {
+                    updateList();
+                }
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+
         updateList();
-
-
-
     }
 
     @Override
@@ -110,7 +112,7 @@ public class FragmentMyPageHome extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no());
+                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no(), scrollCount);
                 result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
@@ -121,6 +123,7 @@ public class FragmentMyPageHome extends BaseFragment {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        ++scrollCount;
                                         items.addAll(model.getResult());
                                         homeListAdapter.notifyDataSetChanged();
                                     }

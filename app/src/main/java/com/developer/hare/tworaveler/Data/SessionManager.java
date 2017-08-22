@@ -51,6 +51,7 @@ public class SessionManager {
             AlertManager.getInstance().createAlert(context, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.not_login_action_title), resourceManager.getResourceString(R.string.not_login_action_content), new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    sweetAlertDialog.dismiss();
                     context.startActivity(new Intent(context, SignIn.class));
                 }
             }).show();
