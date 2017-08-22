@@ -6,8 +6,16 @@ package com.developer.hare.tworaveler.Model;
 
 public class ScheduleDayModel {
     // Regist Day Detail Model
-    private int trip_no, likeCount, CommentCount;
+    private int dtrip_no, trip_no, likeCount, CommentCount;
     private String dPicture_url, startTime, endTime, memo, address, trip_date;
+
+    public int getDtrip_no() {
+        return dtrip_no;
+    }
+
+    public void setDtrip_no(int dtrip_no) {
+        this.dtrip_no = dtrip_no;
+    }
 
     public int getTrip_no() {
         return trip_no;

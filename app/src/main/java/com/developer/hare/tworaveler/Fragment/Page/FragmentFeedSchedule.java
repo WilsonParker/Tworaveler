@@ -79,6 +79,7 @@ public class FragmentFeedSchedule extends BaseFragment {
         TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
         TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+        uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
         setDatas();
     }

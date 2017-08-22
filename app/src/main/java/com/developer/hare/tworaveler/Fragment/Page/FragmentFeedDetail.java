@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
-import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -48,6 +47,7 @@ public class FragmentFeedDetail extends BaseFragment {
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
     private static ScheduleModel scheduleModel;
+    private  String trip_Date;
 
     public FragmentFeedDetail() {
     }
@@ -95,7 +95,8 @@ public class FragmentFeedDetail extends BaseFragment {
            progressManager.actionWithState(new OnProgressAction() {
                @Override
                public void run() {
-                   Call<ResponseArrayModel<ScheduleDayRootModel>> result = Net.getInstance().getFactoryIm().selectDetailSchedule(SessionManager.getInstance().getUserModel().getUser_no());
+                   Call<ResponseArrayModel<ScheduleDayRootModel>> result = Net.getInstance().getFactoryIm().
+                           selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date );
                    result.enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
                        @Override
                        public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {

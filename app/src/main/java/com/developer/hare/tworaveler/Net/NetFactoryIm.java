@@ -4,6 +4,7 @@ package com.developer.hare.tworaveler.Net;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
+import com.developer.hare.tworaveler.Model.Request.LikeModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
@@ -56,6 +57,14 @@ public interface NetFactoryIm {
     @POST("/trips/update_trip")
     Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> modifySchedule(@Body ScheduleModel model);
 
+    // 좋아요
+    @POST("/feed/like")
+    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
+
+    // 좋아요 취소
+    @POST("/feed/unlike")
+    Call<ResponseModel<LikeModel>> modifyUnLike(@Body LikeModel model);
+
 
     // #############################################################################################
     // SELECT
@@ -83,8 +92,8 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
     // 여행 별 상세일정 조회
-    @GET("/trips/find_dtrip/{trip_no}")
-    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Query("trip_no") int trip_no);
+    @GET("/trips/find_dtrip/{trip_no}/{trip_date}")
+    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Query("trip_no") int trip_no, @Query("trip_date") String trip_date);
 
     // 프로필 정보 얻기
     @GET("/profileSet")
@@ -114,8 +123,10 @@ public interface NetFactoryIm {
     @POST("/users/sign_out")
     Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
 
-}
 
+
+
+}
 /*
 
     // 프로필 정보 얻기

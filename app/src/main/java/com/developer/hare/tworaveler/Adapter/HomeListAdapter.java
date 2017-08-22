@@ -15,15 +15,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
+import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
+import com.developer.hare.tworaveler.Model.Request.LikeModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Hare on 2017-08-01.
@@ -32,6 +41,7 @@ import java.util.ArrayList;
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private ArrayList<ScheduleModel> items;
     private OnListScrollListener onListScrollListener;
+    private ImageManager imageManager = ImageManager.getInstance();
 
     public HomeListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListener) {
         this.items = items;
@@ -59,9 +69,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
         private TextView TV_title, TV_date, TV_like, TV_commenet;
-        private ImageView IV_cover;
+        private ImageView IV_cover, IV_like;
         private LinearLayout IV_btn;
         private PopupMenu popupMenu;
+        private ScheduleModel model;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -73,6 +84,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
             TV_commenet = uiFactory.createView(R.id.item_mypage$TV_comment);
             IV_btn = uiFactory.createView(R.id.item_mypage$IV_btn);
+            IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
 
             IV_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,6 +117,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
 
         public void toBind(ScheduleModel model) {
+            this.model = model;
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +130,77 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
+            IV_like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    likeClick(model.isLike());
+                }
+            });
+            changeLike(model.isLike());
+        }
+
+        private void changeLike(boolean isLike){
+            if(isLike){
+                imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+            }else{
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+            }
+        }
+        private void likeClick(boolean isLike){
+            if(isLike){
+                Call<ResponseModel<LikeModel>> unLike = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()));
+                unLike.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                        if(response.isSuccessful()){
+                            switch (response.body().getSuccess()){
+                                case DataDefinition.Network.CODE_SUCCESS:
+                                    changeLike(false);
+//                                    imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
+//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+                                    int likeCount =model.getLikeCount()-1;
+                                    TV_like.setText(""+likeCount );
+                                    model.setLikeCount(likeCount);
+                                    break;
+                            }
+                        }else{
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                    }
+                });
+            }else {
+                Call<ResponseModel<LikeModel>> like = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()));
+                like.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                        if(response.isSuccessful()){
+                            switch (response.body().getSuccess()){
+                                case DataDefinition.Network.CODE_SUCCESS:
+                                    changeLike(true);
+//                                    imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE), IV_like);
+                                    int likeCount =model.getLikeCount()+1;
+                                    TV_like.setText(""+likeCount);
+                                    model.setLikeCount(likeCount);
+                                    break;
+                            }
+                        }else{
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                    }
+                });
+            }
+            model.setLike(!model.isLike());
         }
     }
 

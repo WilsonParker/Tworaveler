@@ -74,6 +74,8 @@ public class BagDelete extends AppCompatActivity {
         menuTopTitle = uiFactory.createView(R.id.bag_delete$topbar);
         customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
+        textView = uiFactory.createView(R.id.bag_delete$name);
+        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
         RV_deletelist.setLayoutManager(gridLayoutManager);
@@ -100,12 +102,11 @@ public class BagDelete extends AppCompatActivity {
                     }
 
                 }
-                textView = uiFactory.createView(R.id.bag_delete$name);
-                FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
                 bagDeleteAdapter.notifyDataSetChanged();
                 selected_items = new ArrayList<BagDeleteModel>();
             }
         });
+
     }
 
     private void setItems(String id) {
