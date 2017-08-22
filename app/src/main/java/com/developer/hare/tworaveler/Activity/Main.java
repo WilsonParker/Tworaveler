@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
@@ -63,7 +64,12 @@ public class Main extends AppCompatActivity {
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_add_click, R.drawable.icon_add_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                startActivity(new Intent(Main.this, Regist.class));
+                SessionManager.getInstance().actionAfterSessoinCheck(Main.this, new SessionManager.OnActionAfterSessionCheckListener() {
+                    @Override
+                    public void action() {
+                        startActivity(new Intent(Main.this, Regist.class));
+                    }
+                });
             }
         }, false));
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_alarm, R.drawable.icon_alarm_unclick, new CustomNavigationView.NavigationOnClickListener() {
@@ -88,4 +94,5 @@ public class Main extends AppCompatActivity {
 //        super.onBackPressed();
         BackClickManager.getInstance().onBackPressed(this);
     }
+
 }

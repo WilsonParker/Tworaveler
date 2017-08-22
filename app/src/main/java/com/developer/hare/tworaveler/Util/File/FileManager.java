@@ -1,5 +1,7 @@
 package com.developer.hare.tworaveler.Util.File;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.developer.hare.tworaveler.Net.Net;
@@ -12,6 +14,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Hare on 2017-08-06.
@@ -19,12 +24,20 @@ import java.net.URL;
 
 public class FileManager {
     private static final FileManager ourInstance = new FileManager();
+    private SharedPreferences sharedPreferences;
+    private static Activity activity;
+    public static final String KEY_SHAREDPREFERENCES = "pref", KEY_SESSION = "session";
 
     public static FileManager getInstance() {
         return ourInstance;
     }
 
-    private void doFileUpload(File file, String method) {
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+        sharedPreferences = activity.getSharedPreferences(KEY_SHAREDPREFERENCES, MODE_PRIVATE);
+    }
+
+    public void doFileUpload(File file, String method) {
 
         HttpURLConnection conn = null;
         DataOutputStream dos = null;
@@ -42,7 +55,7 @@ public class FileManager {
             //------------------ CLIENT REQUEST
             FileInputStream fileInputStream = new FileInputStream(file);
             // open a URL connection to the Servlet
-            URL url = new URL(urlString+method);
+            URL url = new URL(urlString + method);
             // Open a HTTP connection to the URL
             conn = (HttpURLConnection) url.openConnection();
             // Allow Inputs
@@ -150,4 +163,44 @@ public class FileManager {
             }
         });
     }*/
+
+    // 값 불러오기
+    public SharedPreferences getPreference() {
+        return sharedPreferences;
+    }
+
+
+    // 값 저장하기
+    public void savePreferences(String key, Object value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (value instanceof Integer) {
+            editor.putInt(key, (int) value);
+        } else if (value instanceof String) {
+            editor.putString(key, (String) value);
+        } else if (value instanceof String) {
+            editor.putBoolean(key, (boolean) value);
+        } else if (value instanceof Float) {
+            editor.putFloat(key, (float) value);
+        } else if (value instanceof Long) {
+            editor.putLong(key, (long) value);
+        } else if (value instanceof Set) {
+            editor.putStringSet(key, (Set<String>) value);
+        }
+        editor.commit();
+    }
+    // 값(Key Data) 삭제하기
+
+    public void removePreferences(String key) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+    // 값(ALL Data) 삭제하기
+    public void removeAllPreferences() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

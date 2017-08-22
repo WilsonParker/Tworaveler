@@ -209,6 +209,12 @@
     <!-- menu/popup_menu-->
     <string name="popup_menu_modify">수정</string>
     <string name="popup_menu_delete">삭제</string>
+
+
+    <!-- Util/SessionManager-->
+    <string name="not_login_action_title">알림</string>
+    <string name="not_login_action_content">로그인이 필요합니다\n로그인 페이지로 이동합니다</string>
+
     <!--
         ############################################################################################
                                                    Data

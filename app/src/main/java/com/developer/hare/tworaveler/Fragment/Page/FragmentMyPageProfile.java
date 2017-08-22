@@ -18,6 +18,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -77,13 +78,14 @@ public class FragmentMyPageProfile extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "SessionKey is Null? : " + FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, null));
         setData();
     }
 
     private void setData() {
         UserModel userModel = SessionManager.getInstance().getUserModel();
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "TV_cntFollower is Null? : " + (TV_cntFollower == null));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "getFollowers is Null? : " + (userModel.getFollowers() == null));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "TV_cntFollower is Null? : " + (TV_cntFollower == null));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "setData()", "getFollowers is Null? : " + (userModel.getFollowers() == null));
         TV_cntFollower.setText(userModel.getFollowers().size() + "");
         TV_cntFollowing.setText(userModel.getFollowees().size() + "");
         TV_nickname.setText(userModel.getNickname());

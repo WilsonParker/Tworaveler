@@ -1,20 +1,24 @@
 package com.developer.hare.tworaveler.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 public class Intro extends AppCompatActivity {
+    private Activity activity;
     private Thread initThread = new Thread(new Runnable() {
         @Override
         public void run() {
             ResourceManager.getInstance().setResources(getResources());
             FontManager.getInstance().setAssetManager(getAssets());
+            FileManager.getInstance().setActivity(activity);
             initComplete = true;
 
 //            SessionManager.getInstance().setUserModel(new UserModel(0,"m_user_email","m_user_pw","m_user_nickname","","","","",""));
@@ -31,6 +35,8 @@ public class Intro extends AppCompatActivity {
     }
 
     private void init() {
+        activity = this;
+
         HandlerManager.getInstance().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -45,6 +51,6 @@ public class Intro extends AppCompatActivity {
                 startActivity(new Intent(Intro.this, Main.class));
                 finish();
             }
-        },500);
+        }, 500);
     }
 }

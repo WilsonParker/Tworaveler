@@ -55,13 +55,8 @@ public class AlertManager {
         return new SweetAlertDialog(context, alertType);
     }
 
-    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, String cancel) {
-        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(content).setConfirmText(confirm).setTitleText(title).setCancelText(cancel);
-        return dialog;
-    }
-
-    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener confirmClick, String cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
-        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm, confirmClick).setCancelText(cancel).setCancelClickListener(cancelClick);
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인");
         return dialog;
     }
 
@@ -70,19 +65,23 @@ public class AlertManager {
         return dialog;
     }
 
-    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener clickListener) {
-        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm).setConfirmClickListener(clickListener);
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, String cancel) {
+        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(content).setConfirmText(confirm).setTitleText(title).setCancelText(cancel);
         return dialog;
     }
 
-
-    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content) {
-        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인");
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인").setConfirmClickListener(confirmClickListener);
         return dialog;
     }
 
-    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, SweetAlertDialog.OnSweetClickListener onSweetClickListener) {
-        SweetAlertDialog dialog = createAlert(context, alertType, title, content, "확인").setConfirmClickListener(onSweetClickListener);
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm).setConfirmClickListener(confirmClickListener);
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, String title, String content, String confirm, SweetAlertDialog.OnSweetClickListener confirmClick, String cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm, confirmClick).setCancelText(cancel).setCancelClickListener(cancelClick);
         return dialog;
     }
 
