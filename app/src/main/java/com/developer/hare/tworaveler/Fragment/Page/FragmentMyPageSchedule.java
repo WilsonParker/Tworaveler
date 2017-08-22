@@ -33,20 +33,20 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
-    private static ScheduleModel scheduleModel;
+    private ScheduleModel scheduleModel;
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
     private TextView TV_title, TV_date, TV_like, TV_comment;
     private ImageView IV_cover;
     private View scheduleItem;
 
-    public FragmentMyPageSchedule() {
+    public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
+        FragmentMyPageSchedule fragment = new FragmentMyPageSchedule(model);
+        return fragment;
     }
 
-    public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
-        FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
-        scheduleModel = model;
-        return fragment;
+    public FragmentMyPageSchedule(ScheduleModel scheduleModel) {
+        this.scheduleModel = scheduleModel;
     }
 
     @Override
@@ -111,7 +111,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 /*Intent intent = new Intent(FragmentMyPageSchedule.this, FragmentMypageDetail.class);
                 intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);*/
-                FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(scheduleModel));
+                FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(scheduleModel, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE)));
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
