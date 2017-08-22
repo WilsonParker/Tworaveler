@@ -42,6 +42,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
         FragmentMyPageSchedule fragment = new FragmentMyPageSchedule(model);
+        // ㅇㅇ?
         return fragment;
     }
 
