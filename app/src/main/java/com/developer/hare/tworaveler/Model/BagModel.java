@@ -105,4 +105,20 @@ public class BagModel implements Serializable {
     public void setFile(boolean file) {
         isFile = file;
     }
+
+    @Override
+    public String toString() {
+        return "BagModel{" +
+                "_id='" + _id + '\'' +
+                ", category_theme='" + category_theme + '\'' +
+                ", category_pic_url='" + category_pic_url + '\'' +
+                ", category_pic_thumbnail_url='" + category_pic_thumbnail_url + '\'' +
+                ", mod_date='" + mod_date + '\'' +
+                ", reg_date='" + reg_date + '\'' +
+                ", item_no=" + item_no +
+                ", user_no=" + user_no +
+                ", file=" + file +
+                ", isFile=" + isFile +
+                '}';
+    }
 }

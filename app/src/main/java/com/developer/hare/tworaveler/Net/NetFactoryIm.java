@@ -12,6 +12,8 @@ import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
+import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -20,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -40,7 +43,7 @@ public interface NetFactoryIm {
     // 가방 등록
     @Multipart
     @POST("/backpack/add_trip_item")
-    Call<ResponseModel<BagModel>> insertBack(@Part MultipartBody.Part userfile, @Query("user_no") int user_no, @Query("category_theme") String category_theme);
+    Call<ResponseModel<BagModel>> insertBack(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
 
     @Multipart
     @POST("upload")

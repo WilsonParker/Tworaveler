@@ -116,18 +116,18 @@ public class FragmentMyPageHome extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                         if (response.isSuccessful()) {
-                            progressManager.endRunning();
-                            ResponseArrayModel<ScheduleModel> model = response.body();
-                            if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().getHandler().post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ++scrollCount;
-                                        items.addAll(model.getResult());
-                                        homeListAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            }
+                                progressManager.endRunning();
+                                ResponseArrayModel<ScheduleModel> model = response.body();
+                                if (model.getSuccess() == CODE_SUCCESS) {
+                                    HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ++scrollCount;
+                                            items.addAll(model.getResult());
+                                            homeListAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                }
 
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");

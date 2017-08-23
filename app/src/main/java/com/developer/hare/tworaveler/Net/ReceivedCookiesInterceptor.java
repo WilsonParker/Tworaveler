@@ -1,7 +1,6 @@
 package com.developer.hare.tworaveler.Net;
 
 import com.developer.hare.tworaveler.Util.File.FileManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -26,8 +25,8 @@ public class ReceivedCookiesInterceptor implements Interceptor {
 
         Response originalResponse = chain.proceed(request);
 
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie")));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", (originalResponse.headers().toString()));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie")));
+//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", (originalResponse.headers().toString()));
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("set-cookie")));
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookie is empty? " + (originalResponse.headers("Cookie")));
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookies is empty? " + (originalResponse.headers("Cookies")));

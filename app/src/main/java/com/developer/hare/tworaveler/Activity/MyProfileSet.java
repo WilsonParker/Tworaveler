@@ -254,8 +254,7 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        String nickName = userModel.getNickname().equals(ET_nickname.getText().toString()) ? null : ET_nickname.getText().toString();
-        UserReqModel userReqModel = new UserReqModel(nickName, ET_message.getText().toString(), userModel.getUser_no());
+        UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
@@ -263,9 +262,7 @@ public class MyProfileSet extends AppCompatActivity {
                     ResponseModel<UserModel> result = response.body();
                     switch (result.getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
-                            UserModel model = SessionManager.getInstance().getUserModel();
-                            model.setNickname(userReqModel.getNickname());
-                            model.setStatus_message(userReqModel.getStatus_message());
+                            UserModel model = result.getResult();
                             SessionManager.getInstance().setUserModel(model);
                             finish();
                             break;

@@ -16,6 +16,7 @@ import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.ScrollEndMethod;
 
 import java.util.ArrayList;
 
@@ -43,9 +44,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.toBind(items.get(position));
-        if (items.size() - 1 == position) {
-            onListScrollListenrer.scrollEnd();
-        }
+        ScrollEndMethod.getInstance().actionAfterScrollEnd(items.size(), position, onListScrollListenrer);
     }
 
     @Override

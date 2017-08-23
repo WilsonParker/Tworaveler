@@ -28,6 +28,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.ScrollEndMethod;
 
 import java.util.ArrayList;
 
@@ -57,9 +58,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.toBind(items.get(position));
-        if (items.size() - 1 == position)
-            onListScrollListener.scrollEnd();
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "onBindViewHolder(ViewHolder, int)", "binding");
+        ScrollEndMethod.getInstance().actionAfterScrollEnd(items.size(), position, onListScrollListener);
     }
 
     @Override

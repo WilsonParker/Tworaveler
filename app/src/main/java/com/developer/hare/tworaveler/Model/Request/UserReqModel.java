@@ -5,7 +5,7 @@ package com.developer.hare.tworaveler.Model.Request;
  */
 
 public class UserReqModel {
-    private String email, pw, nickname, status_message;
+    private String email, pw, nickname, status_message, origin_nickname, modified_nickname;
     private int user_no;
 
     public UserReqModel(String email, String pw) {
@@ -13,16 +13,17 @@ public class UserReqModel {
         this.pw = pw;
     }
 
-    public UserReqModel(String nickname, String status_message, int user_no) {
-        this.nickname = nickname;
-        this.status_message = status_message;
-        this.user_no = user_no;
-    }
-
     public UserReqModel(String email, String pw, String nickname) {
         this.email = email;
         this.pw = pw;
         this.nickname = nickname;
+    }
+
+    public UserReqModel(int user_no, String origin_nickname, String modified_nickname, String pw) {
+        this.origin_nickname = origin_nickname;
+        this.modified_nickname = modified_nickname;
+        this.pw = pw;
+        this.user_no = user_no;
     }
 
     public String getEmail() {
@@ -55,6 +56,22 @@ public class UserReqModel {
 
     public void setStatus_message(String status_message) {
         this.status_message = status_message;
+    }
+
+    public String getOrigin_nickname() {
+        return origin_nickname;
+    }
+
+    public void setOrigin_nickname(String origin_nickname) {
+        this.origin_nickname = origin_nickname;
+    }
+
+    public String getModified_nickname() {
+        return modified_nickname;
+    }
+
+    public void setModified_nickname(String modified_nickname) {
+        this.modified_nickname = modified_nickname;
     }
 
     public int getUser_no() {

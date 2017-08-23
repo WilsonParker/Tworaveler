@@ -31,20 +31,23 @@ import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.Util.Log_HR.LOG_INFO;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_CATEGORY_THEME;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_USER_NO;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
@@ -149,7 +152,6 @@ public class FragmentBag extends BaseFragment {
                 PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
                     @Override
                     public void bindData(FileData fileData) {
-//                        addData(new BagModel(userModel.getUser_no(), fileData.getFile(), theme));
                         addBag(fileData.getFile());
                     }
                 });
@@ -167,22 +169,18 @@ public class FragmentBag extends BaseFragment {
         }
     }
 
-    private void addData(BagModel model) {
-        items.add(model);
-        bagListAdapter.notifyDataSetChanged();
-        itemEmptyCheck(items);
-    }
-
     private void addBag(File file) {
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("userfile", file.getName(), requestBody);
+        Map<String, RequestBody> map = new HashMap<>();
+        RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
+        map.put(KEY_USER_NO, retrofitBodyParser.createRequestBody(userModel.getUser_no()));
+        map.put(KEY_CATEGORY_THEME, retrofitBodyParser.createRequestBody(theme));
 
-        Net.getInstance().getFactoryIm().insertBack(part, userModel.getUser_no(), theme).enqueue(new Callback<ResponseModel<BagModel>>() {
+        MultipartBody.Part part = retrofitBodyParser.createImageMultipartBodyPart("userfile", file);
+
+        Net.getInstance().getFactoryIm().insertBack(part, map).enqueue(new Callback<ResponseModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<BagModel>> call, Response<ResponseModel<BagModel>> response) {
-                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getSuccess());
-                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getMessage());
+//                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getResult());
                 if (response.isSuccessful()) {
                     ResponseModel<BagModel> rbag = response.body();
                     // 성공했을 경우
@@ -196,15 +194,15 @@ public class FragmentBag extends BaseFragment {
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
                             break;
                     }
-
                 } else {
-                    netFailAlert();
+                    netFailAlert(R.string.fragmentBag_alert_title_fail_2, R.string.fragmentBag_alert_content_fail_3);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<BagModel>> call, Throwable t) {
-                netFailAlert();
+                Log_HR.log(FragmentBag.class, "onFailure()", "addBag err : ", t);
+                netFailAlert(R.string.fragmentBag_alert_title_fail_2, R.string.fragmentBag_alert_content_fail_3);
             }
         });
     }
@@ -212,7 +210,7 @@ public class FragmentBag extends BaseFragment {
     private void setList(String theme) {
         if (!sessionCheck())
             return;
-        Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
+//        Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
         Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme).enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {
@@ -224,8 +222,8 @@ public class FragmentBag extends BaseFragment {
                             items = rbag.getResult();
                             if (items == null) {
                                 items = new ArrayList<BagModel>();
-                                String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
-                                items.add(new BagModel(userModel.getUser_no() + "", url, url));
+//                                String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
+//                                items.add(new BagModel(userModel.getUser_no() + "", url, url));
                             }
 
                             itemEmptyCheck(items);
@@ -239,19 +237,19 @@ public class FragmentBag extends BaseFragment {
                     }
 
                 } else {
-                    netFailAlert();
+                    netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
-                netFailAlert();
+                netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
             }
         });
     }
 
-    private void netFailAlert() {
-        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
+    private void netFailAlert(int title, int content) {
+        AlertManager.getInstance().showNetFailAlert(getActivity(), title, content);
     }
 
     private void createNavigationBagView() {

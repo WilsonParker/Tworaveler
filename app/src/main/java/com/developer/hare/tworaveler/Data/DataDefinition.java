@@ -47,6 +47,19 @@ public class DataDefinition {
                 ;
     }
 
+    public class Key{
+        public static final String
+                // User
+                KEY_USER_NO = "user_no"
+
+                // Bag
+                , KEY_CATEGORY_THEME= "category_theme"
+
+                // File
+                , KEY_USER_FILE= "userfile"
+                ;
+    }
+
     public class RegularExpression{
         public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
