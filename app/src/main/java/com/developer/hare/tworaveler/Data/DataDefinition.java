@@ -63,18 +63,19 @@ public class DataDefinition {
 
     public class Network{
         public static final int
-                CODE_SUCCESS = 200
-                , CODE_NOT_LOGIN = 100
-                , CODE_EMAIL_CONFLICT = 201
-                , CODE_NICKNAME_CONFLICT = 202
-                , CODE_SIGNOUT_USER= 203
-                , CODE_EMAIL_PW_INCORRECT = 204
-                , CODE_PW_INCORRECT = 205
-                , CODE_EMAIL_INCORRECT= 206
-                , CODE_NONE_SESSION= 207
-                , CODE_BAG_ITEM_FIND_FAIL= 209
-                , CODE_USER_OR_BAG_ITEM_INCOREECT= 210
-                , CODE_FAIL = 500
+                CODE_SUCCESS = 200                          // 성공
+                , CODE_NOT_LOGIN = 100                      // 비로그인
+                , CODE_EMAIL_CONFLICT = 201                 // 이메일 중복
+                , CODE_NICKNAME_CONFLICT = 202              // 닉네임 중복
+                , CODE_SIGNOUT_USER= 203                    // 탈퇴된 아이디
+                , CODE_EMAIL_PW_INCORRECT = 204             // 이메일과 비밀번호 불일치
+                , CODE_PW_INCORRECT = 205                   // 비밀번호 불일치
+                , CODE_EMAIL_INCORRECT= 206                 // 이메일 불일치
+                , CODE_NONE_SESSION= 207                    // 유저 데이터 없음
+                , CODE_BAG_ITEM_FIND_FAIL= 209              // 여행가방 아이템 찾기 실패
+                , CODE_USER_OR_BAG_ITEM_INCOREECT= 210      // 잘못된 유저 번호 또는 아이템 번호
+
+                , CODE_FAIL = 500                           // 실패
                 ;
     }
 

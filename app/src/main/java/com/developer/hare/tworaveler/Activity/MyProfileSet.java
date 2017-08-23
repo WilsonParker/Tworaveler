@@ -23,6 +23,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -30,6 +31,7 @@ import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -184,21 +186,23 @@ public class MyProfileSet extends AppCompatActivity {
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + userModel.getCookie());
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "sessionId : " + userModel.getEmail() + " / " + input);
-                                Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userSignOut(SessionManager.getInstance().getUserModel().getCookie(), new UserReqModel(userModel.getEmail(), input));
-                                result.enqueue(new Callback<ResponseModel<String>>() {
+//                                String cookie = SessionManager.getInstance().getUserModel().getCookie();
+                                String cookie = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>()).iterator().next();
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
+                                Call<ResponseModel<ResponseModel<String>>> result = Net.getInstance().getFactoryIm().userSignOut(new UserReqModel(userModel.getEmail(), input));
+                                result.enqueue(new Callback<ResponseModel<ResponseModel<String>>>() {
                                     @Override
-                                    public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
-                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
+                                    public void onResponse(Call<ResponseModel<ResponseModel<String>>> call, Response<ResponseModel<ResponseModel<String>>> response) {
+                                        ResponseModel<ResponseModel<String>> resModel = response.body();
+                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + resModel);
                                         if (response.isSuccessful()) {
                                             progressManager.endRunning();
-                                            switch (response.body().getSuccess()) {
-                                                case CODE_SUCCESS:
+                                            switch (resModel.getSuccess()) {
+                                                case DataDefinition.Network.CODE_SUCCESS:
                                                     AlertManager.getInstance().createAlert(activity, SweetAlertDialog.SUCCESS_TYPE, resourceManager.getResourceString(R.string.profileSet_signOut_alert_title), resourceManager.getResourceString(R.string.profileSet_signOut_fail_alert_content3), new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
                                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismiss();
                                                             startActivity(new Intent(activity, SignIn.class));
                                                             finish();
                                                         }
@@ -220,7 +224,7 @@ public class MyProfileSet extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                    public void onFailure(Call<ResponseModel<ResponseModel<String>>> call, Throwable t) {
                                         netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content2);
                                     }
                                 });

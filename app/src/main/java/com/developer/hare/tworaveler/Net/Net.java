@@ -31,17 +31,6 @@ public class Net {
     private static Retrofit retrofit;
     private NetFactoryIm netFactoryIm;
 
-    /*static {
-        OkHttpClient client = new OkHttpClient();
-        client.interceptors().add(new AddCookiesInterceptor());
-        client.interceptors().add(new ReceivedCookiesInterceptor());
-        retrofit = new Retrofit.Builder()
-                .baseUrl(U)
-//                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-    }*/
-
     public Net() {
         init();
     }
@@ -63,11 +52,9 @@ public class Net {
                 .cookieJar(new JavaNetCookieJar(cookieHandler))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
                 .build();
 
-
-        // init cookie manager
         retrofit = new Retrofit.Builder()
                 .baseUrl(U)
                 .client(client)
@@ -89,7 +76,7 @@ public class Net {
         return netFactoryIm;
     }
 
-    public void urlConnect() {
+    private void urlConnect() {
         URL url;
         try {
             url = new URL("http://13.124.128.125:3002/users/email_login");

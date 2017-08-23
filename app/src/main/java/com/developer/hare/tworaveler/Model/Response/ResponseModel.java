@@ -33,4 +33,13 @@ public class ResponseModel<T> {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseModel{" +
+                "success=" + success +
+                ", message='" + message + '\'' +
+                ", result=" + result +
+                '}';
+    }
 }
