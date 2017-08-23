@@ -17,7 +17,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -117,11 +116,12 @@ public interface NetFactoryIm {
 
     // 로그 아웃
     @POST("/users/logout")
-    Call<ResponseModel<String>> userLogout(@Header("Cookie") String sessionID);
+    Call<ResponseModel<String>> userLogout();
 
     // 회원 탈퇴
     @POST("/users/sign_out")
-    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
+//    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
+    Call<ResponseModel<ResponseModel<String>>> userSignOut(@Body UserReqModel model);
 
 
 

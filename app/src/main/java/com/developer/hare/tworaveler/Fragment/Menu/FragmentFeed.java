@@ -102,10 +102,11 @@ public class FragmentFeed extends BaseFragment {
     }
 
     private void updateList() {
+        int user_no = SessionManager.getInstance().isLogin() ? SessionManager.getInstance().getUserModel().getUser_no() : -1;
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no(),scrollCount);
+                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(user_no,scrollCount);
                 result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {

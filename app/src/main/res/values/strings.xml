@@ -49,7 +49,7 @@
     <string name="profileSet_signOut_alert_title">회원 탈퇴</string>
     <string name="profileSet_signOut_fail_alert_title">회원 탈퇴 실패</string>
     <string name="profileSet_signOut_fail_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
-    <string name="profileSet_signOut_fail_alert_content2">회원 탈퇴 실패</string>
+    <string name="profileSet_signOut_fail_alert_content2">문제가 발생하여 회원 탈퇴 실패하였습니다</string>
     <string name="profileSet_signOut_fail_alert_content3">회원 탈퇴 성공</string>
     <string name="profileSet_signOut_fail_alert_content4">로그인 되어 있지 않습니다</string>
     <string name="profileSet_signOut_fail_alert_content5">비밀번호가 일치하지 않습니다</string>
