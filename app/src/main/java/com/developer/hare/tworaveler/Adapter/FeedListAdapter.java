@@ -96,6 +96,11 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+            TV_nickname.setText(model.getNickname());
+            TV_message.setText(model.getStatus_message());
+            TV_title.setText(model.getTripName());
+            TV_like.setText(model.getLikeCount());
+            TV_comment.setText(model.getCommentCount());
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
         }
     }

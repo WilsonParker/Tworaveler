@@ -39,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_MY_PROFILE_LIST_COUNT;
 
 public class FragmentMyPageHome extends BaseFragment {
     private UIFactory uiFactory;
@@ -51,7 +52,6 @@ public class FragmentMyPageHome extends BaseFragment {
     private ProgressManager progressManager;
     private ArrayList<ScheduleModel> items = new ArrayList<>();
     private int scrollCount = 0;
-    private final int ItemsSize = 5;
 
     public static FragmentMyPageHome newInstance() {
         FragmentMyPageHome fragment = new FragmentMyPageHome();
@@ -82,7 +82,7 @@ public class FragmentMyPageHome extends BaseFragment {
         homeListAdapter = new HomeListAdapter(items, new OnListScrollListener() {
             @Override
             public void scrollEnd() {
-                if (items.size() == ItemsSize * scrollCount) {
+                if (items.size() == SIZE_MY_PROFILE_LIST_COUNT * scrollCount) {
                     updateList();
                 }
             }

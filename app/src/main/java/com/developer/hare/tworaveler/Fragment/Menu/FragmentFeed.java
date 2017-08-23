@@ -35,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_FEED_LIST_COUNT;
 
 public class FragmentFeed extends BaseFragment {
     private static FragmentFeed instance = new FragmentFeed();
@@ -46,7 +47,6 @@ public class FragmentFeed extends BaseFragment {
     private ArrayList<ScheduleModel> feedItemModels = new ArrayList<>();
     private ProgressManager progressManager;
     private int scrollCount = 0;
-    private final int ItemsSize = 5;
 
     public static FragmentFeed newInstance() {
         return instance;
@@ -77,7 +77,7 @@ public class FragmentFeed extends BaseFragment {
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override
             public void scrollEnd() {
-                if (feedItemModels.size() == ItemsSize * scrollCount) {
+                if (feedItemModels.size() == SIZE_FEED_LIST_COUNT * scrollCount) {
                     updateList();
                 }
             }

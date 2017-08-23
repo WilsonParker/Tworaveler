@@ -123,7 +123,7 @@ public interface NetFactoryIm {
     // #############################################################################################
 
     // 로그 아웃
-    @POST("/users/logout")
+    @GET("/users/logout")
     Call<ResponseModel<String>> userLogout();
 
     // 회원 탈퇴

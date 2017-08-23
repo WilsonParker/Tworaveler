@@ -60,6 +60,13 @@ public class DataDefinition {
                 ;
     }
 
+    public class Size{
+        public static final int
+                SIZE_FEED_LIST_COUNT= 5
+                , SIZE_MY_PROFILE_LIST_COUNT= 5
+                ;
+    }
+
     public class RegularExpression{
         public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
