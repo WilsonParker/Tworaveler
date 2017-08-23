@@ -96,9 +96,7 @@ public class FragmentFeedDetail extends BaseFragment {
            progressManager.actionWithState(new OnProgressAction() {
                @Override
                public void run() {
-                   Call<ResponseArrayModel<ScheduleDayRootModel>> result = Net.getInstance().getFactoryIm().
-                           selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date);
-                   result.enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
+                   Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
                        @Override
                        public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {
                             if(response.isSuccessful()){

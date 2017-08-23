@@ -75,8 +75,7 @@ public class SearchCity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log_HR.log(Log_HR.LOG_INFO, SearchCity.class, "afterTextChanged(Editable)", "running");
-                Call<ResponseArrayModel<CityModel>> res = Net.getInstance().getFactoryIm().searchCity(ET_city.getText().toString());
-                res.enqueue(new Callback<ResponseArrayModel<CityModel>>() {
+                Net.getInstance().getFactoryIm().searchCity(ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<CityModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CityModel>> call, Response<ResponseArrayModel<CityModel>> response) {
                         if (response.isSuccessful()) {

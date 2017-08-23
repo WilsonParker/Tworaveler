@@ -13,7 +13,6 @@ import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
-import com.developer.hare.tworaveler.Net.NetFactoryIm;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
@@ -36,7 +35,6 @@ public class SignUp extends AppCompatActivity {
     private EditText ET_email, ET_password, ET_nickName;
     private Button BT_signUp;
 
-    private NetFactoryIm netFactoryIm;
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
 
@@ -53,8 +51,6 @@ public class SignUp extends AppCompatActivity {
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(this);
 
-        netFactoryIm = Net.getInstance().getFactoryIm();
-
         ET_email = uiFactory.createView(R.id.signUp$ET_email);
         ET_password = uiFactory.createView(R.id.signUp$ET_password);
         ET_nickName = uiFactory.createView(R.id.signUp$ET_nickname);
@@ -68,7 +64,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
-        netFactoryIm = Net.getInstance().getFactoryIm();
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_email);
         textViews.add(ET_password);
@@ -96,8 +91,7 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void run() {
                 UserReqModel model = new UserReqModel(ET_email.getText().toString(), ET_password.getText().toString(), ET_nickName.getText().toString());
-                Call<ResponseModel<UserModel>> res = netFactoryIm.userSignUp(model);
-                res.enqueue(new Callback<ResponseModel<UserModel>>() {
+                Net.getInstance().getFactoryIm().userSignUp(model).enqueue(new Callback<ResponseModel<UserModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         UserModel result = response.body().getResult();

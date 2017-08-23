@@ -140,8 +140,7 @@ public class MyProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Call<ResponseModel<String>> result = Net.getInstance().getFactoryIm().userLogout(SessionManager.getInstance().getUserModel().getSessionID());
-                        result.enqueue(new Callback<ResponseModel<String>>() {
+                        Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
                             @Override
                             public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
                                 if (response.isSuccessful()) {
@@ -189,15 +188,20 @@ public class MyProfileSet extends AppCompatActivity {
 //                                String cookie = SessionManager.getInstance().getUserModel().getCookie();
                                 String cookie = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>()).iterator().next();
                                 Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
-                                Call<ResponseModel<ResponseModel<String>>> result = Net.getInstance().getFactoryIm().userSignOut(new UserReqModel(userModel.getEmail(), input));
-                                result.enqueue(new Callback<ResponseModel<ResponseModel<String>>>() {
+                                Net.getInstance().getFactoryIm().userSignOut(new UserReqModel(userModel.getEmail(), input)).enqueue(new Callback<ResponseModel<ResponseModel<String>>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<ResponseModel<String>>> call, Response<ResponseModel<ResponseModel<String>>> response) {
                                         ResponseModel<ResponseModel<String>> resModel = response.body();
                                         Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + resModel);
+                                        int successCode;
                                         if (response.isSuccessful()) {
                                             progressManager.endRunning();
-                                            switch (resModel.getSuccess()) {
+                                            if (resModel.getResult() == null) {
+                                                successCode = resModel.getSuccess();
+                                            } else {
+                                                successCode = resModel.getResult().getSuccess();
+                                            }
+                                            switch (successCode) {
                                                 case DataDefinition.Network.CODE_SUCCESS:
                                                     AlertManager.getInstance().createAlert(activity, SweetAlertDialog.SUCCESS_TYPE, resourceManager.getResourceString(R.string.profileSet_signOut_alert_title), resourceManager.getResourceString(R.string.profileSet_signOut_fail_alert_content3), new SweetAlertDialog.OnSweetClickListener() {
                                                         @Override
@@ -250,15 +254,18 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        Call<ResponseModel<UserModel>> result = Net.getInstance().getFactoryIm().modifyProfile(new UserReqModel(ET_nickname.getText().toString(), ET_message.getText().toString(), userModel.getUser_no()));
-        result.enqueue(new Callback<ResponseModel<UserModel>>() {
+        String nickName = userModel.getNickname().equals(ET_nickname.getText().toString()) ? null : ET_nickname.getText().toString();
+        UserReqModel userReqModel = new UserReqModel(nickName, ET_message.getText().toString(), userModel.getUser_no());
+        Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                 if (response.isSuccessful()) {
                     ResponseModel<UserModel> result = response.body();
                     switch (result.getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
-                            UserModel model = response.body().getResult();
+                            UserModel model = SessionManager.getInstance().getUserModel();
+                            model.setNickname(userReqModel.getNickname());
+                            model.setStatus_message(userReqModel.getStatus_message());
                             SessionManager.getInstance().setUserModel(model);
                             finish();
                             break;

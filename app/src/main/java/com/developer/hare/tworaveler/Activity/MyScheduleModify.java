@@ -149,12 +149,11 @@ public class MyScheduleModify extends AppCompatActivity {
 
     private void onModify() {
         ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
-        Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> res = Net.getInstance().getFactoryIm().modifySchedule(model);
-        res.enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
+        Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
-            public void onResponse(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Response<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel> result = response.body();
+                    ResponseModel<ScheduleModel> result = response.body();
                     if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                         onBackPressed();
                     } else
@@ -164,7 +163,7 @@ public class MyScheduleModify extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
                 netFail();
             }
         });

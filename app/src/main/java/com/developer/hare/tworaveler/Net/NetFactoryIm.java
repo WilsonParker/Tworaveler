@@ -35,7 +35,12 @@ public interface NetFactoryIm {
 
     // 일정 등록
     @POST("/trips/insert_trip")
-    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> insertSchedule(@Body ScheduleModel model);
+    Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleModel model);
+
+    // 가방 등록
+    @Multipart
+    @POST("/backpack/add_trip_item")
+    Call<ResponseModel<BagModel>> insertBack(@Part MultipartBody.Part userfile, @Query("user_no") int user_no, @Query("category_theme") String category_theme);
 
     @Multipart
     @POST("upload")
@@ -54,7 +59,7 @@ public interface NetFactoryIm {
 
     // 일정 수정
     @POST("/trips/update_trip")
-    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> modifySchedule(@Body ScheduleModel model);
+    Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleModel model);
 
     // 좋아요
     @POST("/feed/like")
@@ -104,11 +109,11 @@ public interface NetFactoryIm {
 
     // 내 여행 목록 조회
     @GET("/trips/mytrip/{user_no}")
-    Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
+    Call<ResponseModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
     @GET("/feed/{user_no}/{scrollCount}")
-    Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Path("user_no") int user_no,@Path("scrollCount") int scrollCount);
+    Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Path("user_no") int user_no, @Path("scrollCount") int scrollCount);
 
     // #############################################################################################
     // DELETE
@@ -122,8 +127,6 @@ public interface NetFactoryIm {
     @POST("/users/sign_out")
 //    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
     Call<ResponseModel<ResponseModel<String>>> userSignOut(@Body UserReqModel model);
-
-
 
 
 }

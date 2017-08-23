@@ -120,7 +120,7 @@ public class Regist extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                onRegister();
-                ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
+                ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"null",ET_tripName.getText().toString());
                 Intent intent = new Intent(Regist.this, RegistDetail.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
                 startActivity(intent);
@@ -160,20 +160,20 @@ public class Regist extends AppCompatActivity {
     private void onRegister() {
         if (!checkValidation())
             return;
-        ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
+        ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(), "", ET_tripName.getText().toString());
 
-        Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> res = Net.getInstance().getFactoryIm().insertSchedule(model);
-        res.enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
+        Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Response<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> response) {
                 if (response.isSuccessful()) {
                     ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel> result = response.body();
-                    if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                        Intent intent = new Intent(Regist.this, RegistDetail.class);
-                        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                        startActivity(intent);
-                    } else
-                        netFail();
+                    switch (result.getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            Intent intent = new Intent(Regist.this, RegistDetail.class);
+                            intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                            startActivity(intent);
+                            break;
+                    }
                 } else
                     netFail();
             }

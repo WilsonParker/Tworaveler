@@ -20,6 +20,7 @@ import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -33,8 +34,12 @@ import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,7 +133,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     private boolean sessionCheck() {
-        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : " + userModel);
+//        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : " + userModel);
         userModel = SessionManager.getInstance().getUserModel();
         if (!SessionManager.getInstance().isLogin()) {
             return false;
@@ -144,9 +149,8 @@ public class FragmentBag extends BaseFragment {
                 PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
                     @Override
                     public void bindData(FileData fileData) {
-                        addData(new BagModel(userModel.getUser_no(),
-                                fileData.getFile()
-                                , theme));
+//                        addData(new BagModel(userModel.getUser_no(), fileData.getFile(), theme));
+                        addBag(fileData.getFile());
                     }
                 });
             }
@@ -169,28 +173,71 @@ public class FragmentBag extends BaseFragment {
         itemEmptyCheck(items);
     }
 
+    private void addBag(File file) {
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("userfile", file.getName(), requestBody);
+
+        Net.getInstance().getFactoryIm().insertBack(part, userModel.getUser_no(), theme).enqueue(new Callback<ResponseModel<BagModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<BagModel>> call, Response<ResponseModel<BagModel>> response) {
+                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getSuccess());
+                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getMessage());
+                if (response.isSuccessful()) {
+                    ResponseModel<BagModel> rbag = response.body();
+                    // 성공했을 경우
+                    switch (response.body().getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            items.add(rbag.getResult());
+                            itemEmptyCheck(items);
+                            bagListAdapter.notifyDataSetChanged();
+                            break;
+                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                            AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
+                            break;
+                    }
+
+                } else {
+                    netFailAlert();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<BagModel>> call, Throwable t) {
+                netFailAlert();
+            }
+        });
+    }
+
     private void setList(String theme) {
         if (!sessionCheck())
             return;
         Log_HR.log(LOG_INFO, getClass(), "setList(String)", "userModel : " + userModel);
-        Call<ResponseArrayModel<BagModel>> result = Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme);
-        result.enqueue(new Callback<ResponseArrayModel<BagModel>>() {
+        Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme).enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {
                 if (response.isSuccessful()) {
                     // 성공했을 경우
-                    ResponseArrayModel<BagModel> rbag = response.body();
-                    items = rbag.getResult();
-                    if (items == null) {
-                        items = new ArrayList<BagModel>();
-                        String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
-                        items.add(new BagModel(userModel.getUser_no() + "", url, url));
+                    switch (response.body().getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            ResponseArrayModel<BagModel> rbag = response.body();
+                            items = rbag.getResult();
+                            if (items == null) {
+                                items = new ArrayList<BagModel>();
+                                String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
+                                items.add(new BagModel(userModel.getUser_no() + "", url, url));
+                            }
+
+                            itemEmptyCheck(items);
+                            bagListAdapter = new BagListAdapter(items, getActivity());
+                            RV_list.setAdapter(bagListAdapter);
+                            bagListAdapter.notifyDataSetChanged();
+                            break;
+                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                            AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
+                            break;
                     }
 
-                    itemEmptyCheck(items);
-                    bagListAdapter = new BagListAdapter(items, getActivity());
-                    RV_list.setAdapter(bagListAdapter);
-                    bagListAdapter.notifyDataSetChanged();
                 } else {
                     netFailAlert();
                 }
@@ -204,7 +251,6 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void netFailAlert() {
-//        AlertManager.getInstance().createAlert(getActivity(), SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.fragmentBag_alert_title_fail)), resourceManager.getResourceString((R.string.fragmentBag_alert_content_fail))).show();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
     }
 

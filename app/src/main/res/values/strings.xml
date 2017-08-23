@@ -66,6 +66,7 @@
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>
     <string name="fragmentBag_alert_content_fail">카테고리를 불러오는데 실패 하였습니다</string>
+    <string name="fragmentBag_alert_content_fail_2">여행 가방 아이템을 찾는데 실패하였습니다</string>
 
     <!-- Fragment/FragmentFeed -->
     <string name="fragmentFeed_alert_title_fail">피드 불러오기 실패</string>

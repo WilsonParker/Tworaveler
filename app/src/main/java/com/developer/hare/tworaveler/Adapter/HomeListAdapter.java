@@ -157,8 +157,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
         private void likeClick(boolean isLike){
             if(isLike){
-                Call<ResponseModel<LikeModel>> unLike = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()));
-                unLike.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                         if(response.isSuccessful()){
@@ -183,8 +182,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     }
                 });
             }else {
-                Call<ResponseModel<LikeModel>> like = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()));
-                like.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                         if(response.isSuccessful()){

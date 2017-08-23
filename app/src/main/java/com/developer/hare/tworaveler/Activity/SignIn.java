@@ -172,8 +172,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void run() {
                 UserReqModel signIn = new UserReqModel(ET_email.getText().toString(), ET_password.getText().toString());
-                Call<ResponseModel<UserModel>> res = Net.getInstance().getFactoryIm().userSignIn(signIn);
-                res.enqueue(new Callback<ResponseModel<UserModel>>() {
+                Net.getInstance().getFactoryIm().userSignIn(signIn).enqueue(new Callback<ResponseModel<UserModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         if (response.isSuccessful()) {

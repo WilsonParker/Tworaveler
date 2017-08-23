@@ -18,10 +18,8 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -79,7 +77,6 @@ public class FragmentMyPageProfile extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log_HR.log(Log_HR.LOG_INFO, myClass, "setData()", "SessionKey is Null? : " + FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, null));
         setData();
     }
 
