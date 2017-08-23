@@ -7,12 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Model.Request.LikeModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
@@ -29,6 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FragmentMyPageSchedule extends BaseFragment {
     private UIFactory uiFactory;
     private ImageManager imageManager;
@@ -37,12 +46,12 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
     private TextView TV_title, TV_date, TV_like, TV_comment;
-    private ImageView IV_cover;
+    private LinearLayout LL_like, LL_comment;
+    private ImageView IV_cover, IV_like;
     private View scheduleItem;
 
     public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
         FragmentMyPageSchedule fragment = new FragmentMyPageSchedule(model);
-        // ㅇㅇ?
         return fragment;
     }
 
@@ -80,9 +89,23 @@ public class FragmentMyPageSchedule extends BaseFragment {
         uiFactory.setResource(scheduleItem);
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
+        TV_comment = uiFactory.createView(R.id.item_mypage$TV_comment);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+        IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+        if(scheduleModel.isLike()){
+            IV_like.setImageResource(R.drawable.icon_heart_click);
+        }
+        TV_like.setText(scheduleModel.getLikeCount()+"");
+        LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
+        LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
+        LL_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likeClick(scheduleModel.isLike());
+            }
+        });
+
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
         setDatas();
@@ -126,6 +149,68 @@ public class FragmentMyPageSchedule extends BaseFragment {
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
+    }
+    private void changeLike(boolean isLike){
+        if(isLike){
+            imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+        }else{
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+        }
+    }
+    private void likeClick(boolean isLike){
+        if(isLike){
+            Call<ResponseModel<LikeModel>> unLike = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()));
+            unLike.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                changeLike(false);
+//                                    imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
+//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+                                int likeCount =scheduleModel.getLikeCount()-1;
+                                TV_like.setText(""+likeCount );
+                                scheduleModel.setLikeCount(likeCount);
+                                break;
+                        }
+                    }else{
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                }
+            });
+        }else {
+            Call<ResponseModel<LikeModel>> like = Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()));
+            like.enqueue(new Callback<ResponseModel<LikeModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                changeLike(true);
+//                                    imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE), IV_like);
+                                int likeCount =scheduleModel.getLikeCount()+1;
+                                TV_like.setText(""+likeCount);
+                                scheduleModel.setLikeCount(likeCount);
+                                break;
+                        }
+                    }else{
+
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                }
+            });
+        }
+        scheduleModel.setLike(!scheduleModel.isLike());
     }
 
 }

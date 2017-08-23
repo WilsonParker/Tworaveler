@@ -46,16 +46,17 @@ public class FragmentFeedDetail extends BaseFragment {
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
-    private static ScheduleModel scheduleModel;
-    private  String trip_Date;
+    private ScheduleModel scheduleModel;
+    private String trip_Date;
 
-    public FragmentFeedDetail() {
+    public static FragmentFeedDetail newInstance(ScheduleModel model, String trip_Date) {
+        FragmentFeedDetail fragment = new FragmentFeedDetail(model, trip_Date);
+        return fragment;
     }
 
-    public static FragmentFeedDetail newInstance(ScheduleModel model) {
-        FragmentFeedDetail fragment = new FragmentFeedDetail();
-        scheduleModel = model;
-        return fragment;
+    public FragmentFeedDetail(ScheduleModel scheduleModel, String trip_Date) {
+        this.scheduleModel = scheduleModel;
+        this.trip_Date = trip_Date;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class FragmentFeedDetail extends BaseFragment {
         uiFactory = UIFactory.getInstance(view);
         linearLayout = uiFactory.createView(R.id.fragment_feed_detail$LL_empty);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_feed_detail$topbar); //
+        menuTopTitle = uiFactory.createView(R.id.fragment_feed_detail$topbar);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +97,7 @@ public class FragmentFeedDetail extends BaseFragment {
                @Override
                public void run() {
                    Call<ResponseArrayModel<ScheduleDayRootModel>> result = Net.getInstance().getFactoryIm().
-                           selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date );
+                           selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date);
                    result.enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
                        @Override
                        public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {

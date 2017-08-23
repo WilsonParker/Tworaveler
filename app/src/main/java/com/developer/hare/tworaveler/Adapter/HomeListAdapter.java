@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.Comment;
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
@@ -70,7 +71,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         private Context context;
         private TextView TV_title, TV_date, TV_like, TV_commenet;
         private ImageView IV_cover, IV_like;
-        private LinearLayout IV_btn;
+        private LinearLayout IV_btn, LL_like, LL_comment;
         private PopupMenu popupMenu;
         private ScheduleModel model;
 
@@ -85,7 +86,15 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_commenet = uiFactory.createView(R.id.item_mypage$TV_comment);
             IV_btn = uiFactory.createView(R.id.item_mypage$IV_btn);
             IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+            LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
+            LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
 
+            LL_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(context, Comment.class));
+                }
+            });
             IV_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -130,7 +139,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
-            IV_like.setOnClickListener(new View.OnClickListener() {
+            LL_like.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     likeClick(model.isLike());

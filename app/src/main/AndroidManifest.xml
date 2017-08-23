@@ -115,7 +115,8 @@
         <activity
             android:name=".Activity.RegistDayDetail"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".Activity.MyScheduleModify"></activity>
+        <activity android:name=".Activity.MyScheduleModify" />
+        <activity android:name=".Activity.Comment"></activity>
     </application>
 
 </manifest>

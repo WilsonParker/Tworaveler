@@ -93,20 +93,20 @@
                         android:layout_height="match_parent"
                         android:layout_weight="108"
                         android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:weightSum="40">
+                        android:orientation="horizontal"
+                        android:weightSum="128">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="24"
-                            android:gravity="center"
-                            android:weightSum="128">
-
+                            android:id="@+id/item_mypage$LL_like"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="41.7"
+                            android:orientation="horizontal"
+                            android:gravity="center">
                             <ImageView
                                 android:id="@+id/item_mypage$IV_like"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="24"
                                 android:background="@drawable/icon_heart_unclick" />
 
@@ -117,16 +117,19 @@
                                 android:textColor="@color/feed_num_color"
                                 android:text="0"
                                 android:textSize="@dimen/TextSize_Feed_Num" />
+                        </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_weight="7.7" />
-
+                        <LinearLayout
+                            android:id="@+id/item_mypage$LL_comment"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="41.7"
+                            android:orientation="horizontal"
+                            android:gravity="center">
                             <ImageView
                                 android:id="@+id/item_mypage$IV_comment"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="24"
                                 android:background="@drawable/icon_comment" />
 
@@ -135,8 +138,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/feed_num_color"
+                                android:text="0"
                                 android:textSize="@dimen/TextSize_Feed_Num" />
-
+                        </LinearLayout>
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
@@ -145,11 +149,10 @@
                             <ImageView
                                 android:id="@+id/item_mypage$IV_route"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="24"
                                 android:background="@drawable/icon_route" />
 
-                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 

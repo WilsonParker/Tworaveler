@@ -135,6 +135,12 @@
     <string name="activity_regist_day_detail_list_title">add plan</string>
     <string name="activity_regist_day_detail_list_text">하루의 세부 일정을 등록해 주세요</string>
 
+    <!-- layout/activity_comment-->
+    <string name="activity_comment_list_title">comment</string>
+    <string name="activity_comment_hint">댓글달기</string>
+    <string name="activity_comment_up_btn">게시</string>
+    <string name="activity_comment_nocomment">댓글을 남겨주세요</string>
+
     <!--
         ############################################################################################
     -->

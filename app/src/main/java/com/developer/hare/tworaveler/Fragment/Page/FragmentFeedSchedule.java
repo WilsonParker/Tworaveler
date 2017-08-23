@@ -108,7 +108,8 @@ public class FragmentFeedSchedule extends BaseFragment {
                 /*Intent intent = new Intent(FragmentMyPageSchedule.this, FragmentMypageDetail.class);
                 intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);*/
-                FragmentManager.getInstance().setFragmentContent(FragmentFeedDetail.newInstance(scheduleModel));
+                String trip_date = DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE);
+                FragmentManager.getInstance().setFragmentContent(FragmentFeedDetail.newInstance(scheduleModel, trip_date));
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));

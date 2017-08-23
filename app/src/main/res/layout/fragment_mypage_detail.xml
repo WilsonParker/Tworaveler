@@ -73,8 +73,7 @@
             android:id="@+id/fragment_mypage_detail$RV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_mypage_detail"
-            android:visibility="invisible"/>
+            tools:listitem="@layout/item_mypage_detail"/>
 
     </FrameLayout>
 </LinearLayout>
