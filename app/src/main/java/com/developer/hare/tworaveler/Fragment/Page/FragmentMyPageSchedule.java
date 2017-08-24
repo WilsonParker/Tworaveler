@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Activity.MyScheduleModify;
+import com.developer.hare.tworaveler.Activity.Comment;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -38,7 +38,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.attr.fragment;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentMyPageSchedule extends BaseFragment {
@@ -49,7 +48,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private ScheduleModel scheduleModel;
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
-    private TextView TV_title, TV_date, TV_like, TV_comment;
+    private TextView TV_title, TV_date, TV_like, TV_comment, TV_nickname, TV_message;
     private LinearLayout LL_like, LL_comment;
     private ImageView IV_cover, IV_like;
     private View scheduleItem;
@@ -86,12 +85,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
             }
         });
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MyScheduleModify.class));
-            }
-        });
         uiFactory.setResource(scheduleItem);
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
@@ -99,22 +92,39 @@ public class FragmentMyPageSchedule extends BaseFragment {
         TV_comment = uiFactory.createView(R.id.item_mypage$TV_comment);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+
         if (scheduleModel.isLike()) {
             IV_like.setImageResource(R.drawable.icon_heart_click);
         }
         TV_like.setText(scheduleModel.getLikeCount() + "");
         LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
-        LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
         LL_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 likeClick(scheduleModel.isLike());
             }
         });
+        changeLike(scheduleModel.isLike());
+        LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
+        LL_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Comment.class);
+                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                startActivity(intent);
+            }
+        });
 
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
         setDatas();
+
+        ImageManager imageManager = ImageManager.getInstance();
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
+        TV_title.setText(scheduleModel.getTripName()+"");
+        TV_like.setText(scheduleModel.getLikeCount()+"");
+        TV_comment.setText(scheduleModel.getCommentCount()+"");
+        TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
     }
 
     private void initMaterialCalendarView() {

@@ -1,23 +1,32 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.Comment;
+import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
+import com.developer.hare.tworaveler.Model.Request.LikeModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -29,26 +38,31 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentFeedSchedule extends BaseFragment {
-    private static FragmentFeedSchedule fragment = new FragmentFeedSchedule();
+//    private static FragmentFeedSchedule fragment = new FragmentFeedSchedule();
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
     private static ScheduleModel scheduleModel;
     private MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
-    private TextView TV_title, TV_date, TV_like, TV_comment;
-    private ImageView IV_cover;
+    private TextView TV_title, TV_date, TV_like, TV_comment, TV_nickname, TV_message;
+    private ImageView IV_cover, IV_like;
     private View scheduleItem;
     private CircleImageView CV_profile;
+    private LinearLayout LL_like, LL_comment;
 
     public FragmentFeedSchedule() {
     }
 
     public static FragmentFeedSchedule newInstance(ScheduleModel scheduleModel) {
+        FragmentFeedSchedule fragment = new FragmentFeedSchedule();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
         fragment.setArguments(bundle);
@@ -82,12 +96,42 @@ public class FragmentFeedSchedule extends BaseFragment {
         uiFactory.setResource(scheduleItem);
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
+        TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
+        TV_comment = uiFactory.createView(R.id.item_mypage$TV_comment);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+        LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
+        LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
+        IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+        TV_nickname = uiFactory.createView(R.id.fragment_feed_schedule$TV_nickname);
+        TV_message = uiFactory.createView(R.id.fragment_feed_schedule$TV_message);
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
         setDatas();
+
+        LL_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likeClick(scheduleModel.isLike());
+            }
+        });
+        changeLike(scheduleModel.isLike());
+        LL_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Comment.class);
+                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                startActivity(intent);
+            }
+        });
+        ImageManager imageManager = ImageManager.getInstance();
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+        TV_nickname.setText(scheduleModel.getNickname()+"");
+        TV_message.setText(scheduleModel.getStatus_message()+"");
+        TV_title.setText(scheduleModel.getTripName()+"");
+        TV_like.setText(scheduleModel.getLikeCount()+"");
+        TV_comment.setText(scheduleModel.getCommentCount()+"");
+        TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
     }
 
     private void initMaterialCalendarView() {
@@ -131,5 +175,66 @@ public class FragmentFeedSchedule extends BaseFragment {
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
     }
+    private void changeLike(boolean isLike){
+        if(isLike){
+            imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+        }else{
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+        }
+    }
+    private void likeClick(boolean isLike){
+        if(isLike){
+            Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
+                    Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
 
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                changeLike(false);
+                                int likeCount =scheduleModel.getLikeCount()-1;
+                                TV_like.setText(""+likeCount );
+                                scheduleModel.setLikeCount(likeCount);
+                                break;
+
+                        }
+                    }else{
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+                    Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                }
+            });
+        }else {
+            Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                changeLike(true);
+                                int likeCount =scheduleModel.getLikeCount()+1;
+                                TV_like.setText(""+likeCount);
+                                scheduleModel.setLikeCount(likeCount);
+                                break;
+                        }
+                    }else{
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                }
+            });
+        }
+        scheduleModel.setLike(!scheduleModel.isLike());
+    }
 }

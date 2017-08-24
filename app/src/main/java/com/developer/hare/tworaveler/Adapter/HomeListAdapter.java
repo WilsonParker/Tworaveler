@@ -154,7 +154,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
         private void likeClick(boolean isLike){
             if(isLike){
-//                Net.getInstance().getFactoryIm().modifyLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
@@ -166,8 +165,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             switch (response.body().getSuccess()){
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(false);
-//                                    imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
-//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
                                     int likeCount =model.getLikeCount()-1;
                                     TV_like.setText(""+likeCount );
                                     model.setLikeCount(likeCount);
@@ -192,8 +189,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             switch (response.body().getSuccess()){
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(true);
-//                                    imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
-//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE), IV_like);
                                     int likeCount =model.getLikeCount()+1;
                                     TV_like.setText(""+likeCount);
                                     model.setLikeCount(likeCount);
