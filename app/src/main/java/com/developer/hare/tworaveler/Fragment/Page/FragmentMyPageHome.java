@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
-import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
-import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -95,19 +92,6 @@ public class FragmentMyPageHome extends BaseFragment {
         updateList();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-        // Check which request we're responding to
-        if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
-            // Make sure the request was successful
-            if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
-                CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-
-            }
-        }
-    }
-
     private void updateList() {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
@@ -122,8 +106,7 @@ public class FragmentMyPageHome extends BaseFragment {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        ++scrollCount;
-                                        items.addAll(model.getResult());
+                                        items = model.getResult();
                                         homeListAdapter.notifyDataSetChanged();
                                     }
                                 });

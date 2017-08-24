@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
-import com.developer.hare.tworaveler.Model.BagDeleteModel;
+import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
 
 public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.ViewHolder> {
-    private ArrayList<BagDeleteModel> items, selected_items;
+    private ArrayList<BagModel> items, selected_items;
     private Context context;
 
-    public BagDeleteAdapter(ArrayList<BagDeleteModel> items, ArrayList<BagDeleteModel> selected_items, Context context) {
+    public BagDeleteAdapter(ArrayList<BagModel> items, ArrayList<BagModel> selected_items, Context context) {
         this.items = items;
         this.selected_items = selected_items;
         this.context = context;
@@ -41,15 +41,15 @@ public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.View
         return items == null ? 0 : items.size();
     }
 
-    public ArrayList<BagDeleteModel> getSelected_Items(){
-        return  this.selected_items;
+    public ArrayList<BagModel> getSelected_Items() {
+        return this.selected_items;
     }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView RV_image;
         private CheckBox CB;
-        private BagDeleteModel model;
+        private BagModel model;
 
         private View.OnClickListener checkBoxClickListener = new View.OnClickListener() {
             @Override
@@ -62,7 +62,6 @@ public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.View
                     if (selected_items.contains(model))
                         selected_items.remove(model);
                 }
-
             }
         };
 
@@ -74,11 +73,11 @@ public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.View
             CB.setOnClickListener(checkBoxClickListener);
         }
 
-        public void toBind(BagDeleteModel model) {
+        public void toBind(BagModel model) {
             this.model = model;
             CB.setChecked(model.isChecked());
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getImage(), ImageManager.THUMBNAIL_TYPE).centerCrop(), RV_image);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getCategory_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE), RV_image);
         }
     }
 }

@@ -11,12 +11,12 @@ public class BagModel implements Serializable {
     private String _id, category_theme, category_pic_url, category_pic_thumbnail_url, mod_date, reg_date;
     private int item_no, user_no;
     private File file;
-    private boolean isFile;
+    private boolean isFile, isChecked;
 
     public BagModel(int user_no, File file, String category_theme) {
         this.user_no = user_no;
         this.file = file;
-        this.category_theme= category_theme;
+        this.category_theme = category_theme;
         isFile = true;
     }
 
@@ -106,6 +106,14 @@ public class BagModel implements Serializable {
         isFile = file;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public String toString() {
         return "BagModel{" +
@@ -119,6 +127,7 @@ public class BagModel implements Serializable {
                 ", user_no=" + user_no +
                 ", file=" + file +
                 ", isFile=" + isFile +
+                ", isChecked=" + isChecked +
                 '}';
     }
 }

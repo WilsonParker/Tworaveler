@@ -136,13 +136,8 @@ public class FragmentBag extends BaseFragment {
     }
 
     private boolean sessionCheck() {
-//        Log_HR.log(LOG_INFO, getClass(), "onResume()", "onResume : " + userModel);
         userModel = SessionManager.getInstance().getUserModel();
-        if (!SessionManager.getInstance().isLogin()) {
-            return false;
-        } else {
-            return true;
-        }
+        return SessionManager.getInstance().isLogin();
     }
 
     public void onPhoto() {
@@ -223,12 +218,8 @@ public class FragmentBag extends BaseFragment {
                         case DataDefinition.Network.CODE_SUCCESS:
                             ResponseArrayModel<BagModel> rbag = response.body();
                             items = rbag.getResult();
-                            if (items == null) {
+                            if (items == null)
                                 items = new ArrayList<BagModel>();
-//                                String url = "http://mblogthumb1.phinf.naver.net/20160506_140/l0o8l1i4_1462510133978p11ro_JPEG/%AA%AA%AA%EB%AA%C1%AA%E5%AA%D0%AA%F3%AB%A8%AB%D3%AA%C1%AA%E5_%F0%AF24%FC%A5_%28DVD_x264_1024x768%29-%AA%AB%AA%DF%AA%D2%AA%B3%AA%A6%AA%AD.avi_20160506_134321.718.jpg?type=w2";
-//                                items.add(new BagModel(userModel.getUser_no() + "", url, url));
-                            }
-
                             itemEmptyCheck(items);
                             bagListAdapter = new BagListAdapter(items, getActivity());
                             RV_list.setAdapter(bagListAdapter);
