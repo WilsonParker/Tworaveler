@@ -49,7 +49,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -99,8 +99,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             TV_nickname.setText(model.getNickname());
             TV_message.setText(model.getStatus_message());
             TV_title.setText(model.getTripName());
-            TV_like.setText(model.getLikeCount());
-            TV_comment.setText(model.getCommentCount());
+            TV_like.setText(model.getLikeCount()+"");
+            TV_comment.setText(model.getCommentCount()+"");
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
         }
     }

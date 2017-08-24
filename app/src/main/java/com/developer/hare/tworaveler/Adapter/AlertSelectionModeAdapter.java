@@ -39,7 +39,7 @@ public class AlertSelectionModeAdapter extends RecyclerView.Adapter<AlertSelecti
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

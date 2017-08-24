@@ -147,8 +147,9 @@ public class MyProfileSet extends AppCompatActivity {
                                     switch (response.body().getSuccess()) {
                                         case CODE_SUCCESS:
                                             SessionManager.getInstance().setUserModel(null);
-                                            startActivity(new Intent(activity, SignIn.class));
-                                            finish();
+                                            Intent intent = new Intent(activity, Main.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
                                             break;
                                     }
                                 } else {
@@ -213,7 +214,7 @@ public class MyProfileSet extends AppCompatActivity {
                                                     }).show();
                                                     break;
                                                 case DataDefinition.Network.CODE_NOT_LOGIN:
-                                                    netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content4);
+                                                    netFail(R.string.profileSet_signOut_fail_alert_title, R.string.alert_content_not_login);
                                                     break;
                                                 case DataDefinition.Network.CODE_EMAIL_INCORRECT:
                                                     netFail(R.string.profileSet_signOut_fail_alert_title, R.string.profileSet_signOut_fail_alert_content6);
@@ -267,7 +268,7 @@ public class MyProfileSet extends AppCompatActivity {
                             finish();
                             break;
                         case DataDefinition.Network.CODE_NOT_LOGIN:
-                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
+                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
                             break;
                         case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);

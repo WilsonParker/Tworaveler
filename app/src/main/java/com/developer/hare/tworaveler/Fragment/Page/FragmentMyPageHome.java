@@ -42,6 +42,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
 import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_MY_PROFILE_LIST_COUNT;
 
 public class FragmentMyPageHome extends BaseFragment {
+    private static FragmentMyPageHome fragment = new FragmentMyPageHome();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
@@ -54,7 +55,6 @@ public class FragmentMyPageHome extends BaseFragment {
     private int scrollCount = 0;
 
     public static FragmentMyPageHome newInstance() {
-        FragmentMyPageHome fragment = new FragmentMyPageHome();
         return fragment;
     }
 
@@ -116,18 +116,18 @@ public class FragmentMyPageHome extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                         if (response.isSuccessful()) {
-                                progressManager.endRunning();
-                                ResponseArrayModel<ScheduleModel> model = response.body();
-                                if (model.getSuccess() == CODE_SUCCESS) {
-                                    HandlerManager.getInstance().getHandler().post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            ++scrollCount;
-                                            items.addAll(model.getResult());
-                                            homeListAdapter.notifyDataSetChanged();
-                                        }
-                                    });
-                                }
+                            progressManager.endRunning();
+                            ResponseArrayModel<ScheduleModel> model = response.body();
+                            if (model.getSuccess() == CODE_SUCCESS) {
+                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ++scrollCount;
+                                        items.addAll(model.getResult());
+                                        homeListAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            }
 
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");

@@ -193,6 +193,9 @@ public class FragmentBag extends BaseFragment {
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
                             break;
+                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                            AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail_2, R.string.alert_content_not_login);
+                            break;
                     }
                 } else {
                     netFailAlert(R.string.fragmentBag_alert_title_fail_2, R.string.fragmentBag_alert_content_fail_3);

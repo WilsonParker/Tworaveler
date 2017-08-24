@@ -57,7 +57,7 @@ public class BagListAdapter extends RecyclerView.Adapter<BagListAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

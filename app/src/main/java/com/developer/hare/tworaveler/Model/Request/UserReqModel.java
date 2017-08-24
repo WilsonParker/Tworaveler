@@ -19,10 +19,10 @@ public class UserReqModel {
         this.nickname = nickname;
     }
 
-    public UserReqModel(int user_no, String origin_nickname, String modified_nickname, String pw) {
+    public UserReqModel(int user_no, String origin_nickname, String modified_nickname, String status_message) {
         this.origin_nickname = origin_nickname;
         this.modified_nickname = modified_nickname;
-        this.pw = pw;
+        this.status_message = status_message;
         this.user_no = user_no;
     }
 

@@ -35,8 +35,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentMypageDetail extends BaseFragment {
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
+public class FragmentMypageDetail extends BaseFragment {
+    private static FragmentMypageDetail fragment = new FragmentMypageDetail();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
@@ -49,14 +52,12 @@ public class FragmentMypageDetail extends BaseFragment {
     private ScheduleModel scheduleModel;
     private String trip_date;
 
-    public static FragmentMypageDetail newInstance(ScheduleModel model, String trip_date) {
-        FragmentMypageDetail fragment = new FragmentMypageDetail(model, trip_date);
+    public static FragmentMypageDetail newInstance(ScheduleModel scheduleModel, String trip_date) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
+        bundle.putString(KEY_TRIPDATE, trip_date);
+        fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public FragmentMypageDetail(ScheduleModel scheduleModel, String trip_date) {
-        this.scheduleModel = scheduleModel;
-        this.trip_date = trip_date;
     }
 
     @Override
@@ -67,6 +68,10 @@ public class FragmentMypageDetail extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        Bundle bundle = getArguments();
+        scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
+        trip_date = bundle.getString(KEY_TRIPDATE);
+
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);

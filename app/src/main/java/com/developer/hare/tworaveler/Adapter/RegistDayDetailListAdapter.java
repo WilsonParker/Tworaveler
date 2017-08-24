@@ -42,7 +42,7 @@ public class RegistDayDetailListAdapter extends RecyclerView.Adapter<RegistDayDe
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
