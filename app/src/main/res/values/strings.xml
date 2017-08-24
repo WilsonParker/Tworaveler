@@ -64,6 +64,10 @@
     <string name="regist_alert_content_fail_3">도시를 검색해주세요</string>
     <string name="regist_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
 
+    <!-- Activity/BagDelete-->
+    <string name="bagDelete_alert_title_fail">여행 가방 삭제 실패</string>
+    <string name="bagDelete_alert_content_fail">여행 가방을 삭제하는데 실패하였습니다</string>
+
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>
     <string name="fragmentBag_alert_title_fail_2">가방 등록 실패</string>

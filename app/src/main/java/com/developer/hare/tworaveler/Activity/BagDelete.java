@@ -14,6 +14,7 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -22,9 +23,9 @@ import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -49,8 +50,8 @@ public class BagDelete extends AppCompatActivity {
     private Activity activity;
     private UserModel userModel;
     private UIFactory uiFactory;
-    private ArrayList<BagModel> items, selected_items;
-    private Map<String, ArrayList<BagModel>> bags;
+    private ArrayList<BagModel> items = new ArrayList<>(), selected_items = new ArrayList<>();
+    private Map<String, ArrayList<BagModel>> bags = new HashMap<>();
     private CustomNavigationView customNavigationBagView;
 
     public final String[] BAG_CATEGORYS = {CATEGORY_TICKET, CATEGORY_MAP, CATEGORY_SUBWAY, CATEGORY_SHOP, CATEGORY_SALE};
@@ -60,12 +61,10 @@ public class BagDelete extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bag_delete);
         init();
-
     }
 
     private void init() {
         uiFactory = UIFactory.getInstance(this);
-        selected_items = new ArrayList<>();
         activity = this;
 
         RV_deletelist = uiFactory.createView(R.id.bag_delete$RV);
@@ -78,8 +77,6 @@ public class BagDelete extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
         RV_deletelist.setLayoutManager(gridLayoutManager);
 
-        createNavigationBagView();
-        itemEmptyCheck(items);
         bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
         RV_deletelist.setAdapter(bagDeleteAdapter);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -91,19 +88,10 @@ public class BagDelete extends AppCompatActivity {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onClick(View)", "selected_size : " + selected_items.size());
-                for (String id : BAG_CATEGORYS) {
-                    ArrayList<BagModel> l1 = bags.get(id);
-                    for (BagModel bdm : selected_items) {
-                        if (l1.contains(bdm))
-                            l1.remove(bdm);
-                    }
-                }
-                bagDeleteAdapter.notifyDataSetChanged();
-                selected_items = new ArrayList<BagModel>();
+                deleteBagItems();
             }
         });
-
+        createNavigationBagView();
     }
 
     @Override
@@ -131,8 +119,10 @@ public class BagDelete extends AppCompatActivity {
         if (!sessionCheck())
             return;
         items = bags.get(theme);
-        if (items.isEmpty())
+        if (items != null) {
+            setItem(theme);
             return;
+        }
         Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme).enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {
@@ -142,16 +132,44 @@ public class BagDelete extends AppCompatActivity {
                         case DataDefinition.Network.CODE_SUCCESS:
                             ResponseArrayModel<BagModel> rbag = response.body();
                             items = rbag.getResult();
-                            if (items.size() == 0) {
+                            if (items.size() == 0)
                                 items = new ArrayList<BagModel>();
-                            }
-                            if (bagDeleteAdapter != null)
-                                selected_items = bagDeleteAdapter.getSelected_Items();
-                            bags.put(theme, items);
-                            bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, activity);
-                            RV_deletelist.setAdapter(bagDeleteAdapter);
-                            itemEmptyCheck(items);
+                            setItem(theme);
+                            break;
+                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                            AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                            break;
+                    }
 
+                } else {
+                    netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
+                netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+            }
+        });
+    }
+
+    private void deleteBagItems() {
+        Net.getInstance().getFactoryIm().deleteBagItemList(selected_items).enqueue(new Callback<ResponseModel<String>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                if (response.isSuccessful()) {
+                    // 성공했을 경우
+                    switch (response.body().getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            for (String id : BAG_CATEGORYS) {
+                                ArrayList<BagModel> l1 = bags.get(id);
+                                for (BagModel bdm : selected_items) {
+                                    if (l1.contains(bdm))
+                                        l1.remove(bdm);
+                                }
+                            }
+                            bagDeleteAdapter.notifyDataSetChanged();
+                            selected_items = new ArrayList<BagModel>();
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             AlertManager.getInstance().showNetFailAlert(activity, R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
@@ -164,12 +182,20 @@ public class BagDelete extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                 netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
             }
         });
     }
 
+    private void setItem(String theme) {
+        if (bagDeleteAdapter != null)
+            selected_items = bagDeleteAdapter.getSelected_Items();
+        bags.put(theme, items);
+        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, activity);
+        RV_deletelist.setAdapter(bagDeleteAdapter);
+        itemEmptyCheck(items);
+    }
 
     private void netFailAlert(int title, int content) {
         AlertManager.getInstance().showNetFailAlert(activity, title, content);

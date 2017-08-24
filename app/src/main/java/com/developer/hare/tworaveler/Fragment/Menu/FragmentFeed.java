@@ -87,8 +87,8 @@ public class FragmentFeed extends BaseFragment {
 
     @Override
     public void onResume() {
-        updateList();
         super.onResume();
+        updateList();
     }
 
     private void updateList() {

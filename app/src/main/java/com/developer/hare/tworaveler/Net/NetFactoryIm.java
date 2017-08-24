@@ -49,13 +49,6 @@ public interface NetFactoryIm {
     @POST("/backpack/add_trip_item")
     Call<ResponseModel<BagModel>> insertBack(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
 
-    @Multipart
-    @POST("upload")
-    Call<ResponseArrayModel> upload(
-            @Part("description") RequestBody description,
-            @Part MultipartBody.Part file
-    );
-
     // 댓글 등록
     @POST("/comment/add_comment")
     Call<ResponseModel<CommentModel>> commentUpload(@Body CommentModel model);
@@ -150,8 +143,9 @@ public interface NetFactoryIm {
     Call<ResponseModel<ResponseModel<String>>> userSignOut(@Body UserReqModel model);
 
     // 가방 아이템 삭제
+    @FormUrlEncoded
     @POST("/backpack/delete_item")
-    Call<ResponseModel<ResponseModel<String>>> deleteBagItemList(@Body ArrayList<Integer> item_no);
+    Call<ResponseModel<String>> deleteBagItemList(@Field("item_no") ArrayList<BagModel> item_nos);
 
 
     // 댓글 삭제

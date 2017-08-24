@@ -10,15 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.SignIn;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
-import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 public class FragmentMyPage extends BaseFragment {
     private static FragmentMyPage instance = new FragmentMyPage();
@@ -33,7 +32,6 @@ public class FragmentMyPage extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onCreateView()", "onCreateView");
         return inflater.inflate(R.layout.fragment_my_page, null);
     }
 
@@ -41,12 +39,10 @@ public class FragmentMyPage extends BaseFragment {
     public void onResume() {
         super.onResume();
         loginAction();
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResum()", "resume");
     }
 
     @Override
     protected void init(View view) {
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "init()", "init");
         UIFactory uiFactory = UIFactory.getInstance(getActivity());
         IV_login = uiFactory.createView(R.id.fragment_mypage$IV_nologin);
         IV_login.setOnClickListener(new View.OnClickListener() {
