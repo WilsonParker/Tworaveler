@@ -38,10 +38,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.fragment;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentMyPageSchedule extends BaseFragment {
-    private static FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
+//    private static FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
@@ -54,6 +55,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private View scheduleItem;
 
     public static FragmentMyPageSchedule newInstance(ScheduleModel scheduleModel) {
+        FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
         fragment.setArguments(bundle);

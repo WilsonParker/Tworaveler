@@ -67,13 +67,26 @@
     <!-- Activity/BagDelete-->
     <string name="bagDelete_alert_title_fail">여행 가방 삭제 실패</string>
     <string name="bagDelete_alert_content_fail">여행 가방을 삭제하는데 실패하였습니다</string>
+    <string name="bagDelete_alert_content_fail_2">여행 가방을 삭제하는데 문제가 발생하였습니다</string>
+
+    <!-- Activity/Comment-->
+    <string name="comment_alert_title_fail">댓글 등록 실패</string>
+    <string name="comment_alert_title_fail_2">댓글 목록 불러오기 실패</string>
+    <string name="comment_alert_title_fail_3">댓글 수정 실패</string>
+    <string name="comment_alert_title_fail_4">댓글 삭제 실패</string>
+    <string name="comment_alert_content_fail">댓글 등록을 실패하였습니다</string>
+    <string name="comment_alert_content_fail_2">댓글 목록을 불러오는데 실패하였습니다</string>
+    <string name="comment_alert_content_fail_3">댓글 수정을 실패 하였습니다</string>
+    <string name="comment_alert_content_fail_4">댓글 삭제를 실패 하였습니다</string>
+    <string name="comment_alert_content_fail_5">문제가 발생하였습니다</string>
 
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>
     <string name="fragmentBag_alert_title_fail_2">가방 등록 실패</string>
     <string name="fragmentBag_alert_content_fail">카테고리를 불러오는데 실패 하였습니다</string>
-    <string name="fragmentBag_alert_content_fail_2">여행 가방 아이템을 찾는데 실패하였습니다</string>
-    <string name="fragmentBag_alert_content_fail_3">여행 가방을 등록하는데 실패하였습니다</string>
+    <string name="fragmentBag_alert_content_fail_2">카테고리를 불러오는데 문제가 발생하였습니다</string>
+    <string name="fragmentBag_alert_content_fail_3">여행 가방 아이템을 찾는데 실패하였습니다</string>
+    <string name="fragmentBag_alert_content_fail_4">여행 가방을 등록하는데 실패하였습니다</string>
 
     <!-- Fragment/FragmentFeed -->
     <string name="fragmentFeed_alert_title_fail">피드 불러오기 실패</string>

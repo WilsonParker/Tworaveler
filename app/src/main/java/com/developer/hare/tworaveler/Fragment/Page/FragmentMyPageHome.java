@@ -77,7 +77,6 @@ public class FragmentMyPageHome extends BaseFragment {
         recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
-
     }
 
     @Override
@@ -93,10 +92,12 @@ public class FragmentMyPageHome extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectMyScheduleList(SessionManager.getInstance().getUserModel().getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
+                        Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "updateList");
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
+                                Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "updateList is Success");
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -107,10 +108,9 @@ public class FragmentMyPageHome extends BaseFragment {
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
-
                     }
 
                     @Override

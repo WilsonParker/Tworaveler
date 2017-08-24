@@ -23,6 +23,7 @@ import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SAL
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOP;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SUBWAY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_TICKET;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class BagDelete extends AppCompatActivity {
 
@@ -129,12 +131,54 @@ public class BagDelete extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // 성공했을 경우
                     switch (response.body().getSuccess()) {
-                        case DataDefinition.Network.CODE_SUCCESS:
+                        case CODE_SUCCESS:
                             ResponseArrayModel<BagModel> rbag = response.body();
                             items = rbag.getResult();
                             if (items.size() == 0)
                                 items = new ArrayList<BagModel>();
                             setItem(theme);
+                            break;
+                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                            AlertManager.getInstance().showNetFailAlert(activity, R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
+                            break;
+                    }
+
+                } else {
+                    netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
+                netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
+            }
+        });
+    }
+
+    private void deleteBagItems() {
+        Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>", "selected_item size : "+selected_items.size());
+        ArrayList<Integer> nos = new ArrayList<>();
+        for(BagModel model : selected_items)
+            nos.add(model.getItem_no());
+
+        Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseModel<String>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                if (response.isSuccessful()) {
+                    // 성공했을 경우
+                    switch (response.body().getSuccess()) {
+                        case CODE_SUCCESS:
+                            for (String id : BAG_CATEGORYS) {
+                                ArrayList<BagModel> l1 = bags.get(id);
+                                if(l1 == null)
+                                    break;
+                                for (BagModel bdm : selected_items) {
+                                    if (l1.contains(bdm))
+                                        l1.remove(bdm);
+                                }
+                            }
+                            bagDeleteAdapter.notifyDataSetChanged();
+                            selected_items = new ArrayList<BagModel>();
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
@@ -147,43 +191,8 @@ public class BagDelete extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
-                netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
-            }
-        });
-    }
-
-    private void deleteBagItems() {
-        Net.getInstance().getFactoryIm().deleteBagItemList(selected_items).enqueue(new Callback<ResponseModel<String>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                if (response.isSuccessful()) {
-                    // 성공했을 경우
-                    switch (response.body().getSuccess()) {
-                        case DataDefinition.Network.CODE_SUCCESS:
-                            for (String id : BAG_CATEGORYS) {
-                                ArrayList<BagModel> l1 = bags.get(id);
-                                for (BagModel bdm : selected_items) {
-                                    if (l1.contains(bdm))
-                                        l1.remove(bdm);
-                                }
-                            }
-                            bagDeleteAdapter.notifyDataSetChanged();
-                            selected_items = new ArrayList<BagModel>();
-                            break;
-                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
-                            AlertManager.getInstance().showNetFailAlert(activity, R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);
-                            break;
-                    }
-
-                } else {
-                    netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
-                }
-            }
-
-            @Override
             public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
+                netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
             }
         });
     }

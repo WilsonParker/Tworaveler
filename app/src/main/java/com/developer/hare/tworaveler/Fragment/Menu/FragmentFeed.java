@@ -60,7 +60,6 @@ public class FragmentFeed extends BaseFragment {
 
     @Override
     protected void init(View view) {
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "init running");
         uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
         menuTopTitle = uiFactory.createView(R.id.fragment_feed$menuToptitle);
@@ -103,15 +102,14 @@ public class FragmentFeed extends BaseFragment {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
+//                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         feedItemModels.addAll(model.getResult());
-                                        ++scrollCount;
-                                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "items size : " + feedItemModels.size());
                                         feedListAdapter.notifyDataSetChanged();
+                                        ++scrollCount;
                                     }
                                 });
                             }
@@ -138,4 +136,10 @@ public class FragmentFeed extends BaseFragment {
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_alert_title_fail, R.string.fragmentFeed_alert_content_fail);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        scrollCount = 0;
+        feedItemModels.clear();
+    }
 }

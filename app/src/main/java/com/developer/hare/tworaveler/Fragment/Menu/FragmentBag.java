@@ -30,6 +30,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
@@ -48,6 +49,7 @@ import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_CATEGORY_THEME;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_USER_NO;
+import static com.developer.hare.tworaveler.Util.Log_HR.LOG_INFO;
 
 public class FragmentBag extends BaseFragment {
     private final int imageCount = 3;
@@ -175,7 +177,7 @@ public class FragmentBag extends BaseFragment {
         Net.getInstance().getFactoryIm().insertBack(part, map).enqueue(new Callback<ResponseModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<BagModel>> call, Response<ResponseModel<BagModel>> response) {
-//                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getResult());
+                Log_HR.log(LOG_INFO, FragmentBag.class, "onResponse()", "body : " + response.body().getResult());
                 if (response.isSuccessful()) {
                     ResponseModel<BagModel> rbag = response.body();
                     // 성공했을 경우
@@ -216,14 +218,20 @@ public class FragmentBag extends BaseFragment {
                     // 성공했을 경우
                     switch (response.body().getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
-                            ResponseArrayModel<BagModel> rbag = response.body();
-                            items = rbag.getResult();
-                            if (items == null)
-                                items = new ArrayList<BagModel>();
-                            itemEmptyCheck(items);
-                            bagListAdapter = new BagListAdapter(items, getActivity());
-                            RV_list.setAdapter(bagListAdapter);
-                            bagListAdapter.notifyDataSetChanged();
+                            HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ResponseArrayModel<BagModel> rbag = response.body();
+                                    items = rbag.getResult();
+                                    if (items == null)
+                                        items = new ArrayList<BagModel>();
+                                    itemEmptyCheck(items);
+                                    bagListAdapter = new BagListAdapter(items, getActivity());
+                                    RV_list.setAdapter(bagListAdapter);
+                                    bagListAdapter.notifyDataSetChanged();
+
+                                }
+                            });
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail_2);

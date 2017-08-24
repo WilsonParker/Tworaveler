@@ -9,18 +9,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
@@ -41,7 +43,9 @@ public class Comment extends AppCompatActivity {
     private LinearLayout LL_noitem;
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
+
     private UIFactory uiFactory;
+    private ProgressManager progressManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
     private ScheduleModel scheduleModel;
@@ -55,20 +59,21 @@ public class Comment extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         createCommentList();
         changeView();
-        super.onResume();
     }
 
-    private void init()
-    {
+    private void init() {
         scheduleModel = (ScheduleModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(this);
+        progressManager = new ProgressManager(this);
+
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
-        LL_noitem   = uiFactory.createView(R.id.activity_comment$LL_noitem);
-        TV_noitem   = uiFactory.createView(R.id.activity_comment$TV_noitem);
-        up_btn      = uiFactory.createView(R.id.activity_comment$up_btn);
-        ET_comment  = uiFactory.createView(R.id.activity_comment$ET_comment);
+        LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);
+        TV_noitem = uiFactory.createView(R.id.activity_comment$TV_noitem);
+        up_btn = uiFactory.createView(R.id.activity_comment$up_btn);
+        ET_comment = uiFactory.createView(R.id.activity_comment$ET_comment);
         menuToptitle = uiFactory.createView(R.id.activity_comment$menuToptitle);
         FontManager.getInstance().setFont(TV_noitem, "NotoSansCJKkr-Regular.otf");
 
@@ -93,19 +98,20 @@ public class Comment extends AppCompatActivity {
         });
 
     }
-    private void changeView(){
-        if(scheduleModel.getCommentCount() == 0){
+
+    private void changeView() {
+        if (scheduleModel.getCommentCount() == 0) {
             LL_noitem.setVisibility(View.VISIBLE);
             RV_commentlist.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             LL_noitem.setVisibility(View.INVISIBLE);
             RV_commentlist.setVisibility(View.VISIBLE);
         }
     }
 
-    public void onSendComment(View view){
+    public void onSendComment(View view) {
         String msg = ET_comment.getText().toString().trim();
-        if(TextUtils.isEmpty(msg)){
+        if (TextUtils.isEmpty(msg)) {
             ET_comment.setError("글을 작성 해주세요");
             return;
         }
@@ -114,55 +120,75 @@ public class Comment extends AppCompatActivity {
         result.enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
-                    if(model.getSuccess() == CODE_SUCCESS){
+                    if (model.getSuccess() == CODE_SUCCESS) {
                         HandlerManager.getInstance().getHandler().post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                                 ET_comment.setText("");
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
+                                RV_commentlist.scrollToPosition(items.size() - 1);
                             }
                         });
-                    }else {
-                                Toast.makeText(Comment.this, "등록 실패.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
+//                        Toast.makeText(Comment.this, "등록 실패.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
-                                Toast.makeText(Comment.this, "Comment onFailure", Toast.LENGTH_SHORT).show();
+                netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
+//                Toast.makeText(Comment.this, "Comment onFailure", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-    public void createCommentList(){
 
-        Net.getInstance().getFactoryIm().commentList(scheduleModel.getTrip_no()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
+    public void createCommentList() {
+        progressManager.actionWithState(new OnProgressAction() {
             @Override
-            public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
-                if(response.isSuccessful()){
-                    ResponseArrayModel<CommentModel> model = response.body();
-                    if(model.getSuccess() == CODE_SUCCESS){
-                        items.addAll(model.getResult());
-                        commentAdapter = new CommentAdapter(items);
-                        RV_commentlist.setAdapter(commentAdapter);
-                    }else{
-                        Toast.makeText(Comment.this, "덧글 불러오기 실패.", Toast.LENGTH_SHORT).show();
+            public void run() {
+                Net.getInstance().getFactoryIm().commentList(scheduleModel.getTrip_no()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
+                        if (response.isSuccessful()) {
+                            progressManager.endRunning();
+                            ResponseArrayModel<CommentModel> model = response.body();
+                            if (model.getSuccess() == CODE_SUCCESS) {
+                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        items = model.getResult();
+                                        commentAdapter.notifyDataSetChanged();
+//                                        commentAdapter = new CommentAdapter(items);
+//                                        RV_commentlist.setAdapter(commentAdapter);
+                                    }
+                                });
+                            } else {
+                                netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
+//                        Toast.makeText(Comment.this, "덧글 불러오기 실패.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
-                Log_HR.log(Comment.class, "onFailure()", t);
-                Toast.makeText(Comment.this, "CreatList onFailure", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
+                        Log_HR.log(Comment.class, "onFailure()", t);
+                        netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
+//                Toast.makeText(Comment.this, "CreatList onFailure", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
+    }
 
-
+    private void netFail(int title, int content) {
+        progressManager.endRunning();
+        AlertManager.getInstance().showNetFailAlert(this, title, content);
     }
 }
