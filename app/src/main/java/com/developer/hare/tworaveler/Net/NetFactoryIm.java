@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.Net;
 
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
+import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.LikeModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
@@ -52,6 +53,10 @@ public interface NetFactoryIm {
             @Part MultipartBody.Part file
     );
 
+    // 댓글 등록
+    @POST("/comment/add_comment")
+    Call<ResponseModel<CommentModel>> commentUpload(@Body CommentModel model);
+
     // #############################################################################################
     // MODIFY
     // #############################################################################################
@@ -71,6 +76,10 @@ public interface NetFactoryIm {
     // 좋아요 취소
     @POST("/feed/unlike")
     Call<ResponseModel<LikeModel>> modifyUnLike(@Body LikeModel model);
+
+    // 댓글 수정
+    @POST("/comment/modify")
+    Call<ResponseModel<CommentModel>> commentModify(@Body CommentModel model);
 
 
     // #############################################################################################
@@ -118,6 +127,10 @@ public interface NetFactoryIm {
     @GET("/feed/{user_no}/{scrollCount}")
     Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Path("user_no") int user_no, @Path("scrollCount") int scrollCount);
 
+    // 댓글 조회
+    @GET("/comment/look/{trip_no}")
+    Call<ResponseArrayModel<CommentModel>> commentList(@Path("trip_no") int trip_no);
+
     // #############################################################################################
     // DELETE
     // #############################################################################################
@@ -132,6 +145,9 @@ public interface NetFactoryIm {
     Call<ResponseModel<ResponseModel<String>>> userSignOut(@Body UserReqModel model);
 
 
+    // 댓글 삭제
+    @POST("/comment/delete")
+    Call<ResponseModel<CommentModel>> commentDelete(@Body CommentModel model);
 }
 /*
 

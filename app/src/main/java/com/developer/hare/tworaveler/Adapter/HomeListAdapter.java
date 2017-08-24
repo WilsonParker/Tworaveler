@@ -91,7 +91,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, Comment.class));
+                    Intent intent = new Intent(context, Comment.class);
+                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                    context.startActivity(intent);
                 }
             });
             IV_btn.setOnClickListener(new View.OnClickListener() {

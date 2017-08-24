@@ -105,7 +105,6 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BigImage"
-            android:theme="@style/MyTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Regist"
@@ -116,7 +115,9 @@
             android:name=".Activity.RegistDayDetail"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".Activity.MyScheduleModify" />
-        <activity android:name=".Activity.Comment"></activity>
+        <activity
+            android:name=".Activity.Comment"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

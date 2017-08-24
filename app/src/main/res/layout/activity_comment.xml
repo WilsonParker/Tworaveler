@@ -20,6 +20,7 @@
         android:layout_weight="504.7"
         >
         <LinearLayout
+            android:id="@+id/activity_comment$LL_noitem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:weightSum="504.7"
@@ -39,13 +40,15 @@
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="65.7"/>
+                    android:layout_weight="65.7"
+                    android:background="@drawable/image_comment"/>
             </LinearLayout>
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="13.7"/>
             <TextView
+                android:id="@+id/activity_comment$TV_noitem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -57,6 +60,7 @@
             android:id="@+id/activity_comment$RV_commentlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            tools:listitem="@layout/item_comment"
             />
     </FrameLayout>
     <LinearLayout
@@ -80,6 +84,7 @@
             android:layout_height="match_parent"
             android:layout_weight="57"
             android:text="@string/activity_comment_up_btn"
+            android:textColor="@color/default_theme_Image_color"
             android:textSize="14sp"
             android:gravity="center"/>
     </LinearLayout>
