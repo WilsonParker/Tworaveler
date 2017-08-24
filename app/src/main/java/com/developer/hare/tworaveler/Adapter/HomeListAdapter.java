@@ -19,7 +19,6 @@ import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
-import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.Request.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -28,7 +27,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.ScrollEndMethod;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -42,12 +41,10 @@ import retrofit2.Response;
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private ArrayList<ScheduleModel> items;
-    private OnListScrollListener onListScrollListener;
     private ImageManager imageManager = ImageManager.getInstance();
 
-    public HomeListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListener) {
+    public HomeListAdapter(ArrayList<ScheduleModel> items) {
         this.items = items;
-        this.onListScrollListener = onListScrollListener;
     }
 
     @Override
@@ -58,7 +55,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.toBind(items.get(position));
-        ScrollEndMethod.getInstance().actionAfterScrollEnd(items.size(), position, onListScrollListener);
     }
 
     @Override
@@ -158,7 +154,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         }
         private void likeClick(boolean isLike){
             if(isLike){
-                Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
+//                Net.getInstance().getFactoryIm().modifyLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                         if(response.isSuccessful()){
@@ -173,13 +170,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     break;
                             }
                         }else{
-
+                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-
+                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
                     }
                 });
             }else {

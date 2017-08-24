@@ -56,6 +56,7 @@ public class Comment extends AppCompatActivity {
     @Override
     protected void onResume() {
         createCommentList();
+        changeView();
         super.onResume();
     }
 
@@ -90,7 +91,18 @@ public class Comment extends AppCompatActivity {
                 onSendComment(view);
             }
         });
+
     }
+    private void changeView(){
+        if(scheduleModel.getCommentCount() == 0){
+            LL_noitem.setVisibility(View.VISIBLE);
+            RV_commentlist.setVisibility(View.INVISIBLE);
+        }else{
+            LL_noitem.setVisibility(View.INVISIBLE);
+            RV_commentlist.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void onSendComment(View view){
         String msg = ET_comment.getText().toString().trim();
         if(TextUtils.isEmpty(msg)){

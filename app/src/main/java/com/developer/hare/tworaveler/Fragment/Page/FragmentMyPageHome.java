@@ -13,7 +13,6 @@ import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
-import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -36,7 +35,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_MY_PROFILE_LIST_COUNT;
 
 public class FragmentMyPageHome extends BaseFragment {
     private static FragmentMyPageHome fragment = new FragmentMyPageHome();
@@ -76,14 +74,7 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
-        homeListAdapter = new HomeListAdapter(items, new OnListScrollListener() {
-            @Override
-            public void scrollEnd() {
-                if (items.size() == SIZE_MY_PROFILE_LIST_COUNT * scrollCount) {
-                    updateList();
-                }
-            }
-        });
+        homeListAdapter = new HomeListAdapter(items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
@@ -92,11 +83,12 @@ public class FragmentMyPageHome extends BaseFragment {
         updateList();
     }
 
+
     private void updateList() {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectFeedList(SessionManager.getInstance().getUserModel().getUser_no(), scrollCount).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
+                Net.getInstance().getFactoryIm().selectMyScheduleList(SessionManager.getInstance().getUserModel().getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                         if (response.isSuccessful()) {

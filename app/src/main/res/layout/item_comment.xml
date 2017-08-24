@@ -63,8 +63,11 @@
                     android:id="@+id/item_comment$ET_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textCursorDrawable="@drawable/cursor_edittext"
+                    android:textSize="@dimen/EditTextSize_Content_2"
                     android:visibility="invisible"
-                    android:textSize="11sp"/>
+                    android:background="@null"
+                    />
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout

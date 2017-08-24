@@ -77,6 +77,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="288"
+            android:textCursorDrawable="@drawable/cursor_edittext"
+            android:textSize="@dimen/EditTextSize_Content_1"
+            android:background="@null"
             android:hint="@string/activity_comment_hint"/>
         <TextView
             android:id="@+id/activity_comment$up_btn"

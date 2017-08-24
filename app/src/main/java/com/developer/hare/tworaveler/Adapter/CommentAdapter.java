@@ -81,11 +81,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         public boolean onMenuItemClick(MenuItem item) {
                             switch(item.getItemId()){
                                 case R.id.popup_menu$modify:
-
-                                    ET_comment.setVisibility(View.VISIBLE);
-                                    TV_comment.setVisibility(View.INVISIBLE);
-                                    up_btn.setVisibility(View.VISIBLE);
-                                    IV_btn.setVisibility(View.INVISIBLE);
+                                    ET_comment.setText(model.getContent());
+                                    showModifyEditor(true);
                                     break;
                                 case R.id.popup_menu$delete:
 
@@ -100,15 +97,26 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             up_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    model.setContent(ET_comment.getText().toString());
+                    TV_comment.setText(model.getContent()+"");
+                    showModifyEditor(false);
+                }
+            });
+        }
+
+        private void showModifyEditor(boolean visible){
+            if(visible) {
+                ET_comment.setVisibility(View.VISIBLE);
+                TV_comment.setVisibility(View.INVISIBLE);
+                up_btn.setVisibility(View.VISIBLE);
+                IV_btn.setVisibility(View.INVISIBLE);
+            }else{
                     ET_comment.setVisibility(View.INVISIBLE);
                     TV_comment.setVisibility(View.VISIBLE);
                     up_btn.setVisibility(View.INVISIBLE);
                     IV_btn.setVisibility(View.VISIBLE);
-
-                    TV_comment.setText(model.getContent()+"");
                 }
-            });
-        }
+            }
 
         public void toBind(CommentModel model)
         {

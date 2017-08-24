@@ -20,6 +20,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -72,7 +73,8 @@ public interface NetFactoryIm {
 
     // 좋아요
     @POST("/feed/like")
-    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
+//    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
+    Call<ResponseModel<LikeModel>> modifyLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
     // 좋아요 취소
     @POST("/feed/unlike")
@@ -122,7 +124,7 @@ public interface NetFactoryIm {
 
     // 내 여행 목록 조회
     @GET("/trips/mytrip/{user_no}")
-    Call<ResponseModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
+    Call<ResponseArrayModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
     @GET("/feed/{user_no}/{scrollCount}")

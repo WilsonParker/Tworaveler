@@ -42,6 +42,7 @@
 
     <!-- EditText Size -->
     <dimen name="EditTextSize_Content_1">13sp</dimen>
+    <dimen name="EditTextSize_Content_2">11sp</dimen>
 
     <dimen name="TextSize_Feed_Title">12sp</dimen>
     <dimen name="TextSize_Feed_Date">9sp</dimen>
