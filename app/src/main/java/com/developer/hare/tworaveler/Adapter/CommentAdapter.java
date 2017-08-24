@@ -104,6 +104,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     TV_comment.setVisibility(View.VISIBLE);
                     up_btn.setVisibility(View.INVISIBLE);
                     IV_btn.setVisibility(View.VISIBLE);
+
                     TV_comment.setText(model.getContent()+"");
                 }
             });
