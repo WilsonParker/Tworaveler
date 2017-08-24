@@ -12,6 +12,7 @@ import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -128,8 +129,11 @@ public interface NetFactoryIm {
 
     // 회원 탈퇴
     @POST("/users/sign_out")
-//    Call<ResponseModel<String>> userSignOut(@Header("Cookie") String cookie, @Body UserReqModel model);
     Call<ResponseModel<ResponseModel<String>>> userSignOut(@Body UserReqModel model);
+
+    // 가방 아이템 삭제
+    @POST("/backpack/delete_item")
+    Call<ResponseModel<ResponseModel<String>>> deleteBagItemList(@Body ArrayList<Integer> item_no);
 
 
 }
