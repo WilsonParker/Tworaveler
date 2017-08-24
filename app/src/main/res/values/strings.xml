@@ -8,6 +8,9 @@
     <!--<string name="fb_secret_code">4675e710332af2378e67a95dfe1a6d48</string>-->
     <!--<string name="fb_hash">AV4A36DcA2EO/8A2IXQSts7NwsU=</string>-->
 
+    <!-- Common String-->
+    <string name="alert_content_not_login">로그인이 되어있지 않습니다</string>
+
     <!--
       ############################################################################################
                                                 Class
@@ -38,7 +41,6 @@
     <!-- Activity/MyProfileSet -->
     <string name="profileSet_mod_fail_alert_title">수정 실패</string>
     <string name="profileSet_mod_fail_alert_content">문제가 발생하여 수정 실패 하였습니다</string>
-    <string name="profileSet_mod_fail_alert_content_2">로그인이 되어있지 않습니다</string>
     <string name="profileSet_mod_fail_alert_content_3">닉네임이 중복 되었습니다</string>
     <string name="profileSet_mod_success_alert_title">수정 성공</string>
     <string name="profileSet_mod_success_alert_content">수정 성공 하였습니다</string>
@@ -51,7 +53,6 @@
     <string name="profileSet_signOut_fail_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
     <string name="profileSet_signOut_fail_alert_content2">문제가 발생하여 회원 탈퇴 실패하였습니다</string>
     <string name="profileSet_signOut_fail_alert_content3">회원 탈퇴 성공</string>
-    <string name="profileSet_signOut_fail_alert_content4">로그인 되어 있지 않습니다</string>
     <string name="profileSet_signOut_fail_alert_content5">비밀번호가 일치하지 않습니다</string>
     <string name="profileSet_signOut_fail_alert_content6">이메일이 일치하지 않습니다</string>
     <string name="profileSet_signOut_alert_input_messae">비밀번호를 입력해 주세요</string>

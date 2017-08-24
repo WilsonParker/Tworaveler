@@ -168,4 +168,5 @@ public class BagDelete extends AppCompatActivity {
         customNavigationBagView.bindItemView(this, items);
         customNavigationBagView.setFirstClickItem(0);
     }
+
 }

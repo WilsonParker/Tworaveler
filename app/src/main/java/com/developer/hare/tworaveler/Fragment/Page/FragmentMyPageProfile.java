@@ -24,6 +24,7 @@ import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import java.util.ArrayList;
 
 public class FragmentMyPageProfile extends BaseFragment {
+    private static FragmentMyPageProfile fragment = new FragmentMyPageProfile();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private TextView TV_cntFollower, TV_cntFollowing, TV_nickname, TV_message;
@@ -31,7 +32,6 @@ public class FragmentMyPageProfile extends BaseFragment {
     private Class myClass = getClass();
 
     public static FragmentMyPageProfile newInstance() {
-        FragmentMyPageProfile fragment = new FragmentMyPageProfile();
         return fragment;
     }
 

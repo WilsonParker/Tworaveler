@@ -35,8 +35,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentFeedDetail extends BaseFragment {
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
+public class FragmentFeedDetail extends BaseFragment {
+    private static FragmentFeedDetail fragment = new FragmentFeedDetail();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
@@ -49,14 +52,12 @@ public class FragmentFeedDetail extends BaseFragment {
     private ScheduleModel scheduleModel;
     private String trip_Date;
 
-    public static FragmentFeedDetail newInstance(ScheduleModel model, String trip_Date) {
-        FragmentFeedDetail fragment = new FragmentFeedDetail(model, trip_Date);
+    public static FragmentFeedDetail newInstance(ScheduleModel scheduleModel, String trip_Date) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
+        bundle.putString(KEY_TRIPDATE, trip_Date);
+        fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public FragmentFeedDetail(ScheduleModel scheduleModel, String trip_Date) {
-        this.scheduleModel = scheduleModel;
-        this.trip_Date = trip_Date;
     }
 
     @Override
@@ -64,8 +65,13 @@ public class FragmentFeedDetail extends BaseFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_feed_detail, container, false);
     }
+
     @Override
     protected void init(View view) {
+        Bundle bundle = getArguments();
+        scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
+        trip_Date = bundle.getString(KEY_TRIPDATE);
+
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
@@ -92,37 +98,40 @@ public class FragmentFeedDetail extends BaseFragment {
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
     }
-    private void updateList(){
-           progressManager.actionWithState(new OnProgressAction() {
-               @Override
-               public void run() {
-                   Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
-                       @Override
-                       public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {
-                            if(response.isSuccessful()){
-                                progressManager.endRunning();
-                                ResponseArrayModel<ScheduleDayRootModel> model = response.body();
-                                itemEmptyCheck(items);
-                            }else
-                           {
-                               Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
-                               netFail();
-                           }
+
+    private void updateList() {
+        progressManager.actionWithState(new OnProgressAction() {
+            @Override
+            public void run() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {
+                        if (response.isSuccessful()) {
+                            progressManager.endRunning();
+                            ResponseArrayModel<ScheduleDayRootModel> model = response.body();
+                            itemEmptyCheck(items);
+                        } else {
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
+                            netFail();
                         }
-                       @Override
-                       public void onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Throwable t) {
-                           Log_HR.log(FragmentFeedDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
-                           netFail();
-                       }
-                   });
-               }
-           });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Throwable t) {
+                        Log_HR.log(FragmentFeedDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
+                        netFail();
+                    }
+                });
+            }
+        });
     }
+
     private void netFail() {
         progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageDetail_alert_title_fail, R.string.fragmentMyPageDetail_alert_content_fail);
         itemEmptyCheck(items);
     }
+
     private void itemEmptyCheck(ArrayList<ScheduleDayModel> items) {
         if (items != null && items.size() > 0) {
             linearLayout.setVisibility(View.INVISIBLE);

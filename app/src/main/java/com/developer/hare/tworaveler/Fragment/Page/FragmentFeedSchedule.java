@@ -30,7 +30,10 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+
 public class FragmentFeedSchedule extends BaseFragment {
+    private static FragmentFeedSchedule fragment = new FragmentFeedSchedule();
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
@@ -45,9 +48,10 @@ public class FragmentFeedSchedule extends BaseFragment {
     public FragmentFeedSchedule() {
     }
 
-    public static FragmentFeedSchedule newInstance(ScheduleModel model) {
-        FragmentFeedSchedule fragment = new FragmentFeedSchedule();
-        scheduleModel = model;
+    public static FragmentFeedSchedule newInstance(ScheduleModel scheduleModel) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -60,6 +64,8 @@ public class FragmentFeedSchedule extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        Bundle bundle = getArguments();
+        scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(getActivity());
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();

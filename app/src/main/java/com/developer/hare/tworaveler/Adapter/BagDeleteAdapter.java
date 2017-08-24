@@ -38,7 +38,7 @@ public class BagDeleteAdapter extends RecyclerView.Adapter<BagDeleteAdapter.View
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     public ArrayList<BagDeleteModel> getSelected_Items(){

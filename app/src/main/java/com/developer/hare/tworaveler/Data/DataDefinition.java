@@ -10,14 +10,18 @@ public class DataDefinition {
         public static final String
                  KEY_ITEMS = "intent_items"
                 ,KEY_TITLE = "intent_title"
+
                 ,KEY_CITYMODEL= "CityModel"
                 ,KEY_BAGMODEL= "BagModel"
                 ,KEY_BAGMODELS= "BagModels"
+                ,KEY_SCHEDULE_MODEL= "StartDate"
+
                 ,KEY_POSITION= "Position"
+
+                ,KEY_TRIPDATE= "TripDate"
                 ,KEY_STARTDATE= "StartDate"
                 ,KEY_ENDDATE= "EndDate"
                 ,KEY_DATE = "Date"
-                ,KEY_SCHEDULE_MODEL= "ScheduleModel"
                 ;
         public static final int
                 RESULT_CODE_SUCCESS = 0x0000

@@ -38,7 +38,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+
 public class FragmentMyPageSchedule extends BaseFragment {
+    private static FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
     private UIFactory uiFactory;
     private ImageManager imageManager;
     private DateManager dateManager;
@@ -50,13 +53,11 @@ public class FragmentMyPageSchedule extends BaseFragment {
     private ImageView IV_cover, IV_like;
     private View scheduleItem;
 
-    public static FragmentMyPageSchedule newInstance(ScheduleModel model) {
-        FragmentMyPageSchedule fragment = new FragmentMyPageSchedule(model);
+    public static FragmentMyPageSchedule newInstance(ScheduleModel scheduleModel) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
+        fragment.setArguments(bundle);
         return fragment;
-    }
-
-    public FragmentMyPageSchedule(ScheduleModel scheduleModel) {
-        this.scheduleModel = scheduleModel;
     }
 
     @Override
@@ -68,6 +69,9 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        Bundle bundle = getArguments();
+        scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
+
         uiFactory = UIFactory.getInstance(getActivity());
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();
@@ -93,10 +97,10 @@ public class FragmentMyPageSchedule extends BaseFragment {
         TV_comment = uiFactory.createView(R.id.item_mypage$TV_comment);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
-        if(scheduleModel.isLike()){
+        if (scheduleModel.isLike()) {
             IV_like.setImageResource(R.drawable.icon_heart_click);
         }
-        TV_like.setText(scheduleModel.getLikeCount()+"");
+        TV_like.setText(scheduleModel.getLikeCount() + "");
         LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
         LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
         LL_like.setOnClickListener(new View.OnClickListener() {
@@ -150,30 +154,32 @@ public class FragmentMyPageSchedule extends BaseFragment {
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
     }
-    private void changeLike(boolean isLike){
-        if(isLike){
+
+    private void changeLike(boolean isLike) {
+        if (isLike) {
             imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
-        }else{
-            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
+        } else {
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop(), IV_like);
         }
     }
-    private void likeClick(boolean isLike){
-        if(isLike){
+
+    private void likeClick(boolean isLike) {
+        if (isLike) {
             Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                    if(response.isSuccessful()){
-                        switch (response.body().getSuccess()){
+                    if (response.isSuccessful()) {
+                        switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 changeLike(false);
 //                                    imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
 //                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
-                                int likeCount =scheduleModel.getLikeCount()-1;
-                                TV_like.setText(""+likeCount );
+                                int likeCount = scheduleModel.getLikeCount() - 1;
+                                TV_like.setText("" + likeCount);
                                 scheduleModel.setLikeCount(likeCount);
                                 break;
                         }
-                    }else{
+                    } else {
 
                     }
                 }
@@ -183,25 +189,26 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
                 }
             });
-        }else {
+        } else {
             Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                    if(response.isSuccessful()){
-                        switch (response.body().getSuccess()){
+                    if (response.isSuccessful()) {
+                        switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 changeLike(true);
 //                                    imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
 //                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE), IV_like);
-                                int likeCount =scheduleModel.getLikeCount()+1;
-                                TV_like.setText(""+likeCount);
+                                int likeCount = scheduleModel.getLikeCount() + 1;
+                                TV_like.setText("" + likeCount);
                                 scheduleModel.setLikeCount(likeCount);
                                 break;
                         }
-                    }else{
+                    } else {
 
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
 
