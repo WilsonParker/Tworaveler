@@ -155,9 +155,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         private void likeClick(boolean isLike){
             if(isLike){
 //                Net.getInstance().getFactoryIm().modifyLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
-                Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
+
                         if(response.isSuccessful()){
                             switch (response.body().getSuccess()){
                                 case DataDefinition.Network.CODE_SUCCESS:
@@ -168,6 +172,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     TV_like.setText(""+likeCount );
                                     model.setLikeCount(likeCount);
                                     break;
+
                             }
                         }else{
                             Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
@@ -180,7 +185,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     }
                 });
             }else {
-                Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                         if(response.isSuccessful()){

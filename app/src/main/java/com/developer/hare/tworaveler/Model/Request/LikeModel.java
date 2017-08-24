@@ -27,4 +27,12 @@ public class LikeModel {
     public void setTrip_no(int trip_no) {
         this.trip_no = trip_no;
     }
+
+    @Override
+    public String toString() {
+        return "LikeModel{" +
+                "user_no=" + user_no +
+                ", trip_no=" + trip_no +
+                '}';
+    }
 }

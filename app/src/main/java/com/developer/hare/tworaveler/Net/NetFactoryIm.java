@@ -21,6 +21,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -72,13 +73,15 @@ public interface NetFactoryIm {
     Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleModel model);
 
     // 좋아요
+    @FormUrlEncoded
     @POST("/feed/like")
 //    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
     Call<ResponseModel<LikeModel>> modifyLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
     // 좋아요 취소
+    @FormUrlEncoded
     @POST("/feed/unlike")
-    Call<ResponseModel<LikeModel>> modifyUnLike(@Body LikeModel model);
+    Call<ResponseModel<LikeModel>> modifyUnLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
     // 댓글 수정
     @POST("/comment/modify")

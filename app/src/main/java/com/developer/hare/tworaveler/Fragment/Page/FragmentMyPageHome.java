@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
-import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -47,7 +46,6 @@ public class FragmentMyPageHome extends BaseFragment {
     private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
     private ArrayList<ScheduleModel> items = new ArrayList<>();
-    private int scrollCount = 0;
 
     public static FragmentMyPageHome newInstance() {
         return fragment;
@@ -80,9 +78,13 @@ public class FragmentMyPageHome extends BaseFragment {
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
 
-        updateList();
     }
 
+    @Override
+    public void onResume() {
+        updateList();
+        super.onResume();
+    }
 
     private void updateList() {
         progressManager.actionWithState(new OnProgressAction() {
@@ -105,7 +107,7 @@ public class FragmentMyPageHome extends BaseFragment {
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
 
@@ -113,7 +115,7 @@ public class FragmentMyPageHome extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
+                        Log_HR.log(FragmentMyPageHome.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

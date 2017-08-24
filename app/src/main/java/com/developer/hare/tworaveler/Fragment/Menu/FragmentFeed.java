@@ -16,7 +16,6 @@ import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
-import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -84,21 +83,12 @@ public class FragmentFeed extends BaseFragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(feedListAdapter);
-        updateList();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-        // Check which request we're responding to
-        if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
-            // Make sure the request was successful
-            if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
-                if (data != null) {
-                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                }
-            }
-        }
+    public void onResume() {
+        updateList();
+        super.onResume();
     }
 
     private void updateList() {

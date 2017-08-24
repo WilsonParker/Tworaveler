@@ -165,7 +165,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     private void likeClick(boolean isLike) {
         if (isLike) {
-            Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
+            Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                     if (response.isSuccessful()) {
@@ -190,7 +190,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 }
             });
         } else {
-            Net.getInstance().getFactoryIm().modifyUnLike(new LikeModel(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no())).enqueue(new Callback<ResponseModel<LikeModel>>() {
+            Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
                     if (response.isSuccessful()) {

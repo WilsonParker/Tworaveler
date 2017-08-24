@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class Log_HR {
 
-    private static final String TAG = "Tworaveler_Demo";
+    private static final String TAG = "Tworaveler";
 
     private static final String NOTI = "############################################################";
     private static final boolean isDebug = true;
