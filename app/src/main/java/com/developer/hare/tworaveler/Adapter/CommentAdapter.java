@@ -20,6 +20,8 @@ import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -63,6 +65,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private CommentModel model;
         private PopupMenu popupMenu;
         private Context context;
+        private ProgressManager progressManager;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -104,65 +107,65 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             });
         }
 
-        private void showModifyEditor(boolean visible) {
-            if (visible) {
+        private void showModifyEditor(boolean visible){
+            if(visible) {
                 ET_comment.setVisibility(View.VISIBLE);
                 TV_comment.setVisibility(View.INVISIBLE);
                 up_btn.setVisibility(View.VISIBLE);
                 IV_btn.setVisibility(View.INVISIBLE);
-            } else {
-                ET_comment.setVisibility(View.INVISIBLE);
-                TV_comment.setVisibility(View.VISIBLE);
-                up_btn.setVisibility(View.INVISIBLE);
-                IV_btn.setVisibility(View.VISIBLE);
+            }else{
+                    ET_comment.setVisibility(View.INVISIBLE);
+                    TV_comment.setVisibility(View.VISIBLE);
+                    up_btn.setVisibility(View.INVISIBLE);
+                    IV_btn.setVisibility(View.VISIBLE);
+                }
             }
-        }
 
-        public void toBind(CommentModel model) {
+        public void toBind(CommentModel model)
+        {
             this.model = model;
-            Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "toBind(CommentModel model)","model : "+model);
-            Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "toBind(CommentModel model)","model : "+this.model);
-            TV_nickname.setText(model.getNickname() + "");
-            TV_comment.setText(model.getContent() + "");
-            if (SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())) {
+            TV_nickname.setText(model.getNickname()+"");
+            TV_comment.setText(model.getContent()+"");
+            if(SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())){
                 LL_more.setVisibility(View.VISIBLE);
             }
             up_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeComment(model);
+                    changeComment();
                 }
             });
         }
-
-        public void changeComment(CommentModel model) {
-            model.setContent(ET_comment.getText().toString());
-//            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "changeComment()", "model : " + model);
+        public void changeComment(){
             Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getSuccess());
-//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getMessage());
-//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getResult());
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getMessage());
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getResult());
 
-                    if (response.isSuccessful()) {
-                        switch (response.body().getSuccess()) {
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
                             case DataDefinition.Network.CODE_SUCCESS:
-                                TV_comment.setText(model.getContent() + "");
+                                model.setContent(ET_comment.getText().toString());
+                                TV_comment.setText(model.getContent()+"");
                                 showModifyEditor(false);
                                 break;
                         }
-                    } else {
-//                        AlertManager.getInstance().
-//                        Toast.makeText(context, "덧글 수정 실패", Toast.LENGTH_SHORT).show();
+                    }else{
+                        netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_2);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
-//                    Toast.makeText(context, "onFailure 수정 실패", Toast.LENGTH_SHORT).show();
+                    netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
                 }
             });
+        }
+        private void netFail(int title, int content) {
+            progressManager.endRunning();
+            AlertManager.getInstance().showNetFailAlert(context, title, content);
         }
     }
 }

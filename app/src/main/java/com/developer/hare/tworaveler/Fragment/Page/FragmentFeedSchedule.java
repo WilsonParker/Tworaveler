@@ -141,8 +141,8 @@ public class FragmentFeedSchedule extends BaseFragment {
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
 
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + startArr[0] + " : " + startArr[1] + startArr[2]);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + endArr[0] + " : " + endArr[1] + endArr[2]);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + startArr[0] + " : " + (startArr[1]-1) + startArr[2]);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + endArr[0] + " : " + (endArr[1]-1) + endArr[2]);
 
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
