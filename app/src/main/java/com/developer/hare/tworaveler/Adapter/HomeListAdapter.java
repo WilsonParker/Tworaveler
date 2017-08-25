@@ -158,9 +158,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
+//                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
+//                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
+//                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
 
                         if(response.isSuccessful()){
                             switch (response.body().getSuccess()){

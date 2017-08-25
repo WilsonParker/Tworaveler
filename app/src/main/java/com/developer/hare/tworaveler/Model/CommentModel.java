@@ -45,4 +45,14 @@ public class CommentModel {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "CommentModel{" +
+                "comment_no=" + comment_no +
+                ", trip_no=" + trip_no +
+                ", nickname='" + nickname + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

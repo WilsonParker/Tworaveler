@@ -14,7 +14,6 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
-import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -198,9 +197,9 @@ public class BagDelete extends AppCompatActivity {
                 }
             });
         }else{
-            Net.getInstance().getFactoryIm().oneDeleteBagItemList(Integer.parseInt(nos+"")).enqueue(new Callback<ResponseModel<String>>() {
+            Net.getInstance().getFactoryIm().oneDeleteBagItemList(Integer.parseInt(nos+"")).enqueue(new Callback<ResponseArrayModel<String>>() {
                 @Override
-                public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
                     if (response.isSuccessful()) {
                         // 성공했을 경우
                         switch (response.body().getSuccess()) {
@@ -228,7 +227,7 @@ public class BagDelete extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                public void onFailure(Call<ResponseArrayModel<String>> call, Throwable t) {
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
                 }
             });

@@ -13,13 +13,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.CommentModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Tacademy on 2017-08-23.
@@ -94,14 +103,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     popupMenu.show();
                 }
             });
-            up_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    model.setContent(ET_comment.getText().toString());
-                    TV_comment.setText(model.getContent()+"");
-                    showModifyEditor(false);
-                }
-            });
         }
 
         private void showModifyEditor(boolean visible){
@@ -126,6 +127,40 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             if(SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())){
                 LL_more.setVisibility(View.VISIBLE);
             }
+            up_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeComment();
+                }
+            });
+        }
+        public void changeComment(){
+            Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getMessage());
+                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getResult());
+
+                    if(response.isSuccessful()){
+                        switch (response.body().getSuccess()){
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                model.setContent(ET_comment.getText().toString());
+                                TV_comment.setText(model.getContent()+"");
+                                showModifyEditor(false);
+                                break;
+                        }
+                    }else{
+                       Toast.makeText(context,"덧글 수정 실패",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                    Toast.makeText(context,"onFailure 수정 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
+
