@@ -86,7 +86,6 @@ public interface NetFactoryIm {
     @POST("/comment/modify")
     Call<ResponseModel<CommentModel>> commentModify(@Body CommentModel model);
 
-
     // #############################################################################################
     // SELECT
     // #############################################################################################
