@@ -153,6 +153,7 @@ public class Regist extends AppCompatActivity {
         textViews.add(TV_dateStart);
         textViews.add(TV_dateEnd);
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+
     }
 
     public void searchCity(View view) {
@@ -163,35 +164,64 @@ public class Regist extends AppCompatActivity {
     private void onRegister() {
         if (!checkValidation())
             return;
+
         ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(), "", ET_tripName.getText().toString());
-        String json = new Gson().toJson(model);
-        RequestBody requestBody = RetrofitBodyParser.getInstance().createRequestBody(json);
-        MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
+        if (imageFile != null) {
+            String json = new Gson().toJson(model);
+            RequestBody requestBody = RetrofitBodyParser.getInstance().createRequestBody(json);
+            MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
+            Net.getInstance().getFactoryIm().insertSchedule(multipart, requestBody).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                    if (response.isSuccessful()) {
+                        ResponseModel<ScheduleModel> result = response.body();
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                                startActivity(intent);
+                                break;
+                        }
+                    } else
+                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+                }
 
-        Net.getInstance().getFactoryIm().insertSchedule(multipart, requestBody).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                if (response.isSuccessful()) {
-                    ResponseModel<ScheduleModel> result = response.body();
-                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
-                    switch (result.getSuccess()) {
-                        case DataDefinition.Network.CODE_SUCCESS:
-                            Intent intent = new Intent(Regist.this, RegistDetail.class);
-                            intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                            startActivity(intent);
-                            break;
-                    }
-                } else
-                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
-            }
+                @Override
+                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                }
+            });
+        } else {
+            Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                    if (response.isSuccessful()) {
+                        ResponseModel<ScheduleModel> result = response.body();
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                                startActivity(intent);
+                                break;
+                        }
+                    } else
+                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+                }
 
-            @Override
-            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                }
+            });
+        }
+
+
     }
 
     private boolean checkValidation() {

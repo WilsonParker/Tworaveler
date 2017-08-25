@@ -106,6 +106,10 @@ public class AlertManager {
         return alertDialog;
     }
 
+    public AlertDialog showAlertSelectionMode(Context context, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
+        return showAlertSelectionMode(context, title, spanCount, items);
+    }
+
     public void dismissAlertSelectionMode() {
         if (alertDialog.isShowing())
             alertDialog.dismiss();

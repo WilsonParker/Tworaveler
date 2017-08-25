@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
@@ -56,7 +55,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return items == null ? 0 : items.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout LL_more;
         private ImageView IV_profile, IV_btn;
         private TextView TV_nickname, TV_comment, up_btn;
@@ -83,12 +82,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     popupMenu = new PopupMenu(context, view);
                     MenuInflater inflater = popupMenu.getMenuInflater();
                     Menu menu = popupMenu.getMenu();
-
                     inflater.inflate(R.menu.popup_menu, menu);
+
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            switch(item.getItemId()){
+                            switch (item.getItemId()) {
                                 case R.id.popup_menu$modify:
                                     ET_comment.setText(model.getContent());
                                     showModifyEditor(true);
@@ -105,59 +104,63 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             });
         }
 
-        private void showModifyEditor(boolean visible){
-            if(visible) {
+        private void showModifyEditor(boolean visible) {
+            if (visible) {
                 ET_comment.setVisibility(View.VISIBLE);
                 TV_comment.setVisibility(View.INVISIBLE);
                 up_btn.setVisibility(View.VISIBLE);
                 IV_btn.setVisibility(View.INVISIBLE);
-            }else{
-                    ET_comment.setVisibility(View.INVISIBLE);
-                    TV_comment.setVisibility(View.VISIBLE);
-                    up_btn.setVisibility(View.INVISIBLE);
-                    IV_btn.setVisibility(View.VISIBLE);
-                }
+            } else {
+                ET_comment.setVisibility(View.INVISIBLE);
+                TV_comment.setVisibility(View.VISIBLE);
+                up_btn.setVisibility(View.INVISIBLE);
+                IV_btn.setVisibility(View.VISIBLE);
             }
+        }
 
-        public void toBind(CommentModel model)
-        {
+        public void toBind(CommentModel model) {
             this.model = model;
-            TV_nickname.setText(model.getNickname()+"");
-            TV_comment.setText(model.getContent()+"");
-            if(SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())){
+            Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "toBind(CommentModel model)","model : "+model);
+            Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "toBind(CommentModel model)","model : "+this.model);
+            TV_nickname.setText(model.getNickname() + "");
+            TV_comment.setText(model.getContent() + "");
+            if (SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())) {
                 LL_more.setVisibility(View.VISIBLE);
             }
             up_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    changeComment();
+                    changeComment(model);
                 }
             });
         }
-        public void changeComment(){
+
+        public void changeComment(CommentModel model) {
+            model.setContent(ET_comment.getText().toString());
+//            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "changeComment()", "model : " + model);
             Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getMessage());
-                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class, "onResponse","body : "+response.body().getResult());
+//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getSuccess());
+//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getMessage());
+//                    Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getResult());
 
-                    if(response.isSuccessful()){
-                        switch (response.body().getSuccess()){
+                    if (response.isSuccessful()) {
+                        switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
-                                model.setContent(ET_comment.getText().toString());
-                                TV_comment.setText(model.getContent()+"");
+                                TV_comment.setText(model.getContent() + "");
                                 showModifyEditor(false);
                                 break;
                         }
-                    }else{
-                       Toast.makeText(context,"덧글 수정 실패",Toast.LENGTH_SHORT).show();
+                    } else {
+//                        AlertManager.getInstance().
+//                        Toast.makeText(context, "덧글 수정 실패", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
-                    Toast.makeText(context,"onFailure 수정 실패",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "onFailure 수정 실패", Toast.LENGTH_SHORT).show();
                 }
             });
         }
