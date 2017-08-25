@@ -119,6 +119,9 @@ public class Comment extends AppCompatActivity {
         result.enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getSuccess());
+//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getMessage());
+//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getResult());
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     if (model.getSuccess() == CODE_SUCCESS) {

@@ -158,22 +158,22 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getResult().toString());
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(false);
-                                    int likeCount = model.getLikeCount() - 1;
-                                    TV_like.setText("" + likeCount);
+                                    int likeCount =model.getLikeCount()-1;
+                                    TV_like.setText(""+likeCount );
                                     model.setLikeCount(likeCount);
                                     break;
 
                             }
-                        } else {
-                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onResponse is not successful");
+                        }else{
+                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
                         }
                     }
 
@@ -182,20 +182,20 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         Log_HR.log(HomeListAdapter.class, "onFailure", t);
                     }
                 });
-            } else {
+            }else {
                 Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        if (response.isSuccessful()) {
-                            switch (response.body().getSuccess()) {
+                        if(response.isSuccessful()){
+                            switch (response.body().getSuccess()){
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(true);
-                                    int likeCount = model.getLikeCount() + 1;
-                                    TV_like.setText("" + likeCount);
+                                    int likeCount =model.getLikeCount()+1;
+                                    TV_like.setText(""+likeCount);
                                     model.setLikeCount(likeCount);
                                     break;
                             }
-                        } else {
+                        }else{
 
                         }
                     }
