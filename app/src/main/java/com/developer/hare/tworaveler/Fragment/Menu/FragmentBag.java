@@ -130,11 +130,11 @@ public class FragmentBag extends BaseFragment {
         itemEmptyCheck(items);
         sessionCheck();
     }
-
     @Override
     public void onResume() {
         super.onResume();
         sessionCheck();
+        setList(theme);
     }
 
     private boolean sessionCheck() {
@@ -229,7 +229,6 @@ public class FragmentBag extends BaseFragment {
                                     bagListAdapter = new BagListAdapter(items, getActivity());
                                     RV_list.setAdapter(bagListAdapter);
                                     bagListAdapter.notifyDataSetChanged();
-
                                 }
                             });
                             break;

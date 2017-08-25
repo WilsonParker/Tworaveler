@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
@@ -126,7 +127,7 @@ public class Comment extends AppCompatActivity {
                         HandlerManager.getInstance().getHandler().post(new Runnable() {
                             @Override
                             public void run() {
-//                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                                 ET_comment.setText("");
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
@@ -164,9 +165,9 @@ public class Comment extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
+                                        commentAdapter = new CommentAdapter(items);
+                                        RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
-//                                        commentAdapter = new CommentAdapter(items);
-//                                        RV_commentlist.setAdapter(commentAdapter);
                                     }
                                 });
                             } else {

@@ -14,7 +14,6 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
-import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -33,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.string.no;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_MAP;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SALE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bag.CATEGORY_SHOP;
@@ -100,6 +100,7 @@ public class BagDelete extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sessionCheck();
+
     }
 
     private void itemEmptyCheck(ArrayList<BagModel> items) {
@@ -161,40 +162,77 @@ public class BagDelete extends AppCompatActivity {
         for(BagModel model : selected_items)
             nos.add(model.getItem_no());
 
-        Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseModel<String>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                if (response.isSuccessful()) {
-                    // 성공했을 경우
-                    switch (response.body().getSuccess()) {
-                        case CODE_SUCCESS:
-                            for (String id : BAG_CATEGORYS) {
-                                ArrayList<BagModel> l1 = bags.get(id);
-                                if(l1 == null)
-                                    break;
-                                for (BagModel bdm : selected_items) {
-                                    if (l1.contains(bdm))
-                                        l1.remove(bdm);
+        if(nos.size() != 1) {
+            Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseArrayModel<String>>() {
+                @Override
+                public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
+                    if (response.isSuccessful()) {
+                        // 성공했을 경우
+                        switch (response.body().getSuccess()) {
+                            case CODE_SUCCESS:
+                                for (String id : BAG_CATEGORYS) {
+                                    ArrayList<BagModel> l1 = bags.get(id);
+                                    if (l1 == null)
+                                        break;
+                                    for (BagModel bdm : selected_items) {
+                                        if (l1.contains(bdm))
+                                            l1.remove(bdm);
+                                    }
                                 }
-                            }
-                            bagDeleteAdapter.notifyDataSetChanged();
-                            selected_items = new ArrayList<BagModel>();
-                            break;
-                        case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
-                            AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
-                            break;
+                                bagDeleteAdapter.notifyDataSetChanged();
+                                selected_items = new ArrayList<BagModel>();
+                                break;
+                            case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                                AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                                break;
+                        }
+
+                    } else {
+                        netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
                     }
-
-                } else {
-                    netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseArrayModel<String>> call, Throwable t) {
+                    netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
+                }
+            });
+        }else{
+            Net.getInstance().getFactoryIm().oneDeleteBagItemList().enqueue(new Callback<ResponseArrayModel<String>>() {
+                @Override
+                public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
+                    if (response.isSuccessful()) {
+                        // 성공했을 경우
+                        switch (response.body().getSuccess()) {
+                            case CODE_SUCCESS:
+                                for (String id : BAG_CATEGORYS) {
+                                    ArrayList<BagModel> l1 = bags.get(id);
+                                    if (l1 == null)
+                                        break;
+                                    for (BagModel bdm : selected_items) {
+                                        if (l1.contains(bdm))
+                                            l1.remove(bdm);
+                                    }
+                                }
+                                bagDeleteAdapter.notifyDataSetChanged();
+                                selected_items = new ArrayList<BagModel>();
+                                break;
+                            case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
+                                AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                                break;
+                        }
+
+                    } else {
+                        netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseArrayModel<String>> call, Throwable t) {
+                    netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
+                }
+            });
+        }
     }
 
     private void setItem(String theme) {

@@ -23,47 +23,53 @@
         android:weightSum="505"
         >
         <LinearLayout
+            android:id="@+id/fragment_mypage_home$LL_empty"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="169"/>
-        <LinearLayout
-            android:id="@+id/fragment_mypag_home$LL_empty"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="116"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:weightSum="360"
-            >
-            <ImageView
-                android:id="@+id/fragment_mypag_home$noimage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="116"
-                android:background="@drawable/btn_add" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="219"
-            android:weightSum="219"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:weightSum="505"
+            android:orientation="vertical"
+            android:visibility="invisible">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="14"/>
-                <TextView
-                    android:id="@+id/fragment_mypage_home$TV_noitem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:text="@string/fragmentMyPage_home_regist" />
+                android:layout_weight="169"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="116"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="360"
+                >
+                <ImageView
+                    android:id="@+id/fragment_mypag_home$noimage"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="116"
+                    android:background="@drawable/btn_add" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="219"
+                android:weightSum="219"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="14"/>
+                    <TextView
+                        android:id="@+id/fragment_mypage_home$TV_noitem"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="13sp"
+                        android:text="@string/fragmentMyPage_home_regist" />
+            </LinearLayout>
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_mypage_home$RV"
+            android:id="@+id/fragment_mypage_home$RV_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_mypage" />
