@@ -51,7 +51,6 @@ public interface NetFactoryIm {
     Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleModel scheduleModel);
 
     // 가방 등록
-    @FormUrlEncoded
     @Multipart
     @POST("/backpack/add_trip_item")
     Call<ResponseModel<BagModel>> insertBack(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
@@ -155,9 +154,9 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<String>> deleteBagItemList(@Field("item_no") ArrayList<Integer> item_no);
 
     // 가방 아이템 1개 삭제
-    @FormUrlEncoded
-    @POST("/backpack/delete_item")
-    Call<ResponseArrayModel<String>> oneDeleteBagItemList(@Field("item_no") int item_no);
+//    @FormUrlEncoded
+//    @POST("/backpack/delete_item")
+//    Call<ResponseArrayModel<String>> oneDeleteBagItemList(@Field("item_no") int item_no);
 
 
     // 댓글 삭제

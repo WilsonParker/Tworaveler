@@ -161,7 +161,8 @@ public class BagDelete extends AppCompatActivity {
         for(BagModel model : selected_items)
             nos.add(model.getItem_no());
 
-        if(nos.size() != 1) {
+//        if(nos.size() != 1) {
+        if(true) {
             Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseArrayModel<String>>() {
                 @Override
                 public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
@@ -196,7 +197,8 @@ public class BagDelete extends AppCompatActivity {
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
                 }
             });
-        }else{
+        }
+        /*else{
             Net.getInstance().getFactoryIm().oneDeleteBagItemList(Integer.parseInt(nos+"")).enqueue(new Callback<ResponseArrayModel<String>>() {
                 @Override
                 public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
@@ -231,7 +233,7 @@ public class BagDelete extends AppCompatActivity {
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
                 }
             });
-        }
+        }*/
     }
 
     private void setItem(String theme) {
