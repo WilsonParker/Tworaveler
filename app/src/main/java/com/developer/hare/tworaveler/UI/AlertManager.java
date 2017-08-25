@@ -106,10 +106,6 @@ public class AlertManager {
         return alertDialog;
     }
 
-    public AlertDialog showAlertSelectionMode(Context context, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
-        return showAlertSelectionMode(context, title, spanCount, items);
-    }
-
     public void dismissAlertSelectionMode() {
         if (alertDialog.isShowing())
             alertDialog.dismiss();
@@ -157,6 +153,9 @@ public class AlertManager {
         createAlert(activity, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
     }
 
+    public void showNetFailAlert(Context context, int title, int content) {
+        showNetFailAlert(context, title, content);
+    }
    /* public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
         AlertDialog.Builder ad = new AlertDialog.Builder(activity);
         ad.setTitle(resourceManager.getResourceString(title));       // 제목 설정
