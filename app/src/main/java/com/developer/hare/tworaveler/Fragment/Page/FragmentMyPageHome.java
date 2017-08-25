@@ -82,8 +82,6 @@ public class FragmentMyPageHome extends BaseFragment {
 
         LL_empty = uiFactory.createView(R.id.fragment_mypage_home$LL_empty);
         itemEmptyCheck(items);
-
-        items.sort((scheduleModel, t1) -> scheduleModel.getCommentCount());
     }
 
     @Override

@@ -43,8 +43,9 @@ public interface NetFactoryIm {
     // 일정 등록
     @Multipart
     @POST("/trips/insert_trip")
-//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @Part ScheduleModel model);
-    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @Part RequestBody requestBody);
+//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part);
+    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
+//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @PartMap ScheduleModel model);
 
     // 일정 등록
     @POST("/trips/insert_trip")

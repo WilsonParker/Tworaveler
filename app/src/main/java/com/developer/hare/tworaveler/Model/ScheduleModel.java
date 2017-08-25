@@ -152,4 +152,26 @@ public class ScheduleModel implements Serializable {
     public void setLike(boolean like) {
         isLike = like;
     }
+
+    @Override
+    public String toString() {
+        return "ScheduleModel{" +
+                "user_no=" + user_no +
+                ", trip_no=" + trip_no +
+                ", likeCount=" + likeCount +
+                ", CommentCount=" + CommentCount +
+                ", nickname='" + nickname + '\'' +
+                ", status_message='" + status_message + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", start_date='" + start_date + '\'' +
+                ", end_date='" + end_date + '\'' +
+                ", profile_pic_thumbnail='" + profile_pic_thumbnail + '\'' +
+                ", trip_pic_url='" + trip_pic_url + '\'' +
+                ", reg_date='" + reg_date + '\'' +
+                ", mod_date='" + mod_date + '\'' +
+                ", tripName='" + tripName + '\'' +
+                ", isLike=" + isLike +
+                '}';
+    }
 }

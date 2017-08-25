@@ -28,7 +28,6 @@ import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
-import com.google.gson.Gson;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
 
@@ -37,7 +36,6 @@ import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -167,10 +165,9 @@ public class Regist extends AppCompatActivity {
 
         ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(), "", ET_tripName.getText().toString());
         if (imageFile != null) {
-            String json = new Gson().toJson(model);
-            RequestBody requestBody = RetrofitBodyParser.getInstance().createRequestBody(json);
             MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
-            Net.getInstance().getFactoryIm().insertSchedule(multipart, requestBody).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+
+            Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                     if (response.isSuccessful()) {
@@ -181,7 +178,7 @@ public class Regist extends AppCompatActivity {
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 Intent intent = new Intent(Regist.this, RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
                                 startActivity(intent);
                                 break;
                         }
@@ -191,6 +188,7 @@ public class Regist extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                    Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                     netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
                 }
             });
@@ -234,6 +232,8 @@ public class Regist extends AppCompatActivity {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
         } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
+        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.REG_DATE)) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
         } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
             result = true;
         }
@@ -250,7 +250,7 @@ public class Regist extends AppCompatActivity {
                 if (data != null) {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (model != null) {
-                        TV_citySearch.setText(model.getCity());
+                        TV_citySearch.setText(model.getCountry() + " " + model.getCity());
                         RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
                         imageManager.loadImage(requestCreator, IV_cover);
                         IV_camera.setVisibility(View.INVISIBLE);

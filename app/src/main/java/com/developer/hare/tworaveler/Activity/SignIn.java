@@ -178,7 +178,7 @@ public class SignIn extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseModel<UserModel> result = response.body();
-                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
+//                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
