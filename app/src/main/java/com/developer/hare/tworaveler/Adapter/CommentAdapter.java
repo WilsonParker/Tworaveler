@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -66,7 +67,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             up_btn = uiFactory.createView(R.id.item_comment$up_btn);
             ET_comment = uiFactory.createView(R.id.item_comment$ET_comment);
             IV_btn = uiFactory.createView(R.id.item_comment$IV_btn);
-
 
             LL_more.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,6 +123,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             this.model = model;
             TV_nickname.setText(model.getNickname()+"");
             TV_comment.setText(model.getContent()+"");
+            if(SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())){
+                LL_more.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

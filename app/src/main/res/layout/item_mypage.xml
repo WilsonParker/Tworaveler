@@ -107,8 +107,9 @@
                                 android:id="@+id/item_mypage$IV_like"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:background="@drawable/icon_heart_unclick"
                                 android:layout_weight="24"
-                                android:background="@drawable/icon_heart_unclick" />
+                                />
 
                             <TextView
                                 android:id="@+id/item_mypage$TV_like"

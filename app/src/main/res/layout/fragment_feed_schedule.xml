@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_weight="1"
         app:leftButton="@drawable/icon_back"
-        app:rightButton="@drawable/icon_edit"
         app:titleText="NickName" />
 
 
