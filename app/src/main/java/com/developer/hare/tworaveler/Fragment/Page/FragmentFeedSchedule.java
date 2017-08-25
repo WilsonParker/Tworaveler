@@ -149,8 +149,8 @@ public class FragmentFeedSchedule extends BaseFragment {
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
-                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1], startArr[2]))
-                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1], endArr[2]))
+                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1]-1, startArr[2]))
+                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1]-1, endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         materialCalendarView.setCurrentDate(startDate);
