@@ -41,8 +41,10 @@ public interface NetFactoryIm {
     Call<ResponseModel<UserModel>> userSignUp(@Body UserReqModel model);
 
     // 일정 등록
+    @Multipart
     @POST("/trips/insert_trip")
-    Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleModel model);
+//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @Part ScheduleModel model);
+    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @Part RequestBody requestBody);
 
     // 가방 등록
     @Multipart

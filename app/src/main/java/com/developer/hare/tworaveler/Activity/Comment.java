@@ -86,7 +86,6 @@ public class Comment extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Comment.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-
         commentAdapter = new CommentAdapter(items);
         RV_commentlist.setAdapter(commentAdapter);
 
@@ -126,6 +125,7 @@ public class Comment extends AppCompatActivity {
                         HandlerManager.getInstance().getHandler().post(new Runnable() {
                             @Override
                             public void run() {
+                                Log_HR.log(Log_HR.LOG_INFO, Comment.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "items Size : " + items.size());
 //                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                                 ET_comment.setText("");
                                 items.add(commentModel);
@@ -134,6 +134,7 @@ public class Comment extends AppCompatActivity {
                             }
                         });
                     } else {
+                        Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "response is not Successful");
                         netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
 //                        Toast.makeText(Comment.this, "등록 실패.", Toast.LENGTH_SHORT).show();
                     }
@@ -164,9 +165,8 @@ public class Comment extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-                                        commentAdapter.notifyDataSetChanged();
-//                                        commentAdapter = new CommentAdapter(items);
-//                                        RV_commentlist.setAdapter(commentAdapter);
+//                                        commentAdapter.notifyDataSetChanged();
+                                        RV_commentlist.setAdapter(new CommentAdapter(items));
                                     }
                                 });
                             } else {

@@ -55,7 +55,7 @@ public class Main extends AppCompatActivity {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPage.newInstance());
             }
         }));
-        items.add(customNavigationView.new NavigationItem(R.drawable.icon_home_click, R.drawable.icon_feed_unclick, new CustomNavigationView.NavigationOnClickListener() {
+        items.add(customNavigationView.new NavigationItem(R.drawable.icon_feed_click, R.drawable.icon_feed_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
                 FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
@@ -34,7 +35,7 @@ public class RegistDetail extends AppCompatActivity {
 
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
-    private TextView TV_title, TV_date,TV_like, TV_comment;
+    private TextView TV_title, TV_date, TV_like, TV_comment;
     private ImageView IV_cover;
     private View scheduleItem;
 
@@ -103,7 +104,7 @@ public class RegistDetail extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 //                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
                 Intent intent = new Intent(RegistDetail.this, RegistDayList.class);
-                intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+                intent.putExtra(DataDefinition.Intent.KEY_DATE, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
             }
         });
@@ -113,12 +114,13 @@ public class RegistDetail extends AppCompatActivity {
 //        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
-    private void setDatas(){
-//        menuTopTitle.getTV_title().setText("");
+    private void setDatas() {
+        menuTopTitle.getTV_title().setText(SessionManager.getInstance().getUserModel().getNickname());
         TV_title.setText(scheduleModel.getTripName());
-        TV_date.setText(scheduleModel.getStart_date()+" ~ "+scheduleModel.getEnd_date());
-        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.PICTURE_TYPE),IV_cover);
+        TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
+        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.PICTURE_TYPE), IV_cover);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);

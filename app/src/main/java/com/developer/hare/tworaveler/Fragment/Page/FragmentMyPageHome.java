@@ -92,23 +92,22 @@ public class FragmentMyPageHome extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectMyScheduleList(SessionManager.getInstance().getUserModel().getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                        Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "updateList");
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
-                                Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "updateList is Success");
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
                                         homeListAdapter.notifyDataSetChanged();
+                                        recyclerView.setAdapter(new HomeListAdapter(items));
                                     }
                                 });
                             }
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                            Log_HR.log(Log_HR.LOG_WARN, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
                     }

@@ -38,7 +38,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.attr.fragment;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentMyPageSchedule extends BaseFragment {
@@ -159,7 +158,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
 
     private void changeLike(boolean isLike) {
         if (isLike) {
-            imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop(), IV_like);
         } else {
             imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop(), IV_like);
         }

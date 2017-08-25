@@ -25,13 +25,19 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
+import com.google.gson.Gson;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +50,7 @@ public class Regist extends AppCompatActivity {
     private DateManager dateManager;
     private ResourceManager resourceManager;
     private ImageManager imageManager;
+    private File imageFile;
 
     private UserModel userModel;
     private EditText ET_tripName;
@@ -68,7 +75,8 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover, ImageManager.PICTURE_TYPE);
+                                    imageFile = fileData.getFile();
+                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -81,7 +89,8 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.PICTURE_TYPE).centerCrop();
+                                    imageFile = fileData.getFile();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
                                     imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
@@ -113,17 +122,13 @@ public class Regist extends AppCompatActivity {
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Regist.this.onBackPressed();
+                onBackPressed();
             }
         });
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                onRegister();
-                ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"null",ET_tripName.getText().toString());
-                Intent intent = new Intent(Regist.this, RegistDetail.class);
-                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                startActivity(intent);
+                onRegister();
             }
         });
         ET_tripName = uiFactory.createView(R.id.activity_regist$TV_tripName);
@@ -148,8 +153,6 @@ public class Regist extends AppCompatActivity {
         textViews.add(TV_dateStart);
         textViews.add(TV_dateEnd);
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
-
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init", "TV_citySearch text : " + TV_citySearch.getText().toString());
     }
 
     public void searchCity(View view) {
@@ -161,12 +164,18 @@ public class Regist extends AppCompatActivity {
         if (!checkValidation())
             return;
         ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(), "", ET_tripName.getText().toString());
+        String json = new Gson().toJson(model);
+        RequestBody requestBody = RetrofitBodyParser.getInstance().createRequestBody(json);
+        MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
-        Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>>() {
+        Net.getInstance().getFactoryIm().insertSchedule(multipart, requestBody).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
-            public void onResponse(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Response<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> response) {
+            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                 if (response.isSuccessful()) {
-                    ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel> result = response.body();
+                    ResponseModel<ScheduleModel> result = response.body();
+                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
+                    Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
                     switch (result.getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
                             Intent intent = new Intent(Regist.this, RegistDetail.class);
@@ -175,12 +184,12 @@ public class Regist extends AppCompatActivity {
                             break;
                     }
                 } else
-                    netFail();
+                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<com.developer.hare.tworaveler.Model.ScheduleModel>> call, Throwable t) {
-                netFail();
+            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
             }
         });
     }
@@ -212,8 +221,8 @@ public class Regist extends AppCompatActivity {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (model != null) {
                         TV_citySearch.setText(model.getCity());
-                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_thumbnail_url(), ImageManager.PICTURE_TYPE).centerCrop();
-                        imageManager.loadImage(requestCreator, IV_camera);
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+                        imageManager.loadImage(requestCreator, IV_cover);
                         IV_camera.setVisibility(View.INVISIBLE);
                     }
 
@@ -222,8 +231,8 @@ public class Regist extends AppCompatActivity {
         }
     }
 
-    private void netFail() {
-        AlertManager.getInstance().showNetFailAlert(Regist.this, R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+    private void netFail(int title, int content) {
+        AlertManager.getInstance().showNetFailAlert(Regist.this, title, content);
     }
 
 }
