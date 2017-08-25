@@ -134,7 +134,6 @@ public class Comment extends AppCompatActivity {
                             }
                         });
                     } else {
-                        Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "response is not Successful");
                         netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
 //                        Toast.makeText(Comment.this, "등록 실패.", Toast.LENGTH_SHORT).show();
                     }
@@ -167,6 +166,9 @@ public class Comment extends AppCompatActivity {
                                         items = model.getResult();
 //                                        commentAdapter.notifyDataSetChanged();
                                         RV_commentlist.setAdapter(new CommentAdapter(items));
+                                        commentAdapter = new CommentAdapter(items);
+                                        RV_commentlist.setAdapter(commentAdapter);
+                                        commentAdapter.notifyDataSetChanged();
                                     }
                                 });
                             } else {

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
@@ -41,6 +42,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
     private TextView TV_noItem;
+    private LinearLayout LL_empty;
 
     private ResourceManager resourceManager;
     private HomeListAdapter homeListAdapter;
@@ -71,12 +73,15 @@ public class FragmentMyPageHome extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageProfile.newInstance());
             }
         });
-        recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV);
+        recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV_list);
         homeListAdapter = new HomeListAdapter(items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+
+        LL_empty = uiFactory.createView(R.id.fragment_mypage_home$LL_empty);
+        itemEmptyCheck(items);
     }
 
     @Override
@@ -100,12 +105,12 @@ public class FragmentMyPageHome extends BaseFragment {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
+                                        itemEmptyCheck(items);
                                         homeListAdapter.notifyDataSetChanged();
                                         recyclerView.setAdapter(new HomeListAdapter(items));
                                     }
                                 });
                             }
-
                         } else {
                             Log_HR.log(Log_HR.LOG_WARN, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
@@ -125,5 +130,15 @@ public class FragmentMyPageHome extends BaseFragment {
     private void netFail() {
         progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageHome_alert_title_fail, R.string.fragmentMyPageHome_alert_content_fail);
+    }
+
+    private void itemEmptyCheck(ArrayList<ScheduleModel> items) {
+        if (items.size() >= 1) {
+            LL_empty.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            LL_empty.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }
     }
 }

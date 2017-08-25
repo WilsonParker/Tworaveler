@@ -147,7 +147,12 @@ public interface NetFactoryIm {
     // 가방 아이템 삭제
     @FormUrlEncoded
     @POST("/backpack/delete_item")
-    Call<ResponseModel<String>> deleteBagItemList(@Field("item_no") ArrayList<Integer> item_no);
+    Call<ResponseArrayModel<String>> deleteBagItemList(@Field("item_no") ArrayList<Integer> item_no);
+
+    // 가방 아이템 1개 삭제
+    @FormUrlEncoded
+    @POST("/backpack/delete_item")
+    Call<ResponseModel<String>> oneDeleteBagItemList(@Field("item_no") int item_no);
 
 
     // 댓글 삭제
