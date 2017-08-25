@@ -211,6 +211,9 @@ public class Regist extends AppCompatActivity {
                     } else
                         netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
                 }
+                //gd
+                //gd
+                //gd
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
