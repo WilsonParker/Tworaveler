@@ -46,6 +46,7 @@ public class MyScheduleModify extends AppCompatActivity {
     private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover, IV_camera;
+    private ScheduleModel scheduleModel;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -104,6 +105,7 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     protected void init() {
+        scheduleModel = (ScheduleModel)getIntent().getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
@@ -132,6 +134,12 @@ public class MyScheduleModify extends AppCompatActivity {
         IV_cover = uiFactory.createView(R.id.activity_myschedule_modify$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
         IV_camera= uiFactory.createView(R.id.activity_myschedule_modify$IV_camera);
+
+        ImageManager.getInstance().loadImage(this, scheduleModel.getTrip_pic_url(), IV_cover, ImageManager.FIT_TYPE);
+        ET_tripName.setText(scheduleModel.getTripName());
+        TV_citySearch.setText(scheduleModel.getCity());
+        TV_dateStart.setText(scheduleModel.getStart_date());
+        TV_dateEnd.setText(scheduleModel.getEnd_date());
 
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_1));

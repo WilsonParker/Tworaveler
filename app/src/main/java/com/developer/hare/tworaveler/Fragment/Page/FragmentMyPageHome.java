@@ -1,5 +1,6 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,9 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.Regist;
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -43,7 +46,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private RecyclerView recyclerView;
     private TextView TV_noItem;
     private LinearLayout LL_empty;
-
+    private ImageView noImage;
     private ResourceManager resourceManager;
     private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
@@ -71,6 +74,13 @@ public class FragmentMyPageHome extends BaseFragment {
             public void onClick(View view) {
 //                startActivity(new Intent(getActivity(), FragmentMyPageProfile.class));
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageProfile.newInstance());
+            }
+        });
+        noImage = uiFactory.createView(R.id.fragment_mypag_home$noimage);
+        noImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Regist.class));
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV_list);

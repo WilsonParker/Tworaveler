@@ -134,8 +134,13 @@
 
     <!-- layout/activity_myschedule_modify-->
     <string name="activity_myschedule_modify_title">edit trip</string>
-    <string name="myschedule_modify_fail_alert_title_fail">여행수정 실패</string>
-    <string name="myschedule_modify_fail_alert_content_fail2">문제가 발생하여 여행수정에 실패 하였습니다</string>
+    <string name="myschedule_modify_fail_alert_title_fail">여행 수정 실패</string>
+    <string name="myschedule_modify_fail_alert_content_fail2">문제가 발생하여 여행 수정에 실패 하였습니다</string>
+
+    <!-- layout/activity_myschedule_detail_modify-->
+    <string name="activity_myschedule_detail_modify_title">edit plan</string>
+    <string name="myschedule_detail_modify_fail_alert_title_fail">여행계획 수정 실패</string>
+    <string name="myschedule_detail_modify_fail_alert_content_fail2">문제가 발생하여 여행계획 수정에 실패 하였습니다</string>
 
     <!-- layout/activity_regist_detail-->
     <string name="activity_regist_detail_title">Regist Detail</string>

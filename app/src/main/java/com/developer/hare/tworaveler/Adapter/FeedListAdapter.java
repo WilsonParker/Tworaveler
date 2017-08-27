@@ -108,7 +108,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
             textlist2.add(TV_message);
             textlist2.add(TV_title);
-            FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Regular.otf");
+            FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");
 
 
 

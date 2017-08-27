@@ -26,6 +26,7 @@ import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -84,6 +85,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
             LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
 
+            ArrayList<TextView> textlist1 = new ArrayList<>();
+            textlist1.add(TV_date);
+            textlist1.add(TV_like);
+            textlist1.add(TV_commenet);
+            FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
+            FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
+
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,11 +115,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                             switch (item.getItemId()) {
                                 case R.id.popup_menu$modify:
                                     intent = new Intent(context, MyScheduleModify.class);
+                                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
                                     context.startActivity(intent);
                                     break;
                                 case R.id.popup_menu$delete:
-                                    intent = new Intent(context, MyScheduleModify.class);
-                                    context.startActivity(intent);
+
                                     break;
                             }
                             return false;

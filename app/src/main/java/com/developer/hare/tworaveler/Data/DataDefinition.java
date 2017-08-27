@@ -14,7 +14,7 @@ public class DataDefinition {
                 ,KEY_CITYMODEL= "CityModel"
                 ,KEY_BAGMODEL= "BagModel"
                 ,KEY_BAGMODELS= "BagModels"
-                ,KEY_SCHEDULE_MODEL= "StartDate"
+                ,KEY_SCHEDULE_MODEL= "ScheduleModel"
 
                 ,KEY_POSITION= "Position"
 

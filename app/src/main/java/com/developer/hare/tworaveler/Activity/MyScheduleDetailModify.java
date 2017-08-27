@@ -18,7 +18,7 @@ import com.developer.hare.tworaveler.Util.FontManager;
 
 import java.util.ArrayList;
 
-public class RegistDayDetail extends AppCompatActivity {
+public class MyScheduleDetailModify extends AppCompatActivity {
     private UIFactory uiFactory;
     private DateManager dateManager;
     private String strDate;
@@ -46,10 +46,10 @@ public class RegistDayDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist_day_detail);
+        setContentView(R.layout.activity_myschedule_detail_modify);
         init();
     }
-    
+
     protected void init() {
         intent = getIntent();
         strDate = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
@@ -57,12 +57,12 @@ public class RegistDayDetail extends AppCompatActivity {
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
 
-        TV_locationName = uiFactory.createView(R.id.activity_regist_day_detail$TV_locationName);
-        TV_locationSearch = uiFactory.createView(R.id.activity_regist_day_detail$TV_locationSearch);
-        TV_startTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_start);
-        TV_endTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_end);
-        ET_memo = uiFactory.createView(R.id.activity_regist_day_detail$ET_meno);
-        menuTopTitle = uiFactory.createView(R.id.activity_regist_day_detail$menuToptitle);
+        TV_locationName = uiFactory.createView(R.id.activity_myschedule_detail_modify$TV_locationName);
+        TV_locationSearch = uiFactory.createView(R.id.activity_myschedule_detail_modify$TV_locationSearch);
+        TV_startTime = uiFactory.createView(R.id.activity_myschedule_detail_modify$TV_start);
+        TV_endTime = uiFactory.createView(R.id.activity_myschedule_detail_modify$TV_end);
+        ET_memo = uiFactory.createView(R.id.activity_myschedule_detail_modify$ET_meno);
+        menuTopTitle = uiFactory.createView(R.id.activity_myschedule_detail_modify$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

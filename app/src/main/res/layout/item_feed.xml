@@ -93,7 +93,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="40"
-            android:weightSum="328">
+            android:weightSum="328"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="0dp"
@@ -104,12 +105,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="296"
+                android:orientation="horizontal"
                 android:weightSum="296">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_weight="188"
                     android:weightSum="40"
                     android:orientation="vertical">
@@ -120,6 +121,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="22"
                         android:text="title"
+                        android:gravity="top"
                         android:textColor="@color/feed_title_color"
                         android:textSize="@dimen/TextSize_Feed_Title" />
 

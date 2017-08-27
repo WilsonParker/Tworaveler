@@ -24,6 +24,7 @@ import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -33,6 +34,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,10 +54,11 @@ public class FragmentFeedSchedule extends BaseFragment {
     private MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
     private TextView TV_title, TV_date, TV_like, TV_comment, TV_nickname, TV_message;
-    private ImageView IV_cover, IV_like;
+    private ImageView IV_cover, IV_like, IV_follow;
     private View scheduleItem;
     private CircleImageView CV_profile;
     private LinearLayout LL_like, LL_comment;
+    private boolean isFollow;
 
     public FragmentFeedSchedule() {
     }
@@ -101,11 +104,23 @@ public class FragmentFeedSchedule extends BaseFragment {
         LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
         LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
         IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+        IV_follow = uiFactory.createView(R.id.fragment_feed_schedule$IV_follow);
         TV_nickname = uiFactory.createView(R.id.fragment_feed_schedule$TV_nickname);
         TV_message = uiFactory.createView(R.id.fragment_feed_schedule$TV_message);
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
         setDatas();
+
+        ArrayList<TextView> textlist1 = new ArrayList<>();
+        ArrayList<TextView> textlist2 = new ArrayList<>();
+        textlist1.add(TV_nickname);
+        textlist1.add(TV_date);
+        textlist1.add(TV_like);
+        textlist1.add(TV_comment);
+        FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
+        textlist2.add(TV_message);
+        textlist2.add(TV_title);
+        FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");
 
         LL_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +135,12 @@ public class FragmentFeedSchedule extends BaseFragment {
                 Intent intent = new Intent(getActivity(), Comment.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
                 startActivity(intent);
+            }
+        });
+        IV_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                followSelect(isFollow);
             }
         });
         ImageManager imageManager = ImageManager.getInstance();
@@ -241,5 +262,20 @@ public class FragmentFeedSchedule extends BaseFragment {
             });
         }
         scheduleModel.setLike(!scheduleModel.isLike());
+    }
+    public void followSelect(boolean isFollow){
+        if(isFollow){
+            int index  = SessionManager.getInstance().getUserModel().getFollowers().indexOf(scheduleModel.getUser_no());
+            SessionManager.getInstance().getUserModel().getFollowees().remove(index);
+
+            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
+            this.isFollow = false;
+        }else {
+            SessionManager.getInstance().getUserModel().getFollowees().add(scheduleModel.getUser_no());
+
+//            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "follow", "팔로우 : " + SessionManager.getInstance().getUserModel().getFollowers());
+            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
+            this.isFollow = true;
+        }
     }
 }

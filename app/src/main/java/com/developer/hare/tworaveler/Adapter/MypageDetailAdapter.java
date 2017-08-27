@@ -95,8 +95,6 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                     context.startActivity(intent);
                                     break;
                                 case R.id.popup_menu$delete:
-                                    intent = new Intent(context, MyScheduleModify.class);
-                                    context.startActivity(intent);
                                     break;
                             }
                             return false;

@@ -63,8 +63,8 @@ public class FragmentMyPageProfile extends BaseFragment {
         TV_nickname = uiFactory.createView(R.id.fragment_mypage_profile$TV_nickname);
         TV_message = uiFactory.createView(R.id.fragment_mypage_profile$TV_message);
         ArrayList<TextView> textViews = new ArrayList<>();
-        textViews.add(uiFactory.createView(R.id.fragment_mypage_profile$TV_follower));
-        textViews.add(uiFactory.createView(R.id.fragment_mypage_profile$TV_following));
+        textViews.add(TV_cntFollower);
+        textViews.add(TV_cntFollowing);
         textViews.add(TV_nickname);
         textViews.add(TV_message);
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");

@@ -6,13 +6,13 @@
     android:weightSum="@string/DEVICE_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/activity_regist_day_detail$menuToptitle"
+        android:id="@+id/activity_myschedule_detail_modify$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
         app:leftButton="@drawable/icon_cancel"
         app:rightButton="@drawable/icon_check"
-        app:titleText="@string/activity_regist_day_detail_title" />
+        app:titleText="@string/activity_myschedule_detail_modify_title" />
 
     <ImageView
         android:layout_width="0dp"
@@ -43,7 +43,7 @@
                 android:layout_weight="171">
 
                 <ImageView
-                    android:id="@+id/activity_regist_day_detail$IV_cover"
+                    android:id="@+id/activity_myschedule_detail_modify$IV_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/default_theme_Image_color" />
@@ -71,7 +71,7 @@
                             android:layout_weight="62.7" />
 
                         <ImageView
-                            android:id="@+id/activity_regist_day_detail$IV_camera"
+                            android:id="@+id/activity_myschedule_detail_modify$IV_camera"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="45.7"
@@ -86,7 +86,7 @@
                 android:layout_weight="20" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_txt_1"
+                android:id="@+id/activity_myschedule_detail_modify$TV_txt_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -100,13 +100,13 @@
                 android:layout_weight="13" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_locationName"
+                android:id="@+id/activity_myschedule_detail_modify$TV_locationName"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
                 android:gravity="center_vertical"
-                android:nextFocusDown="@+id/activity_regist_day_detail$TV_txt_2"
+                android:nextFocusDown="@+id/activity_myschedule_detail_modify$TV_txt_2"
                 android:hint="@string/activity_regist_day_detail_text_1"
                 android:textSize="@dimen/TextSize_Content_1" />
 
@@ -116,7 +116,7 @@
                 android:layout_weight="22" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_txt_2"
+                android:id="@+id/activity_myschedule_detail_modify$TV_txt_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -130,7 +130,7 @@
                 android:layout_weight="13" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_locationSearch"
+                android:id="@+id/activity_myschedule_detail_modify$TV_locationSearch"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
@@ -145,7 +145,7 @@
                 android:layout_weight="22" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_txt_3"
+                android:id="@+id/activity_myschedule_detail_modify$TV_txt_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -165,7 +165,7 @@
                 android:weightSum="328">
 
                 <TextView
-                    android:id="@+id/activity_regist_day_detail$TV_start"
+                    android:id="@+id/activity_myschedule_detail_modify$TV_start"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="142"
@@ -192,7 +192,7 @@
                     android:layout_weight="14" />
 
                 <TextView
-                    android:id="@+id/activity_regist_day_detail$TV_end"
+                    android:id="@+id/activity_myschedule_detail_modify$TV_end"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="142"
@@ -208,7 +208,7 @@
                 android:layout_weight="22" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_txt_4"
+                android:id="@+id/activity_myschedule_detail_modify$TV_txt_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -222,7 +222,7 @@
                 android:layout_weight="13" />
 
             <EditText
-                android:id="@+id/activity_regist_day_detail$ET_meno"
+                android:id="@+id/activity_myschedule_detail_modify$ET_meno"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="80"

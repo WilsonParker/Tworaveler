@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.Comment;
+import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -23,6 +24,7 @@ import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
@@ -31,6 +33,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.format.DateFormatTitleFormatter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -85,6 +88,14 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
             }
         });
+        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MyScheduleModify.class);
+                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                startActivity(intent);
+            }
+        });
         uiFactory.setResource(scheduleItem);
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
@@ -92,6 +103,13 @@ public class FragmentMyPageSchedule extends BaseFragment {
         TV_comment = uiFactory.createView(R.id.item_mypage$TV_comment);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
+
+        ArrayList<TextView> textlist1 = new ArrayList<>();
+        textlist1.add(TV_date);
+        textlist1.add(TV_like);
+        textlist1.add(TV_comment);
+        FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
 
         if (scheduleModel.isLike()) {
             IV_like.setImageResource(R.drawable.icon_heart_click);
