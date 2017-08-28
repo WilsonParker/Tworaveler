@@ -100,9 +100,9 @@ public class RegistDetail extends AppCompatActivity {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-//                int[] arr = DateManager.getInstance().getTimeArr(date.getDate());
                 Intent intent = new Intent(RegistDetail.this, RegistDayList.class);
                 intent.putExtra(DataDefinition.Intent.KEY_DATE, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
+                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
             }
         });

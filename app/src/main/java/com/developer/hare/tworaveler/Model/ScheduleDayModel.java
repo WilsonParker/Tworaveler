@@ -21,6 +21,18 @@ public class ScheduleDayModel {
         this.trip_address = trip_address;
     }
 
+    public ScheduleDayModel(ScheduleModel scheduleModel, int latitude, int longitude, String start_time, String end_time, String memo, String address, String trip_date) {
+        this.trip_no = scheduleModel.getTrip_no();
+        this.trip_address = scheduleModel.getCountry() + "\b" + scheduleModel.getCity();
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.memo = memo;
+        this.address = address;
+        this.trip_date = trip_date;
+    }
+
     public int getDtrip_no() {
         return dtrip_no;
     }

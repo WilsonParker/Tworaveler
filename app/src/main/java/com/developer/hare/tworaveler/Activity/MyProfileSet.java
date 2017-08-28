@@ -248,10 +248,27 @@ public class MyProfileSet extends AppCompatActivity {
 
     private void setData() {
         userModel = SessionManager.getInstance().getUserModel();
-        ET_nickname.setText(userModel.getNickname());
-        ET_message.setText(userModel.getStatus_message());
-        ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
+        Net.getInstance().getFactoryIm().selectUserInfo(userModel.getUser_no()).enqueue(
+                new Callback<ResponseModel<UserModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                        if (response.isSuccessful()) {
+                            SessionManager.getInstance().setUserModel(response.body().getResult());
+                            ET_nickname.setText(userModel.getNickname());
+                            ET_message.setText(userModel.getStatus_message());
+                            ImageManager imageManager = ImageManager.getInstance();
+                            imageManager.loadImage(imageManager.createRequestCreator(getApplicationContext(), userModel.getProfile_pic_url_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
+                        } else
+                            netFail(R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                        netFail(R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
+                    }
+                }
+        );
+
     }
 
     private void modifyData() {

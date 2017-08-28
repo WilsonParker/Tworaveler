@@ -150,11 +150,11 @@ public class AlertManager {
     }
 
     public void showNetFailAlert(Activity activity, int title, int content) {
-        createAlert(activity, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
+        showNetFailAlert(activity, title, content);
     }
 
     public void showNetFailAlert(Context context, int title, int content) {
-        showNetFailAlert(context, title, content);
+        createAlert(context, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
     }
    /* public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
         AlertDialog.Builder ad = new AlertDialog.Builder(activity);

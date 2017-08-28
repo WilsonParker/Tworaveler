@@ -1,9 +1,11 @@
 package com.developer.hare.tworaveler.Util.Date;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -23,6 +25,7 @@ public class DateManager {
     private DateFormat dateFormat;
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialog;
+    private TimePickerDialog timePickerDialog;
     private String stringDate;
     private final int StartYear = 1900;
 
@@ -30,17 +33,20 @@ public class DateManager {
     private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//            stringDate = year + "년" + (monthOfYear + 1) + "월" + dayOfMonth + "일";
             stringDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
             textView.setText(stringDate);
         }
     };
 
+    private TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+        }
+    };
+
     public static DateManager getInstance() {
         return ourInstance;
-    }
-
-    private DateManager() {
     }
 
     public String getNow(int dateType) {
@@ -58,9 +64,15 @@ public class DateManager {
         return Integer.parseInt(simpleDateFormat.format(date));
     }
 
-    public void getDateTime(Context context, TextView textView) {
+    public void getDateYMD(Context context, TextView textView) {
         this.textView = textView;
         datePickerDialog = new DatePickerDialog(context, onDateSetListener, getIntegerDate("yyyy"), getIntegerDate("MM") - 1, getIntegerDate("dd"));
+        datePickerDialog.show();
+    }
+
+    public void getDateTime(Context context, TextView textView) {
+        this.textView = textView;
+        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("hh"), getIntegerDate("mm"), true);
         datePickerDialog.show();
     }
 

@@ -44,6 +44,8 @@
     <string name="profileSet_mod_fail_alert_content_3">닉네임이 중복 되었습니다</string>
     <string name="profileSet_mod_success_alert_title">수정 성공</string>
     <string name="profileSet_mod_success_alert_content">수정 성공 하였습니다</string>
+    <string name="profileSet_info_fail_alert_title">조회 실패</string>
+    <string name="profileSet_info_fail_alert_content">조회 실패 하였습니다</string>
     <string name="profileSet_logout_alert_title">로그아웃</string>
     <string name="profileSet_logout_alert_content">로그 아웃 하시겠습니까?</string>
     <string name="profileSet_logout_fail_alert_title">로그아웃 실패</string>
@@ -64,6 +66,20 @@
     <string name="regist_alert_content_fail_3">도시를 검색해주세요</string>
     <string name="regist_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
     <string name="regist_alert_content_fail_5">문제가 발생하여일정 등록 실패 하였습니다</string>
+
+    <!-- Activity/RegistDayList-->
+    <string name="regist_day_list_alert_title_fail">세부 일정 불러오기 실패</string>
+    <string name="regist_day_list_alert_content_fail">세부 일정 불러오기 실패 하였습니다</string>
+    <string name="regist_day_list_alert_content_fail_2">문제가 발생하여 불러오기 실패 하였습니다</string>
+
+    <!-- Activity/RegistDayDetail-->
+    <string name="regist_day_detail_alert_title_fail">세부 일정 등록 실패</string>
+    <string name="regist_day_detail_alert_content_fail">세부 일정 등록 실패 하였습니다</string>
+    <string name="regist_day_detail_alert_content_fail_2">여행 제목을 등록해주세요</string>
+    <string name="regist_day_detail_alert_content_fail_3">도시를 검색해주세요</string>
+    <string name="regist_day_detail_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
+    <string name="regist_day_detail_alert_content_fail_5">문제가 발생하여일정 등록 실패 하였습니다</string>
+    <string name="regist_day_detail_alert_content_fail_6">메모를 등록해 주세요</string>
 
     <!-- Activity/BagDelete-->
     <string name="bagDelete_alert_title_fail">여행 가방 삭제 실패</string>

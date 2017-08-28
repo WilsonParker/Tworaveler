@@ -4,13 +4,11 @@ package com.developer.hare.tworaveler.Net;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.CommentModel;
-import com.developer.hare.tworaveler.Model.ProfileModel;
 import com.developer.hare.tworaveler.Model.Request.LikeModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
-import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 
@@ -44,13 +42,16 @@ public interface NetFactoryIm {
     // 일정 등록
     @Multipart
     @POST("/trips/insert_trip")
-//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part);
     Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
-//    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @PartMap ScheduleModel model);
 
     // 일정 등록
     @POST("/trips/insert_trip")
     Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleModel scheduleModel);
+
+    // 세부 일정 등록
+    @Multipart
+    @POST("/trips/insert_detailed_trip")
+    Call<ResponseModel<ScheduleDayModel>> insertDaySchedule(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
 
     // 세부 일정 등록
     @POST("/trips/insert_detailed_trip")
@@ -110,24 +111,25 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<BagModel>> selectBagList(@Query("user_no") int user_no, @Query("category_theme") String category_theme);
 
     // 도시 검색
-//    @GET("/search/city")
-//    Call<ResponseArrayModel<CityModel>> searchCity(@Query("q") String q);
-
-    // 도시 검색
     @GET("/location/get_location")
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
     // 여행 별 상세일정 조회
     @GET("/trips/find_dtrip/{trip_no}/{trip_date}")
-    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Query("trip_no") int trip_no, @Query("trip_date") String trip_date);
+    Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
+//    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
 
+    /*
     // 프로필 정보 얻기
     @GET("/profileSet")
     Call<ResponseArrayModel<ProfileModel>> getProfile();
 
+    */
+
     // 프로필 정보 조회
     @GET("/users/profile")
-    Call<ResponseModel<ProfileModel>> selectProfile(@Query("user_no") int user_no);
+    Call<ResponseModel<UserModel>> selectUserInfo(@Query("user_no") int user_no);
+
 
     // 내 여행 목록 조회
     @GET("/trips/mytrip/{user_no}")

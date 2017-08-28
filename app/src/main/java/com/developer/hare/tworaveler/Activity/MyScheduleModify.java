@@ -53,10 +53,10 @@ public class MyScheduleModify extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.activity_myschedule_modify$TV_start:
-                    dateManager.getDateTime(MyScheduleModify.this, TV_dateStart);
+                    dateManager.getDateYMD(MyScheduleModify.this, TV_dateStart);
                     break;
                 case R.id.activity_myschedule_modify$TV_end:
-                    dateManager.getDateTime(MyScheduleModify.this, TV_dateEnd);
+                    dateManager.getDateYMD(MyScheduleModify.this, TV_dateEnd);
                     break;
                 case R.id.activity_myschedule_modify$TV_citySearch:
                     Intent intent = new Intent(MyScheduleModify.this, SearchCity.class);

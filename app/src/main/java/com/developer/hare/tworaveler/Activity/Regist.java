@@ -51,6 +51,7 @@ public class Regist extends AppCompatActivity {
     private File imageFile;
 
     private UserModel userModel;
+    private CityModel cityModel;
     private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover, IV_camera;
@@ -60,10 +61,10 @@ public class Regist extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case activity_regist$TV_start:
-                    dateManager.getDateTime(Regist.this, TV_dateStart);
+                    dateManager.getDateYMD(Regist.this, TV_dateStart);
                     break;
                 case R.id.activity_regist$TV_end:
-                    dateManager.getDateTime(Regist.this, TV_dateEnd);
+                    dateManager.getDateYMD(Regist.this, TV_dateEnd);
                     break;
                 case R.id.activity_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
@@ -114,7 +115,7 @@ public class Regist extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
         imageManager = ImageManager.getInstance();
-        userModel = SessionManager.getInstance().getUserModel();
+        sessionCheck();
 
         menuTopTitle = uiFactory.createView(R.id.activity_regist$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -162,7 +163,7 @@ public class Regist extends AppCompatActivity {
         if (!checkValidation())
             return;
 
-        ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(), "", ET_tripName.getText().toString());
+        ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
         if (imageFile != null) {
             MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
@@ -223,6 +224,7 @@ public class Regist extends AppCompatActivity {
         boolean result = false;
         String starDate = TV_dateStart.getText().toString();
         String endDate = TV_dateEnd.getText().toString();
+
         if (ET_tripName.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_2)).show();
         } else if (TV_citySearch.getText().toString().isEmpty()) {
@@ -231,10 +233,17 @@ public class Regist extends AppCompatActivity {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
         } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.REG_DATE)) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
+        } else if (!SessionManager.getInstance().isLogin()) {
+            netFail(R.string.regist_alert_title_fail, R.string.alert_content_not_login);
         } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
             result = true;
         }
         return result;
+    }
+
+    private boolean sessionCheck(){
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
     }
 
     @Override
@@ -245,10 +254,10 @@ public class Regist extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
-                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                    if (model != null) {
-                        TV_citySearch.setText(model.getCountry() + " " + model.getCity());
-                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+                    cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
+                    if (cityModel != null) {
+                        TV_citySearch.setText(cityModel.getCountry() + " " + cityModel.getCity());
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
                         imageManager.loadImage(requestCreator, IV_cover);
                         IV_camera.setVisibility(View.INVISIBLE);
                     }

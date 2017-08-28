@@ -12,7 +12,7 @@ public class ScheduleModel implements Serializable {
     private String nickname, status_message, country, city, start_date, end_date, profile_pic_thumbnail, trip_pic_url, reg_date, mod_date, tripName;
     private boolean isLike;
 
-    public ScheduleModel(int user_no, String nickname, String status_message, String country, String city, String start_date, String end_date, String profile_pic_thumbnail, String trip_pic_url, String tripName) {
+    public ScheduleModel(int user_no, String nickname, String status_message, String country, String city, String start_date, String end_date, String tripName) {
         this.user_no = user_no;
         this.nickname = nickname;
         this.status_message = status_message;
@@ -20,10 +20,31 @@ public class ScheduleModel implements Serializable {
         this.city = city;
         this.start_date = start_date;
         this.end_date = end_date;
-        this.profile_pic_thumbnail = profile_pic_thumbnail;
-        this.trip_pic_url = trip_pic_url;
         this.tripName = tripName;
     }
+
+    public ScheduleModel(UserModel userModel, String country, String city, String start_date, String end_date, String tripName) {
+        this.user_no = userModel.getUser_no();
+        this.nickname = userModel.getNickname();
+        this.status_message = userModel.getStatus_message();
+        this.country = country;
+        this.city = city;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.tripName = tripName;
+    }
+
+    public ScheduleModel(UserModel userModel, CityModel cityModel, String start_date, String end_date, String tripName) {
+        this.user_no = userModel.getUser_no();
+        this.nickname = userModel.getNickname();
+        this.status_message = userModel.getStatus_message();
+        this.country = cityModel.getCountry();
+        this.city = cityModel.getCity();
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.tripName = tripName;
+    }
+
 
     public int getUser_no() {
         return user_no;

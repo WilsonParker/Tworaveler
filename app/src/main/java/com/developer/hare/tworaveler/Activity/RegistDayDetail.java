@@ -6,32 +6,59 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
+import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayModel;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
+import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
+import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.squareup.picasso.RequestCreator;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.R.id.activity_regist$TV_start;
 
 public class RegistDayDetail extends AppCompatActivity {
     private UIFactory uiFactory;
     private DateManager dateManager;
     private ResourceManager resourceManager;
-    private String strDate;
+    private ImageManager imageManager;
     private Intent intent;
     private UserModel userModel;
+    private String selected_date;
+    private ScheduleModel scheduleModel;
+    private File imageFile;
+
 
     private MenuTopTitle menuTopTitle;
+    private ImageView IV_cover, IV_camera;
     private TextView TV_locationName, TV_locationSearch, TV_startTime, TV_endTime;
     private EditText ET_memo;
 
@@ -41,11 +68,49 @@ public class RegistDayDetail extends AppCompatActivity {
 
         }
     };
-
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
+                case activity_regist$TV_start:
+                    dateManager.getDateTime(getBaseContext(), TV_startTime);
+                    break;
+                case R.id.activity_regist$TV_end:
+                    dateManager.getDateTime(getBaseContext(), TV_endTime);
+                    break;
+                case R.id.activity_regist$IV_cover:
+                    ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PhotoManager.getInstance().onCameraSelect(RegistDayDetail.this, new OnPhotoBindListener() {
+                                @Override
+                                public void bindData(FileData fileData) {
+                                    imageFile = fileData.getFile();
+                                    ImageManager.getInstance().loadImage(getBaseContext(), fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
+                                    AlertManager.getInstance().dismissAlertSelectionMode();
+                                    IV_camera.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }
+                    }));
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.button_left, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PhotoManager.getInstance().onGallerySingleSelect(RegistDayDetail.this, new OnPhotoBindListener() {
+                                @Override
+                                public void bindData(FileData fileData) {
+                                    imageFile = fileData.getFile();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(getBaseContext(), fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
+                                    imageManager.loadImage(requestCreator, IV_cover);
+                                    AlertManager.getInstance().dismissAlertSelectionMode();
+                                    IV_camera.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                        }
+                    }));
+                    AlertManager.getInstance().showAlertSelectionMode(RegistDayDetail.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
+                    break;
             }
         }
     };
@@ -59,7 +124,8 @@ public class RegistDayDetail extends AppCompatActivity {
 
     protected void init() {
         intent = getIntent();
-        strDate = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
+        selected_date = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
+        scheduleModel = (ScheduleModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
 
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
@@ -70,6 +136,8 @@ public class RegistDayDetail extends AppCompatActivity {
         TV_startTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_start);
         TV_endTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_end);
         ET_memo = uiFactory.createView(R.id.activity_regist_day_detail$ET_meno);
+        IV_cover = uiFactory.createView(R.id.activity_regist_day_detail$IV_cover);
+        IV_camera = uiFactory.createView(R.id.activity_regist_day_detail$IV_camera);
         menuTopTitle = uiFactory.createView(R.id.activity_regist_day_detail$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,26 +162,26 @@ public class RegistDayDetail extends AppCompatActivity {
     }
 
     private void onRegister() {
-       /* if (!checkValidation())
+        if (!checkValidation())
             return;
 
-        ScheduleDayModel model = new ScheduleDayModel("");
+        ScheduleDayModel model = new ScheduleDayModel(scheduleModel, 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationSearch.getText().toString(), selected_date);
         if (imageFile != null) {
             MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
-            Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+            Net.getInstance().getFactoryIm().insertDaySchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                 @Override
-                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
-                        ResponseModel<ScheduleModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                        ResponseModel<ScheduleDayModel> result = response.body();
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
-                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-                                startActivity(intent);
+//                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
+//                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
+//                                startActivity(intent);
                                 break;
                         }
                     } else
@@ -121,25 +189,25 @@ public class RegistDayDetail extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
                     Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                     netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
                 }
             });
         } else {
-            Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+            Net.getInstance().getFactoryIm().insertDaySchedule(model).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                 @Override
-                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
-                        ResponseModel<ScheduleModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                        ResponseModel<ScheduleDayModel> result = response.body();
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
-                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                                startActivity(intent);
+//                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
+//                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+//                                startActivity(intent);
                                 break;
                         }
                     } else
@@ -147,25 +215,25 @@ public class RegistDayDetail extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
                     netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
                 }
             });
-        }*/
+        }
     }
 
- /*   private boolean checkValidation() {
-        if(sessionCheck()){
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
+    private boolean checkValidation() {
+        if (sessionCheck()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.alert_content_not_login)).show();
             return false;
         }
 
         boolean result = false;
-        String starDate = TV_dateStart.getText().toString();
-        String endDate = TV_dateEnd.getText().toString();
-        if (ET_tripName.getText().toString().isEmpty()) {
+        String starDate = TV_startTime.getText().toString();
+        String endDate = TV_endTime.getText().toString();
+        if (TV_locationName.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_2)).show();
-        } else if (TV_citySearch.getText().toString().isEmpty()) {
+        } else if (TV_locationSearch.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
         } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
@@ -175,9 +243,9 @@ public class RegistDayDetail extends AppCompatActivity {
             result = true;
         }
         return result;
-    }*/
+    }
 
-    private boolean sessionCheck(){
+    private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }
@@ -188,21 +256,19 @@ public class RegistDayDetail extends AppCompatActivity {
     }
 
     private void netFail(int title, int content) {
-        AlertManager.getInstance().showNetFailAlert(getBaseContext(), title, content);
+        AlertManager.getInstance().showNetFailAlert(RegistDayDetail.this, title, content);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
-        // Check which request we're responding to
         if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
-            // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
                     CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (model != null) {
 //                        TV_citySearch.setText(model.getCountry() + " " + model.getCity());
-//                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+//                        RequestCreator requestCreator = imageManager.createRequestCreator(getBaseContext(), model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
 //                        imageManager.loadImage(requestCreator, IV_cover);
 //                        IV_camera.setVisibility(View.INVISIBLE);
                     }

@@ -80,8 +80,8 @@ public class DataDefinition {
 //                ,REG_STRING_DATE_FOR_INTGER="(년|월|일)"
 
                 ,FORMAT_DATE="yyyy-MM-dd"
+                ,FORMAT_DATE_TIME="hh : mm"
                 ,FORMAT_DATE_REGIST_DETAIL="yyyy.MM"
-                ,FORMAT_DATETIME="HH:mm:ss"
                 ;
     }
 
@@ -99,6 +99,8 @@ public class DataDefinition {
                 , CODE_BAG_ITEM_FIND_FAIL= 209              // 여행가방 아이템 찾기 실패
                 , CODE_USER_OR_BAG_ITEM_INCOREECT= 210      // 잘못된 유저 번호 또는 아이템 번호
 
+
+                , CODE_ERROR = 0                            // 에러 발생
                 , CODE_FAIL = 500                           // 실패
                 ;
     }
