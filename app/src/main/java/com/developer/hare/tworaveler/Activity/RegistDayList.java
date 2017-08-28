@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Activity;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.developer.hare.tworaveler.Adapter.RegistDayDetailListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
@@ -35,13 +33,6 @@ public class RegistDayList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayout LL_empty, LL_list;
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
-
-    private TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
-        }
-    };
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override

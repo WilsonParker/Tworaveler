@@ -38,6 +38,7 @@
 
     <!-- Text Size -->
     <dimen name="TextSize_Content_1">13sp</dimen>
+    <dimen name="TextSize_Content_2">15sp</dimen>
     <dimen name="TextSize_MenuTop_Title">25sp</dimen>
 
     <!-- EditText Size -->

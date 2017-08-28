@@ -37,6 +37,7 @@
             android:orientation="vertical"
             android:weightSum="534">
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -52,9 +53,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:weightSum="328">
 
                     <ImageView
@@ -79,7 +77,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="45.7"
-                            android:background="@drawable/icon_camera" />
+                            app:srcCompat="@drawable/icon_camera" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -120,8 +118,8 @@
                 <EditText
                     android:id="@+id/activity_regist$TV_tripName"
                     android:layout_width="0dp"
-                    android:layout_weight="299.7"
                     android:layout_height="match_parent"
+                    android:layout_weight="299.7"
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="@string/activity_regist_text_1"

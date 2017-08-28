@@ -9,6 +9,7 @@ import com.developer.hare.tworaveler.Model.Request.LikeModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Model.UserModel;
@@ -50,6 +51,10 @@ public interface NetFactoryIm {
     // 일정 등록
     @POST("/trips/insert_trip")
     Call<ResponseModel<ScheduleModel>> insertSchedule(@Body ScheduleModel scheduleModel);
+
+    // 세부 일정 등록
+    @POST("/trips/insert_detailed_trip")
+    Call<ResponseModel<ScheduleDayModel>> insertDaySchedule(@Body ScheduleDayModel scheduleDayModel);
 
     // 가방 등록
     @Multipart

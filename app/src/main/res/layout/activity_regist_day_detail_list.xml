@@ -15,63 +15,106 @@
         app:rightButton="@drawable/button_right"
         app:titleText="@string/activity_regist_day_detail_list_title" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="500">
+        android:layout_weight="560"
+        android:orientation="vertical"
+        android:weightSum="560">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="31" />
 
         <TextView
             android:id="@+id/activity_regist_day_detail_list$TV_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0"
+            android:layout_height="0dp"
+            android:layout_weight="12"
             android:text="2017-08-11"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/regist_text_TV_color_2"
+            android:textSize="@dimen/TextSize_Content_2" />
 
-        <LinearLayout
-            android:id="@+id/activity_regist_day_detail_list$LL_empty"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="41" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="476">
 
-
-            <ImageView
-                android:id="@+id/activity_regist_day_detail_list$IV_nologin"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="#dadada" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/activity_regist_day_detail_list_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_regist_day_detail_list$LL_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/activity_regist_day_detail_list$TV_date"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/activity_regist_day_detail_list$RV_list"
+            <LinearLayout
+                android:id="@+id/activity_regist_day_detail_list$LL_empty"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="85.7" />
 
-    </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="116"
+                    android:weightSum="@string/DEVICE_WIDTH">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+
+                    <ImageView
+                        android:id="@+id/activity_regist_day_detail_list$IV_nologin"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="116"
+                        android:background="@drawable/btn_add" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14.4" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/activity_regist_day_detail_list_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_regist_day_detail_list$LL_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/activity_regist_day_detail_list$RV_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="421" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="57" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

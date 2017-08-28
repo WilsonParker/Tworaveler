@@ -70,7 +70,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_email"
                         android:hint="@string/activity_login$hint_ET_email"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textEmailAddress|textAutoComplete"
                         android:nextFocusDown="@+id/activty_login$ET_password"
                         android:paddingLeft="@dimen/EditText_Left_Padding"
                         android:textCursorDrawable="@drawable/cursor_edittext" />

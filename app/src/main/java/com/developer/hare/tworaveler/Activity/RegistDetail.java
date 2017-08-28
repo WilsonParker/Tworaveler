@@ -35,7 +35,7 @@ public class RegistDetail extends AppCompatActivity {
 
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
-    private TextView TV_title, TV_date, TV_like, TV_comment;
+    private TextView TV_title, TV_date;
     private ImageView IV_cover;
     private View scheduleItem;
 
@@ -69,8 +69,6 @@ public class RegistDetail extends AppCompatActivity {
         uiFactory.setResource(scheduleItem);
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_like = uiFactory.createView(R.id.item_mypage$TV_date);
-        TV_comment = uiFactory.createView(R.id.item_mypage$TV_date);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         uiFactory.createView(R.id.item_mypage$IV_like).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_comment).setVisibility(View.GONE);
@@ -78,7 +76,7 @@ public class RegistDetail extends AppCompatActivity {
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
 
         initMaterialCalendarView();
-        setDatas();
+        setData();
     }
 
     private void initMaterialCalendarView() {
@@ -114,7 +112,7 @@ public class RegistDetail extends AppCompatActivity {
 //        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
-    private void setDatas() {
+    private void setData() {
         menuTopTitle.getTV_title().setText(SessionManager.getInstance().getUserModel().getNickname());
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());

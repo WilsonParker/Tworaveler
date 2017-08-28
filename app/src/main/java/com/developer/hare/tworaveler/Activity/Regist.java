@@ -131,7 +131,6 @@ public class Regist extends AppCompatActivity {
         });
         ET_tripName = uiFactory.createView(R.id.activity_regist$TV_tripName);
         TV_citySearch = uiFactory.createView(R.id.activity_regist$TV_citySearch);
-        TV_citySearch.setOnClickListener(onClickListener);
         TV_dateStart = uiFactory.createView(activity_regist$TV_start);
         TV_dateStart.setOnClickListener(onClickListener);
         TV_dateEnd = uiFactory.createView(R.id.activity_regist$TV_end);
@@ -218,8 +217,6 @@ public class Regist extends AppCompatActivity {
                 }
             });
         }
-
-
     }
 
     private boolean checkValidation() {

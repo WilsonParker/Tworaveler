@@ -107,13 +107,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
 
         public void toBind(ScheduleDayModel model) {
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getdPicture_url(), ImageManager.THUMBNAIL_TYPE).centerCrop(), IV_cover);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getDtrip_pic_url(), ImageManager.THUMBNAIL_TYPE).centerCrop(), IV_cover);
             TV_date.setText(model.getTrip_date()+"");
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
             TV_city.setText(scheduleDayRootModel.getCity()+"");
             TV_address.setText(model.getAddress()+"");
-            TV_time.setText(model.getStartTime() + " ~ " + model.getEndTime());
+            TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
             TV_memo.setText(model.getMemo()+"");
         }
     }

@@ -2,8 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minHeight="716dp"
     android:orientation="vertical"
-    android:weightSum="@string/DEVICE_HEIGHT">
+    android:weightSum="692">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/activity_regist_day_detail$menuToptitle"
@@ -17,12 +18,12 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="26" />
+        android:layout_weight="25.7" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="534"
+        android:layout_weight="610.3"
         android:weightSum="@string/DEVICE_WIDTH">
 
         <ImageView
@@ -35,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="328"
             android:orientation="vertical"
-            android:weightSum="558">
+            android:weightSum="590.3">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,7 +52,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:weightSum="328">
+                    android:weightSum="328"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -99,16 +103,30 @@
                 android:layout_height="0dp"
                 android:layout_weight="13" />
 
-            <TextView
-                android:id="@+id/activity_regist_day_detail$TV_locationName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:nextFocusDown="@+id/activity_regist_day_detail$TV_txt_2"
-                android:hint="@string/activity_regist_day_detail_text_1"
-                android:textSize="@dimen/TextSize_Content_1" />
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28" />
+
+                <EditText
+                    android:id="@+id/activity_regist_day_detail$$TV_tripName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="300"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/activity_regist_day_detail_text_1"
+                    android:textColor="@color/regist_text_ET_color"
+                    android:textCursorDrawable="@drawable/cursor_edittext"
+                    android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="0dp"
@@ -129,15 +147,49 @@
                 android:layout_height="0dp"
                 android:layout_weight="13" />
 
-            <TextView
-                android:id="@+id/activity_regist_day_detail$TV_locationSearch"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="46"
                 android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:hint="@string/activity_regist_day_detail_text_3"
-                android:textSize="@dimen/TextSize_Content_1" />
+                android:onClick="searchCity"
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="21.3"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:weightSum="46">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="20.7"
+                        android:background="@drawable/icon_citysearch" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14.3" />
+
+                <TextView
+                    android:id="@+id/activity_regist_day_detail$TV_locationSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:hint="@string/activity_regist_day_detail_text_3"
+                    android:onClick="searchCity"
+                    android:textColor="@color/regist_text_ET_color"
+                    android:textSize="@dimen/TextSize_Content_1" />
+            </LinearLayout>
 
             <ImageView
                 android:layout_width="0dp"
@@ -221,16 +273,55 @@
                 android:layout_height="0dp"
                 android:layout_weight="13" />
 
-            <EditText
-                android:id="@+id/activity_regist_day_detail$ET_meno"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="80"
                 android:background="@color/default_theme_text_color"
-                android:gravity="center_vertical"
-                android:hint="@string/activity_regist_day_detail_text_8"
-                android:textCursorDrawable="@drawable/cursor_edittext"
-                android:textSize="@dimen/TextSize_Content_1" />
+                android:weightSum="328">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28.3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="271.4"
+                    android:orientation="vertical"
+                    android:weightSum="80">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="14.3" />
+
+                    <EditText
+                        android:id="@+id/activity_regist_day_detail$ET_meno"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:inputType="textAutoComplete"
+                        android:layout_weight="51.1"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:hint="@string/activity_regist_day_detail_text_8"
+                        android:textColor="@color/regist_text_ET_color"
+                        android:textCursorDrawable="@drawable/cursor_edittext"
+                        android:textSize="@dimen/TextSize_Content_1" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="14.3" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="28.3" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <ImageView

@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_feed_detail$Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="horizontal"
-    android:weightSum="360"
-    android:gravity="center_horizontal">
+    android:weightSum="360">
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="253"
         android:orientation="vertical"
-        android:weightSum="@string/FRAGMENT_HEIGHT"
-        >
+        android:weightSum="@string/FRAGMENT_HEIGHT">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="83.3"
-            android:weightSum="83.3"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="83.3">
+
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="31"/>
+                android:layout_weight="31" />
+
             <TextView
                 android:id="@+id/item_feed_detail$TV_date"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="52.3"
                 android:gravity="center_horizontal|top"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
         </LinearLayout>
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="365"
-            >
+            android:layout_weight="365">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -71,59 +74,66 @@
                         android:layout_height="match_parent"
                         android:layout_weight="296"
                         android:gravity="center_vertical"
-                        android:weightSum="296"
-                        >
+                        android:weightSum="296">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:weightSum="158"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:weightSum="158">
+
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:layout_weight="11"/>
+                                android:layout_weight="11" />
+
                             <TextView
                                 android:id="@+id/item_feed_detail$TV_city"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="27.3"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp" />
+
                             <TextView
                                 android:id="@+id/item_feed_detail$TV_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="37.6"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/item_feed_detail$TV_time"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="20.7"
-                                android:textSize="12sp"/>
+                                android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/item_feed_detail$TV_memo"
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="32"
-                                android:textSize="11sp"/>
+                                android:textSize="11sp" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="0dp"
                                 android:layout_weight="29.3"
-                                android:weightSum="253"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:weightSum="253">
+
                                 <ImageView
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
-                                    android:layout_weight="166"/>
+                                    android:layout_weight="166" />
+
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="87"
                                     android:gravity="center_vertical"
                                     android:orientation="vertical"
-                                    android:weightSum="40"
-                                    >
+                                    android:weightSum="40">
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
