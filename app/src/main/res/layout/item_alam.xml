@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_follow$Root"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+>
+    <LinearLayout
+        android:id="@+id/item_alam$LL_see"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="@string/DEVICE_WIDTH">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="14.7"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:weightSum="72"
+            android:orientation="vertical"
+            android:gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_alam$CV_profile"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40"
+                android:background="@drawable/image_comment_profile"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="10.3"/>
+        <TextView
+            android:id="@+id/item_alam$TV_alam"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="279"
+            android:weightSum="72"
+            android:text="님 Tworaveler에 오신걸 환영합니다."
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:paddingBottom="2dp"
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="16"/>
+    </LinearLayout>
+</FrameLayout>

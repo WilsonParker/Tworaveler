@@ -15,11 +15,13 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
-import com.developer.hare.tworaveler.Model.Request.LikeModel;
+import com.developer.hare.tworaveler.Model.FollowModel;
+import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -58,7 +60,6 @@ public class FragmentFeedSchedule extends BaseFragment {
     private View scheduleItem;
     private CircleImageView CV_profile;
     private LinearLayout LL_like, LL_comment;
-    private boolean isFollow;
 
     public FragmentFeedSchedule() {
     }
@@ -90,6 +91,7 @@ public class FragmentFeedSchedule extends BaseFragment {
     protected void init(View view) {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString() );
         uiFactory = UIFactory.getInstance(getActivity());
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();
@@ -148,9 +150,10 @@ public class FragmentFeedSchedule extends BaseFragment {
         IV_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                followSelect(isFollow);
+                followSelect(scheduleModel.isFollow());
             }
         });
+        changeFollow(scheduleModel.isFollow());
         ImageManager imageManager = ImageManager.getInstance();
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
@@ -213,7 +216,8 @@ public class FragmentFeedSchedule extends BaseFragment {
         if (isLike) {
             imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
         } else {
-            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop(), IV_like);
+//            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop(), IV_like);
+            imageManager.loadImage(getActivity(), R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
         }
     }
 
@@ -244,6 +248,7 @@ public class FragmentFeedSchedule extends BaseFragment {
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
                     Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    netFail2();
                 }
             });
         } else {
@@ -266,25 +271,64 @@ public class FragmentFeedSchedule extends BaseFragment {
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-
+                    netFail2();
                 }
             });
         }
         scheduleModel.setLike(!scheduleModel.isLike());
     }
+    public void changeFollow(boolean isFollow){
+        if(isFollow){
+            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
+        }else{
+            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
+        }
+    }
     public void followSelect(boolean isFollow){
         if(isFollow){
-            int index  = SessionManager.getInstance().getUserModel().getFollowers().indexOf(scheduleModel.getUser_no());
-            SessionManager.getInstance().getUserModel().getFollowees().remove(index);
-
-            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
-            this.isFollow = false;
+            Net.getInstance().getFactoryIm().selectUnFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
+                    if(response.isSuccessful()){
+                        if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
+                              Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
+//                            int index  = SessionManager.getInstance().getUserModel().getFollowers().indexOf(scheduleModel.getUser_no());
+//                            SessionManager.getInstance().getUserModel().getFollowees().remove(index);
+                            changeFollow(false);
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
+                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    netFail();
+                }
+            });
         }else {
-            SessionManager.getInstance().getUserModel().getFollowees().add(scheduleModel.getUser_no());
-
-//            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "follow", "팔로우 : " + SessionManager.getInstance().getUserModel().getFollowers());
-            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
-            this.isFollow = true;
+            Net.getInstance().getFactoryIm().selectFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
+                    if(response.isSuccessful()){
+                        if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
+                              Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
+//                            SessionManager.getInstance().getUserModel().getFollowees().add(scheduleModel.getUser_no());
+                            changeFollow(true);
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
+                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    netFail();
+                }
+            });
         }
+        scheduleModel.setFollow(!scheduleModel.isFollow());
+    }
+    private void netFail() {
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
+    }
+    private void netFail2() {
+        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_schedule_alert_like_fail, R.string.fragmentFeed_schedule_alert_like_content_fail);
     }
 }

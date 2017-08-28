@@ -101,17 +101,15 @@
 
                         <LinearLayout
                             android:id="@+id/item_mypage$LL_like"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="41.7"
                             android:orientation="horizontal"
                             android:gravity="center">
                             <ImageView
                                 android:id="@+id/item_mypage$IV_like"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/icon_heart_unclick"
-                                android:layout_weight="24"
                                 />
 
                             <TextView
@@ -125,16 +123,14 @@
 
                         <LinearLayout
                             android:id="@+id/item_mypage$LL_comment"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="41.7"
                             android:orientation="horizontal"
                             android:gravity="center">
                             <ImageView
                                 android:id="@+id/item_mypage$IV_comment"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="24"
                                 android:background="@drawable/icon_comment" />
 
                             <TextView
@@ -152,9 +148,8 @@
 
                             <ImageView
                                 android:id="@+id/item_mypage$IV_route"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="24"
                                 android:background="@drawable/icon_route" />
 
                     </LinearLayout>

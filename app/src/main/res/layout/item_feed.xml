@@ -145,9 +145,8 @@
 
                     <LinearLayout
                         android:id="@+id/item_feed$LL_like"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="41.7"
                         android:orientation="horizontal"
                         android:gravity="center">
                         <ImageView
@@ -168,9 +167,8 @@
 
                     <LinearLayout
                         android:id="@+id/item_feed$LL_comment"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="41.7"
                         android:orientation="horizontal"
                         android:gravity="center">
                         <ImageView
@@ -194,9 +192,8 @@
 
                     <ImageView
                         android:id="@+id/item_feed$IV_route"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="24"
                         android:background="@drawable/icon_route" />
 
                 </LinearLayout>

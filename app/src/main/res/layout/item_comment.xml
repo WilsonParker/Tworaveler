@@ -21,7 +21,7 @@
             android:weightSum="72"
             android:orientation="vertical"
             android:gravity="center">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/item_comment$IV_profile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

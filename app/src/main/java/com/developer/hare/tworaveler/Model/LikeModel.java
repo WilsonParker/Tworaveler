@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Model.Request;
+package com.developer.hare.tworaveler.Model;
 
 /**
  * Created by Tacademy on 2017-08-22.

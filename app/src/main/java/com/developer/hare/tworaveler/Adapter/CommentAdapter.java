@@ -27,6 +27,7 @@ import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,7 +60,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout LL_more;
-        private ImageView IV_profile, IV_btn;
+        private ImageView IV_btn;
+        private CircleImageView IV_profile;
         private TextView TV_nickname, TV_comment, up_btn;
         private EditText ET_comment;
         private CommentModel model;

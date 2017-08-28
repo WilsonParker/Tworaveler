@@ -4,7 +4,8 @@ package com.developer.hare.tworaveler.Net;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.CommentModel;
-import com.developer.hare.tworaveler.Model.Request.LikeModel;
+import com.developer.hare.tworaveler.Model.FollowModel;
+import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
@@ -88,6 +89,16 @@ public interface NetFactoryIm {
     @FormUrlEncoded
     @POST("/feed/unlike")
     Call<ResponseModel<LikeModel>> modifyUnLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
+
+    // 팔로우
+    @FormUrlEncoded
+    @POST("/trips/follow")
+    Call<ResponseModel<FollowModel>> selectFollow(@Field("user_no") int user_no, @Field("fuser_no") int fuser_no);
+
+    // 팔로우우 취소
+    @FormUrlEncoded
+    @POST("/trips/unfollow")
+    Call<ResponseModel<FollowModel>> selectUnFollow(@Field("user_no") int user_no, @Field("fuser_no") int fuser_no);
 
     // 댓글 수정
     @POST("/comment/modify")

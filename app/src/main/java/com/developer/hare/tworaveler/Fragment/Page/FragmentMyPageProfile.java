@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentMyPageProfile extends BaseFragment {
-    private static FragmentMyPageProfile fragment = new FragmentMyPageProfile();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private TextView TV_cntFollower, TV_cntFollowing, TV_nickname, TV_message;
@@ -39,7 +38,7 @@ public class FragmentMyPageProfile extends BaseFragment {
     private Class myClass = getClass();
 
     public static FragmentMyPageProfile newInstance() {
-        return fragment;
+        return new FragmentMyPageProfile();
     }
 
     @Nullable
@@ -114,4 +113,6 @@ public class FragmentMyPageProfile extends BaseFragment {
         );
 
     }
+
+
 }

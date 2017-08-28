@@ -10,12 +10,13 @@ public class ScheduleModel implements Serializable {
     // Regist Detail Model
     private int user_no, trip_no, likeCount, CommentCount;
     private String nickname, status_message, country, city, start_date, end_date, profile_pic_thumbnail, trip_pic_url, reg_date, mod_date, tripName;
-    private boolean isLike;
+    private boolean isLike, isFollow;
 
     public ScheduleModel(int user_no, String nickname, String status_message, String country, String city, String start_date, String end_date, String tripName) {
         this.user_no = user_no;
         this.nickname = nickname;
         this.status_message = status_message;
+
         this.country = country;
         this.city = city;
         this.start_date = start_date;
@@ -27,6 +28,7 @@ public class ScheduleModel implements Serializable {
         this.user_no = userModel.getUser_no();
         this.nickname = userModel.getNickname();
         this.status_message = userModel.getStatus_message();
+
         this.country = country;
         this.city = city;
         this.start_date = start_date;
@@ -174,6 +176,14 @@ public class ScheduleModel implements Serializable {
         isLike = like;
     }
 
+    public boolean isFollow() {
+        return isFollow;
+    }
+
+    public void setFollow(boolean follow) {
+        isFollow = follow;
+    }
+
     @Override
     public String toString() {
         return "ScheduleModel{" +
@@ -193,6 +203,7 @@ public class ScheduleModel implements Serializable {
                 ", mod_date='" + mod_date + '\'' +
                 ", tripName='" + tripName + '\'' +
                 ", isLike=" + isLike +
+                ", isFollow=" + isFollow +
                 '}';
     }
 }
