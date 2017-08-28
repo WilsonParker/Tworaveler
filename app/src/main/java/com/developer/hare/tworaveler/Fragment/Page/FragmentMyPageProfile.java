@@ -13,8 +13,11 @@ import com.developer.hare.tworaveler.Activity.MyProfileSet;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -22,6 +25,10 @@ import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FragmentMyPageProfile extends BaseFragment {
     private static FragmentMyPageProfile fragment = new FragmentMyPageProfile();
@@ -82,13 +89,29 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     private void setData() {
         UserModel userModel = SessionManager.getInstance().getUserModel();
-//        Log_HR.log(Log_HR.LOG_INFO, myClass, "setData()", "TV_cntFollower is Null? : " + (TV_cntFollower == null));
-//        Log_HR.log(Log_HR.LOG_INFO, myClass, "setData()", "getFollowers is Null? : " + (userModel.getFollowers() == null));
-        TV_cntFollower.setText(userModel.getFollowers().size() + "");
-        TV_cntFollowing.setText(userModel.getFollowees().size() + "");
-        TV_nickname.setText(userModel.getNickname());
-        TV_message.setText(userModel.getStatus_message());
-        ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), userModel.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+
+        Net.getInstance().getFactoryIm().selectUserInfo(userModel.getUser_no()).enqueue(
+                new Callback<ResponseModel<UserModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                        if (response.isSuccessful()) {
+                            SessionManager.getInstance().setUserModel(response.body().getResult());
+                            TV_cntFollower.setText(userModel.getFollowers().size() + "");
+                            TV_cntFollowing.setText(userModel.getFollowees().size() + "");
+                            TV_nickname.setText(userModel.getNickname());
+                            TV_message.setText(userModel.getStatus_message());
+                            ImageManager imageManager = ImageManager.getInstance();
+                            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), userModel.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                        } else
+                            AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
+                    }
+                }
+        );
+
     }
 }
