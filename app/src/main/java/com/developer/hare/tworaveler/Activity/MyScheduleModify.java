@@ -43,6 +43,7 @@ public class MyScheduleModify extends AppCompatActivity {
     private ResourceManager resourceManager;
 
     private UserModel userModel;
+    private CityModel cityModel;
     private EditText ET_tripName;
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover, IV_camera;
@@ -83,9 +84,9 @@ public class MyScheduleModify extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager imageManager =ImageManager.getInstance();
+                                    ImageManager imageManager = ImageManager.getInstance();
                                     RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, fileData.getFile(), ImageManager.THUMBNAIL_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator,IV_cover);
+                                    imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -97,6 +98,7 @@ public class MyScheduleModify extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,7 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     protected void init() {
-        scheduleModel = (ScheduleModel)getIntent().getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        scheduleModel = (ScheduleModel) getIntent().getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
@@ -133,7 +135,7 @@ public class MyScheduleModify extends AppCompatActivity {
         TV_dateEnd.setOnClickListener(onClickListener);
         IV_cover = uiFactory.createView(R.id.activity_myschedule_modify$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
-        IV_camera= uiFactory.createView(R.id.activity_myschedule_modify$IV_camera);
+        IV_camera = uiFactory.createView(R.id.activity_myschedule_modify$IV_camera);
 
         ImageManager.getInstance().loadImage(this, scheduleModel.getTrip_pic_url(), IV_cover, ImageManager.FIT_TYPE);
         ET_tripName.setText(scheduleModel.getTripName());
@@ -156,7 +158,7 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     private void onModify() {
-        ScheduleModel model = new ScheduleModel(userModel.getUser_no(), userModel.getNickname(), userModel.getStatus_message(), "country", TV_citySearch.getText().toString(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), userModel.getProfile_pic_url_thumbnail(),"",ET_tripName.getText().toString());
+        ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(),ET_tripName.getText().toString());
         Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
@@ -187,9 +189,9 @@ public class MyScheduleModify extends AppCompatActivity {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
-                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                    if (model != null)
-                        TV_citySearch.setText(model.getCity());
+                    cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
+                    if (cityModel != null)
+                        TV_citySearch.setText(cityModel.getCity());
                 }
             }
         }

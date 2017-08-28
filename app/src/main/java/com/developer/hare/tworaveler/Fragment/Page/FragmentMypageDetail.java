@@ -16,7 +16,6 @@ import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
-import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -103,12 +102,12 @@ public class FragmentMypageDetail extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayRootModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
-                    public void onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Response<ResponseArrayModel<ScheduleDayRootModel>> response) {
+                    public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-                            ResponseArrayModel<ScheduleDayRootModel> model = response.body();
+                            ResponseArrayModel<ScheduleDayModel> model = response.body();
                             itemEmptyCheck(items);
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
@@ -117,7 +116,7 @@ public class FragmentMypageDetail extends BaseFragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> call, Throwable t) {
+                    public void onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t) {
                         Log_HR.log(FragmentMypageDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
