@@ -65,7 +65,7 @@
     <string name="regist_alert_content_fail_2">여행 제목을 등록해주세요</string>
     <string name="regist_alert_content_fail_3">도시를 검색해주세요</string>
     <string name="regist_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
-    <string name="regist_alert_content_fail_5">문제가 발생하여일정 등록 실패 하였습니다</string>
+    <string name="regist_alert_content_fail_5">문제가 발생하여 일정 등록 실패 하였습니다</string>
 
     <!-- Activity/RegistDayList-->
     <string name="regist_day_list_alert_title_fail">세부 일정 불러오기 실패</string>
@@ -78,7 +78,7 @@
     <string name="regist_day_detail_alert_content_fail_2">여행 제목을 등록해주세요</string>
     <string name="regist_day_detail_alert_content_fail_3">도시를 검색해주세요</string>
     <string name="regist_day_detail_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
-    <string name="regist_day_detail_alert_content_fail_5">문제가 발생하여일정 등록 실패 하였습니다</string>
+    <string name="regist_day_detail_alert_content_fail_5">문제가 발생하여 일정 등록 실패 하였습니다</string>
     <string name="regist_day_detail_alert_content_fail_6">메모를 등록해 주세요</string>
 
     <!-- Activity/BagDelete-->

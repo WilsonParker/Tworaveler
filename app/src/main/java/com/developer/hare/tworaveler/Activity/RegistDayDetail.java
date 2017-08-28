@@ -211,12 +211,12 @@ public class RegistDayDetail extends AppCompatActivity {
                                 break;
                         }
                     } else
-                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+                        netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_alert_content_fail);
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                    netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_alert_content_fail_5);
                 }
             });
         }

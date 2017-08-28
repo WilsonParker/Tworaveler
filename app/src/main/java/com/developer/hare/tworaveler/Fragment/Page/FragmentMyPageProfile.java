@@ -94,13 +94,14 @@ public class FragmentMyPageProfile extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         if (response.isSuccessful()) {
-                            SessionManager.getInstance().setUserModel(response.body().getResult());
-                            TV_cntFollower.setText(userModel.getFollowers().size() + "");
-                            TV_cntFollowing.setText(userModel.getFollowees().size() + "");
-                            TV_nickname.setText(userModel.getNickname());
-                            TV_message.setText(userModel.getStatus_message());
+                            UserModel result = response.body().getResult();
+                            SessionManager.getInstance().setUserModel(result);
+                            TV_cntFollower.setText(result.getFollowers().size() + "");
+                            TV_cntFollowing.setText(result.getFollowees().size() + "");
+                            TV_nickname.setText(result.getNickname());
+                            TV_message.setText(result.getStatus_message());
                             ImageManager imageManager = ImageManager.getInstance();
-                            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), userModel.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), result.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
                         } else
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
                     }
