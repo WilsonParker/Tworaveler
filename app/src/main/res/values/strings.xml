@@ -239,6 +239,8 @@
     <string name="fragment_bag_plusButton">추가</string>
     <string name="fragment_bag_nonItem">여행 가방에 사진을 추가해 보세요</string>
     <string name="fragment_bag_picture">사진첩</string>
+    <string name="fragment_bag_text">가방을 확인하려면 로그인 해주세요</string>
+
 
     <!-- layout/bag_delete-->
     <string name="bag_delete_nonItem">여행가방에 사진을 추가해주세요</string>

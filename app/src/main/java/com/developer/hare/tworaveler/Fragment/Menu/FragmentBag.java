@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.BagDelete;
+import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Adapter.BagListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
@@ -57,21 +58,16 @@ public class FragmentBag extends BaseFragment {
     private CustomNavigationView customNavigationBagView;
 
     private UIFactory uiFactory;
-    private TextView textView;
-    private ImageView IV_noimage;
+    private TextView textView,TV_bag;
+    private ImageView IV_noimage, IV_nologin;
     private RecyclerView RV_list;
     private BagListAdapter bagListAdapter;
-    private LinearLayout linearLayout;
+    private LinearLayout linearLayout, LL_noLogin, LL_login;
     private MenuTopTitle menuTopTitle;
-
     private ArrayList<BagModel> items;
     private String theme;
     private ResourceManager resourceManager;
     private UserModel userModel;
-
-    public FragmentBag() {
-        // Required empty public constructor
-    }
 
     public static FragmentBag newInstance() {
         return instance;
@@ -121,10 +117,20 @@ public class FragmentBag extends BaseFragment {
                 onPhoto();
             }
         });
-
+        TV_bag = uiFactory.createView(R.id.fragment_bag$TV_bag);
+        FontManager.getInstance().setFont(TV_bag, "NotoSansCJKkr-Regular.otf");
         textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
         linearLayout = uiFactory.createView(R.id.fragment_bag$LL_empty);
+        LL_noLogin = uiFactory.createView(R.id.fragment_bag$LL_noLogin);
+        LL_login = uiFactory.createView(R.id.fragment_bag$LL_login);
+        IV_nologin = uiFactory.createView(R.id.fragment_bag$IV_nologin);
+        IV_nologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), SignIn.class));
+            }
+        });
 
         createNavigationBagView();
         itemEmptyCheck(items);
@@ -133,6 +139,7 @@ public class FragmentBag extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        itemLoginCheck();
         sessionCheck();
         setList(theme);
     }
@@ -154,6 +161,16 @@ public class FragmentBag extends BaseFragment {
                 });
             }
         });
+    }
+
+    private void itemLoginCheck() {
+        if (SessionManager.getInstance().isLogin()) {
+            LL_login.setVisibility(View.VISIBLE);
+            LL_noLogin.setVisibility(View.INVISIBLE);
+        } else {
+            LL_noLogin.setVisibility(View.VISIBLE);
+            LL_login.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void itemEmptyCheck(ArrayList<BagModel> items) {
