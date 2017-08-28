@@ -88,7 +88,6 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     private void setData() {
         UserModel userModel = SessionManager.getInstance().getUserModel();
-
         Net.getInstance().getFactoryIm().selectUserInfo(userModel.getUser_no()).enqueue(
                 new Callback<ResponseModel<UserModel>>() {
                     @Override
