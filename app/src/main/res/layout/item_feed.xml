@@ -152,10 +152,9 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/item_feed$IV_like"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/icon_heart_unclick"
-                            android:layout_weight="24"
                             />
 
                         <TextView
@@ -176,9 +175,8 @@
                         android:gravity="center">
                         <ImageView
                             android:id="@+id/item_feed$IV_comment"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="24"
                             android:background="@drawable/icon_comment" />
 
                         <TextView

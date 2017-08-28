@@ -64,11 +64,12 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     public static FragmentFeedSchedule newInstance(ScheduleModel scheduleModel) {
-        FragmentFeedSchedule fragment = new FragmentFeedSchedule();
+        FragmentFeedSchedule fragmentFeedSchedule = new FragmentFeedSchedule();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
-        fragment.setArguments(bundle);
-        return fragment;
+        fragmentFeedSchedule.setArguments(bundle);
+        FragmentFeedSchedule.scheduleModel = scheduleModel;
+        return fragmentFeedSchedule;
     }
 
     @Override
@@ -76,6 +77,13 @@ public class FragmentFeedSchedule extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed_schedule, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        setInitArg(myInstance);
+        setDatas();
     }
 
     @Override
@@ -196,6 +204,7 @@ public class FragmentFeedSchedule extends BaseFragment {
 //        menuTopTitle.getTV_title().setText("");
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
+        TV_comment.setText(scheduleModel.getCommentCount()+"");
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
     }

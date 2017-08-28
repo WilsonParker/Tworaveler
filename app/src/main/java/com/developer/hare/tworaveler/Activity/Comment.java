@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -80,6 +81,7 @@ public class Comment extends AppCompatActivity {
         menuToptitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentFeedSchedule.newInstance(scheduleModel);
                 onBackPressed();
             }
         });
@@ -95,7 +97,6 @@ public class Comment extends AppCompatActivity {
                 onSendComment(view);
             }
         });
-
     }
 
     private void changeView() {
@@ -134,6 +135,8 @@ public class Comment extends AppCompatActivity {
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
+                                scheduleModel.setCommentCount(scheduleModel.getCommentCount()+1);
+                                changeView();
                             }
                         });
                     } else {

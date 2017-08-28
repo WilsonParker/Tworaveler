@@ -110,8 +110,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             textlist2.add(TV_title);
             FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");
 
-
-
         }
 
         public void toBind(ScheduleModel model) {
