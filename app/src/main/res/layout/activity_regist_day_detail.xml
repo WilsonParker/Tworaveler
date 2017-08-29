@@ -52,10 +52,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:weightSum="328"
-                    android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:weightSum="328">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -116,12 +116,13 @@
                     android:layout_weight="28" />
 
                 <EditText
-                    android:id="@+id/activity_regist_day_detail$$TV_tripName"
+                    android:id="@+id/activity_regist_day_detail$TV_locationName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="300"
                     android:background="@null"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="1dp"
                     android:hint="@string/activity_regist_day_detail_text_1"
                     android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"
@@ -301,11 +302,11 @@
                         android:id="@+id/activity_regist_day_detail$ET_meno"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:inputType="textAutoComplete"
                         android:layout_weight="51.1"
                         android:background="@null"
                         android:gravity="left|top"
                         android:hint="@string/activity_regist_day_detail_text_8"
+                        android:inputType="text"
                         android:textColor="@color/regist_text_ET_color"
                         android:textCursorDrawable="@drawable/cursor_edittext"
                         android:textSize="@dimen/TextSize_Content_1" />

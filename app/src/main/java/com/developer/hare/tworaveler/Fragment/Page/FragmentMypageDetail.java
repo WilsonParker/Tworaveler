@@ -12,11 +12,14 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
+import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -38,20 +41,23 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHED
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
 public class FragmentMypageDetail extends BaseFragment {
-    private static FragmentMypageDetail fragment = new FragmentMypageDetail();
-    private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
     private TextView TV_noItem;
     private LinearLayout linearLayout;
-    private MypageDetailAdapter mypageDetailAdapter;
+
+
+    private UIFactory uiFactory;
     private ResourceManager resourceManager;
+    private MypageDetailAdapter mypageDetailAdapter;
     private ProgressManager progressManager;
-    private ArrayList<ScheduleDayModel> items = new ArrayList<>();
+    private ArrayList<ScheduleDayModel> items;
     private ScheduleModel scheduleModel;
     private String trip_date;
+    private UserModel userModel;
 
     public static FragmentMypageDetail newInstance(ScheduleModel scheduleModel, String trip_date) {
+        FragmentMypageDetail fragment = new FragmentMypageDetail();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
         bundle.putString(KEY_TRIPDATE, trip_date);
@@ -66,17 +72,24 @@ public class FragmentMypageDetail extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        updateList();
+    }
+
+    @Override
     protected void init(View view) {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         trip_date = bundle.getString(KEY_TRIPDATE);
+        sessionCheck();
 
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
         linearLayout = uiFactory.createView(R.id.fragment_mypage_detail$LL_empty);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$topbar); //
+        menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$topbar);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,16 +99,24 @@ public class FragmentMypageDetail extends BaseFragment {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), RegistDayDetail.class));
+                onRegister();
             }
         });
+        menuTopTitle.getTV_title().setText(userModel.getNickname());
         recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        mypageDetailAdapter = new MypageDetailAdapter(items);
         recyclerView.setAdapter(mypageDetailAdapter);
 
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_detail$TV_noitem);
+        uiFactory.createView(R.id.fragment_mypage_detail$noimage).setOnClickListener(new View.OnClickListener() {
+                                                                                         @Override
+                                                                                         public void onClick(View view) {
+                                                                                             onRegister();
+                                                                                         }
+                                                                                     }
+        );
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
-        updateList();
     }
 
     private void updateList() {
@@ -108,6 +129,9 @@ public class FragmentMypageDetail extends BaseFragment {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleDayModel> model = response.body();
+                            items = model.getResult();
+                            if (items == null)
+                                items = new ArrayList<ScheduleDayModel>();
                             itemEmptyCheck(items);
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
@@ -139,5 +163,17 @@ public class FragmentMypageDetail extends BaseFragment {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
+    }
+
+    private void onRegister() {
+        Intent intent = new Intent(getActivity(), RegistDayDetail.class);
+        intent.putExtra(DataDefinition.Intent.KEY_DATE, trip_date);
+        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+        startActivity(intent);
     }
 }

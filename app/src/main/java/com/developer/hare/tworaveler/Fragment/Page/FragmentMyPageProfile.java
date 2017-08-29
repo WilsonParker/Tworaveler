@@ -30,6 +30,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NONE_SESSION;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NOT_LOGIN;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+
 public class FragmentMyPageProfile extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
@@ -92,15 +96,24 @@ public class FragmentMyPageProfile extends BaseFragment {
                 new Callback<ResponseModel<UserModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                        ResponseModel<UserModel> result = response.body();
                         if (response.isSuccessful()) {
-                            UserModel result = response.body().getResult();
-                            SessionManager.getInstance().setUserModel(result);
-                            TV_cntFollower.setText(result.getFollowers().size() + "");
-                            TV_cntFollowing.setText(result.getFollowees().size() + "");
-                            TV_nickname.setText(result.getNickname());
-                            TV_message.setText(result.getStatus_message());
-                            ImageManager imageManager = ImageManager.getInstance();
-                            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), result.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                            switch (result.getSuccess()) {
+                                case CODE_SUCCESS:
+                                    UserModel model = result.getResult();
+                                    SessionManager.getInstance().setUserModel(model);
+                                    TV_cntFollower.setText(model.getFollowers().size() + "");
+                                    TV_cntFollowing.setText(model.getFollowees().size() + "");
+                                    TV_nickname.setText(model.getNickname());
+                                    TV_message.setText(model.getStatus_message());
+                                    ImageManager imageManager = ImageManager.getInstance();
+                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                                    break;
+                                case CODE_NOT_LOGIN:
+                                    break;
+                                case CODE_NONE_SESSION:
+                                    break;
+                            }
                         } else
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
                     }

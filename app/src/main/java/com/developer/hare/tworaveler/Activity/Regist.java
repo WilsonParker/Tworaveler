@@ -204,7 +204,7 @@ public class Regist extends AppCompatActivity {
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 Intent intent = new Intent(Regist.this, RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
                                 startActivity(intent);
                                 break;
                         }
@@ -231,8 +231,8 @@ public class Regist extends AppCompatActivity {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
         } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
-        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.REG_DATE)) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
+        } else if (!DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_6)).show();
         } else if (!SessionManager.getInstance().isLogin()) {
             netFail(R.string.regist_alert_title_fail, R.string.alert_content_not_login);
         } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {

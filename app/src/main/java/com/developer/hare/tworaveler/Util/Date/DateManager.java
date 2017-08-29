@@ -26,7 +26,7 @@ public class DateManager {
     private SimpleDateFormat simpleDateFormat;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
-    private String stringDate;
+    private String stringDate, stringTime;
     private final int StartYear = 1900;
 
     private TextView textView;
@@ -41,7 +41,8 @@ public class DateManager {
     private TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
+            stringTime = i + ":" + i1;
+            textView.setText(stringTime);
         }
     };
 
@@ -73,7 +74,7 @@ public class DateManager {
     public void getDateTime(Context context, TextView textView) {
         this.textView = textView;
         timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("hh"), getIntegerDate("mm"), true);
-        datePickerDialog.show();
+        timePickerDialog.show();
     }
 
     public Date parseDate(String date, String pattern) {

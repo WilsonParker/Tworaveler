@@ -58,7 +58,7 @@ public class FragmentBag extends BaseFragment {
     private CustomNavigationView customNavigationBagView;
 
     private UIFactory uiFactory;
-    private TextView textView,TV_bag;
+    private TextView textView, TV_bag;
     private ImageView IV_noimage, IV_nologin;
     private RecyclerView RV_list;
     private BagListAdapter bagListAdapter;
@@ -128,7 +128,12 @@ public class FragmentBag extends BaseFragment {
         IV_nologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SignIn.class));
+                SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
+                    @Override
+                    public void action() {
+                        startActivity(new Intent(getActivity(), SignIn.class));
+                    }
+                });
             }
         });
 
@@ -136,6 +141,7 @@ public class FragmentBag extends BaseFragment {
         itemEmptyCheck(items);
         sessionCheck();
     }
+
     @Override
     public void onResume() {
         super.onResume();

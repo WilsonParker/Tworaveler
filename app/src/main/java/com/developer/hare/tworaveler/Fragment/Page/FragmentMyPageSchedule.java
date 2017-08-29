@@ -44,10 +44,9 @@ import retrofit2.Response;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentMyPageSchedule extends BaseFragment {
-//    private static FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
+    //    private static FragmentMyPageSchedule fragment = new FragmentMyPageSchedule();
     private UIFactory uiFactory;
     private ImageManager imageManager;
-    private DateManager dateManager;
     private ScheduleModel scheduleModel;
     private com.prolificinteractive.materialcalendarview.MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
@@ -67,8 +66,13 @@ public class FragmentMyPageSchedule extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_my_page_schedule, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setData();
     }
 
     @Override
@@ -77,7 +81,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
 
         uiFactory = UIFactory.getInstance(getActivity());
-        dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();
 
         scheduleItem = uiFactory.createView(R.id.fragment_mypage_schedule$IC_schedul_item);
@@ -104,17 +107,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
         IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
 
-        ArrayList<TextView> textlist1 = new ArrayList<>();
-        textlist1.add(TV_date);
-        textlist1.add(TV_like);
-        textlist1.add(TV_comment);
-        FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
-        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
-
-        if (scheduleModel.isLike()) {
-            IV_like.setImageResource(R.drawable.icon_heart_click);
-        }
-        TV_like.setText(scheduleModel.getLikeCount() + "");
         LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
         LL_like.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +114,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 likeClick(scheduleModel.isLike());
             }
         });
-        changeLike(scheduleModel.isLike());
+
         LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
         LL_comment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,18 +125,19 @@ public class FragmentMyPageSchedule extends BaseFragment {
             }
         });
 
+        changeLike(scheduleModel.isLike());
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();
-        setDatas();
 
-        ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-        TV_title.setText(scheduleModel.getTripName()+"");
-        TV_like.setText(scheduleModel.getLikeCount()+"");
-        TV_comment.setText(scheduleModel.getCommentCount()+"");
-        TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
+        ArrayList<TextView> textlist1 = new ArrayList<>();
+        textlist1.add(TV_date);
+        textlist1.add(TV_like);
+        textlist1.add(TV_comment);
+        FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
+        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
     }
 
+    // 캘린더 초기 세팅
     private void initMaterialCalendarView() {
         materialCalendarView = uiFactory.createView(R.id.fragment_mypage_schedule$calendar);
         Date startDate = DateManager.getInstance().parseDate(scheduleModel.getStart_date(), DataDefinition.RegularExpression.FORMAT_DATE);
@@ -152,13 +145,11 @@ public class FragmentMyPageSchedule extends BaseFragment {
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
-                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1]-1, startArr[2]))
-                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1]-1, endArr[2]))
+                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1] - 1, startArr[2]))
+                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1] - 1, endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         materialCalendarView.setCurrentDate(startDate);
@@ -166,25 +157,25 @@ public class FragmentMyPageSchedule extends BaseFragment {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                /*Intent intent = new Intent(FragmentMyPageSchedule.this, FragmentMypageDetail.class);
-                intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
-                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);*/
                 FragmentManager.getInstance().setFragmentContent(FragmentMypageDetail.newInstance(scheduleModel, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE)));
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
         materialCalendarView.setTopbarVisible(true);
-//        materialCalendarView.setBackgroundColor(Color.BLUE);
-//        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
-    private void setDatas() {
-//        menuTopTitle.getTV_title().setText("");
+    // 초기 및 데이터가 변경 될 경우 View 에 데이터 세팅
+    private void setData() {
+        menuTopTitle.getTV_title().setText(SessionManager.getInstance().getUserModel().getNickname());
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
+        TV_like.setText(scheduleModel.getLikeCount() + "");
+        TV_comment.setText(scheduleModel.getCommentCount() + "");
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
     }
 
+    // 좋아요 상태에 따라 (true or false) 좋아요 이미지를 변경
     private void changeLike(boolean isLike) {
         if (isLike) {
             imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop(), IV_like);

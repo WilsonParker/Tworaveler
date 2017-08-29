@@ -61,7 +61,7 @@ public class RetrofitBodyParser {
                     try {
                         Method method = methodMap.get(Key + fieldName.toUpperCase());
                         if (method != null) {
-                            Object value = method.invoke(obj, null);
+                            Object value = method.invoke(obj);
                             if (value != null)
                                 dataMap.put(fieldName, createRequestBody(value));
                         }

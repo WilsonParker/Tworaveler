@@ -48,8 +48,6 @@ public class RegistDetail extends AppCompatActivity {
 
     protected void init() {
         intent = getIntent();
-//        startDate = intent.getExtras().getString(DataDefinition.Intent.KEY_STARTDATE);
-//        endDate = intent.getExtras().getString(DataDefinition.Intent.KEY_ENDDATE);
         scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
 
         uiFactory = UIFactory.getInstance(this);
@@ -70,13 +68,14 @@ public class RegistDetail extends AppCompatActivity {
         TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
         TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
         IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+        uiFactory.createView(R.id.item_mypage$TV_like).setVisibility(View.GONE);
+        uiFactory.createView(R.id.item_mypage$TV_comment).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_like).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_comment).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_route).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
 
         initMaterialCalendarView();
-        setData();
     }
 
     private void initMaterialCalendarView() {
@@ -91,8 +90,8 @@ public class RegistDetail extends AppCompatActivity {
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
-                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1]-1, startArr[2]))
-                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1]-1, endArr[2]))
+                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1] - 1, startArr[2]))
+                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1] - 1, endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         materialCalendarView.setCurrentDate(startDate);
@@ -117,6 +116,12 @@ public class RegistDetail extends AppCompatActivity {
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
         imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.PICTURE_TYPE), IV_cover);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setData();
     }
 
     @Override

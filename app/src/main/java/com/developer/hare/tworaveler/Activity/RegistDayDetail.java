@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Activity;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
@@ -43,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.R.id.activity_regist$TV_start;
+import static com.developer.hare.tworaveler.R.id.activity_regist_day_detail$TV_start;
 
 public class RegistDayDetail extends AppCompatActivity {
     private UIFactory uiFactory;
@@ -62,23 +60,17 @@ public class RegistDayDetail extends AppCompatActivity {
     private TextView TV_locationName, TV_locationSearch, TV_startTime, TV_endTime;
     private EditText ET_memo;
 
-    private TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
-        }
-    };
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case activity_regist$TV_start:
-                    dateManager.getDateTime(getBaseContext(), TV_startTime);
+                case activity_regist_day_detail$TV_start:
+                    dateManager.getDateTime(RegistDayDetail.this, TV_startTime);
                     break;
-                case R.id.activity_regist$TV_end:
-                    dateManager.getDateTime(getBaseContext(), TV_endTime);
+                case R.id.activity_regist_day_detail$TV_end:
+                    dateManager.getDateTime(RegistDayDetail.this, TV_endTime);
                     break;
-                case R.id.activity_regist$IV_cover:
+                case R.id.activity_regist_day_detail$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
                     AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
                         @Override
@@ -87,7 +79,7 @@ public class RegistDayDetail extends AppCompatActivity {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     imageFile = fileData.getFile();
-                                    ImageManager.getInstance().loadImage(getBaseContext(), fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
+                                    ImageManager.getInstance().loadImage(RegistDayDetail.this, fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -101,7 +93,7 @@ public class RegistDayDetail extends AppCompatActivity {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(getBaseContext(), fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(RegistDayDetail.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
                                     imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
@@ -133,10 +125,13 @@ public class RegistDayDetail extends AppCompatActivity {
 
         TV_locationName = uiFactory.createView(R.id.activity_regist_day_detail$TV_locationName);
         TV_locationSearch = uiFactory.createView(R.id.activity_regist_day_detail$TV_locationSearch);
-        TV_startTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_start);
+        TV_startTime = uiFactory.createView(activity_regist_day_detail$TV_start);
+        TV_startTime.setOnClickListener(onClickListener);
         TV_endTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_end);
+        TV_endTime.setOnClickListener(onClickListener);
         ET_memo = uiFactory.createView(R.id.activity_regist_day_detail$ET_meno);
         IV_cover = uiFactory.createView(R.id.activity_regist_day_detail$IV_cover);
+        IV_cover.setOnClickListener(onClickListener);
         IV_camera = uiFactory.createView(R.id.activity_regist_day_detail$IV_camera);
         menuTopTitle = uiFactory.createView(R.id.activity_regist_day_detail$menuToptitle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
@@ -179,19 +174,20 @@ public class RegistDayDetail extends AppCompatActivity {
                         Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
+                                AlertManager.getInstance().createAlert(getApplicationContext(), SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success).show();
 //                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
 //                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
 //                                startActivity(intent);
                                 break;
                         }
                     } else
-                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+                        netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
                     Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
-                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                    netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
                 }
             });
         } else {
@@ -205,25 +201,26 @@ public class RegistDayDetail extends AppCompatActivity {
                         Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
+                                AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success).show();
 //                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
 //                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
 //                                startActivity(intent);
                                 break;
                         }
                     } else
-                        netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_alert_content_fail);
+                        netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                    netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_alert_content_fail_5);
+                    netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
                 }
             });
         }
     }
 
     private boolean checkValidation() {
-        if (sessionCheck()) {
+        if (!sessionCheck()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.alert_content_not_login)).show();
             return false;
         }
@@ -231,15 +228,20 @@ public class RegistDayDetail extends AppCompatActivity {
         boolean result = false;
         String starDate = TV_startTime.getText().toString();
         String endDate = TV_endTime.getText().toString();
+        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate + " / " + endDate);
+        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
+
         if (TV_locationName.getText().toString().isEmpty()) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_2)).show();
-        } else if (TV_locationSearch.getText().toString().isEmpty()) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
-        } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
-        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.REG_DATE)) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
-        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_2)).show();
+//        } else if (TV_locationSearch.getText().toString().isEmpty()) {
+//            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_3)).show();
+        } else if (ET_memo.getText().toString().isEmpty()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_6)).show();
+        } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_TIME) && endDate.matches(DataDefinition.RegularExpression.REG_TIME))) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_4)).show();
+        } else if (!DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE_TIME)) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_7)).show();
+        } else {
             result = true;
         }
         return result;

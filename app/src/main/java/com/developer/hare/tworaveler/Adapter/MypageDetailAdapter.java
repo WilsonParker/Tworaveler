@@ -15,9 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
-import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
-import com.developer.hare.tworaveler.Model.ScheduleDayRootModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
@@ -30,13 +28,9 @@ import java.util.ArrayList;
 
 public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapter.ViewHolder> {
     private ArrayList<ScheduleDayModel> items;
-    private OnListScrollListener onListScrollListener;
-    private ScheduleDayRootModel scheduleDayRootModel;
 
-    public MypageDetailAdapter(OnListScrollListener onListScrollListener, ScheduleDayRootModel scheduleDayRootModel) {
-        this.onListScrollListener = onListScrollListener;
-        this.scheduleDayRootModel = scheduleDayRootModel;
-        items = scheduleDayRootModel.getDetaliedTrip();
+    public MypageDetailAdapter(ArrayList<ScheduleDayModel> items) {
+        this.items = items;
     }
 
     @Override
@@ -89,7 +83,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             Intent intent;
-                            switch(item.getItemId()){
+                            switch (item.getItemId()) {
                                 case R.id.popup_menu$modify:
                                     intent = new Intent(context, MyScheduleModify.class);
                                     context.startActivity(intent);
@@ -108,13 +102,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
         public void toBind(ScheduleDayModel model) {
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getDtrip_pic_url(), ImageManager.THUMBNAIL_TYPE).centerCrop(), IV_cover);
-            TV_date.setText(model.getTrip_date()+"");
+            TV_date.setText(model.getTrip_date() + "");
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
-            TV_city.setText(scheduleDayRootModel.getCity()+"");
-            TV_address.setText(model.getAddress()+"");
+            TV_city.setText(model.getAddress() + "");
+            TV_address.setText(model.getAddress() + "");
             TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
-            TV_memo.setText(model.getMemo()+"");
+            TV_memo.setText(model.getMemo() + "");
         }
     }
 

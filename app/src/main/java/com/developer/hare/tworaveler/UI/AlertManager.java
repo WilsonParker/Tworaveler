@@ -85,6 +85,36 @@ public class AlertManager {
         return dialog;
     }
 
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content) {
+        SweetAlertDialog dialog = createAlert(context, alertType, resourceManager.getResourceString(title), resourceManager.getResourceString(content), "확인");
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content, int confirm) {
+        SweetAlertDialog dialog = setAlert(context, alertType).setTitleText(resourceManager.getResourceString(title)).setContentText(resourceManager.getResourceString(content)).setConfirmText(resourceManager.getResourceString(confirm));
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content, int confirm, int cancel) {
+        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(resourceManager.getResourceString(content)).setConfirmText(resourceManager.getResourceString(confirm)).setTitleText(resourceManager.getResourceString(title)).setCancelText(resourceManager.getResourceString(cancel));
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content, SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, resourceManager.getResourceString(title), resourceManager.getResourceString(content), "확인").setConfirmClickListener(confirmClickListener);
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content, int confirm, SweetAlertDialog.OnSweetClickListener confirmClickListener) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm).setConfirmClickListener(confirmClickListener);
+        return dialog;
+    }
+
+    public SweetAlertDialog createAlert(Context context, int alertType, int title, int content, int confirm, SweetAlertDialog.OnSweetClickListener confirmClick, int cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
+        SweetAlertDialog dialog = createAlert(context, alertType, title, content, confirm, confirmClick).setCancelText(resourceManager.getResourceString(cancel)).setCancelClickListener(cancelClick);
+        return dialog;
+    }
+
     public AlertDialog showAlertSelectionMode(Activity activity, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
         handler = HandlerManager.getInstance().getHandler();
         view = LayoutInflater.from(activity).inflate(R.layout.alert_selectionmode, null);

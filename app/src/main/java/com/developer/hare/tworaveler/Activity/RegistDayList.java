@@ -91,7 +91,6 @@ public class RegistDayList extends AppCompatActivity {
         recyclerView = uiFactory.createView(R.id.activity_regist_day_detail_list$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         registDayDetailListAdapter = new RegistDayDetailListAdapter(items);
-        createList();
     }
 
     private void initLayout() {
@@ -103,6 +102,12 @@ public class RegistDayList extends AppCompatActivity {
             LL_list.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(new RegistDayDetailListAdapter(items));
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createList();
     }
 
     private void createList() {
@@ -165,8 +170,7 @@ public class RegistDayList extends AppCompatActivity {
     }
 
     private void onRegister() {
-        intent.setClass(this, RegistDayDetail.class);
-        startActivity(intent);
+        startActivity(new Intent(this, RegistDayDetail.class));
     }
 
 
