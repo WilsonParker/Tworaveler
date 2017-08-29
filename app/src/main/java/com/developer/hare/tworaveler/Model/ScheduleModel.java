@@ -206,4 +206,6 @@ public class ScheduleModel implements Serializable {
                 ", isFollow=" + isFollow +
                 '}';
     }
+
+
 }

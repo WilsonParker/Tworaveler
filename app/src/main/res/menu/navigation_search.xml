@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_search$city"
+        android:title="@string/navigation_search_city" />
+
+    <item
+        android:id="@+id/navigation_search$nickname"
+        android:title="@string/navigation_search_nickname" />
+</menu>

@@ -125,6 +125,18 @@ public interface NetFactoryIm {
     @GET("/location/get_location")
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
+    // 닉네임 검색
+    @GET("/feed/getNickname/{nickname}")
+    Call<ResponseModel<String>> searchNickname(@Path("nickname") String nickname);
+
+    // 피드 도시 검색
+    @GET("/feed/searchCity/{user_no}/{city}")
+    Call<ResponseArrayModel<ScheduleModel>> searchFeedCity(@Path("user_no") int user_no, @Path("city") String city);
+
+    // 피드 닉네임 검색
+    @GET("/feed/searchNickname/{user_no}/{nickname}")
+    Call<ResponseArrayModel<ScheduleModel>> searchFeedNickname(@Path("user_no") int user_no, @Path("nickname") String nickname);
+
     // 여행 별 상세일정 조회
     @GET("/trips/find_dtrip/{trip_no}/{trip_date}")
     Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
@@ -147,7 +159,7 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<ScheduleModel>> selectMyScheduleList(@Path("user_no") int user_no);
 
     // 피드 정보 조회
-    @GET("/feed/{user_no}/{scrollCount}")
+    @GET("/feed/look/{user_no}/{scrollCount}")
     Call<ResponseArrayModel<ScheduleModel>> selectFeedList(@Path("user_no") int user_no, @Path("scrollCount") int scrollCount);
 
     // 댓글 조회

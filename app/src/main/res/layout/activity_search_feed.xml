@@ -66,7 +66,7 @@
                     android:layout_weight="12.3" />
 
                 <EditText
-                    android:id="@+id/search_city$ET_city"
+                    android:id="@+id/search_feed$ET_city"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="251.33"
@@ -95,7 +95,7 @@
                 android:layout_weight="4" />
 
             <ImageButton
-                android:id="@+id/search_city$IB_cancel"
+                android:id="@+id/search_feed$IB_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="48"
@@ -109,10 +109,51 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_city$RV_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="528" />
+        android:layout_weight="560"
+        android:orientation="vertical"
+        >
+        <!--<com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+            android:id="@+id/search_feed$navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:menu="@menu/navigation_search"
+            android:background="?android:attr/windowBackground"
+            />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="32"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/search_feed$city"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="도시"
+                />
+            <TextView
+                android:id="@+id/search_feed$nickname"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="닉네임"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="528">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_feed$RV_citylist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

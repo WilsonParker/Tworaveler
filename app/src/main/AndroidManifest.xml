@@ -98,6 +98,9 @@
             android:name=".Activity.SearchCity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:name=".Activity.SearchFeed"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
             android:name=".Activity.MyProfileSet"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity

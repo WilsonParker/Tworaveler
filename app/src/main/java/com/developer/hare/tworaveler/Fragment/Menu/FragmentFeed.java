@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.developer.hare.tworaveler.Activity.SearchCity;
+import com.developer.hare.tworaveler.Activity.SearchFeed;
 import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
-import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
@@ -21,18 +20,26 @@ import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.type;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SCHEDULE_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SEARCH_CITY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_FEED_LIST_COUNT;
 
@@ -66,8 +73,8 @@ public class FragmentFeed extends BaseFragment {
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchCity.class);
-                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+                Intent intent = new Intent(getActivity(), SearchFeed.class);
+                startActivityForResult(intent, RESULT_CODE_SEARCH_CITY);
             }
         });
 
@@ -82,6 +89,8 @@ public class FragmentFeed extends BaseFragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(feedListAdapter);
+
+        loginFilter();
     }
 
     @Override
@@ -141,5 +150,26 @@ public class FragmentFeed extends BaseFragment {
         super.onStop();
         scrollCount = 0;
         feedItemModels.clear();
+    }
+    private void loginFilter(){
+        if(SessionManager.getInstance().isLogin()){
+            menuTopTitle.getIB_right().setVisibility(View.VISIBLE);
+        }else {
+            menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Serializable serializable = null;
+        if(requestCode == RESULT_CODE_SEARCH_CITY){
+            if(resultCode == RESULT_CODE_CITY_MODEL){
+                serializable =  data.getSerializableExtra(KEY_CITYMODEL);
+            }else if(resultCode == RESULT_CODE_SCHEDULE_MODEL){
+                serializable =  data.getSerializableExtra(KEY_SCHEDULE_MODEL);
+            }
+        }
+        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable ));
     }
 }

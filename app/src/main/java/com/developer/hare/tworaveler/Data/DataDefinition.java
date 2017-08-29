@@ -29,7 +29,11 @@ public class DataDefinition {
                 ,RESULT_CODE_SEARCH_CITY = 0x0001
                 ,RESULT_CODE_REGIST_DETAIL= 0x0010
                 , RESULT_CODE_REGIST_DAY_LIST = 0x0011
-                ;
+
+                ,RESULT_CODE_CITY_MODEL= 0x0100
+                , RESULT_CODE_SCHEDULE_MODEL = 0x0101;
+
+        ;
 
     }
 
@@ -38,6 +42,8 @@ public class DataDefinition {
                 KEY_STARTDATE = "StartDate"
                 ,KEY_ENDDATE = "EndDate"
                 ,KEY_DATE = "Date"
+                ,KEY_FILTER_TYPE= "filter_type"
+                ,KEY_SERIALIZABLE= "serializable"
                 ;
     }
 

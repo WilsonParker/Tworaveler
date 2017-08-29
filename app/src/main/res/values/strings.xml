@@ -263,13 +263,6 @@
     <string name="navigation_title_feed">피드</string>
     <string name="navigation_title_bag">여행 가방</string>
 
-    <!-- menu/navigation_bag-->
-    <string name="navigation_bag_title_ticket">교통티켓</string>
-    <string name="navigation_bag_title_sale">할인권</string>
-    <string name="navigation_bag_title_root">노선도</string>
-    <string name="navigation_bag_title_map">지도</string>
-    <string name="navigation_bag_title_shopping">쇼핑</string>
-
     <!-- menu/popup_menu-->
     <string name="popup_menu_modify">수정</string>
     <string name="popup_menu_delete">삭제</string>
@@ -278,6 +271,10 @@
     <!-- Util/SessionManager-->
     <string name="not_login_action_title">알림</string>
     <string name="not_login_action_content">로그인이 필요합니다\n로그인 페이지로 이동합니다</string>
+
+    <!-- menu/navigation_search-->
+    <string name="navigation_search_city">도시</string>
+    <string name="navigation_search_nickname">닉네임</string>
 
     <!--
         ############################################################################################
