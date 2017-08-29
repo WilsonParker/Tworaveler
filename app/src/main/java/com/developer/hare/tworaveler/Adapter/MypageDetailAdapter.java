@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.MyScheduleModify;
@@ -50,9 +49,8 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
-        private TextView TV_date, TV_like, TV_commenet, TV_city, TV_address, TV_time, TV_memo;
-        private ImageView IV_cover, IV_like;
-        private LinearLayout IV_btn;
+        private TextView TV_like, TV_commenet, TV_city, TV_address, TV_time, TV_memo;
+        private ImageView IV_cover, IV_like, IV_btn;
         private PopupMenu popupMenu;
 
         public ViewHolder(View itemView, Context context) {
@@ -60,16 +58,14 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             IV_cover = uiFactory.createView(R.id.item_mypage_detail$IV_cover);
-            TV_date = uiFactory.createView(R.id.item_mypage_detail$TV_date);
             TV_city = uiFactory.createView(R.id.item_mypage_detail$TV_city);
             TV_address = uiFactory.createView(R.id.item_mypage_detail$TV_address);
             TV_time = uiFactory.createView(R.id.item_mypage_detail$TV_time);
             TV_memo = uiFactory.createView(R.id.item_mypage_detail$TV_memo);
             TV_like = uiFactory.createView(R.id.item_mypage_detail$TV_like);
             TV_commenet = uiFactory.createView(R.id.item_mypage_detail$TV_comment);
-            IV_btn = uiFactory.createView(R.id.item_mypage_detail$IV_btn);
+            IV_btn = uiFactory.createView(R.id.item_mypage_detail$IV_more);
             IV_like = uiFactory.createView(R.id.item_mypage_detail$IV_like);
-
 
             IV_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,9 +96,10 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
         }
 
         public void toBind(ScheduleDayModel model) {
-            ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getDtrip_pic_url(), ImageManager.THUMBNAIL_TYPE).centerCrop(), IV_cover);
-            TV_date.setText(model.getTrip_date() + "");
+            if (!model.getDtrip_pic_url().isEmpty()) {
+                ImageManager imageManager = ImageManager.getInstance();
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getDtrip_pic_url(), ImageManager.THUMBNAIL_TYPE).centerCrop(), IV_cover);
+            }
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
             TV_city.setText(model.getAddress() + "");

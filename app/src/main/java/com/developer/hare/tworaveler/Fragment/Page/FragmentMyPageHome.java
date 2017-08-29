@@ -111,7 +111,7 @@ public class FragmentMyPageHome extends BaseFragment {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                HandlerManager.getInstance().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         items = model.getResult();

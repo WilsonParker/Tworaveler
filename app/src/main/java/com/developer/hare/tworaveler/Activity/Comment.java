@@ -126,7 +126,7 @@ public class Comment extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     if (model.getSuccess() == CODE_SUCCESS) {
-                        HandlerManager.getInstance().getHandler().post(new Runnable() {
+                        HandlerManager.getInstance().post(new Runnable() {
                             @Override
                             public void run() {
                                 Log_HR.log(Log_HR.LOG_INFO, Comment.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "items Size : " + items.size());
@@ -166,7 +166,7 @@ public class Comment extends AppCompatActivity {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
                             if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                HandlerManager.getInstance().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         items = model.getResult();

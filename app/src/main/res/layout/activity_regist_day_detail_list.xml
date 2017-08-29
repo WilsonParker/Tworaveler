@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="56"
-        app:leftButton="@drawable/button_left"
-        app:rightButton="@drawable/button_right"
+        app:leftButton="@drawable/back"
+        app:rightButton="@drawable/icon_addplan"
         app:titleText="@string/activity_regist_day_detail_list_title" />
 
     <LinearLayout
@@ -30,9 +30,8 @@
         <TextView
             android:id="@+id/activity_regist_day_detail_list$TV_date"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12"
-            android:text="2017-08-11"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:textAlignment="center"
             android:textColor="@color/regist_text_TV_color_2"
             android:textSize="@dimen/TextSize_Content_2" />

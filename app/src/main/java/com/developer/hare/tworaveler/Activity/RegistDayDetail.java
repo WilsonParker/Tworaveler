@@ -54,7 +54,6 @@ public class RegistDayDetail extends AppCompatActivity {
     private ScheduleModel scheduleModel;
     private File imageFile;
 
-
     private MenuTopTitle menuTopTitle;
     private ImageView IV_cover, IV_camera;
     private TextView TV_locationName, TV_locationSearch, TV_startTime, TV_endTime;
@@ -156,6 +155,7 @@ public class RegistDayDetail extends AppCompatActivity {
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
 
+    // 세부 일정 등록
     private void onRegister() {
         if (!checkValidation())
             return;
@@ -219,6 +219,7 @@ public class RegistDayDetail extends AppCompatActivity {
         }
     }
 
+    // 일정 등록 전 유효성 검사
     private boolean checkValidation() {
         if (!sessionCheck()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.alert_content_not_login)).show();
@@ -247,16 +248,19 @@ public class RegistDayDetail extends AppCompatActivity {
         return result;
     }
 
+    // Session Check & get UserModel in Memory
     private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }
 
+    // 도시 검색
     public void searchCity(View view) {
         Intent intent = new Intent(this, SearchCity.class);
         startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
     }
 
+    // Network 실패 경고창 show
     private void netFail(int title, int content) {
         AlertManager.getInstance().showNetFailAlert(RegistDayDetail.this, title, content);
     }

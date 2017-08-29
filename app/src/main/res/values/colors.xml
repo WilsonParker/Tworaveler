@@ -36,4 +36,7 @@
 
     <!-- fragment need login-->
     <color name="fragment_login_text_color">#252525</color>
+
+    <!-- layout/item_mypage_detail-->
+    <color name="item_mypage_detail_count_color">#a0a0a0</color>
 </resources>

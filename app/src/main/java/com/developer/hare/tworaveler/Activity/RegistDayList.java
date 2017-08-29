@@ -129,7 +129,7 @@ public class RegistDayList extends AppCompatActivity {
                             Log_HR.log(Log_HR.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
-                                    HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                    HandlerManager.getInstance().post(new Runnable() {
                                         @Override
                                         public void run() {
                                             items = result.getResult();

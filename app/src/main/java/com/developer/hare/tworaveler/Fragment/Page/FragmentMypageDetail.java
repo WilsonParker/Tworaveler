@@ -28,6 +28,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
@@ -43,7 +44,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPD
 public class FragmentMypageDetail extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
-    private TextView TV_noItem;
+    private TextView TV_noItem, TV_date;
     private LinearLayout linearLayout;
 
 
@@ -88,8 +89,10 @@ public class FragmentMypageDetail extends BaseFragment {
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
         linearLayout = uiFactory.createView(R.id.fragment_mypage_detail$LL_empty);
+        TV_date= uiFactory.createView(R.id.fragment_mypage_detail$TV_date);
+        TV_date.setText(trip_date);
 
-        menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$topbar);
+        menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$menuTopTItle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,10 +106,8 @@ public class FragmentMypageDetail extends BaseFragment {
             }
         });
         menuTopTitle.getTV_title().setText(userModel.getNickname());
-        recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mypageDetailAdapter = new MypageDetailAdapter(items);
-        recyclerView.setAdapter(mypageDetailAdapter);
+        recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_detail$TV_noitem);
         uiFactory.createView(R.id.fragment_mypage_detail$noimage).setOnClickListener(new View.OnClickListener() {
@@ -119,6 +120,7 @@ public class FragmentMypageDetail extends BaseFragment {
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
     }
 
+    // 세부 일정 List Update
     private void updateList() {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
@@ -126,13 +128,21 @@ public class FragmentMypageDetail extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-                            ResponseArrayModel<ScheduleDayModel> model = response.body();
-                            items = model.getResult();
-                            if (items == null)
-                                items = new ArrayList<ScheduleDayModel>();
-                            itemEmptyCheck(items);
+                            HandlerManager.getInstance().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ResponseArrayModel<ScheduleDayModel> model = response.body();
+                                    items = model.getResult();
+                                    if (items == null)
+                                        items = new ArrayList<ScheduleDayModel>();
+                                    itemEmptyCheck(items);
+                                }
+                            });
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
                             netFail();
@@ -149,27 +159,32 @@ public class FragmentMypageDetail extends BaseFragment {
         });
     }
 
+    // Network 실패 경고창 show
     private void netFail() {
         progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentMyPageDetail_alert_title_fail, R.string.fragmentMyPageDetail_alert_content_fail);
         itemEmptyCheck(items);
     }
 
+    // List size 에 따라 List 를 보여주거나, 데이터를 추가하라는 메시지 출력
     private void itemEmptyCheck(ArrayList<ScheduleDayModel> items) {
         if (items != null && items.size() > 0) {
             linearLayout.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(new MypageDetailAdapter(items));
         } else {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
     }
 
+    // Session Check & get UserModel in Memory
     private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }
 
+    // 세부 일정 등록
     private void onRegister() {
         Intent intent = new Intent(getActivity(), RegistDayDetail.class);
         intent.putExtra(DataDefinition.Intent.KEY_DATE, trip_date);

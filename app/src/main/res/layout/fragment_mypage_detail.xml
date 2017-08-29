@@ -1,3 +1,4 @@
+<!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -76,4 +77,126 @@
             tools:listitem="@layout/item_mypage_detail"/>
 
     </FrameLayout>
+</LinearLayout>
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="@string/FRAGMENT_HEIGHT">
+
+    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+        android:id="@+id/fragment_mypage_detail$menuTopTItle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="56"
+        app:leftButton="@drawable/back"
+        app:rightButton="@drawable/icon_addplan"
+        app:titleText="@string/fragment_mypage_detail_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="504"
+        android:orientation="vertical"
+        android:weightSum="560">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="31" />
+
+        <TextView
+            android:id="@+id/fragment_mypage_detail$TV_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textAlignment="center"
+            android:textColor="@color/regist_text_TV_color_2"
+            android:textSize="@dimen/TextSize_Content_2" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="41" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="476">
+
+            <LinearLayout
+                android:id="@+id/fragment_mypage_detail$LL_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="85.7" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="116"
+                    android:weightSum="@string/DEVICE_WIDTH">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+
+                    <ImageView
+                        android:id="@+id/fragment_mypage_detail$noimage"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="116"
+                        android:background="@drawable/btn_add" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14.4" />
+
+                <TextView
+                    android:id="@+id/fragment_mypage_detail$TV_noitem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/activity_regist_day_detail_list_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_mypage_detail$LL_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_mypage_detail$RV_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="421" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="57" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -48,5 +48,6 @@
     <dimen name="TextSize_Feed_Title">11sp</dimen>
     <dimen name="TextSize_Feed_Date">9sp</dimen>
     <dimen name="TextSize_Feed_Num">11sp</dimen>
+    <dimen name="TextSize_Item_detail_schedule">11sp</dimen>
 
 </resources>

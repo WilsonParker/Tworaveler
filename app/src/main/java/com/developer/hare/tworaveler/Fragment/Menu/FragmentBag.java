@@ -128,12 +128,7 @@ public class FragmentBag extends BaseFragment {
         IV_nologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
-                    @Override
-                    public void action() {
-                        startActivity(new Intent(getActivity(), SignIn.class));
-                    }
-                });
+                startActivity(new Intent(getActivity(), SignIn.class));
             }
         });
 
@@ -241,7 +236,7 @@ public class FragmentBag extends BaseFragment {
                     // 성공했을 경우
                     switch (response.body().getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
-                            HandlerManager.getInstance().getHandler().post(new Runnable() {
+                            HandlerManager.getInstance().post(new Runnable() {
                                 @Override
                                 public void run() {
                                     ResponseArrayModel<BagModel> rbag = response.body();

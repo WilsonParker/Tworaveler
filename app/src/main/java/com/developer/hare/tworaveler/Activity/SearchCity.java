@@ -81,7 +81,7 @@ public class SearchCity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             ResponseArrayModel<CityModel> result = response.body();
                             items = result.getResult();
-                            HandlerManager.getInstance().getHandler().post(new Runnable() {
+                            HandlerManager.getInstance().post(new Runnable() {
                                 @Override
                                 public void run() {
 //                                    cityListAdapter.notifyDataSetChanged();

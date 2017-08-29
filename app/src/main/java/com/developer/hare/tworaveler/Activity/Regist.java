@@ -241,7 +241,7 @@ public class Regist extends AppCompatActivity {
         return result;
     }
 
-    private boolean sessionCheck(){
+    private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }

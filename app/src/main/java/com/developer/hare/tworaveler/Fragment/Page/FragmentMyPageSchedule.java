@@ -184,6 +184,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
         }
     }
 
+    // 좋아요 클릭 했을 경우 실행
     private void likeClick(boolean isLike) {
         if (isLike) {
             Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
@@ -193,8 +194,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 changeLike(false);
-//                                    imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
-//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
                                 int likeCount = scheduleModel.getLikeCount() - 1;
                                 TV_like.setText("" + likeCount);
                                 scheduleModel.setLikeCount(likeCount);
@@ -218,8 +217,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 changeLike(true);
-//                                    imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
-//                                    imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE), IV_like);
                                 int likeCount = scheduleModel.getLikeCount() + 1;
                                 TV_like.setText("" + likeCount);
                                 scheduleModel.setLikeCount(likeCount);

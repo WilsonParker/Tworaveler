@@ -136,4 +136,23 @@ public class ScheduleDayModel {
     public void setTrip_address(String trip_address) {
         this.trip_address = trip_address;
     }
+
+    @Override
+    public String toString() {
+        return "ScheduleDayModel{" +
+                "dtrip_no=" + dtrip_no +
+                ", trip_no=" + trip_no +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", likeCount=" + likeCount +
+                ", CommentCount=" + CommentCount +
+                ", dtrip_pic_url='" + dtrip_pic_url + '\'' +
+                ", start_time='" + start_time + '\'' +
+                ", end_time='" + end_time + '\'' +
+                ", memo='" + memo + '\'' +
+                ", address='" + address + '\'' +
+                ", trip_date='" + trip_date + '\'' +
+                ", trip_address='" + trip_address + '\'' +
+                '}';
+    }
 }

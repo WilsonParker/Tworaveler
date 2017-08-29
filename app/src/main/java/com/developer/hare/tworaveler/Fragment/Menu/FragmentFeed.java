@@ -104,7 +104,7 @@ public class FragmentFeed extends BaseFragment {
                             ResponseArrayModel<ScheduleModel> model = response.body();
 //                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
                             if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                HandlerManager.getInstance().post(new Runnable() {
                                     @Override
                                     public void run() {
                                         feedItemModels.addAll(model.getResult());
