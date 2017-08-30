@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -103,6 +105,15 @@ public class SignIn extends AppCompatActivity {
         ET_email = uiFactory.createView(R.id.activty_login$ET_email);
         ET_email.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Roboto-Medium.ttf"));
         ET_password = uiFactory.createView(R.id.activty_login$ET_password);
+        ET_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_NEXT){
+                    IV_signIn.callOnClick();
+                }
+                return true;
+            }
+        });
 
         IV_signIn = uiFactory.createView(R.id.activity_login$IV_signIn);
         IV_signIn.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +127,6 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "key hash :  " + KeyManager.getInstance().getKeyHash(this));
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_email);

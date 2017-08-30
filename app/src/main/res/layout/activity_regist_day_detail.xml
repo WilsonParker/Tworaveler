@@ -41,7 +41,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="171">
+                android:layout_weight="196">
 
                 <ImageView
                     android:id="@+id/activity_regist_day_detail$IV_cover"
@@ -130,68 +130,68 @@
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
 
-            <ImageView
+            <!-- <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="22" />
 
             <TextView
-                android:id="@+id/activity_regist_day_detail$TV_txt_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_vertical"
-                android:text="@string/activity_regist_day_detail_text_2"
-                android:textSize="@dimen/TextSize_Content_1" />
+                 android:id="@+id/activity_regist_day_detail$TV_txt_2"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="0"
+                 android:gravity="center_vertical"
+                 android:text="@string/activity_regist_day_detail_text_2"
+                 android:textSize="@dimen/TextSize_Content_1" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="13" />
+             <ImageView
+                 android:layout_width="0dp"
+                 android:layout_height="0dp"
+                 android:layout_weight="13" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="46"
-                android:background="@color/default_theme_text_color"
-                android:onClick="searchCity"
-                android:weightSum="328">
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 android:layout_weight="46"
+                 android:background="@color/default_theme_text_color"
+                 android:onClick="searchCity"
+                 android:weightSum="328">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="28" />
+                 <ImageView
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="28" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="21.3"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:weightSum="46">
+                 <LinearLayout
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_weight="21.3"
+                     android:gravity="center_vertical"
+                     android:orientation="vertical"
+                     android:weightSum="46">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="20.7"
-                        android:background="@drawable/icon_citysearch" />
-                </LinearLayout>
+                     <ImageView
+                         android:layout_width="match_parent"
+                         android:layout_height="0dp"
+                         android:layout_weight="20.7"
+                         android:background="@drawable/icon_citysearch" />
+                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="14.3" />
+                 <ImageView
+                     android:layout_width="0dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="14.3" />
 
-                <TextView
-                    android:id="@+id/activity_regist_day_detail$TV_locationSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:hint="@string/activity_regist_day_detail_text_3"
-                    android:onClick="searchCity"
-                    android:textColor="@color/regist_text_ET_color"
-                    android:textSize="@dimen/TextSize_Content_1" />
-            </LinearLayout>
+                 <TextView
+                     android:id="@+id/activity_regist_day_detail$TV_locationSearch"
+                     android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     android:gravity="center_vertical"
+                     android:hint="@string/activity_regist_day_detail_text_3"
+                     android:onClick="searchCity"
+                     android:textColor="@color/regist_text_ET_color"
+                     android:textSize="@dimen/TextSize_Content_1" />
+             </LinearLayout>-->
 
             <ImageView
                 android:layout_width="0dp"
@@ -278,7 +278,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="80"
+                android:layout_weight="120"
                 android:background="@color/default_theme_text_color"
                 android:weightSum="328">
 

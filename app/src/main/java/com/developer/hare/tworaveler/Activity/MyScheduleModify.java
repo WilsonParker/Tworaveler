@@ -65,7 +65,7 @@ public class MyScheduleModify extends AppCompatActivity {
                     break;
                 case R.id.activity_myschedule_modify$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onCameraSelect(MyScheduleModify.this, new OnPhotoBindListener() {
@@ -78,7 +78,7 @@ public class MyScheduleModify extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.button_left, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.icon_gallery, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onGallerySingleSelect(MyScheduleModify.this, new OnPhotoBindListener() {
@@ -93,7 +93,7 @@ public class MyScheduleModify extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(MyScheduleModify.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
+                    AlertManager.getInstance().showAlertSelectionMode(MyScheduleModify.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
                     break;
             }
         }
