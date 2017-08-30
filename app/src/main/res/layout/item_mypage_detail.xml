@@ -104,19 +104,20 @@
                     android:layout_height="0dp"
                     android:layout_gravity="bottom"
                     android:layout_weight="34.6"
-                    android:weightSum="253">
+                    android:gravity="right"
+                    android:weightSum="219.6">
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="149.3" />
+                    <!--  <ImageView
+                          android:layout_width="0dp"
+                          android:layout_height="0dp"
+                          android:layout_weight="149.3" />-->
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="103.7"
+                        android:layout_weight="103.3"
                         android:orientation="vertical"
-                        android:weightSum="34.6">
+                        android:weightSum="34.3">
 
                         <ImageView
                             android:layout_width="0dp"

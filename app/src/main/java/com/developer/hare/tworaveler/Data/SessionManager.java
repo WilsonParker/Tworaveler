@@ -36,6 +36,11 @@ public class SessionManager {
             return false;
     }
 
+    public boolean logout(){
+        USER_MODEL = null;
+        return true;
+    }
+
     public UserModel getUserModel() {
         return this.USER_MODEL;
     }

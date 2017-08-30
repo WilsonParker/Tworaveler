@@ -47,8 +47,8 @@
                     android:id="@+id/activity_regist_day_detail$IV_cover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:background="@color/default_theme_Image_color" />
+                    android:background="@color/default_theme_Image_color"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,10 +120,10 @@
                     android:id="@+id/activity_regist_day_detail$TV_locationName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
                     android:layout_weight="300"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="1dp"
                     android:hint="@string/activity_regist_day_detail_text_1"
                     android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"

@@ -48,6 +48,7 @@ public class RegistDayDetail extends AppCompatActivity {
     private DateManager dateManager;
     private ResourceManager resourceManager;
     private ImageManager imageManager;
+    private SessionManager sessionManager;
     private Intent intent;
     private UserModel userModel;
     private String selected_date;
@@ -118,6 +119,7 @@ public class RegistDayDetail extends AppCompatActivity {
         intent = getIntent();
         selected_date = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
         scheduleModel = (ScheduleModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        sessionManager = SessionManager.getInstance();
 
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
@@ -162,7 +164,7 @@ public class RegistDayDetail extends AppCompatActivity {
         if (!checkValidation())
             return;
 
-        ScheduleDayModel model = new ScheduleDayModel(scheduleModel, 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationSearch.getText().toString(), selected_date);
+        ScheduleDayModel model = new ScheduleDayModel(scheduleModel, 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationName.getText().toString(), selected_date);
         if (imageFile != null) {
             MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
@@ -179,6 +181,7 @@ public class RegistDayDetail extends AppCompatActivity {
                                 AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
                                         finish();
                                     }
                                 }).show();
@@ -227,6 +230,7 @@ public class RegistDayDetail extends AppCompatActivity {
     private boolean checkValidation() {
         if (!sessionCheck()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.alert_content_not_login)).show();
+            sessionManager.logout();
             return false;
         }
 
@@ -254,8 +258,8 @@ public class RegistDayDetail extends AppCompatActivity {
 
     // Session Check & get UserModel in Memory
     private boolean sessionCheck() {
-        userModel = SessionManager.getInstance().getUserModel();
-        return SessionManager.getInstance().isLogin();
+        userModel = sessionManager.getUserModel();
+        return sessionManager.isLogin();
     }
 
     // 도시 검색

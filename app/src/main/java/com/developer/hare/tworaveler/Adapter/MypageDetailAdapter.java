@@ -102,8 +102,10 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             }
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
-            TV_city.setText(model.getTrip_address() + "");
-            TV_address.setText(model.getAddress() + "");
+//            TV_city.setText(model.getTrip_address() + "");
+//            TV_address.setText(model.getAddress() + "");
+            TV_city.setText(model.getAddress() + "");
+            TV_address.setText(model.getTrip_address() + "");
             TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
             TV_memo.setText(model.getMemo() + "");
         }
