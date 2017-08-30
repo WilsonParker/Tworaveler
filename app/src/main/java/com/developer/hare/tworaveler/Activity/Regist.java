@@ -75,7 +75,8 @@ public class Regist extends AppCompatActivity {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     imageFile = fileData.getFile();
-                                    ImageManager.getInstance().loadImage(Regist.this, fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
+                                    imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }

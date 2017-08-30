@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="207"
-            android:background="@color/default_Image_color">
+            android:background="@color/item_mypage_detail_image_color">
 
             <ImageView
                 android:id="@+id/item_mypage_detail$IV_cover"
@@ -140,6 +140,7 @@
                                 android:id="@+id/item_mypage_detail$TV_like"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:textAlignment="center"
                                 android:textColor="@color/item_mypage_detail_count_color"
                                 android:textSize="@dimen/TextSize_Feed_Title" />
 
@@ -159,6 +160,7 @@
                                 android:id="@+id/item_mypage_detail$TV_comment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:textAlignment="center"
                                 android:textColor="@color/item_mypage_detail_count_color"
                                 android:textSize="@dimen/TextSize_Feed_Title" />
                         </LinearLayout>

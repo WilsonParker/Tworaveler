@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Fragment.Menu;
+package com.developer.hare.tworaveler.Fragment.Page;
 
 import android.content.Intent;
 import android.os.Bundle;

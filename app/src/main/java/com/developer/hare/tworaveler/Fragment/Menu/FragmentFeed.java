@@ -13,6 +13,7 @@ import com.developer.hare.tworaveler.Activity.SearchFeed;
 import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedFilter;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;

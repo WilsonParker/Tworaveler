@@ -96,4 +96,16 @@ public class MenuTopTitle extends LinearLayout {
     public TextView getTV_title() {
         return TV_title;
     }
+
+    public void setTitleText(String text) {
+        TV_title.setText(text);
+    }
+
+    public void setIBLeftOnClickListener(OnClickListener onClickListener) {
+        IB_left.setOnClickListener(onClickListener);
+    }
+
+    public void setIBRightOnClickListener(OnClickListener onClickListener) {
+        IB_right.setOnClickListener(onClickListener);
+    }
 }

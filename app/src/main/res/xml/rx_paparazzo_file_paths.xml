@@ -4,5 +4,6 @@
 
     <files-path
         name="RxPaparazzoImages"
-        path="Tworaveler/"/>
+        path="/"/>
+        <!--path="Tworaveler/"/>-->
 </paths>

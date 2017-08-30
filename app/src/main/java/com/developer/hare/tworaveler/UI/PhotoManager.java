@@ -5,11 +5,15 @@ import android.support.v4.content.ContextCompat;
 
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
+import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 import com.yalantis.ucrop.UCrop;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.app.Activity.RESULT_OK;
@@ -30,7 +34,6 @@ public class PhotoManager {
     private void createOptions(Activity activity) {
         options.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
 //        options.withMaxResultSize(1920, 1280);
-
     }
 
     public void onGalleryMultiSelect(Activity activity, OnPhotoBindListener onPhotoBindListener) {
@@ -68,12 +71,18 @@ public class PhotoManager {
     public void onCameraSelect(Activity activity, OnPhotoBindListener onPhotoBindListener) {
         this.onPhotoBindListener = onPhotoBindListener;
         createOptions(activity);
-
         RxPaparazzo.single(activity)
                 .crop(options)
                 .usingCamera()  //  바로 카메라를 실행
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .onErrorReturn(new Function<Throwable, Response<Activity, FileData>>() {
+                    @Override
+                    public Response<Activity, FileData> apply(@NonNull Throwable throwable) throws Exception {
+                        Log_HR.log(PhotoManager.class,"apply(@NonNull Throwable throwable)", throwable);
+                        return null;
+                    }
+                })
                 .subscribe(response -> {
                     // See response.resultCode() doc
                     if (response.resultCode() != RESULT_OK) {
@@ -86,4 +95,5 @@ public class PhotoManager {
     private void bindData(FileData fileData) {
         onPhotoBindListener.bindData(fileData);
     }
+
 }

@@ -39,4 +39,5 @@
 
     <!-- layout/item_mypage_detail-->
     <color name="item_mypage_detail_count_color">#a0a0a0</color>
+    <color name="item_mypage_detail_image_color">#bebebe</color>
 </resources>

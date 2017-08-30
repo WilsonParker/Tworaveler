@@ -30,7 +30,6 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -49,8 +48,6 @@ public class FragmentMypageDetail extends BaseFragment {
 
 
     private UIFactory uiFactory;
-    private ResourceManager resourceManager;
-    private MypageDetailAdapter mypageDetailAdapter;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items;
     private ScheduleModel scheduleModel;
@@ -69,7 +66,7 @@ public class FragmentMypageDetail extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mypage_detail, container, false);
+        return inflater.inflate(R.layout.fragment_my_page_detail, container, false);
     }
 
     @Override
@@ -85,7 +82,6 @@ public class FragmentMypageDetail extends BaseFragment {
         trip_date = bundle.getString(KEY_TRIPDATE);
         sessionCheck();
 
-        resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
         linearLayout = uiFactory.createView(R.id.fragment_mypage_detail$LL_empty);

@@ -1,85 +1,3 @@
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="@string/FRAGMENT_HEIGHT"
-    tools:context="com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage">
-
-    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_mypage_detail$topbar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="56"
-        app:leftButton="@drawable/icon_back"
-        app:rightButton="@drawable/icon_addplan"
-        app:titleText="@string/fragment_mypage_detail_title" />
-
-    <FrameLayout
-        android:id="@+id/fragment_mypage_detail$FL_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="504"
-        android:weightSum="504"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/fragment_mypage_detail$LL_empty"
-            android:visibility="invisible"
-            android:weightSum="504">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="169"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="116"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="360"
-                >
-                <ImageView
-                    android:id="@+id/fragment_mypage_detail$noimage"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="116"
-                    android:background="@drawable/btn_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="275"
-                android:weightSum="275"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="14"/>
-                <TextView
-                    android:id="@+id/fragment_mypage_detail$TV_noitem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="13sp"
-                    android:text="@string/fragment_mypage_detail_regist" />
-            </LinearLayout>
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_mypage_detail$RV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_mypage_detail"/>
-
-    </FrameLayout>
-</LinearLayout>
--->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -102,7 +20,7 @@
         android:layout_height="0dp"
         android:layout_weight="504"
         android:orientation="vertical"
-        android:weightSum="560">
+        android:weightSum="504">
 
         <ImageView
             android:layout_width="0dp"
@@ -156,7 +74,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="116"
-                        android:background="@drawable/btn_add" />
+                        app:srcCompat="@drawable/btn_add" />
 
                     <ImageView
                         android:layout_width="0dp"

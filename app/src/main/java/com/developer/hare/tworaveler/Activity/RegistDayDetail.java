@@ -78,7 +78,8 @@ public class RegistDayDetail extends AppCompatActivity {
                                 @Override
                                 public void bindData(FileData fileData) {
                                     imageFile = fileData.getFile();
-                                    ImageManager.getInstance().loadImage(RegistDayDetail.this, fileData.getFile(), IV_cover, ImageManager.FIT_TYPE);
+                                    RequestCreator requestCreator = imageManager.createRequestCreator(RegistDayDetail.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
+                                    imageManager.loadImage(requestCreator, IV_cover);
                                     AlertManager.getInstance().dismissAlertSelectionMode();
                                     IV_camera.setVisibility(View.INVISIBLE);
                                 }
@@ -120,6 +121,7 @@ public class RegistDayDetail extends AppCompatActivity {
 
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
+        imageManager = ImageManager.getInstance();
         resourceManager = ResourceManager.getInstance();
 
         TV_locationName = uiFactory.createView(R.id.activity_regist_day_detail$TV_locationName);
@@ -174,10 +176,12 @@ public class RegistDayDetail extends AppCompatActivity {
                         Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
-                                AlertManager.getInstance().createAlert(getApplicationContext(), SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success).show();
-//                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
-//                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-//                                startActivity(intent);
+                                AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        finish();
+                                    }
+                                }).show();
                                 break;
                         }
                     } else

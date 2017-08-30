@@ -116,11 +116,9 @@
 
     <!-- Fragment/FragmentFeedSchedule -->
     <string name="fragmentFeed_schedule_alert_title_fail">팔로우 실패</string>
-    <string name="fragmentFeed_schedule_alert_content_fail">팔로우하는데 실패 하였습니다</string>
-
-    <!-- Fragment/FragmentFeedSchedule -->
-    <string name="fragmentFeed_schedule_alert_like_fail">팔로우 실패</string>
-    <string name="fragmentFeed_schedule_alert_like_content_fail">팔로우하는데 실패 하였습니다</string>
+    <string name="fragmentFeed_schedule_alert_content_fail">팔로우 하는데 실패 하였습니다</string>
+    <string name="fragmentFeed_schedule_alert_title_like_fail">좋아요 실패</string>
+    <string name="fragmentFeed_schedule_alert_content_like_content_fail">좋아요 하는데 실패 하였습니다</string>
 
     <!-- Fragment/FragmentMyPageHome -->
     <string name="fragmentMyPageHome_alert_title_fail">내 여행 목록불러오기 실패</string>

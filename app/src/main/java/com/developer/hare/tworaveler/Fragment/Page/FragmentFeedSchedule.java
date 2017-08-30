@@ -19,6 +19,7 @@ import com.developer.hare.tworaveler.Model.FollowModel;
 import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -49,10 +50,11 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHED
 
 public class FragmentFeedSchedule extends BaseFragment {
     //    private static FragmentFeedSchedule fragment = new FragmentFeedSchedule();
+    private static ScheduleModel scheduleModel;
     private UIFactory uiFactory;
     private ImageManager imageManager;
-    private DateManager dateManager;
-    private static ScheduleModel scheduleModel;
+    private UserModel userModel;
+
     private MaterialCalendarView materialCalendarView;
     private MenuTopTitle menuTopTitle;
     private TextView TV_title, TV_date, TV_like, TV_comment, TV_nickname, TV_message;
@@ -60,9 +62,6 @@ public class FragmentFeedSchedule extends BaseFragment {
     private View scheduleItem;
     private CircleImageView CV_profile;
     private LinearLayout LL_like, LL_comment;
-
-    public FragmentFeedSchedule() {
-    }
 
     public static FragmentFeedSchedule newInstance(ScheduleModel scheduleModel) {
         FragmentFeedSchedule fragmentFeedSchedule = new FragmentFeedSchedule();
@@ -91,9 +90,8 @@ public class FragmentFeedSchedule extends BaseFragment {
     protected void init(View view) {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString() );
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
         uiFactory = UIFactory.getInstance(getActivity());
-        dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();
 
         scheduleItem = uiFactory.createView(R.id.fragment_feed_schedule$IC_schedul_item);
@@ -173,16 +171,16 @@ public class FragmentFeedSchedule extends BaseFragment {
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
 
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + startArr[0] + " : " + (startArr[1]-1) + startArr[2]);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + endArr[0] + " : " + (endArr[1]-1) + endArr[2]);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + startArr[0] + " : " + (startArr[1] - 1) + startArr[2]);
+        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + endArr[0] + " : " + (endArr[1] - 1) + endArr[2]);
 
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
 //        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
-                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1]-1, startArr[2]))
-                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1]-1, endArr[2]))
+                .setMinimumDate(CalendarDay.from(startArr[0], startArr[1] - 1, startArr[2]))
+                .setMaximumDate(CalendarDay.from(endArr[0], endArr[1] - 1, endArr[2]))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
         materialCalendarView.setCurrentDate(startDate);
@@ -207,7 +205,7 @@ public class FragmentFeedSchedule extends BaseFragment {
 //        menuTopTitle.getTV_title().setText("");
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
-        TV_comment.setText(scheduleModel.getCommentCount()+"");
+        TV_comment.setText(scheduleModel.getCommentCount() + "");
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
     }
@@ -222,6 +220,11 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     private void likeClick(boolean isLike) {
+        if (!sessionCheck()) {
+            netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.alert_content_not_login);
+            return;
+        }
+
         if (isLike) {
             Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
@@ -242,13 +245,14 @@ public class FragmentFeedSchedule extends BaseFragment {
                         }
                     } else {
                         Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
                     Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
-                    netFail2();
+                    netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                 }
             });
         } else {
@@ -265,70 +269,83 @@ public class FragmentFeedSchedule extends BaseFragment {
                                 break;
                         }
                     } else {
-
+                        netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                    netFail2();
+                    netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                 }
             });
         }
         scheduleModel.setLike(!scheduleModel.isLike());
     }
-    public void changeFollow(boolean isFollow){
-        if(isFollow){
-            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
-        }else{
-            ImageManager.getInstance().loadImage(getActivity(),R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
+
+    public void changeFollow(boolean isFollow) {
+        if (isFollow) {
+            ImageManager.getInstance().loadImage(getActivity(), R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
+        } else {
+            ImageManager.getInstance().loadImage(getActivity(), R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
         }
     }
-    public void followSelect(boolean isFollow){
-        if(isFollow){
+
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
+    }
+
+    public void followSelect(boolean isFollow) {
+        if (!sessionCheck()) {
+            netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.alert_content_not_login);
+            return;
+        }
+
+        if (isFollow) {
             Net.getInstance().getFactoryIm().selectUnFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    if(response.isSuccessful()){
-                        if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
-                              Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
+                    if (response.isSuccessful()) {
+                        if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
 //                            int index  = SessionManager.getInstance().getUserModel().getFollowers().indexOf(scheduleModel.getUser_no());
 //                            SessionManager.getInstance().getUserModel().getFollowees().remove(index);
                             changeFollow(false);
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
                     Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
-                    netFail();
+                    netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });
-        }else {
+        } else {
             Net.getInstance().getFactoryIm().selectFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    if(response.isSuccessful()){
-                        if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
-                              Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
+                    if (response.isSuccessful()) {
+                        if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
 //                            SessionManager.getInstance().getUserModel().getFollowees().add(scheduleModel.getUser_no());
                             changeFollow(true);
                         }
                     }
                 }
+
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
                     Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
-                    netFail();
+                    netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });
         }
         scheduleModel.setFollow(!scheduleModel.isFollow());
     }
-    private void netFail() {
-        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
+
+    private void netFail(int title, int content) {
+        AlertManager.getInstance().showNetFailAlert(getActivity(), title, content);
     }
-    private void netFail2() {
-        AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.fragmentFeed_schedule_alert_like_fail, R.string.fragmentFeed_schedule_alert_like_content_fail);
-    }
+
 }
