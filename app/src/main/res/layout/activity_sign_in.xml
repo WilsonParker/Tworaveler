@@ -91,6 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_password"
+                        android:imeOptions="actionNext"
                         android:hint="@string/activity_login$hint_ET_password"
                         android:inputType="textPassword"
                         android:paddingLeft="@dimen/EditText_Left_Padding"

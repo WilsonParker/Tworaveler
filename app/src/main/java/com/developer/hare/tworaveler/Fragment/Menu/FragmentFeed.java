@@ -77,7 +77,7 @@ public class FragmentFeed extends BaseFragment {
                 startActivityForResult(intent, RESULT_CODE_SEARCH_CITY);
             }
         });
-
+        menuTopTitle.getIB_left().setVisibility(View.INVISIBLE);
         recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override
@@ -104,7 +104,7 @@ public class FragmentFeed extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(user_no,scrollCount);
+                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(user_no, scrollCount);
                 result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
@@ -151,10 +151,11 @@ public class FragmentFeed extends BaseFragment {
         scrollCount = 0;
         feedItemModels.clear();
     }
-    private void loginFilter(){
-        if(SessionManager.getInstance().isLogin()){
+
+    private void loginFilter() {
+        if (SessionManager.getInstance().isLogin()) {
             menuTopTitle.getIB_right().setVisibility(View.VISIBLE);
-        }else {
+        } else {
             menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
         }
     }
@@ -164,15 +165,15 @@ public class FragmentFeed extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         Serializable serializable = null;
         int type = 0;
-        if(requestCode == RESULT_CODE_SEARCH_CITY){
-            if(resultCode == RESULT_CODE_CITY_MODEL){
-                serializable =  data.getSerializableExtra(KEY_CITYMODEL);
+        if (requestCode == RESULT_CODE_SEARCH_CITY) {
+            if (resultCode == RESULT_CODE_CITY_MODEL) {
+                serializable = data.getSerializableExtra(KEY_CITYMODEL);
                 type = FragmentFeedFilter.TYPE_CITY;
-            }else if(resultCode == RESULT_CODE_SCHEDULE_MODEL){
-                serializable =  data.getSerializableExtra(KEY_SCHEDULE_MODEL);
+            } else if (resultCode == RESULT_CODE_SCHEDULE_MODEL) {
+                serializable = data.getSerializableExtra(KEY_SCHEDULE_MODEL);
                 type = FragmentFeedFilter.TYPE_NICKNAME;
             }
         }
-        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable ));
+        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
     }
 }

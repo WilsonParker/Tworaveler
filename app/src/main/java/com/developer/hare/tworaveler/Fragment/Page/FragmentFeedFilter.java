@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,12 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.developer.hare.tworaveler.Activity.SearchFeed;
 import com.developer.hare.tworaveler.Adapter.FeedCityListAdapter;
 import com.developer.hare.tworaveler.Adapter.FeedNicknameListAdapter;
-import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
@@ -24,6 +22,7 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -85,14 +84,13 @@ public class FragmentFeedFilter extends BaseFragment {
         uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
         menuTopTitle = uiFactory.createView(R.id.fragment_feed$menuToptitle);
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+        menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchFeed.class);
-                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+                FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());
             }
         });
-
+        menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
         recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
@@ -115,7 +113,7 @@ public class FragmentFeedFilter extends BaseFragment {
         int user_no = userModel.getUser_no();
         switch (type){
            case TYPE_CITY :
-
+               menuTopTitle.getTV_title().setText(cityModel.getCity());
                progressManager.actionWithState(new OnProgressAction() {
                    @Override
                    public void run() {

@@ -3,7 +3,9 @@ package com.developer.hare.tworaveler.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,7 +70,7 @@ public class Regist extends AppCompatActivity {
                     break;
                 case R.id.activity_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.button_left, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {
@@ -83,7 +85,7 @@ public class Regist extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.button_left, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.icon_gallery, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
@@ -98,7 +100,7 @@ public class Regist extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
+                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
                     break;
             }
         }
@@ -140,6 +142,25 @@ public class Regist extends AppCompatActivity {
         IV_cover = uiFactory.createView(R.id.activity_regist$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
         IV_camera = uiFactory.createView(R.id.activity_regist$IV_camera);
+
+        ET_tripName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_NEXT){
+                    TV_dateStart.callOnClick();
+                }
+                return true;
+            }
+        });
+        TV_dateStart.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_NEXT){
+                    TV_dateEnd.callOnClick();
+                }
+                return true;
+            }
+        });
 
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(uiFactory.createView(R.id.activity_regist$TV_txt_1));

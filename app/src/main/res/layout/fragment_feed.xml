@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        app:leftButton="@drawable/icon_back"
         app:rightButton="@drawable/icon_search"
         app:titleText="@string/fragment_feed_title" />
 
