@@ -20,6 +20,7 @@ import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -47,6 +48,7 @@ public class FragmentFeedFilter extends BaseFragment {
     private RecyclerView recyclerView;
     private MenuTopTitle menuTopTitle;
     private CityModel cityModel;
+    private UserModel userModel;
 
     private UIFactory uiFactory;
     private ArrayList<ScheduleModel> feedICityModels = new ArrayList<>();
@@ -101,10 +103,16 @@ public class FragmentFeedFilter extends BaseFragment {
         super.onResume();
         updateList(type);
     }
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
+    }
 
     private void updateList(int type) {
-        int user_no = SessionManager.getInstance().isLogin() ? SessionManager.getInstance().getUserModel().getUser_no() : -1;
-
+        if(!sessionCheck()){
+            return;
+        }
+        int user_no = userModel.getUser_no();
         switch (type){
            case TYPE_CITY :
 
@@ -115,14 +123,16 @@ public class FragmentFeedFilter extends BaseFragment {
                            @Override
                            public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                                if (response.isSuccessful()) {
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.isSuccessful());
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.message());
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.body());
                                    progressManager.endRunning();
                                    ResponseArrayModel<ScheduleModel> model = response.body();
-//                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
                                    if (model.getSuccess() == CODE_SUCCESS) {
                                        HandlerManager.getInstance().getHandler().post(new Runnable() {
                                            @Override
                                            public void run() {
-                                               cityListAdapter = new FeedCityListAdapter(feedICityModels, new OnListScrollListener() {
+                                               cityListAdapter = new FeedCityListAdapter(model.getResult(), new OnListScrollListener() {
                                                    @Override
                                                    public void scrollEnd() {
                                                        if (feedICityModels.size() == SIZE_FEED_LIST_COUNT * scrollCount) {
@@ -130,17 +140,15 @@ public class FragmentFeedFilter extends BaseFragment {
                                                    }
                                                });
                                                ++scrollCount;
+                                               recyclerView.setAdapter(cityListAdapter);
                                            }
                                        });
                                    }
-
                                } else {
                                    Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                                    netFail();
                                }
-
                            }
-
                            @Override
                            public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
                                Log_HR.log(FragmentFeedFilter.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);

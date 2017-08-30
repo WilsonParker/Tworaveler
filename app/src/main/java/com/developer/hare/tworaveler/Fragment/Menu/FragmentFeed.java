@@ -34,7 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.attr.type;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
@@ -163,11 +162,14 @@ public class FragmentFeed extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Serializable serializable = null;
+        int type = 0;
         if(requestCode == RESULT_CODE_SEARCH_CITY){
             if(resultCode == RESULT_CODE_CITY_MODEL){
                 serializable =  data.getSerializableExtra(KEY_CITYMODEL);
+                type = FragmentFeedFilter.TYPE_CITY;
             }else if(resultCode == RESULT_CODE_SCHEDULE_MODEL){
                 serializable =  data.getSerializableExtra(KEY_SCHEDULE_MODEL);
+                type = FragmentFeedFilter.TYPE_NICKNAME;
             }
         }
         FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable ));
