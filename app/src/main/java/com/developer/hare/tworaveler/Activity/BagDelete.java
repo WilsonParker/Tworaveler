@@ -14,6 +14,7 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Model.BagModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
@@ -99,7 +100,6 @@ public class BagDelete extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sessionCheck();
-
     }
 
     private void itemEmptyCheck(ArrayList<BagModel> items) {
@@ -139,7 +139,7 @@ public class BagDelete extends AppCompatActivity {
                             setItem(theme);
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
-                            AlertManager.getInstance().showNetFailAlert(activity, R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
+                            netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
                             break;
                     }
 
@@ -162,9 +162,12 @@ public class BagDelete extends AppCompatActivity {
             nos.add(model.getItem_no());
 
 //        if(nos.size() != 1) {
-            Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseArrayModel<String>>() {
+            Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseModel<String>>() {
                 @Override
-                public void onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response) {
+                public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)" + response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)" + response.body().getMessage());
+                    Log_HR.log(Log_HR.LOG_INFO, BagDelete.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)" + response.body().getResult());
                     if (response.isSuccessful()) {
                         // 성공했을 경우
                         switch (response.body().getSuccess()) {
@@ -179,10 +182,11 @@ public class BagDelete extends AppCompatActivity {
                                     }
                                 }
                                 bagDeleteAdapter.notifyDataSetChanged();
+                                RV_deletelist.setAdapter(bagDeleteAdapter);
                                 selected_items = new ArrayList<BagModel>();
                                 break;
                             case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
-                                AlertManager.getInstance().showNetFailAlert(activity, R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
+                                netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
                                 break;
                         }
 
@@ -192,7 +196,8 @@ public class BagDelete extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseArrayModel<String>> call, Throwable t) {
+                public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                    Log_HR.log(BagDelete.class, "onFailure(Call<ResponseArrayModel<String>> call, Throwable t)",t);
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
                 }
             });
@@ -228,6 +233,7 @@ public class BagDelete extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseArrayModel<String>> call, Throwable t) {
+                    Log_HR.log(BagDelete.class, "onFailure(Call<ResponseArrayModel<String>> call, Throwable t)",t);
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
                 }
             });
@@ -244,7 +250,7 @@ public class BagDelete extends AppCompatActivity {
     }
 
     private void netFailAlert(int title, int content) {
-        AlertManager.getInstance().showNetFailAlert(activity, title, content);
+        AlertManager.getInstance().showNetFailAlert(BagDelete.this, title, content);
     }
 
     private void createNavigationBagView() {

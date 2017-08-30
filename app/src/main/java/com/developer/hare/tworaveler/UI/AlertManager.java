@@ -180,7 +180,7 @@ public class AlertManager {
     }
 
     public void showNetFailAlert(Activity activity, int title, int content) {
-        showNetFailAlert(activity, title, content);
+        showNetFailAlert((Context) activity, title, content);
     }
 
     public void showNetFailAlert(Context context, int title, int content) {

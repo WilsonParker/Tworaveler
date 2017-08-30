@@ -34,11 +34,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.R.attr.fragment;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
 public class FragmentFeedDetail extends BaseFragment {
-    private static FragmentFeedDetail fragment = new FragmentFeedDetail();
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
@@ -52,6 +52,7 @@ public class FragmentFeedDetail extends BaseFragment {
     private String trip_Date;
 
     public static FragmentFeedDetail newInstance(ScheduleModel scheduleModel, String trip_Date) {
+        FragmentFeedDetail fragment = new FragmentFeedDetail();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
         bundle.putString(KEY_TRIPDATE, trip_Date);

@@ -39,7 +39,6 @@ public class FragmentMyPageProfile extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private TextView TV_cntFollower, TV_cntFollowing, TV_nickname, TV_message;
     private ImageView IV_profile;
-    private Class myClass = getClass();
 
     public static FragmentMyPageProfile newInstance() {
         return new FragmentMyPageProfile();
