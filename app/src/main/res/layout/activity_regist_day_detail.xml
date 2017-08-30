@@ -123,6 +123,8 @@
                     android:layout_marginTop="1dp"
                     android:layout_weight="300"
                     android:background="@null"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
                     android:gravity="center_vertical"
                     android:hint="@string/activity_regist_day_detail_text_1"
                     android:textColor="@color/regist_text_ET_color"
@@ -308,6 +310,8 @@
                         android:gravity="left|top"
                         android:hint="@string/activity_regist_day_detail_text_8"
                         android:inputType="text"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:textColor="@color/regist_text_ET_color"
                         android:textCursorDrawable="@drawable/cursor_edittext"
                         android:textSize="@dimen/TextSize_Content_1" />

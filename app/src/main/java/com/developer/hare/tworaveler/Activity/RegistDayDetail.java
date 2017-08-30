@@ -3,7 +3,9 @@ package com.developer.hare.tworaveler.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,10 +67,20 @@ public class RegistDayDetail extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case activity_regist_day_detail$TV_start:
-                    dateManager.getDateTime(RegistDayDetail.this, TV_startTime);
+                    dateManager.getDateTime(RegistDayDetail.this, TV_startTime, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TV_endTime.callOnClick();
+                        }
+                    });
                     break;
                 case R.id.activity_regist_day_detail$TV_end:
-                    dateManager.getDateTime(RegistDayDetail.this, TV_endTime);
+                    dateManager.getDateTime(RegistDayDetail.this, TV_endTime, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ET_memo.requestFocus();
+                        }
+                    });
                     break;
                 case R.id.activity_regist_day_detail$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
@@ -144,15 +156,25 @@ public class RegistDayDetail extends AppCompatActivity {
             }
         });
 
+        TV_locationName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_NEXT){
+                    TV_startTime.callOnClick();
+                }
+                return true;
+            }
+        });
+
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_1));
-        textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_2));
+//        textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_2));
         textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_3));
         textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_4));
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
         textViews.clear();
         textViews.add(TV_locationName);
-        textViews.add(TV_locationSearch);
+//        textViews.add(TV_locationSearch);
         textViews.add(TV_startTime);
         textViews.add(TV_endTime);
         textViews.add(ET_memo);

@@ -63,7 +63,12 @@ public class Regist extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case activity_regist$TV_start:
-                    dateManager.getDateYMD(Regist.this, TV_dateStart);
+                    dateManager.getDateYMD(Regist.this, TV_dateStart, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            TV_dateEnd.callOnClick();
+                        }
+                    });
                     break;
                 case R.id.activity_regist$TV_end:
                     dateManager.getDateYMD(Regist.this, TV_dateEnd);
@@ -148,15 +153,6 @@ public class Regist extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if(i == EditorInfo.IME_ACTION_NEXT){
                     TV_dateStart.callOnClick();
-                }
-                return true;
-            }
-        });
-        TV_dateStart.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_NEXT){
-                    TV_dateEnd.callOnClick();
                 }
                 return true;
             }
