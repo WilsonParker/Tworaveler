@@ -170,15 +170,15 @@ public interface NetFactoryIm {
 
     // 닉네임 검색
     @GET("/feed/getNickname/{nickname}")
-    Call<ResponseModel<String>> searchNickname(@Path("nickname") String nickname);
+    Call<ResponseModel<ScheduleModel>> searchNickname(@Path("nickname") String nickname);
 
     // 피드 도시 검색
     @GET("/feed/searchCity/{user_no}/{city}")
     Call<ResponseArrayModel<ScheduleModel>> searchFeedCity(@Path("user_no") int user_no, @Path("city") String city);
 
     // 피드 닉네임 검색
-    @GET("/feed/searchNickname/{user_no}/{nickname}")
-    Call<ResponseArrayModel<ScheduleModel>> searchFeedNickname(@Path("user_no") int user_no, @Path("nickname") String nickname);
+    @GET("/feed/searchNickname/{user_no}/{suser_no}")
+    Call<ResponseArrayModel<ScheduleModel>> searchFeedNickname(@Path("user_no") int user_no, @Path("suser_no") int suser_no);
 
     // 여행 별 상세일정 조회
     @GET("/trips/find_dtrip/{user_no}/{trip_no}/{trip_date}")

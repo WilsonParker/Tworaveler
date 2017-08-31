@@ -169,13 +169,13 @@ public class FragmentFeed extends BaseFragment {
             if (resultCode == RESULT_CODE_CITY_MODEL) {
                 serializable = data.getSerializableExtra(KEY_CITYMODEL);
                 type = FragmentFeedFilter.TYPE_CITY;
-                FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
             } else if (resultCode == RESULT_CODE_SCHEDULE_MODEL) {
 //                serializable = data.getSerializableExtra(KEY_SCHEDULE_MODEL);
-                String nickName = data.getStringExtra(DataDefinition.Intent.KEY_NICKNAME);
+                serializable = data.getStringExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
                 type = FragmentFeedFilter.TYPE_NICKNAME;
-                FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, nickName));
+
             }
+            FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
         }
 //        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
     }

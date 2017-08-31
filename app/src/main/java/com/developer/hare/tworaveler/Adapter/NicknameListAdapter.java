@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Listener.OnSelectNicknameListener;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
@@ -19,10 +20,10 @@ import com.developer.hare.tworaveler.Util.FontManager;
 
 public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapter.ViewHolder> {
     private OnSelectNicknameListener onSelectNicknameListener;
-    private String items;
+    private ScheduleModel items;
     private Context context;
 
-    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, String items, Context context) {
+    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, ScheduleModel items, Context context) {
         this.onSelectNicknameListener = onSelectNicknameListener;
         this.items = items;
         this.context = context;
@@ -59,8 +60,8 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
             LL_cell = uiFactory.createView(R.id.item_search_nickname$LL_cell);
         }
 
-        public void toBind(String model) {
-            TV_contents.setText(model);
+        public void toBind(ScheduleModel model) {
+            TV_contents.setText(model.getNickname());
             FontManager.getInstance().setFont(TV_contents, "NotoSansCJKkr-Medium.otf");
             LL_cell.setOnClickListener(new View.OnClickListener() {
                 @Override

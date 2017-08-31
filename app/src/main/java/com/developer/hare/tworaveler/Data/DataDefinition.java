@@ -50,7 +50,7 @@ public class DataDefinition {
                 ,KEY_DATE = "Date"
                 ,KEY_FILTER_TYPE= "filter_type"
                 ,KEY_SERIALIZABLE= "serializable"
-                ,KEY_NICKNAME= "Nickname"
+                ,KEY_NICKNAME= "ScheduleModel"
                 ;
     }
 

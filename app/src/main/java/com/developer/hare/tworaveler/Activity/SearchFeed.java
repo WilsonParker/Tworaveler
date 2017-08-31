@@ -49,7 +49,7 @@ public class SearchFeed extends AppCompatActivity {
     private FeedCityListAdapter cityListAdapter;
     private FeedNicknameListAdapter nicknameListAdapter;
     private ArrayList<CityModel> cityItems = new ArrayList<>();
-    private String nicknameItems;
+    private ScheduleModel nicknameItems;
 
     //    private MenuTopTitle menuTopTitle;
     private RecyclerView RV_citylist, RV_nicknamelist;
@@ -134,14 +134,14 @@ public class SearchFeed extends AppCompatActivity {
                     });
                 }else{
                     Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname");
-                    Net.getInstance().getFactoryIm().searchNickname(ET_city.getText().toString()).enqueue(new Callback<ResponseModel<String>>() {
+                    Net.getInstance().getFactoryIm().searchNickname(ET_city.getText().toString()).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                         @Override
-                        public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                        public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
                             Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.body());
                             Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.isSuccessful());
                             Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());
                             if (response.isSuccessful()) {
-                                ResponseModel<String> result = response.body();
+                                ResponseModel<ScheduleModel> result = response.body();
                                 nicknameItems = result.getResult();
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
                                     @Override
@@ -149,9 +149,9 @@ public class SearchFeed extends AppCompatActivity {
 //                                    cityListAdapter.notifyDataSetChanged();
                                         RV_citylist.setAdapter(new NicknameListAdapter(new OnSelectNicknameListener() {
                                             @Override
-                                            public void onSelectNickname(String model) {
+                                            public void onSelectNickname(ScheduleModel model) {
                                                 Intent intent = new Intent();
-                                                intent.putExtra(KEY_NICKNAME, nicknameItems);
+                                                intent.putExtra(KEY_NICKNAME, model);
                                                 setResult(RESULT_CODE_SCHEDULE_MODEL, intent);
                                                 finish();
                                             }
@@ -162,7 +162,7 @@ public class SearchFeed extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                        public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
                             Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response)", "onFail : " + t);
                         }
                     });
