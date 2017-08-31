@@ -177,7 +177,7 @@ public class Log_HR {
         print(LOG_INFO, m);
     }
 
-    public static <T> void log(Class<?> cls, String mName, Response<ResponseArrayModel<T>> response) {
+    public static <T> void logA(Class<?> cls, String mName, Response<ResponseArrayModel<T>> response) {
         String m = setNotiMsg("#Class : " + cls.getCanonicalName() + "\n#Method : " + mName + "" +
                 "\n#Message : " + response.body().getSuccess()
                 + "\n#Message : " + response.body().getMessage());

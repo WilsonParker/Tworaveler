@@ -20,6 +20,7 @@ import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -49,6 +50,7 @@ public class Comment extends AppCompatActivity {
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
+    private UserModel userModel;
     private int started;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
@@ -123,17 +125,20 @@ public class Comment extends AppCompatActivity {
     }
 
     public void onSendComment(View view) {
+        if(!sessionCheck()){
+            netFail(R.string.comment_alert_title_fail, R.string.alert_content_not_login);
+            return;
+        }
         String msg = ET_comment.getText().toString().trim();
         if (TextUtils.isEmpty(msg)) {
             ET_comment.setError("글을 작성 해주세요");
             return;
         }
         CommentModel commentModel = new CommentModel(scheduleModel.getTrip_no(), SessionManager.getInstance().getUserModel().getNickname(), msg);
-        Call<ResponseModel<CommentModel>> result = Net.getInstance().getFactoryIm().commentUpload(commentModel);
-        result.enqueue(new Callback<ResponseModel<CommentModel>>() {
+        Net.getInstance().getFactoryIm().commentUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     if (model.getSuccess() == CODE_SUCCESS) {
@@ -149,6 +154,7 @@ public class Comment extends AppCompatActivity {
                             }
                         });
                     } else {
+                        Log_HR.log(Log_HR.LOG_WARN,Comment.class, "onResponse","onResponse is not successful");
                         netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
                     }
                 }
@@ -202,5 +208,10 @@ public class Comment extends AppCompatActivity {
     private void netFail(int title, int content) {
         progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(this, title, content);
+    }
+
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
     }
 }

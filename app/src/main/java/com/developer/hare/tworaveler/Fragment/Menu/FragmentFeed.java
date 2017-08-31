@@ -104,12 +104,10 @@ public class FragmentFeed extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Call<ResponseArrayModel<ScheduleModel>> result = Net.getInstance().getFactoryIm().selectFeedList(user_no, scrollCount);
-                result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
+                Net.getInstance().getFactoryIm().selectFeedList(user_no, scrollCount).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
 //                        Log_HR.log(FragmentFeed.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();

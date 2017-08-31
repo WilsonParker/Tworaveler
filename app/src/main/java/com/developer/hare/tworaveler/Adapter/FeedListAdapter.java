@@ -43,7 +43,6 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
 public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHolder> {
     private ArrayList<ScheduleModel> items;
     private OnListScrollListener onListScrollListenrer;
-    private int scrollCount = 0;
     private ImageManager imageManager = ImageManager.getInstance();
 
     public FeedListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListenrer) {
