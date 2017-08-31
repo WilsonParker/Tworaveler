@@ -76,7 +76,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
         private PopupMenu popupMenu;
         private ScheduleDayModel model;
         public static final int TYPE_MYPAGE = 0x0001;
-        public static final int TYPE_FEED= 0x0010;
+        public static final int TYPE_FEED = 0x0010;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -121,11 +121,10 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             LL_like.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "Click", "눌렀다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     likeClick(model.isLike());
                 }
             });
-            if(type == TYPE_MYPAGE) {
+            if (type == TYPE_MYPAGE) {
                 IV_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -180,17 +179,17 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                         popupMenu.show();
                     }
                 });
-            }else{
+            } else {
                 IV_btn.setVisibility(View.INVISIBLE);
             }
+            changeLike(model.isLike());
         }
+
         private void changeLike(boolean isLike) {
             if (isLike) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);
-                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "changeLike", "이미지 체인지!" );
             } else {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);
-                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "changeLike", "이미지 원래대로!" );
             }
         }
 
@@ -205,10 +204,15 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
                                 case CODE_SUCCESS:
-                                    changeLike(false);
-                                    int likeCount = model.getLikeCount() - 1;
-                                    TV_like.setText("" + likeCount);
-                                    model.setLikeCount(likeCount);
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            changeLike(false);
+                                            int likeCount = model.getLikeCount() - 1;
+                                            TV_like.setText("" + likeCount);
+                                            model.setLikeCount(likeCount);
+                                        }
+                                    });
                                     break;
 
                             }
@@ -229,11 +233,16 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
                                 case CODE_SUCCESS:
-                                    changeLike(true);
-                                    int likeCount = model.getLikeCount() + 1;
-                                    TV_like.setText("" + likeCount);
-                                    model.setLikeCount(likeCount);
-                                    onItemDeleteListener.onDelete();
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            changeLike(true);
+                                            int likeCount = model.getLikeCount() + 1;
+                                            TV_like.setText("" + likeCount);
+                                            model.setLikeCount(likeCount);
+//                                            onItemDeleteListener.onDelete();
+                                        }
+                                    });
                                     break;
                             }
                         } else {

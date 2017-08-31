@@ -119,7 +119,7 @@ public class MyScheduleDetailModify extends AppCompatActivity {
     protected void init() {
         intent = getIntent();
         selected_date = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
-        scheduleDayModel = (ScheduleDayModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        scheduleDayModel = (ScheduleDayModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL);
         sessionManager = SessionManager.getInstance();
 
         uiFactory = UIFactory.getInstance(this);
@@ -182,7 +182,8 @@ public class MyScheduleDetailModify extends AppCompatActivity {
         TV_startTime.setText(scheduleDayModel.getStart_time() + "");
         TV_endTime.setText(scheduleDayModel.getEnd_time() + "");
         ET_memo.setText(scheduleDayModel.getMemo());
-        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleDayModel.getDtrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
+        if (scheduleDayModel.getDtrip_pic_url() != null && !scheduleDayModel.getDtrip_pic_url().isEmpty())
+            imageManager.loadImage(imageManager.createRequestCreator(this, scheduleDayModel.getDtrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
     }
 
     // 세부 일정 등록
@@ -192,8 +193,10 @@ public class MyScheduleDetailModify extends AppCompatActivity {
 
         ScheduleDayModel model = new ScheduleDayModel(scheduleDayModel.getTrip_no(), 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationName.getText().toString(), scheduleDayModel.getTrip_address(), selected_date);
         if (imageFile != null) {
+            Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onModify()", "imageFile != null: ");
+
             RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
-            Net.getInstance().getFactoryIm().insertDaySchedule(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
+            Net.getInstance().getFactoryIm().modifyScheduleDetail(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
