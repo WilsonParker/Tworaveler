@@ -1,5 +1,7 @@
 package com.developer.hare.tworaveler.Util.Parser;
 
+import com.developer.hare.tworaveler.Util.File.FileManager;
+import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.io.File;
@@ -18,6 +20,7 @@ import okhttp3.RequestBody;
 
 public class RetrofitBodyParser {
     private static RetrofitBodyParser retrofitBodyParser = new RetrofitBodyParser();
+    private static final int UPLOAD_MAX_SIZE = 640;
 
     public static RetrofitBodyParser getInstance() {
         return retrofitBodyParser;
@@ -34,11 +37,14 @@ public class RetrofitBodyParser {
     }
 
     public MultipartBody.Part createImageMultipartBodyPart(String key, File file) {
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        FileManager fileManager = FileManager.getInstance();
+        byte[] byteData= fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(fileManager.encodeFileToBitmap(file), UPLOAD_MAX_SIZE));
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteData);
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData(key, file.getName(), requestBody);
         return multipartBodyPart;
     }
-
 
     public Map<String, RequestBody> parseMapRequestBody(Object obj) {
         final String Key = "GET";
@@ -57,7 +63,6 @@ public class RetrofitBodyParser {
         Arrays.asList(objClass.getDeclaredFields()).forEach(field ->
                 {
                     String fieldName = field.getName();
-//                    Log_HR.log(Log_HR.LOG_INFO, getClass(), "parseMapRequestBody(Object obj)", "fieldName : " + fieldName);
                     try {
                         Method method = methodMap.get(Key + fieldName.toUpperCase());
                         if (method != null) {

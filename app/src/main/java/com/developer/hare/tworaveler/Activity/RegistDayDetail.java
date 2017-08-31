@@ -93,11 +93,7 @@ public class RegistDayDetail extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(RegistDayDetail.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(RegistDayDetail.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -108,11 +104,7 @@ public class RegistDayDetail extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(RegistDayDetail.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(RegistDayDetail.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -331,5 +323,14 @@ public class RegistDayDetail extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void bindImage(File file) {
+        imageFile = file;
+        ImageManager imageManager = ImageManager.getInstance();
+        RequestCreator requestCreator = imageManager.createRequestCreator(RegistDayDetail.this, file, ImageManager.THUMBNAIL_TYPE).centerCrop();
+        imageManager.loadImage(requestCreator, IV_cover);
+        AlertManager.getInstance().dismissAlertSelectionMode();
+        IV_camera.setVisibility(View.INVISIBLE);
     }
 }

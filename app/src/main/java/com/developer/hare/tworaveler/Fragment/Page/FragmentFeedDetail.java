@@ -12,11 +12,13 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -34,7 +36,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.attr.fragment;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
@@ -45,6 +46,7 @@ public class FragmentFeedDetail extends BaseFragment {
     private TextView TV_noItem;
     private LinearLayout linearLayout;
     private MypageDetailAdapter mypageDetailAdapter;
+    private UserModel userModel;
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
@@ -71,6 +73,7 @@ public class FragmentFeedDetail extends BaseFragment {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         trip_Date = bundle.getString(KEY_TRIPDATE);
+        sessionCheck();
 
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
@@ -103,7 +106,7 @@ public class FragmentFeedDetail extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date,userModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         if (response.isSuccessful()) {
@@ -140,5 +143,9 @@ public class FragmentFeedDetail extends BaseFragment {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);
         }
+    }
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
     }
 }

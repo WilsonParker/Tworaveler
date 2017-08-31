@@ -26,6 +26,7 @@ import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
@@ -162,30 +163,59 @@ public class MyScheduleModify extends AppCompatActivity {
             model = new ScheduleModel(userModel, cityModel, scheduleModel.getTrip_no(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
         else
             model = new ScheduleModel(userModel, scheduleModel.getTrip_no(), scheduleModel.getCountry(), scheduleModel.getCity(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
-        Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
-                Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
-                if (response.isSuccessful()) {
-                    ResponseModel<ScheduleModel> result = response.body();
-                    switch (result.getSuccess()) {
-                        case DataDefinition.Network.CODE_SUCCESS:
-                            onBackPressed();
-                            break;
-                        case DataDefinition.Network.CODE_ERROR:
-                            netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
-                            break;
-                    }
-                } else
-                    netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
-            }
+        if (imageFile != null) {
+            RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
+            Net.getInstance().getFactoryIm().modifySchedule(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
+                    if (response.isSuccessful()) {
+                        ResponseModel<ScheduleModel> result = response.body();
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                onBackPressed();
+                                break;
+                            case DataDefinition.Network.CODE_ERROR:
+                                netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
+                                break;
+                        }
+                    } else
+                        netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
+                }
 
-            @Override
-            public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail2);
-            }
-        });
+                @Override
+                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                    netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail2);
+                }
+            });
+        } else {
+            Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
+                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
+                    if (response.isSuccessful()) {
+                        ResponseModel<ScheduleModel> result = response.body();
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                onBackPressed();
+                                break;
+                            case DataDefinition.Network.CODE_ERROR:
+                                netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
+                                break;
+                        }
+                    } else
+                        netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                    netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail2);
+                }
+            });
+        }
+
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.developer.hare.tworaveler.Util.Image;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.widget.ImageView;
 
 import com.developer.hare.tworaveler.R;
@@ -79,4 +81,33 @@ public class ImageManager {
         return requestCreator;
     }
 
+    public Bitmap resizeImage(Bitmap bitmap, int newSize){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int newWidth = 0;
+        int newHeight = 0;
+
+        if(width > height){
+            newWidth = newSize;
+            newHeight = (newSize * height)/width;
+        } else if(width < height){
+            newHeight = newSize;
+            newWidth = (newSize * width)/height;
+        } else if (width == height){
+            newHeight = newSize;
+            newWidth = newSize;
+        }
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                width, height, matrix, true);
+
+        return resizedBitmap;
+    }
 }

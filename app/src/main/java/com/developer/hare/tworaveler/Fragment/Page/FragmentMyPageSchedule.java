@@ -97,7 +97,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MyScheduleModify.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
-                intent.putExtra(DataDefinition.Intent.KEY_STARTED_BY, KEY_MYPAGE);
                 startActivity(intent);
             }
         });
@@ -123,6 +122,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Comment.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                intent.putExtra(DataDefinition.Intent.KEY_STARTED_BY, KEY_MYPAGE);
                 startActivity(intent);
             }
         });

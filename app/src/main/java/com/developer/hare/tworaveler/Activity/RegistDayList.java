@@ -118,7 +118,7 @@ public class RegistDayList extends AppCompatActivity {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), selected_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), selected_date, userModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         if (response.isSuccessful()) {

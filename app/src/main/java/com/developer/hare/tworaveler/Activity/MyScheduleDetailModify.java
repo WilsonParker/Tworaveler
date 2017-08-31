@@ -36,7 +36,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,11 +87,7 @@ public class MyScheduleDetailModify extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(MyScheduleDetailModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleDetailModify.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -103,11 +98,7 @@ public class MyScheduleDetailModify extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(MyScheduleDetailModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleDetailModify.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -201,9 +192,8 @@ public class MyScheduleDetailModify extends AppCompatActivity {
 
         ScheduleDayModel model = new ScheduleDayModel(scheduleDayModel.getTrip_no(), 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationName.getText().toString(), scheduleDayModel.getTrip_address(), selected_date);
         if (imageFile != null) {
-            MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
-
-            Net.getInstance().getFactoryIm().insertDaySchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
+            RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
+            Net.getInstance().getFactoryIm().insertDaySchedule(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
@@ -312,5 +302,14 @@ public class MyScheduleDetailModify extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setData();
+    }
+
+    private void bindImage(File file) {
+        imageFile = file;
+        ImageManager imageManager = ImageManager.getInstance();
+        RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleDetailModify.this, file, ImageManager.THUMBNAIL_TYPE).centerCrop();
+        imageManager.loadImage(requestCreator, IV_cover);
+        AlertManager.getInstance().dismissAlertSelectionMode();
+        IV_camera.setVisibility(View.INVISIBLE);
     }
 }

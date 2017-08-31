@@ -2,10 +2,14 @@ package com.developer.hare.tworaveler.Util.File;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.developer.hare.tworaveler.Net.Net;
+import com.developer.hare.tworaveler.Util.Log_HR;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -35,6 +39,26 @@ public class FileManager {
     public void setActivity(Activity activity) {
         this.activity = activity;
         sharedPreferences = activity.getSharedPreferences(KEY_SHAREDPREFERENCES, MODE_PRIVATE);
+    }
+
+    public Bitmap encodeFileToBitmap(File file) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+        } catch (Exception e) {
+            Log_HR.log(getClass(), "encodeFileToBitmap(File file)", e);
+        }
+        return bitmap;
+    }
+
+    public byte[] encodeBitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        try {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        } catch (Exception e) {
+            Log_HR.log(getClass(), "encodeBitmapToFile(Bitmap bitmap)", e);
+        }
+        return bytes.toByteArray();
     }
 
     public void doFileUpload(File file, String method) {

@@ -81,11 +81,7 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -96,11 +92,7 @@ public class Regist extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(Regist.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    imageFile = fileData.getFile();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, fileData.getFile(), ImageManager.FIT_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -287,6 +279,15 @@ public class Regist extends AppCompatActivity {
 
     private void netFail(int title, int content) {
         AlertManager.getInstance().showNetFailAlert(Regist.this, title, content);
+    }
+
+    private void bindImage(File file) {
+        imageFile = file;
+        ImageManager imageManager = ImageManager.getInstance();
+        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, file, ImageManager.THUMBNAIL_TYPE).centerCrop();
+        imageManager.loadImage(requestCreator, IV_cover);
+        AlertManager.getInstance().dismissAlertSelectionMode();
+        IV_camera.setVisibility(View.INVISIBLE);
     }
 
 }

@@ -157,8 +157,8 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<ScheduleModel>> searchFeedNickname(@Path("user_no") int user_no, @Path("nickname") String nickname);
 
     // 여행 별 상세일정 조회
-    @GET("/trips/find_dtrip/{trip_no}/{trip_date}")
-    Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
+    @GET("/trips/find_dtrip/{user_no}/{trip_no}/{trip_date}")
+    Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date, @Path("user_no") int user_no);
 //    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
 
     /*

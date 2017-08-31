@@ -129,13 +129,15 @@ public class FragmentMypageDetail extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date, userModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
+                        progressManager.endRunning();
                         if (response.isSuccessful()) {
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
+                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
+
                             progressManager.endRunning();
                             HandlerManager.getInstance().post(new Runnable() {
                                 @Override
