@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.developer.hare.tworaveler.Adapter.FeedCityListAdapter;
 import com.developer.hare.tworaveler.Adapter.FeedNicknameListAdapter;
+import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
@@ -37,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_FILTER_TYPE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_NICKNAME;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_SERIALIZABLE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_FEED_LIST_COUNT;
@@ -47,6 +49,7 @@ public class FragmentFeedFilter extends BaseFragment {
     private RecyclerView recyclerView;
     private MenuTopTitle menuTopTitle;
     private CityModel cityModel;
+    private String  nickname;
     private UserModel userModel;
 
     private UIFactory uiFactory;
@@ -65,6 +68,14 @@ public class FragmentFeedFilter extends BaseFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+    public static FragmentFeedFilter newInstance(int type, String nickname) {
+        FragmentFeedFilter fragment = new FragmentFeedFilter();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_FILTER_TYPE, type);
+        bundle.putString(KEY_NICKNAME, nickname);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -79,6 +90,8 @@ public class FragmentFeedFilter extends BaseFragment {
 
         if(type == TYPE_CITY){
             cityModel = (CityModel) getArguments().getSerializable(KEY_SERIALIZABLE);
+        }else if(type == TYPE_NICKNAME){
+            nickname = getArguments().getString(DataDefinition.Bundle.KEY_NICKNAME);
         }
 
         uiFactory = UIFactory.getInstance(view);
@@ -157,7 +170,38 @@ public class FragmentFeedFilter extends BaseFragment {
                });
                break;
            case TYPE_NICKNAME :
+               menuTopTitle.getTV_title().setText(nickname);
+                progressManager.actionWithState(new OnProgressAction() {
+                    @Override
+                    public void run() {
+                        Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", "nickname :"+nickname);
+                        Net.getInstance().getFactoryIm().searchFeedNickname(user_no, nickname).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
+                            @Override
+                            public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.isSuccessful()+"");
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.body().toString()+"");
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.message()+"");
+                                if(response.isSuccessful()){
+                                    progressManager.endRunning();
+                                    ResponseArrayModel<ScheduleModel> model = response.body();
+                                    if(model.getSuccess() == CODE_SUCCESS){
+                                        nicknameListAdapter = new FeedNicknameListAdapter(model.getResult(), getActivity());
+                                        recyclerView.setAdapter(nicknameListAdapter);
+                                    }else{
+                                        Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "model.getSuccess() != CODE_SUCCESS", "response is not Successful");
+                                        netFail();
+                                    }
+                                }
+                            }
 
+                            @Override
+                            public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
+                                Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onFailure", "통신 실패" + t);
+                                netFail();
+                            }
+                        });
+                    }
+                });
                break;
        }
     }

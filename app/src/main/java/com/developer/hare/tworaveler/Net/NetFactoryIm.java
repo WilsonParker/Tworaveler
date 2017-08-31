@@ -67,6 +67,10 @@ public interface NetFactoryIm {
     @POST("/comment/add_comment")
     Call<ResponseModel<CommentModel>> commentUpload(@Body CommentModel model);
 
+    // 세부일정 댓글 등록
+    @POST("/detailedComment/add_comment")
+    Call<ResponseModel<CommentModel>> commentDetailUpload(@Body CommentModel model);
+
     // #############################################################################################
     // MODIFY
     // #############################################################################################
@@ -104,10 +108,21 @@ public interface NetFactoryIm {
 //    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
     Call<ResponseModel<LikeModel>> modifyLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
+    // 세부일정 좋아요
+    @FormUrlEncoded
+    @POST("/feed/dtrip_like")
+//    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
+    Call<ResponseModel<LikeModel>> modifyDetailLike(@Field("user_no") int user_no, @Field("dtrip_no") int dtrip_no);
+
     // 좋아요 취소
     @FormUrlEncoded
     @POST("/feed/unlike")
     Call<ResponseModel<LikeModel>> modifyUnLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
+
+    // 좋아요 취소
+    @FormUrlEncoded
+    @POST("/feed/dtrip_unlike")
+    Call<ResponseModel<LikeModel>> modifyDetailUnLike(@Field("user_no") int user_no, @Field("dtrip_no") int dtrip_no);
 
     // 팔로우
     @FormUrlEncoded
@@ -122,6 +137,10 @@ public interface NetFactoryIm {
     // 댓글 수정
     @POST("/comment/modify")
     Call<ResponseModel<CommentModel>> commentModify(@Body CommentModel model);
+
+    // 세부일정 댓글 수정
+    @POST("/detailedComment/modify")
+    Call<ResponseModel<CommentModel>> commentDetailModify(@Body CommentModel model);
 
     // #############################################################################################
     // SELECT
@@ -158,7 +177,7 @@ public interface NetFactoryIm {
 
     // 여행 별 상세일정 조회
     @GET("/trips/find_dtrip/{user_no}/{trip_no}/{trip_date}")
-    Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date, @Path("user_no") int user_no);
+    Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("user_no") int user_no, @Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
 //    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
 
     /*
@@ -184,6 +203,10 @@ public interface NetFactoryIm {
     // 댓글 조회
     @GET("/comment/look/{trip_no}")
     Call<ResponseArrayModel<CommentModel>> commentList(@Path("trip_no") int trip_no);
+
+    // 세부일정 댓글 조회
+    @GET("/detailedComment/get_detailed_comment")
+    Call<ResponseArrayModel<CommentModel>> commentDetailList(@Query("dtrip_no") int dtrip_no, @Query("dtrip_date ") String dtrip_date);
 
     // #############################################################################################
     // DELETE
@@ -220,6 +243,11 @@ public interface NetFactoryIm {
     // 댓글 삭제
     @POST("/comment/delete")
     Call<ResponseModel<CommentModel>> commentDelete(@Body CommentModel model);
+
+    // 세부일정 댓글 삭제
+    @POST("/detailedComment/delete")
+    Call<ResponseModel<CommentModel>> commentDetailDelete(@Body CommentModel model);
+
 }
 /*
 

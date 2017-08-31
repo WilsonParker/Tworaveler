@@ -19,6 +19,7 @@ import com.developer.hare.tworaveler.Adapter.FeedNicknameListAdapter;
 import com.developer.hare.tworaveler.Adapter.NicknameListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnSelectCityListener;
+import com.developer.hare.tworaveler.Listener.OnSelectNicknameListener;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
@@ -38,7 +39,9 @@ import retrofit2.Response;
 
 import static android.R.color.black;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_NICKNAME;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SCHEDULE_MODEL;
 
 public class SearchFeed extends AppCompatActivity {
 
@@ -46,7 +49,7 @@ public class SearchFeed extends AppCompatActivity {
     private FeedCityListAdapter cityListAdapter;
     private FeedNicknameListAdapter nicknameListAdapter;
     private ArrayList<CityModel> cityItems = new ArrayList<>();
-    private ScheduleModel nicknameItems;
+    private String nicknameItems;
 
     //    private MenuTopTitle menuTopTitle;
     private RecyclerView RV_citylist, RV_nicknamelist;
@@ -134,8 +137,10 @@ public class SearchFeed extends AppCompatActivity {
                     Net.getInstance().getFactoryIm().searchNickname(ET_city.getText().toString()).enqueue(new Callback<ResponseModel<String>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                            /*if (response.isSuccessful()) {
-                                Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.body());
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.body());
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.isSuccessful());
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());
+                            if (response.isSuccessful()) {
                                 ResponseModel<String> result = response.body();
                                 nicknameItems = result.getResult();
                                 HandlerManager.getInstance().getHandler().post(new Runnable() {
@@ -144,21 +149,21 @@ public class SearchFeed extends AppCompatActivity {
 //                                    cityListAdapter.notifyDataSetChanged();
                                         RV_citylist.setAdapter(new NicknameListAdapter(new OnSelectNicknameListener() {
                                             @Override
-                                            public void onSelectNickname(ScheduleModel model) {
+                                            public void onSelectNickname(String model) {
                                                 Intent intent = new Intent();
-                                                intent.putExtra(KEY_SCHEDULE_MODEL, "");
+                                                intent.putExtra(KEY_NICKNAME, nicknameItems);
                                                 setResult(RESULT_CODE_SCHEDULE_MODEL, intent);
                                                 finish();
                                             }
                                         }, nicknameItems, getApplicationContext()));
                                     }
                                 });
-                            }*/
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "onFail : " + t);
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response)", "onFail : " + t);
                         }
                     });
                 }

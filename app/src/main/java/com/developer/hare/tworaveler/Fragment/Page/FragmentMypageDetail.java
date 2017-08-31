@@ -45,9 +45,7 @@ public class FragmentMypageDetail extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
     private TextView TV_noItem, TV_date;
-    private LinearLayout linearLayout;
-
-
+    private LinearLayout linearLayout, LL_commnet, LL_like;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items;
@@ -97,6 +95,11 @@ public class FragmentMypageDetail extends BaseFragment {
         TV_date.setText(trip_date);
 
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$menuTopTItle);
+        TV_noItem = uiFactory.createView(R.id.fragment_mypage_detail$TV_noitem);
+        recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV_list);
+        linearLayout = uiFactory.createView(R.id.fragment_mypage_detail$LL_empty);
+
+        TV_date.setText(trip_date);
         menuTopTitle.setIBLeftOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +141,7 @@ public class FragmentMypageDetail extends BaseFragment {
                             Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
                             Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
 
+                        if (response.isSuccessful()) {
                             progressManager.endRunning();
                             HandlerManager.getInstance().post(new Runnable() {
                                 @Override
@@ -177,7 +181,7 @@ public class FragmentMypageDetail extends BaseFragment {
         if (items != null && items.size() > 0) {
             linearLayout.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(new MypageDetailAdapter(items, onItemDataChangeListener));
+            recyclerView.setAdapter(new MypageDetailAdapter(items, onItemDataChangeListener, KEY_MYPAGE));
         } else {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);

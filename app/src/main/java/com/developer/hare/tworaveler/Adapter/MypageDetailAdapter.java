@@ -11,8 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.CommentDetail;
 import com.developer.hare.tworaveler.Activity.MyScheduleDetailModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
@@ -40,10 +42,12 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
 public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapter.ViewHolder> {
     private ArrayList<ScheduleDayModel> items;
     private OnItemDataChangeListener onItemDeleteListener;
+    private int type;
 
-    public MypageDetailAdapter(ArrayList<ScheduleDayModel> items, OnItemDataChangeListener onItemDeleteListener) {
+    public MypageDetailAdapter(ArrayList<ScheduleDayModel> items, OnItemDataChangeListener onItemDeleteListener, int type) {
         this.items = items;
         this.onItemDeleteListener = onItemDeleteListener;
+        this.type = type;
     }
 
     @Override
@@ -65,7 +69,11 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
         private Context context;
         private TextView TV_like, TV_commenet, TV_city, TV_address, TV_time, TV_memo;
         private ImageView IV_cover, IV_like, IV_btn;
+        private LinearLayout LL_comment, LL_like;
         private PopupMenu popupMenu;
+        private ScheduleDayModel model;
+        public static final int TYPE_MYPAGE = 0x0001;
+        public static final int TYPE_FEED= 0x0010;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -80,9 +88,21 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             TV_commenet = uiFactory.createView(R.id.item_mypage_detail$TV_comment);
             IV_btn = uiFactory.createView(R.id.item_mypage_detail$IV_more);
             IV_like = uiFactory.createView(R.id.item_mypage_detail$IV_like);
+            LL_comment = uiFactory.createView(R.id.item_mypage_detail$LL_comment);
+            LL_like = uiFactory.createView(R.id.item_mypage_detail$LL_like);
+
+            LL_comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, CommentDetail.class);
+                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL, model);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         public void toBind(ScheduleDayModel model) {
+            this.model = model;
             if (!model.getDtrip_pic_url().isEmpty()) {
                 ImageManager imageManager = ImageManager.getInstance();
                 imageManager.loadImage(imageManager.createRequestCreator(context, model.getDtrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
@@ -95,61 +115,64 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             TV_address.setText(model.getTrip_address() + "");
             TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
             TV_memo.setText(model.getMemo() + "");
+            if(type == TYPE_MYPAGE) {
+                IV_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        popupMenu = new PopupMenu(context, view);
+                        MenuInflater inflater = popupMenu.getMenuInflater();
+                        Menu menu = popupMenu.getMenu();
 
-            IV_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    popupMenu = new PopupMenu(context, view);
-                    MenuInflater inflater = popupMenu.getMenuInflater();
-                    Menu menu = popupMenu.getMenu();
-
-                    inflater.inflate(R.menu.popup_menu, menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            Intent intent;
-                            switch (item.getItemId()) {
-                                case R.id.popup_menu$modify:
-                                    intent = new Intent(context, MyScheduleDetailModify.class);
-                                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                                    context.startActivity(intent);
-                                    break;
-                                case R.id.popup_menu$delete:
-                                    Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
-                                        @Override
-                                        public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getSuccess());
-                                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getMessage());
-                                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getResult());
-                                            if (response.isSuccessful()) {
-                                                switch (response.body().getSuccess()) {
-                                                    case CODE_SUCCESS:
-                                                        HandlerManager.getInstance().post(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onDelete running");
-                                                                items.remove(model);
-                                                                onItemDeleteListener.onDelete();
-                                                            }
-                                                        });
-                                                        break;
+                        inflater.inflate(R.menu.popup_menu, menu);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                Intent intent;
+                                switch (item.getItemId()) {
+                                    case R.id.popup_menu$modify:
+                                        intent = new Intent(context, MyScheduleDetailModify.class);
+                                        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL, model);
+                                        context.startActivity(intent);
+                                        break;
+                                    case R.id.popup_menu$delete:
+                                        Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getSuccess());
+                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getMessage());
+                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getResult());
+                                                if (response.isSuccessful()) {
+                                                    switch (response.body().getSuccess()) {
+                                                        case CODE_SUCCESS:
+                                                            HandlerManager.getInstance().post(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onDelete running");
+                                                                    items.remove(model);
+                                                                    onItemDeleteListener.onDelete();
+                                                                }
+                                                            });
+                                                            break;
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        @Override
-                                        public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                                            Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
-                                        }
-                                    });
-                                    break;
+                                            @Override
+                                            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                                Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                                            }
+                                        });
+                                        break;
+                                }
+                                return false;
                             }
-                            return false;
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
+                        });
+                        popupMenu.show();
+                    }
+                });
+            }else{
+                IV_btn.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

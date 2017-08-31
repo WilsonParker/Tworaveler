@@ -15,6 +15,8 @@ public class DataDefinition {
                 ,KEY_BAGMODEL= "BagModel"
                 ,KEY_BAGMODELS= "BagModels"
                 ,KEY_SCHEDULE_MODEL= "ScheduleModel"
+                ,KEY_SCHEDULE_DAY_MODEL= "ScheduleDayModel"
+                ,KEY_NICKNAME= "Nickname"
 
                 ,KEY_STARTED_BY= "StartedBy"
                 ,KEY_POSITION= "Position"
@@ -34,8 +36,8 @@ public class DataDefinition {
                 ,RESULT_CODE_CITY_MODEL= 0x0100
                 , RESULT_CODE_SCHEDULE_MODEL = 0x0101
 
-                ,KEY_FEED= 0x0001
-                ,KEY_MYPAGE= 0x0010;
+                ,KEY_MYPAGE= 0x0001
+                ,KEY_FEED= 0x0010;
 
         ;
 
@@ -48,6 +50,7 @@ public class DataDefinition {
                 ,KEY_DATE = "Date"
                 ,KEY_FILTER_TYPE= "filter_type"
                 ,KEY_SERIALIZABLE= "serializable"
+                ,KEY_NICKNAME= "Nickname"
                 ;
     }
 

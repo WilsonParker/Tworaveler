@@ -126,7 +126,6 @@ public class FragmentMyPageSchedule extends BaseFragment {
                 startActivity(intent);
             }
         });
-
         changeLike(scheduleModel.isLike());
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
         initMaterialCalendarView();

@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
-import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
-import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -36,6 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
@@ -43,8 +42,8 @@ public class FragmentFeedDetail extends BaseFragment {
     private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
-    private TextView TV_noItem;
-    private LinearLayout linearLayout;
+    private TextView TV_noItem, TV_date;
+    private LinearLayout linearLayout, LL_commnet, LL_like;
     private MypageDetailAdapter mypageDetailAdapter;
     private UserModel userModel;
     private ResourceManager resourceManager;
@@ -52,6 +51,12 @@ public class FragmentFeedDetail extends BaseFragment {
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
     private ScheduleModel scheduleModel;
     private String trip_Date;
+    private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
+        @Override
+        public void onDelete() {
+            updateList();
+        }
+    };
 
     public static FragmentFeedDetail newInstance(ScheduleModel scheduleModel, String trip_Date) {
         FragmentFeedDetail fragment = new FragmentFeedDetail();
@@ -65,7 +70,7 @@ public class FragmentFeedDetail extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_feed_detail, container, false);
+        return inflater.inflate(R.layout.fragment_my_page_detail, container, false);
     }
 
     @Override
@@ -98,6 +103,11 @@ public class FragmentFeedDetail extends BaseFragment {
         recyclerView.setAdapter(mypageDetailAdapter);
 
         TV_noItem = uiFactory.createView(R.id.fragment_feed_detail$TV_noitem);
+        TV_date= uiFactory.createView(R.id.fragment_mypage_detail$TV_date);
+        TV_date.setText(trip_Date);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
     }
@@ -139,6 +149,7 @@ public class FragmentFeedDetail extends BaseFragment {
         if (items != null && items.size() > 0) {
             linearLayout.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(new MypageDetailAdapter(items, onItemDataChangeListener, KEY_FEED));
         } else {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);

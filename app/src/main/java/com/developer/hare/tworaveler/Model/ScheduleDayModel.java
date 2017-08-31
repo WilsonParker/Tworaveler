@@ -10,6 +10,7 @@ public class ScheduleDayModel implements Serializable {
     // Regist Day Detail Model
     private int dtrip_no, trip_no, latitude, longitude, likeCount, CommentCount;
     private String dtrip_pic_url, start_time, end_time, memo, address, trip_date, trip_address;
+    private boolean isLike;
 
     public ScheduleDayModel(int trip_no, int latitude, int longitude, String start_time, String end_time, String memo, String address, String trip_address, String trip_date) {
         this.trip_no = trip_no;
@@ -34,7 +35,13 @@ public class ScheduleDayModel implements Serializable {
         this.address = address;
         this.trip_date = trip_date;
     }
+    public boolean isLike() {
+        return isLike;
+    }
 
+    public void setLike(boolean like) {
+        isLike = like;
+    }
     public int getDtrip_no() {
         return dtrip_no;
     }

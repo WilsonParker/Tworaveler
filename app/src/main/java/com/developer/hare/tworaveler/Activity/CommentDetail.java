@@ -13,13 +13,11 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
-import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -36,12 +34,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_MYPAGE;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_STARTED_BY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
-public class Comment extends AppCompatActivity {
+public class CommentDetail extends AppCompatActivity {
 
     private RecyclerView RV_commentlist;
     private MenuTopTitle menuToptitle;
@@ -49,12 +44,11 @@ public class Comment extends AppCompatActivity {
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
-    private int started;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
-    private ScheduleModel scheduleModel;
+    private ScheduleDayModel scheduleDayModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +65,7 @@ public class Comment extends AppCompatActivity {
     }
 
     private void init() {
-        scheduleModel = (ScheduleModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
-        started = getIntent().getIntExtra(KEY_STARTED_BY, -1);
+        scheduleDayModel = (ScheduleDayModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
 
@@ -87,19 +80,11 @@ public class Comment extends AppCompatActivity {
         menuToptitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (started) {
-                    case KEY_FEED:
-                        FragmentFeedSchedule.newInstance(scheduleModel);
-                        break;
-                    case KEY_MYPAGE:
-                        FragmentMyPageSchedule.newInstance(scheduleModel);
-                        break;
-                }
                 onBackPressed();
             }
         });
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Comment.this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
         commentAdapter = new CommentAdapter(items);
         RV_commentlist.setAdapter(commentAdapter);
@@ -113,7 +98,7 @@ public class Comment extends AppCompatActivity {
     }
 
     private void changeView() {
-        if (scheduleModel.getCommentCount() == 0) {
+        if (scheduleDayModel.getCommentCount() == 0) {
             LL_noitem.setVisibility(View.VISIBLE);
             RV_commentlist.setVisibility(View.INVISIBLE);
         } else {
@@ -128,9 +113,8 @@ public class Comment extends AppCompatActivity {
             ET_comment.setError("글을 작성 해주세요");
             return;
         }
-        CommentModel commentModel = new CommentModel(scheduleModel.getTrip_no(), SessionManager.getInstance().getUserModel().getNickname(), msg);
-        Call<ResponseModel<CommentModel>> result = Net.getInstance().getFactoryIm().commentUpload(commentModel);
-        result.enqueue(new Callback<ResponseModel<CommentModel>>() {
+        CommentModel commentModel = new CommentModel(scheduleDayModel.getTrip_no(), scheduleDayModel.getDtrip_no(), SessionManager.getInstance().getUserModel().getNickname(), msg);
+        Net.getInstance().getFactoryIm().commentDetailUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
 //                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getSuccess());
@@ -142,13 +126,13 @@ public class Comment extends AppCompatActivity {
                         HandlerManager.getInstance().post(new Runnable() {
                             @Override
                             public void run() {
-                                Log_HR.log(Log_HR.LOG_INFO, Comment.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "items Size : " + items.size());
+                                Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "items Size : " + items.size());
 //                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                                 ET_comment.setText("");
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
-                                scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
+                                scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount()+1);
                                 changeView();
                             }
                         });
@@ -172,9 +156,12 @@ public class Comment extends AppCompatActivity {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().commentList(scheduleModel.getTrip_no()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
+                Net.getInstance().getFactoryIm().commentDetailList(scheduleDayModel.getDtrip_no(), scheduleDayModel.getTrip_date()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
+                    Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " + response.isSuccessful());
+                    Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " + response.message());
+                        response.body().getResult().forEach((model) -> Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " +model));
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -199,7 +186,7 @@ public class Comment extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
-                        Log_HR.log(Comment.class, "onFailure()", t);
+                        Log_HR.log(CommentDetail.class, "onFailure()", t);
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
 //                Toast.makeText(Comment.this, "CreatList onFailure", Toast.LENGTH_SHORT).show();
                     }

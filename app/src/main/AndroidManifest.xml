@@ -119,6 +119,9 @@
         <activity
             android:name=".Activity.Comment"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".Activity.CommentDetail"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

@@ -46,6 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 
 public class FragmentFeedSchedule extends BaseFragment {
@@ -142,6 +143,7 @@ public class FragmentFeedSchedule extends BaseFragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), Comment.class);
                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                intent.putExtra(DataDefinition.Intent.KEY_STARTED_BY, KEY_FEED);
                 startActivity(intent);
             }
         });

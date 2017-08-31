@@ -9,13 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Listener.OnSelectNicknameListener;
-import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
-import com.developer.hare.tworaveler.Util.Image.ImageManager;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Hare on 2017-08-01.
@@ -23,10 +19,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapter.ViewHolder> {
     private OnSelectNicknameListener onSelectNicknameListener;
-    private ScheduleModel items;
+    private String items;
     private Context context;
 
-    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, ScheduleModel items, Context context) {
+    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, String items, Context context) {
         this.onSelectNicknameListener = onSelectNicknameListener;
         this.items = items;
         this.context = context;
@@ -51,21 +47,20 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView TV_contents;
-        private CircleImageView CV_profile;
+//        private CircleImageView CV_profile;
         private LinearLayout LL_cell;
-        private ImageManager imageManager;
+//        private ImageManager imageManager;
 
         public ViewHolder(View itemView) {
             super(itemView);
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             TV_contents = uiFactory.createView(R.id.item_search_nickname$TV_contents);
-            CV_profile = uiFactory.createView(R.id.item_search_nickname$CV_profile);
+//            CV_profile = uiFactory.createView(R.id.item_search_nickname$CV_profile);
             LL_cell = uiFactory.createView(R.id.item_search_nickname$LL_cell);
         }
 
-        public void toBind(ScheduleModel model) {
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
-            TV_contents.setText(model.getNickname());
+        public void toBind(String model) {
+            TV_contents.setText(model);
             FontManager.getInstance().setFont(TV_contents, "NotoSansCJKkr-Medium.otf");
             LL_cell.setOnClickListener(new View.OnClickListener() {
                 @Override

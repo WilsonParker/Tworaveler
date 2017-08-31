@@ -72,7 +72,6 @@ public class RegistDetail extends AppCompatActivity {
         uiFactory.createView(R.id.item_mypage$TV_comment).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_like).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_comment).setVisibility(View.GONE);
-        uiFactory.createView(R.id.item_mypage$IV_route).setVisibility(View.GONE);
         uiFactory.createView(R.id.item_mypage$IV_more).setVisibility(View.GONE);
 
         initMaterialCalendarView();
