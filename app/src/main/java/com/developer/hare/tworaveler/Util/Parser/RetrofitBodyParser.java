@@ -1,10 +1,13 @@
 package com.developer.hare.tworaveler.Util.Parser;
 
+import android.os.Build;
+
 import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +24,9 @@ import okhttp3.RequestBody;
 public class RetrofitBodyParser {
     private static RetrofitBodyParser retrofitBodyParser = new RetrofitBodyParser();
     private static final int UPLOAD_MAX_SIZE = 1080;
+    private Map<String, RequestBody> dataMap;
+    private Map<String, Method> methodMap;
+    private final String GET_KEY = "GET";
 
     public static RetrofitBodyParser getInstance() {
         return retrofitBodyParser;
@@ -38,7 +44,7 @@ public class RetrofitBodyParser {
 
     public MultipartBody.Part createImageMultipartBodyPart(String key, File file) {
         FileManager fileManager = FileManager.getInstance();
-        byte[] byteData= fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(fileManager.encodeFileToBitmap(file), UPLOAD_MAX_SIZE));
+        byte[] byteData = fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(fileManager.encodeFileToBitmap(file), UPLOAD_MAX_SIZE));
 
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteData);
@@ -47,34 +53,37 @@ public class RetrofitBodyParser {
     }
 
     public Map<String, RequestBody> parseMapRequestBody(Object obj) {
-        final String Key = "GET";
-        Map<String, RequestBody> dataMap = new HashMap<>();
-        Map<String, Method> methodMap = new HashMap<>();
+        dataMap = new HashMap<>();
+        methodMap = new HashMap<>();
 
         Class<? extends Object> objClass = obj.getClass();
 
         for (Method method : objClass.getMethods()) {
             String methodName = method.getName().toUpperCase();
-            if (methodName.contains(Key)) {
+            if (methodName.contains(GET_KEY)) {
                 methodMap.put(methodName, method);
             }
         }
 
-        Arrays.asList(objClass.getDeclaredFields()).forEach(field ->
-                {
-                    String fieldName = field.getName();
-                    try {
-                        Method method = methodMap.get(Key + fieldName.toUpperCase());
-                        if (method != null) {
-                            Object value = method.invoke(obj);
-                            if (value != null)
-                                dataMap.put(fieldName, createRequestBody(value));
-                        }
-                    } catch (Exception e) {
-                        Log_HR.log(getClass(), "parseMapRequestBody(Object obj)", e);
-                    }
-                }
-        );
+        if (Build.VERSION.SDK_INT <= 19) {
+            for (Field field : objClass.getDeclaredFields()) insertFieldData(field, obj);
+        } else {
+            Arrays.asList(objClass.getDeclaredFields()).forEach(field -> { insertFieldData(field, obj); });
+        }
         return dataMap;
+    }
+
+    private void insertFieldData(Field field, Object obj) {
+        String fieldName = field.getName();
+        try {
+            Method method = methodMap.get(GET_KEY + fieldName.toUpperCase());
+            if (method != null) {
+                Object value = method.invoke(obj);
+                if (value != null)
+                    dataMap.put(fieldName, createRequestBody(value));
+            }
+        } catch (Exception e) {
+            Log_HR.log(getClass(), "parseMapRequestBody(Object obj)", e);
+        }
     }
 }

@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+
 public class RegistDetail extends AppCompatActivity {
     private UIFactory uiFactory;
     private ImageManager imageManager;
@@ -48,7 +50,7 @@ public class RegistDetail extends AppCompatActivity {
 
     protected void init() {
         intent = getIntent();
-        scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        scheduleModel = (ScheduleModel) intent.getExtras().getSerializable(KEY_SCHEDULE_MODEL);
 
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
@@ -56,11 +58,18 @@ public class RegistDetail extends AppCompatActivity {
 
         scheduleItem = uiFactory.createView(R.id.activity_regist_detail$IC_schedul_item);
         menuTopTitle = uiFactory.createView(R.id.activity_regist_detail$menuToptitle);
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+        menuTopTitle.setIBRightOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistDetail.this, RegistDayDetail.class);
+                Intent intent = new Intent(RegistDetail.this, MyScheduleModify.class);
+                intent.putExtra(KEY_SCHEDULE_MODEL, scheduleModel);
                 startActivity(intent);
+            }
+        });
+        menuTopTitle.setIBLeftOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -84,9 +93,6 @@ public class RegistDetail extends AppCompatActivity {
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE)));
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
-
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
                 .setMinimumDate(CalendarDay.from(startArr[0], startArr[1] - 1, startArr[2]))
@@ -100,21 +106,19 @@ public class RegistDetail extends AppCompatActivity {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 Intent intent = new Intent(RegistDetail.this, RegistDayList.class);
                 intent.putExtra(DataDefinition.Intent.KEY_DATE, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
-                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, scheduleModel);
+                intent.putExtra(KEY_SCHEDULE_MODEL, scheduleModel);
                 startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
         materialCalendarView.setTopbarVisible(true);
-//        materialCalendarView.setBackgroundColor(Color.BLUE);
-//        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
     private void setData() {
         menuTopTitle.getTV_title().setText(SessionManager.getInstance().getUserModel().getNickname());
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
-        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.PICTURE_TYPE), IV_cover);
+        imageManager.loadImage(imageManager.createRequestCreator(this, scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
     }
 
     @Override

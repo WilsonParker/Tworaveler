@@ -190,6 +190,7 @@ public class Regist extends AppCompatActivity {
                                 Intent intent = new Intent(Regist.this, RegistDetail.class);
                                 intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
                                 startActivity(intent);
+                                finish();
                                 break;
                         }
                     } else

@@ -14,13 +14,17 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.kakao.auth.StringSet.file;
 
 /**
  * Created by Hare on 2017-08-06.
@@ -227,4 +231,26 @@ public class FileManager {
         editor.commit();
     }
 
+    private byte[] getFileFromURL(String path) {
+        byte[] buf = null;
+        try {
+            URL url = new URL(path);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            OutputStream outStream = new FileOutputStream(file);
+            // 읽어들일 버퍼크기를 메모리에 생성
+            buf = new byte[1024];
+            int len = 0;
+            // 끝까지 읽어들이면서 File 객체에 내용들을 쓴다
+            while ((len = inputStream.read(buf)) > 0) {
+                outStream.write(buf, 0, len);
+            }
+            // Stream 객체를 모두 닫는다.
+            outStream.close();
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buf;
+    }
 }

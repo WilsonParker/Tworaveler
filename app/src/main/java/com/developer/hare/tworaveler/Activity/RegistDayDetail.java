@@ -15,7 +15,6 @@ import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
-import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -199,12 +198,10 @@ public class RegistDayDetail extends AppCompatActivity {
                     Net.getInstance().getFactoryIm().insertDaySchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
+                            Log_HR.log(RegistDayDetail.class, "onResponse", response);
                             if (response.isSuccessful()) {
                                 progressManager.endRunning();
                                 ResponseModel<ScheduleDayModel> result = response.body();
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
                                         AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
@@ -216,13 +213,15 @@ public class RegistDayDetail extends AppCompatActivity {
                                         }).show();
                                         break;
                                 }
-                            } else
+                            } else {
                                 netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
+                                Log_HR.log(Log_HR.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                            Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                            Log_HR.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                             netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
                         }
                     });
@@ -230,27 +229,31 @@ public class RegistDayDetail extends AppCompatActivity {
                     Net.getInstance().getFactoryIm().insertDaySchedule(model).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
+                            Log_HR.log(RegistDayDetail.class, "onResponse", response);
                             if (response.isSuccessful()) {
                                 progressManager.endRunning();
                                 ResponseModel<ScheduleDayModel> result = response.body();
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
-                                        AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success).show();
-//                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
-//                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-//                                startActivity(intent);
+                                        AlertManager.getInstance().createAlert(RegistDayDetail.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismiss();
+                                                finish();
+                                            }
+                                        }).show();
                                         break;
                                 }
-                            } else
+                            } else {
                                 netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
+                                Log_HR.log(Log_HR.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
                             netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
+                            Log_HR.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                         }
                     });
                 }
@@ -269,9 +272,6 @@ public class RegistDayDetail extends AppCompatActivity {
         boolean result = false;
         String starDate = TV_startTime.getText().toString();
         String endDate = TV_endTime.getText().toString();
-        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate + " / " + endDate);
-        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
-
         if (TV_locationName.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_2)).show();
 //        } else if (TV_locationSearch.getText().toString().isEmpty()) {
@@ -308,17 +308,9 @@ public class RegistDayDetail extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
-                    CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                    if (model != null) {
-//                        TV_citySearch.setText(model.getCountry() + " " + model.getCity());
-//                        RequestCreator requestCreator = imageManager.createRequestCreator(getBaseContext(), model.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
-//                        imageManager.loadImage(requestCreator, IV_cover);
-//                        IV_camera.setVisibility(View.INVISIBLE);
-                    }
 
                 }
             }

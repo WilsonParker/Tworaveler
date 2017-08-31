@@ -21,7 +21,6 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
@@ -74,7 +73,6 @@ public class SearchCity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log_HR.log(Log_HR.LOG_INFO, SearchCity.class, "afterTextChanged(Editable)", "running");
                 Net.getInstance().getFactoryIm().searchCity(ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<CityModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CityModel>> call, Response<ResponseArrayModel<CityModel>> response) {
@@ -84,7 +82,6 @@ public class SearchCity extends AppCompatActivity {
                             HandlerManager.getInstance().post(new Runnable() {
                                 @Override
                                 public void run() {
-//                                    cityListAdapter.notifyDataSetChanged();
                                     RV_list.setAdapter(new CityListAdapter(onSelectCityListener, items, getApplicationContext()));
                                 }
                             });
