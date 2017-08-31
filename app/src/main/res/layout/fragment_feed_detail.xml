@@ -15,65 +15,106 @@
         app:leftButton="@drawable/icon_back"
         app:titleText="@string/fragment_feed_detail_title" />
 
-    <FrameLayout
-        android:id="@+id/fragment_feed_detail$FL_content"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="504"
-        android:weightSum="504"
-        >
-        <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="504">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="31" />
+
+        <TextView
+            android:id="@+id/fragment_feed_detail$TV_date"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/fragment_feed_detail$LL_empty"
-            android:visibility="invisible"
-            android:weightSum="504">
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textAlignment="center"
+            android:textColor="@color/regist_text_TV_color_2"
+            android:textSize="@dimen/TextSize_Content_2" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="41" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="476">
+
             <LinearLayout
+                android:id="@+id/fragment_feed_detail$LL_empty"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="169"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="116"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="360"
-                >
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
+
                 <ImageView
-                    android:id="@+id/fragment_feed_detail$noimage"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="116"
-                    android:background="@drawable/btn_add" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="275"
-                android:weightSum="275"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                    android:layout_height="0dp"
+                    android:layout_weight="85.7" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="14"/>
+                    android:layout_weight="116"
+                    android:weightSum="@string/DEVICE_WIDTH">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+
+                    <ImageView
+                        android:id="@+id/fragment_feed_detail$noimage"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="116"
+                        app:srcCompat="@drawable/btn_add" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="122" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="14.4" />
+
                 <TextView
                     android:id="@+id/fragment_feed_detail$TV_noitem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textSize="13sp"
-                    android:text="@string/fragment_feed_detail_regist" />
+                    android:text="@string/activity_regist_day_detail_list_text" />
             </LinearLayout>
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/fragment_feed_detail$RV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_feed_detail"
-            />
 
-    </FrameLayout>
+            <LinearLayout
+                android:id="@+id/fragment_feed_detail$LL_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="478">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_feed_detail$RV_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="421" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="57" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

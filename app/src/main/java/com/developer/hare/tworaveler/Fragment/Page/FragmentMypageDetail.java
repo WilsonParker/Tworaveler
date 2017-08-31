@@ -137,10 +137,9 @@ public class FragmentMypageDetail extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         progressManager.endRunning();
-                        if (response.isSuccessful()) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
+//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
+//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
+//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
 
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
@@ -158,7 +157,6 @@ public class FragmentMypageDetail extends BaseFragment {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
                             netFail();
                         }
-                    }
                     }
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t) {

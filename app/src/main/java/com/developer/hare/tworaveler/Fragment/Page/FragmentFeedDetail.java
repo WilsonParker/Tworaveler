@@ -1,6 +1,5 @@
 package com.developer.hare.tworaveler.Fragment.Page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -73,7 +71,12 @@ public class FragmentFeedDetail extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_page_detail, container, false);
+        return inflater.inflate(R.layout.fragment_feed_detail, container, false);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateList();
     }
 
     @Override
@@ -92,24 +95,19 @@ public class FragmentFeedDetail extends BaseFragment {
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(scheduleModel));
+                FragmentManager.getInstance().setFragmentContent(FragmentFeedSchedule.newInstance(scheduleModel));
             }
         });
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), RegistDayDetail.class));
-            }
-        });
-        recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV);
+
+        recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(mypageDetailAdapter);
 
         TV_noItem = uiFactory.createView(R.id.fragment_feed_detail$TV_noitem);
-        TV_date= uiFactory.createView(R.id.fragment_mypage_detail$TV_date);
+        TV_date= uiFactory.createView(R.id.fragment_feed_detail$TV_date);
         TV_date.setText(trip_Date);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
         updateList();
@@ -125,6 +123,9 @@ public class FragmentFeedDetail extends BaseFragment {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleDayModel> model = response.body();
+                            items = model.getResult();
+                            if (items == null)
+                                items = new ArrayList<ScheduleDayModel>();
                             itemEmptyCheck(items);
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");

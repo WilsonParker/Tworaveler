@@ -119,7 +119,7 @@ public interface NetFactoryIm {
     @POST("/feed/unlike")
     Call<ResponseModel<LikeModel>> modifyUnLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
-    // 좋아요 취소
+    // 세부일정 좋아요 취소
     @FormUrlEncoded
     @POST("/feed/dtrip_unlike")
     Call<ResponseModel<LikeModel>> modifyDetailUnLike(@Field("user_no") int user_no, @Field("dtrip_no") int dtrip_no);

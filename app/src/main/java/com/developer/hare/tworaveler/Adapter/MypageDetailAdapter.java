@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.CommentDetail;
 import com.developer.hare.tworaveler.Activity.MyScheduleDetailModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
+import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -43,6 +45,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
     private ArrayList<ScheduleDayModel> items;
     private OnItemDataChangeListener onItemDeleteListener;
     private int type;
+    private ImageManager imageManager = ImageManager.getInstance();
 
     public MypageDetailAdapter(ArrayList<ScheduleDayModel> items, OnItemDataChangeListener onItemDeleteListener, int type) {
         this.items = items;
@@ -115,6 +118,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             TV_address.setText(model.getTrip_address() + "");
             TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
             TV_memo.setText(model.getMemo() + "");
+            LL_like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "Click", "눌렀다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    likeClick(model.isLike());
+                }
+            });
             if(type == TYPE_MYPAGE) {
                 IV_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -173,6 +183,71 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             }else{
                 IV_btn.setVisibility(View.INVISIBLE);
             }
+        }
+        private void changeLike(boolean isLike) {
+            if (isLike) {
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);
+                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "changeLike", "이미지 체인지!" );
+            } else {
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);
+                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "changeLike", "이미지 원래대로!" );
+            }
+        }
+
+        private void likeClick(boolean isLike) {
+            if (isLike) {
+                Net.getInstance().getFactoryIm().modifyDetailUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getDtrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.isSuccessful());
+//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.message());
+//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.body().getResult().toString());
+                        if (response.isSuccessful()) {
+                            switch (response.body().getSuccess()) {
+                                case CODE_SUCCESS:
+                                    changeLike(false);
+                                    int likeCount = model.getLikeCount() - 1;
+                                    TV_like.setText("" + likeCount);
+                                    model.setLikeCount(likeCount);
+                                    break;
+
+                            }
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                    }
+                });
+            } else {
+                Net.getInstance().getFactoryIm().modifyDetailLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getDtrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                        if (response.isSuccessful()) {
+                            switch (response.body().getSuccess()) {
+                                case CODE_SUCCESS:
+                                    changeLike(true);
+                                    int likeCount = model.getLikeCount() + 1;
+                                    TV_like.setText("" + likeCount);
+                                    model.setLikeCount(likeCount);
+                                    onItemDeleteListener.onDelete();
+                                    break;
+                            }
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+
+                    }
+                });
+            }
+            model.setLike(!model.isLike());
         }
     }
 
