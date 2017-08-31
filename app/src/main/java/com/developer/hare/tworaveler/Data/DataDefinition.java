@@ -16,6 +16,7 @@ public class DataDefinition {
                 ,KEY_BAGMODELS= "BagModels"
                 ,KEY_SCHEDULE_MODEL= "ScheduleModel"
 
+                ,KEY_STARTED_BY= "StartedBy"
                 ,KEY_POSITION= "Position"
 
                 ,KEY_TRIPDATE= "TripDate"
@@ -31,7 +32,10 @@ public class DataDefinition {
                 , RESULT_CODE_REGIST_DAY_LIST = 0x0011
 
                 ,RESULT_CODE_CITY_MODEL= 0x0100
-                , RESULT_CODE_SCHEDULE_MODEL = 0x0101;
+                , RESULT_CODE_SCHEDULE_MODEL = 0x0101
+
+                ,KEY_FEED= 0x0001
+                ,KEY_MYPAGE= 0x0010;
 
         ;
 

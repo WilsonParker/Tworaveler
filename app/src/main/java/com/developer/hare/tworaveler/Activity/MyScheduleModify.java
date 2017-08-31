@@ -30,6 +30,7 @@ import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -49,6 +50,7 @@ public class MyScheduleModify extends AppCompatActivity {
     private TextView TV_citySearch, TV_dateStart, TV_dateEnd;
     private ImageView IV_cover, IV_camera;
     private ScheduleModel scheduleModel;
+    private File imageFile;
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -66,15 +68,13 @@ public class MyScheduleModify extends AppCompatActivity {
                     break;
                 case R.id.activity_myschedule_modify$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera_2, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onCameraSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager.getInstance().loadImage(MyScheduleModify.this, fileData.getFile(), IV_cover, ImageManager.THUMBNAIL_TYPE);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -85,11 +85,7 @@ public class MyScheduleModify extends AppCompatActivity {
                             PhotoManager.getInstance().onGallerySingleSelect(MyScheduleModify.this, new OnPhotoBindListener() {
                                 @Override
                                 public void bindData(FileData fileData) {
-                                    ImageManager imageManager = ImageManager.getInstance();
-                                    RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, fileData.getFile(), ImageManager.THUMBNAIL_TYPE).centerCrop();
-                                    imageManager.loadImage(requestCreator, IV_cover);
-                                    AlertManager.getInstance().dismissAlertSelectionMode();
-                                    IV_camera.setVisibility(View.INVISIBLE);
+                                    bindImage(fileData.getFile());
                                 }
                             });
                         }
@@ -236,5 +232,14 @@ public class MyScheduleModify extends AppCompatActivity {
     private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
+    }
+
+    private void bindImage(File file) {
+        imageFile = file;
+        ImageManager imageManager = ImageManager.getInstance();
+        RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, file, ImageManager.THUMBNAIL_TYPE).centerCrop();
+        imageManager.loadImage(requestCreator, IV_cover);
+        AlertManager.getInstance().dismissAlertSelectionMode();
+        IV_camera.setVisibility(View.INVISIBLE);
     }
 }

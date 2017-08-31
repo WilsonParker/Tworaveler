@@ -14,6 +14,7 @@ import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -35,6 +36,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_MYPAGE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_STARTED_BY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class Comment extends AppCompatActivity {
@@ -45,6 +49,7 @@ public class Comment extends AppCompatActivity {
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
+    private int started;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
@@ -67,6 +72,7 @@ public class Comment extends AppCompatActivity {
 
     private void init() {
         scheduleModel = (ScheduleModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        started = getIntent().getIntExtra(KEY_STARTED_BY, -1);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
 
@@ -81,7 +87,14 @@ public class Comment extends AppCompatActivity {
         menuToptitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentFeedSchedule.newInstance(scheduleModel);
+                switch (started) {
+                    case KEY_FEED:
+                        FragmentFeedSchedule.newInstance(scheduleModel);
+                        break;
+                    case KEY_MYPAGE:
+                        FragmentMyPageSchedule.newInstance(scheduleModel);
+                        break;
+                }
                 onBackPressed();
             }
         });
@@ -135,7 +148,7 @@ public class Comment extends AppCompatActivity {
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
-                                scheduleModel.setCommentCount(scheduleModel.getCommentCount()+1);
+                                scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
                                 changeView();
                             }
                         });

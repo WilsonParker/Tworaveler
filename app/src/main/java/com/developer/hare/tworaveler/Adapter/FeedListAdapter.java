@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
+
 /**
  * Created by Hare on 2017-08-01.
  */
@@ -95,6 +97,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 public void onClick(View view) {
                     Intent intent = new Intent(context, Comment.class);
                     intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                    intent.putExtra(DataDefinition.Intent.KEY_STARTED_BY, KEY_FEED);
                     context.startActivity(intent);
                 }
             });
