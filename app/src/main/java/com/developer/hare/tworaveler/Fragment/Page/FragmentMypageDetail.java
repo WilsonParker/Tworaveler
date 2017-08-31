@@ -46,7 +46,7 @@ public class FragmentMypageDetail extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
     private TextView TV_noItem, TV_date;
-    private LinearLayout linearLayout, LL_commnet, LL_like;
+    private LinearLayout linearLayout;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items;
@@ -61,7 +61,6 @@ public class FragmentMypageDetail extends BaseFragment {
     };
 
     public static FragmentMypageDetail newInstance(ScheduleModel scheduleModel, String trip_date) {
-//        FragmentMypageDetail.scheduleModel = scheduleModel;
         FragmentMypageDetail fragment = new FragmentMypageDetail();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);
@@ -137,9 +136,7 @@ public class FragmentMypageDetail extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         progressManager.endRunning();
-//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getSuccess());
-//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getMessage());
-//                            Log_HR.log(Log_HR.LOG_INFO, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + response.body().getResult());
+//                        Log_HR.log(FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             progressManager.endRunning();

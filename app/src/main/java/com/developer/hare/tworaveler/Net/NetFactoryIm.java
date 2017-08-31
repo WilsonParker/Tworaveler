@@ -105,13 +105,11 @@ public interface NetFactoryIm {
     // 좋아요
     @FormUrlEncoded
     @POST("/feed/like")
-//    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
     Call<ResponseModel<LikeModel>> modifyLike(@Field("user_no") int user_no, @Field("trip_no") int trip_no);
 
     // 세부일정 좋아요
     @FormUrlEncoded
     @POST("/feed/dtrip_like")
-//    Call<ResponseModel<LikeModel>> modifyLike(@Body LikeModel model);
     Call<ResponseModel<LikeModel>> modifyDetailLike(@Field("user_no") int user_no, @Field("dtrip_no") int dtrip_no);
 
     // 좋아요 취소
@@ -147,11 +145,6 @@ public interface NetFactoryIm {
     // #############################################################################################
 
     // 로그인
-    /*
-     * 200 : success
-     * 201 : email or password incorrect
-     * 202 : user was signed out
-     */
     @POST("/users/email_login")
     Call<ResponseModel<UserModel>> userSignIn(@Body UserReqModel model);
 
@@ -181,14 +174,6 @@ public interface NetFactoryIm {
     // 여행 별 상세일정 조회
     @GET("/trips/find_dtrip/{user_no}/{trip_no}/{trip_date}")
     Call<ResponseArrayModel<ScheduleDayModel>> selectDetailSchedule(@Path("user_no") int user_no, @Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
-//    Call<ResponseArrayModel<ScheduleDayRootModel>> selectDetailSchedule(@Path("trip_no") int trip_no, @Path("trip_date") String trip_date);
-
-    /*
-    // 프로필 정보 얻기
-    @GET("/profileSet")
-    Call<ResponseArrayModel<ProfileModel>> getProfile();
-
-    */
 
     // 프로필 정보 조회
     @GET("/users/profile")
@@ -252,9 +237,3 @@ public interface NetFactoryIm {
     Call<ResponseModel<CommentModel>> commentDetailDelete(@Body CommentModel model);
 
 }
-/*
-
-    // 프로필 정보 얻기
-    @GET("/profileSet/{idx}")
-    Call<ResponseArrayModel<ProfileModel>> getProfile(@Path("idx") int idx);
- */

@@ -71,7 +71,6 @@ public class FaceBookLoginManager {
         loginManager = LoginManager.getInstance();
         loginManager.registerCallback(callbackManager, callback);
 //        loginButton.registerCallback(callback);
-
     }
 
     public void onLoginClick() {

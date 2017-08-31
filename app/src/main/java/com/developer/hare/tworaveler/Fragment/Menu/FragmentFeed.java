@@ -108,10 +108,11 @@ public class FragmentFeed extends BaseFragment {
                 result.enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
+//                        Log_HR.log(FragmentFeed.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
-//                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "is Success?" + scrollCount + " : " + (model.getSuccess() == CODE_SUCCESS));
                             if (model.getSuccess() == CODE_SUCCESS) {
                                 HandlerManager.getInstance().post(new Runnable() {
                                     @Override
@@ -176,6 +177,5 @@ public class FragmentFeed extends BaseFragment {
             }
             FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
         }
-//        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
     }
 }

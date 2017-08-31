@@ -48,7 +48,6 @@ public class FragmentMyPageHome extends BaseFragment {
     private ImageView noImage;
 
     private UIFactory uiFactory;
-//    private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
     private ArrayList<ScheduleModel> items = new ArrayList<>();
     private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
@@ -77,7 +76,6 @@ public class FragmentMyPageHome extends BaseFragment {
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), FragmentMyPageProfile.class));
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageProfile.newInstance());
             }
         });
@@ -110,6 +108,7 @@ public class FragmentMyPageHome extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectMyScheduleList(SessionManager.getInstance().getUserModel().getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
+//                        Log_HR.log(FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();

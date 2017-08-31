@@ -47,7 +47,6 @@ public class UIFactory {
 
     private View initView(View view) {
         if (view instanceof TextView) {
-//            view.textD
         }
         return view;
     }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.Comment;
+import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -174,12 +175,6 @@ public class FragmentFeedSchedule extends BaseFragment {
         int[] startArr = DateManager.getInstance().getTimeArr(startDate);
         int[] endArr = DateManager.getInstance().getTimeArr(endDate);
 
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + startArr[0] + " : " + (startArr[1] - 1) + startArr[2]);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "initMaterialCalendarView", "date : " + endArr[0] + " : " + (endArr[1] - 1) + endArr[2]);
-
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "startArr: " + startArr[0]+" :  "+startArr[1]+" : "+startArr[2]);
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "initMaterialCalendarView()", "endArr: " + endArr[0]+" :  "+endArr[1]+" : "+endArr[2]);
-
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.MONTH)
                 .setMinimumDate(CalendarDay.from(startArr[0], startArr[1] - 1, startArr[2]))
@@ -191,21 +186,15 @@ public class FragmentFeedSchedule extends BaseFragment {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                /*Intent intent = new Intent(FragmentMyPageSchedule.this, FragmentMypageDetail.class);
-                intent.putExtra(DataDefinition.Intent.KEY_DATE,DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
-                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);*/
                 String trip_date = DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE);
                 FragmentManager.getInstance().setFragmentContent(FragmentFeedDetail.newInstance(scheduleModel, trip_date));
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
         materialCalendarView.setTopbarVisible(true);
-//        materialCalendarView.setBackgroundColor(Color.BLUE);
-//        materialCalendarView.setBackgroundResource(R.drawable.background_materialcalendar);
     }
 
     private void setDatas() {
-//        menuTopTitle.getTV_title().setText("");
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
         TV_comment.setText(scheduleModel.getCommentCount() + "");
@@ -217,7 +206,6 @@ public class FragmentFeedSchedule extends BaseFragment {
         if (isLike) {
             imageManager.loadImage(getActivity(), R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
         } else {
-//            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE).centerCrop(), IV_like);
             imageManager.loadImage(getActivity(), R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
         }
     }
@@ -232,9 +220,7 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "body : " + response.body().getSuccess());
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "body : " + response.body().getMessage());
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "body : " + response.body().getResult().toString());
+//                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                     if (response.isSuccessful()) {
                         switch (response.body().getSuccess()) {
@@ -262,6 +248,7 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
+                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
@@ -273,12 +260,14 @@ public class FragmentFeedSchedule extends BaseFragment {
                         }
                     } else {
                         netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
                     netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
+                    Log_HR.log(FragmentFeedSchedule.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
                 }
             });
         }
@@ -303,19 +292,19 @@ public class FragmentFeedSchedule extends BaseFragment {
             netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.alert_content_not_login);
             return;
         }
-
         if (isFollow) {
             Net.getInstance().getFactoryIm().selectUnFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
+                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                             Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
-//                            int index  = SessionManager.getInstance().getUserModel().getFollowers().indexOf(scheduleModel.getUser_no());
-//                            SessionManager.getInstance().getUserModel().getFollowees().remove(index);
                             changeFollow(false);
                         }
-                    }
+                    }else
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
@@ -328,13 +317,14 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().selectFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
+                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                             Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
-//                            SessionManager.getInstance().getUserModel().getFollowees().add(scheduleModel.getUser_no());
                             changeFollow(true);
                         }
-                    }
+                    }else
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
