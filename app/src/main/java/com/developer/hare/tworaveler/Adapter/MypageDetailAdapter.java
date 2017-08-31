@@ -185,7 +185,6 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             }
             changeLike(model.isLike());
         }
-
         private void changeLike(boolean isLike) {
             if (isLike) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);

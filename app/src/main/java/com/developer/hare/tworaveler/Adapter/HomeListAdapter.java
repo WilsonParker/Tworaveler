@@ -182,7 +182,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     popupMenu.show();
                 }
             });
-
             changeLike(model.isLike());
         }
 
@@ -230,7 +229,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     int likeCount = model.getLikeCount() + 1;
                                     TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
-                                    onItemDeleteListener.onDelete();
+//                                    onItemDeleteListener.onDelete();
                                     break;
                             }
                         } else {

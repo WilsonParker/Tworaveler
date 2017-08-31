@@ -98,6 +98,7 @@ public class FragmentFeedDetail extends BaseFragment {
                 FragmentManager.getInstance().setFragmentContent(FragmentFeedSchedule.newInstance(scheduleModel));
             }
         });
+        menuTopTitle.setTitleText(scheduleModel.getNickname());
 
         recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

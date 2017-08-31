@@ -120,6 +120,8 @@ public class FragmentFeedSchedule extends BaseFragment {
         initMaterialCalendarView();
         setDatas();
 
+        menuTopTitle.setTitleText(scheduleModel.getNickname());
+
         ArrayList<TextView> textlist1 = new ArrayList<>();
         ArrayList<TextView> textlist2 = new ArrayList<>();
         textlist1.add(TV_nickname);
