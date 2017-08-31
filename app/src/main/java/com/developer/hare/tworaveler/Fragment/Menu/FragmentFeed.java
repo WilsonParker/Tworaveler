@@ -172,8 +172,10 @@ public class FragmentFeed extends BaseFragment {
             } else if (resultCode == RESULT_CODE_SCHEDULE_MODEL) {
                 serializable = data.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
                 type = FragmentFeedFilter.TYPE_NICKNAME;
+
             }
             FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
         }
+//        FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, serializable));
     }
 }

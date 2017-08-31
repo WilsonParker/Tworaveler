@@ -53,9 +53,9 @@ public class FragmentFeedFilter extends BaseFragment {
     private UIFactory uiFactory;
     private ArrayList<ScheduleModel> feedICityModels = new ArrayList<>();
     private ProgressManager progressManager;
-    private int scrollCount = 0, type;
+    private int scrollCount = 0,  type;
     public static final int TYPE_CITY = 0x0001;
-    public static final int TYPE_NICKNAME = 0x0010;
+    public static final int TYPE_NICKNAME= 0x0010;
 
 
     public static FragmentFeedFilter newInstance(int type, Serializable serializable) {
@@ -77,9 +77,10 @@ public class FragmentFeedFilter extends BaseFragment {
     @Override
     protected void init(View view) {
         type = (int) getArguments().get(KEY_FILTER_TYPE);
-        if (type == TYPE_CITY) {
+
+        if(type == TYPE_CITY){
             cityModel = (CityModel) getArguments().getSerializable(KEY_SERIALIZABLE);
-        } else if (type == TYPE_NICKNAME) {
+        }else if(type == TYPE_NICKNAME){
             scheduleModel = (ScheduleModel) getArguments().getSerializable(KEY_SERIALIZABLE);
         }
 
@@ -103,83 +104,80 @@ public class FragmentFeedFilter extends BaseFragment {
         super.onResume();
         updateList(type);
     }
-
     private boolean sessionCheck() {
         userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }
 
     private void updateList(int type) {
-        if (!sessionCheck()) {
+        if(!sessionCheck()){
             return;
         }
         int user_no = userModel.getUser_no();
-        switch (type) {
-            case TYPE_CITY:
-                menuTopTitle.getTV_title().setText(cityModel.getCity());
+        switch (type){
+           case TYPE_CITY :
+               menuTopTitle.getTV_title().setText(cityModel.getCity());
+               progressManager.actionWithState(new OnProgressAction() {
+                   @Override
+                   public void run() {
+                       Net.getInstance().getFactoryIm().searchFeedCity(user_no, cityModel.getCity()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
+                           @Override
+                           public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
+                               if (response.isSuccessful()) {
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.isSuccessful());
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.message());
+                                   Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.body());
+                                   progressManager.endRunning();
+                                   ResponseArrayModel<ScheduleModel> model = response.body();
+                                   if (model.getSuccess() == CODE_SUCCESS) {
+                                       HandlerManager.getInstance().getHandler().post(new Runnable() {
+                                           @Override
+                                           public void run() {
+                                               cityListAdapter = new FeedCityListAdapter(model.getResult(), new OnListScrollListener() {
+                                                   @Override
+                                                   public void scrollEnd() {
+                                                       if (feedICityModels.size() == SIZE_FEED_LIST_COUNT * scrollCount) {
+                                                       }
+                                                   }
+                                               });
+                                               ++scrollCount;
+                                               recyclerView.setAdapter(cityListAdapter);
+                                           }
+                                       });
+                                   }
+                               } else {
+                                   Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                                   netFail();
+                               }
+                           }
+                           @Override
+                           public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
+                               Log_HR.log(FragmentFeedFilter.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
+                               netFail();
+                           }
+                       });
+                   }
+               });
+               break;
+           case TYPE_NICKNAME :
+               menuTopTitle.getTV_title().setText(scheduleModel.getNickname());
                 progressManager.actionWithState(new OnProgressAction() {
                     @Override
                     public void run() {
-                        Net.getInstance().getFactoryIm().searchFeedCity(user_no, cityModel.getCity()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
-                            @Override
-                            public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                                if (response.isSuccessful()) {
-                                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.isSuccessful());
-                                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.message());
-                                    Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "onResponse", "is Success?" + response.body());
-                                    progressManager.endRunning();
-                                    ResponseArrayModel<ScheduleModel> model = response.body();
-                                    if (model.getSuccess() == CODE_SUCCESS) {
-                                        HandlerManager.getInstance().getHandler().post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                cityListAdapter = new FeedCityListAdapter(model.getResult(), new OnListScrollListener() {
-                                                    @Override
-                                                    public void scrollEnd() {
-                                                        if (feedICityModels.size() == SIZE_FEED_LIST_COUNT * scrollCount) {
-                                                        }
-                                                    }
-                                                });
-                                                ++scrollCount;
-                                                recyclerView.setAdapter(cityListAdapter);
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
-                                    netFail();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                                Log_HR.log(FragmentFeedFilter.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
-                                netFail();
-                            }
-                        });
-                    }
-                });
-                break;
-            case TYPE_NICKNAME:
-                Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "scheduleModel :" + scheduleModel);
-
-                menuTopTitle.getTV_title().setText(scheduleModel.getNickname());
-                progressManager.actionWithState(new OnProgressAction() {
-                    @Override
-                    public void run() {
+                        Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", "nickname :"+scheduleModel.getNickname());
                         Net.getInstance().getFactoryIm().searchFeedNickname(user_no, scheduleModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                                Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", response.isSuccessful() + "");
-                                Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", response.body().toString() + "");
-                                Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", response.message() + "");
-                                if (response.isSuccessful()) {
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.isSuccessful()+"");
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.body().toString()+"");
+                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.message()+"");
+                                if(response.isSuccessful()){
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
-                                    if (model.getSuccess() == CODE_SUCCESS) {
+                                    if(model.getSuccess() == CODE_SUCCESS){
                                         nicknameListAdapter = new FeedNicknameListAdapter(model.getResult(), getActivity());
                                         recyclerView.setAdapter(nicknameListAdapter);
-                                    } else {
+                                    }else{
                                         Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "model.getSuccess() != CODE_SUCCESS", "response is not Successful");
                                         netFail();
                                     }
@@ -188,14 +186,14 @@ public class FragmentFeedFilter extends BaseFragment {
 
                             @Override
                             public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                                Log_HR.log(FragmentFeedFilter.class, "onFailure", t);
+                                Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onFailure", "통신 실패" + t);
                                 netFail();
                             }
                         });
                     }
                 });
-                break;
-        }
+               break;
+       }
     }
 
     private void netFail() {

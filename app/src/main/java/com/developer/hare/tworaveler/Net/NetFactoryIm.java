@@ -20,7 +20,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -162,10 +161,6 @@ public interface NetFactoryIm {
     // 여행 가방 목록
     @GET("/backpack/get_category_backpack")
     Call<ResponseArrayModel<BagModel>> selectBagList(@Query("user_no") int user_no, @Query("category_theme") String category_theme);
-
-
-    @DELETE("/backpack/get_category_backpack")
-    Call<ResponseArrayModel<BagModel>> a(@Query("user_no") int user_no, @Query("category_theme") String category_theme);
 
     // 도시 검색
     @GET("/location/get_location")

@@ -61,12 +61,13 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
         }
 
         public void toBind(ScheduleModel model) {
+            items = model;
             TV_contents.setText(model.getNickname());
             FontManager.getInstance().setFont(TV_contents, "NotoSansCJKkr-Medium.otf");
             LL_cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onSelectNicknameListener.onSelectNickname(model);
+                    onSelectNicknameListener.onSelectNickname(items);
                 }
             });
         }
