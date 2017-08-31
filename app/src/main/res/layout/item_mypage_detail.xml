@@ -144,8 +144,9 @@
                                     android:id="@+id/item_mypage_detail$IV_like"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    app:srcCompat="@drawable/icon_heart_unclick"
+                                    android:background="@drawable/icon_heart_unclick"
                                     />
+                                <!--app:srcCompat="@drawable/icon_heart_unclick"-->
 
                                 <TextView
                                     android:id="@+id/item_mypage_detail$TV_like"

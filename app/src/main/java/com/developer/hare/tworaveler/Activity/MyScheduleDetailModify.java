@@ -191,19 +191,50 @@ public class MyScheduleDetailModify extends AppCompatActivity {
         if (!checkValidation())
             return;
 
-        ScheduleDayModel model = new ScheduleDayModel(scheduleDayModel.getTrip_no(), 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationName.getText().toString(), scheduleDayModel.getTrip_address(), selected_date);
+        ScheduleDayModel model = new ScheduleDayModel(scheduleDayModel.getDtrip_no(), scheduleDayModel.getTrip_no(), 0, 0, TV_startTime.getText().toString(), TV_endTime.getText().toString(), ET_memo.getText().toString(), TV_locationName.getText().toString(), scheduleDayModel.getTrip_address(), selected_date);
         if (imageFile != null) {
-            Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onModify()", "imageFile != null: ");
-
             RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
             Net.getInstance().getFactoryIm().modifyScheduleDetail(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
                         ResponseModel<ScheduleDayModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                AlertManager.getInstance().createAlert(MyScheduleDetailModify.this, SweetAlertDialog.SUCCESS_TYPE, R.string.myscheduleDetailModify_alert_title_success, R.string.myscheduleDetailModify_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
+                                        finish();
+                                    }
+                                }).show();
+                                break;
+                            case DataDefinition.Network.CODE_ERROR:
+                                netFail(R.string.myscheduleDetailModify_alert_title_fail, R.string.myscheduleDetailModify_alert_title_fail);
+                                break;
+                        }
+                    } else
+                        netFail(R.string.myscheduleDetailModify_alert_title_fail, R.string.myscheduleDetailModify_alert_title_fail);
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
+                    Log_HR.log(MyScheduleDetailModify.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                    netFail(R.string.myscheduleDetailModify_alert_title_fail, R.string.myscheduleDetailModify_alert_content_fail_2);
+                }
+            });
+        } else {
+            Net.getInstance().getFactoryIm().modifyScheduleDetail(model).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
+                    if (response.isSuccessful()) {
+                        ResponseModel<ScheduleDayModel> result = response.body();
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 AlertManager.getInstance().createAlert(MyScheduleDetailModify.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
@@ -213,33 +244,6 @@ public class MyScheduleDetailModify extends AppCompatActivity {
                                         finish();
                                     }
                                 }).show();
-                                break;
-                        }
-                    } else
-                        netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
-                }
-
-                @Override
-                public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                    Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
-                    netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
-                }
-            });
-        } else {
-            Net.getInstance().getFactoryIm().modifyScheduleDetail(model).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
-                @Override
-                public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
-                    if (response.isSuccessful()) {
-                        ResponseModel<ScheduleDayModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
-                        switch (result.getSuccess()) {
-                            case DataDefinition.Network.CODE_SUCCESS:
-                                AlertManager.getInstance().createAlert(MyScheduleDetailModify.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success).show();
-//                                Intent intent = new Intent(getBaseContext(), RegistDetail.class);
-//                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-//                                startActivity(intent);
                                 break;
                         }
                     } else
@@ -265,8 +269,8 @@ public class MyScheduleDetailModify extends AppCompatActivity {
         boolean result = false;
         String starDate = TV_startTime.getText().toString();
         String endDate = TV_endTime.getText().toString();
-        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate + " / " + endDate);
-        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
+//        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate + " / " + endDate);
+//        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
 
         if (TV_locationName.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_2)).show();

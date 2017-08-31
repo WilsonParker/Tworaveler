@@ -141,6 +141,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                     case R.id.popup_menu$modify:
                                         intent = new Intent(context, MyScheduleDetailModify.class);
                                         intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL, model);
+                                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "setOnMenuItemClickListener", "ScheduleDayModel : " + model);
                                         context.startActivity(intent);
                                         break;
                                     case R.id.popup_menu$delete:
