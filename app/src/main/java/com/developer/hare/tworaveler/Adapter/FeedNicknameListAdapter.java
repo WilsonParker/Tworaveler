@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.Comment;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -112,7 +112,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(model));
+                    FragmentManager.getInstance().setFragmentContent(FragmentFeedSchedule.newInstance(model));
                 }
             });
             ImageManager imageManager = ImageManager.getInstance();

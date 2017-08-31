@@ -172,16 +172,18 @@ public class FragmentFeedFilter extends BaseFragment {
                 progressManager.actionWithState(new OnProgressAction() {
                     @Override
                     public void run() {
-                        Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", "nickname :"+scheduleModel.getNickname());
+                        Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", "nickname :"+scheduleModel.getNickname());
                         Net.getInstance().getFactoryIm().searchFeedNickname(user_no, scheduleModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.isSuccessful()+"");
-                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.body().toString()+"");
-                                Log_HR.log(Log_HR.LOG_ERROR,FragmentFeedFilter.class, "데이터 확인", response.message()+"");
+                                Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", response.isSuccessful()+"");
+                                Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", response.body().toString()+"");
+                                Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", response.message()+"");
                                 if(response.isSuccessful()){
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
+                                    Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", model.getSuccess()+"");
+//                                    Log_HR.log(Log_HR.LOG_INFO,FragmentFeedFilter.class, "데이터 확인", model.getResult().toString()+"");
                                     if(model.getSuccess() == CODE_SUCCESS){
                                         nicknameListAdapter = new FeedNicknameListAdapter(model.getResult(), getActivity());
                                         recyclerView.setAdapter(nicknameListAdapter);

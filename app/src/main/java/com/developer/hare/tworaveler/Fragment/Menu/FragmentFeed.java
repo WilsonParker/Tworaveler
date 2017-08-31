@@ -171,7 +171,7 @@ public class FragmentFeed extends BaseFragment {
                 type = FragmentFeedFilter.TYPE_CITY;
             } else if (resultCode == RESULT_CODE_SCHEDULE_MODEL) {
 //                serializable = data.getSerializableExtra(KEY_SCHEDULE_MODEL);
-                serializable = data.getStringExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+                serializable = data.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
                 type = FragmentFeedFilter.TYPE_NICKNAME;
 
             }

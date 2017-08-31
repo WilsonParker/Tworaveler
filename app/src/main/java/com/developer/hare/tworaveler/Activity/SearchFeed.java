@@ -39,7 +39,7 @@ import retrofit2.Response;
 
 import static android.R.color.black;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_NICKNAME;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SCHEDULE_MODEL;
 
@@ -151,7 +151,7 @@ public class SearchFeed extends AppCompatActivity {
                                             @Override
                                             public void onSelectNickname(ScheduleModel model) {
                                                 Intent intent = new Intent();
-                                                intent.putExtra(KEY_NICKNAME, model);
+                                                intent.putExtra(KEY_SCHEDULE_MODEL, model);
                                                 setResult(RESULT_CODE_SCHEDULE_MODEL, intent);
                                                 finish();
                                             }
