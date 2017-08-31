@@ -38,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_MYPAGE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_TRIPDATE;
 
@@ -132,7 +133,7 @@ public class FragmentMypageDetail extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_date, userModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(userModel.getUser_no(),scheduleModel.getTrip_no(), trip_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         progressManager.endRunning();
@@ -158,7 +159,7 @@ public class FragmentMypageDetail extends BaseFragment {
                             netFail();
                         }
                     }
-
+                    }
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t) {
                         Log_HR.log(FragmentMypageDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);

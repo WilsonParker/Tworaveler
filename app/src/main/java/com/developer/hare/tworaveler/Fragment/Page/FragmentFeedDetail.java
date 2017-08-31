@@ -12,11 +12,14 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.RegistDayDetail;
 import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -116,7 +119,7 @@ public class FragmentFeedDetail extends BaseFragment {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(scheduleModel.getTrip_no(), trip_Date,userModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(userModel.getUser_no(),scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         if (response.isSuccessful()) {
