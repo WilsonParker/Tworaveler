@@ -51,7 +51,7 @@ public class FragmentMypageDetail extends BaseFragment {
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<ScheduleDayModel> items;
-    private ScheduleModel scheduleModel;
+    private static ScheduleModel scheduleModel;
     private String trip_date;
     private UserModel userModel;
     private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
@@ -62,6 +62,7 @@ public class FragmentMypageDetail extends BaseFragment {
     };
 
     public static FragmentMypageDetail newInstance(ScheduleModel scheduleModel, String trip_date) {
+//        FragmentMypageDetail.scheduleModel = scheduleModel;
         FragmentMypageDetail fragment = new FragmentMypageDetail();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_SCHEDULE_MODEL, scheduleModel);

@@ -84,6 +84,11 @@ public interface NetFactoryIm {
     @POST("/trips/update_trip")
     Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleModel model);
 
+    /*// 일정 수정
+    @Multipart
+    @POST("/trips/insert_trip")
+    Call<ResponseModel<ScheduleModel>> insertSchedule(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);*/
+
     // 세부 일정 수정
     @POST("/trips/update_dtrip")
     Call<ResponseModel<ScheduleDayModel>> modifyScheduleDetail(@Body ScheduleDayModel model);
