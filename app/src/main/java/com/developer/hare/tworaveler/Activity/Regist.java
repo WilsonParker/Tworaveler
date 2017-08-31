@@ -75,7 +75,7 @@ public class Regist extends AppCompatActivity {
                     break;
                 case R.id.activity_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera, new View.OnClickListener() {
+                    AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera_2, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             PhotoManager.getInstance().onCameraSelect(Regist.this, new OnPhotoBindListener() {

@@ -16,6 +16,7 @@ import com.developer.hare.tworaveler.Activity.Regist;
 import com.developer.hare.tworaveler.Adapter.HomeListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -29,7 +30,6 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -41,16 +41,22 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
 
 public class FragmentMyPageHome extends BaseFragment {
     private static FragmentMyPageHome fragment = new FragmentMyPageHome();
-    private UIFactory uiFactory;
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;
     private TextView TV_noItem;
     private LinearLayout LL_empty;
     private ImageView noImage;
-    private ResourceManager resourceManager;
-    private HomeListAdapter homeListAdapter;
+
+    private UIFactory uiFactory;
+//    private HomeListAdapter homeListAdapter;
     private ProgressManager progressManager;
     private ArrayList<ScheduleModel> items = new ArrayList<>();
+    private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
+        @Override
+        public void onDelete() {
+            updateList();
+        }
+    };
 
     public static FragmentMyPageHome newInstance() {
         return fragment;
@@ -64,7 +70,6 @@ public class FragmentMyPageHome extends BaseFragment {
 
     @Override
     protected void init(View view) {
-        resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
 
@@ -84,9 +89,7 @@ public class FragmentMyPageHome extends BaseFragment {
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV_list);
-        homeListAdapter = new HomeListAdapter(items);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(homeListAdapter);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
 
@@ -116,8 +119,7 @@ public class FragmentMyPageHome extends BaseFragment {
                                     public void run() {
                                         items = model.getResult();
                                         itemEmptyCheck(items);
-                                        homeListAdapter.notifyDataSetChanged();
-                                        recyclerView.setAdapter(new HomeListAdapter(items));
+                                        recyclerView.setAdapter(new HomeListAdapter(items, onItemDeleteListener));
                                     }
                                 });
                             }

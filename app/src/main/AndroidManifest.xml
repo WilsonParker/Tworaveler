@@ -47,7 +47,7 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
 
-                <!-- <action android:name="android.intent.action.MAIN" /> -->
+                <!-- <onDelete android:name="android.intent.onDelete.MAIN" /> -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -115,6 +115,7 @@
             android:name=".Activity.RegistDayDetail"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".Activity.MyScheduleModify" />
+        <activity android:name=".Activity.MyScheduleDetailModify" />
         <activity
             android:name=".Activity.Comment"
             android:windowSoftInputMode="adjustPan|stateHidden"/>

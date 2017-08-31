@@ -15,6 +15,7 @@ import com.developer.hare.tworaveler.Adapter.MypageDetailAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
@@ -53,6 +54,12 @@ public class FragmentMypageDetail extends BaseFragment {
     private ScheduleModel scheduleModel;
     private String trip_date;
     private UserModel userModel;
+    private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
+        @Override
+        public void onDelete() {
+            updateList();
+        }
+    };
 
     public static FragmentMypageDetail newInstance(ScheduleModel scheduleModel, String trip_date) {
         FragmentMypageDetail fragment = new FragmentMypageDetail();
@@ -89,13 +96,13 @@ public class FragmentMypageDetail extends BaseFragment {
         TV_date.setText(trip_date);
 
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$menuTopTItle);
-        menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
+        menuTopTitle.setIBLeftOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(scheduleModel));
             }
         });
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+        menuTopTitle.setIBRightOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onRegister();
@@ -167,7 +174,7 @@ public class FragmentMypageDetail extends BaseFragment {
         if (items != null && items.size() > 0) {
             linearLayout.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            recyclerView.setAdapter(new MypageDetailAdapter(items));
+            recyclerView.setAdapter(new MypageDetailAdapter(items, onItemDataChangeListener));
         } else {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);

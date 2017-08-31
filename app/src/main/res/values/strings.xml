@@ -162,6 +162,7 @@
     <!-- layout/activity_myschedule_modify-->
     <string name="activity_myschedule_modify_title">edit trip</string>
     <string name="myschedule_modify_fail_alert_title_fail">여행 수정 실패</string>
+    <string name="myschedule_modify_fail_alert_content_fail">수정 실패 하였습니다</string>
     <string name="myschedule_modify_fail_alert_content_fail2">문제가 발생하여 여행 수정에 실패 하였습니다</string>
 
     <!-- layout/activity_myschedule_detail_modify-->

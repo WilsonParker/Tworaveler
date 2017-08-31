@@ -1,5 +1,6 @@
 package com.developer.hare.tworaveler.Data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -36,9 +37,9 @@ public class SessionManager {
             return false;
     }
 
-    public boolean logout(){
+    public void logout(Activity activity){
         USER_MODEL = null;
-        return true;
+        activity.startActivity(new Intent(activity, SignIn.class));
     }
 
     public UserModel getUserModel() {

@@ -24,6 +24,31 @@ public class ScheduleModel implements Serializable {
         this.tripName = tripName;
     }
 
+    public ScheduleModel(UserModel userModel, int trip_no, String country, String city, String start_date, String end_date, String tripName) {
+        this.user_no = userModel.getUser_no();
+        this.nickname = userModel.getNickname();
+        this.status_message = userModel.getStatus_message();
+        this.trip_no = trip_no;
+
+        this.country = country;
+        this.city = city;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.tripName = tripName;
+    }
+
+    public ScheduleModel(UserModel userModel, CityModel cityModel, int trip_no, String start_date, String end_date, String tripName) {
+        this.user_no = userModel.getUser_no();
+        this.nickname = userModel.getNickname();
+        this.status_message = userModel.getStatus_message();
+        this.country = cityModel.getCountry();
+        this.city = cityModel.getCity();
+        this.trip_no = trip_no;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.tripName = tripName;
+    }
+
     public ScheduleModel(UserModel userModel, String country, String city, String start_date, String end_date, String tripName) {
         this.user_no = userModel.getUser_no();
         this.nickname = userModel.getNickname();

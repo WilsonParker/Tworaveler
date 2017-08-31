@@ -30,7 +30,7 @@ public class RegistDayDetailListAdapter extends RecyclerView.Adapter<RegistDayDe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_regist_day_detail, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_mypage_detail, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -52,10 +52,10 @@ public class RegistDayDetailListAdapter extends RecyclerView.Adapter<RegistDayDe
         public ViewHolder(View itemView) {
             super(itemView);
             UIFactory uiFactory = UIFactory.getInstance(itemView);
-            IV_cover = uiFactory.createView(R.id.item_regist_day_detail$IV_cover);
-            TV_city = uiFactory.createView(R.id.item_regist_day_detail$TV_city);
-            TV_time = uiFactory.createView(R.id.item_regist_day_detail$TV_time);
-            TV_memo = uiFactory.createView(R.id.item_regist_day_detail$TV_memo);
+            IV_cover = uiFactory.createView(R.id.item_mypage_detail$IV_cover);
+            TV_city = uiFactory.createView(R.id.item_mypage_detail$TV_city);
+            TV_time = uiFactory.createView(R.id.item_mypage_detail$TV_time);
+            TV_memo = uiFactory.createView(R.id.item_mypage_detail$TV_memo);
         }
 
         public void toBind(ScheduleDayModel model) {

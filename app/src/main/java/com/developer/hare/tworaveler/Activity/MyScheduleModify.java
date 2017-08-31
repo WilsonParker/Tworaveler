@@ -25,6 +25,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
+import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.squareup.picasso.RequestCreator;
@@ -112,7 +113,7 @@ public class MyScheduleModify extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
 
-        userModel = SessionManager.getInstance().getUserModel();
+        sessionCheck();
         menuTopTitle = uiFactory.createView(R.id.activity_myschedule_modify$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,37 +149,47 @@ public class MyScheduleModify extends AppCompatActivity {
         textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_2));
         textViews.add(uiFactory.createView(R.id.activity_myschedule_modify$TV_txt_3));
         FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
-//        textViews.clear();
-        ArrayList<TextView> textViews2 = new ArrayList<>();
-        textViews2.add(ET_tripName);
-        textViews2.add(TV_citySearch);
-        textViews2.add(TV_dateStart);
-        textViews2.add(TV_dateEnd);
-        FontManager.getInstance().setFont(textViews2, "NotoSansCJKkr-Medium.otf");
+        textViews.clear();
+        textViews.add(ET_tripName);
+        textViews.add(TV_citySearch);
+        textViews.add(TV_dateStart);
+        textViews.add(TV_dateEnd);
+        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
     }
 
     private void onModify() {
-        ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(),ET_tripName.getText().toString());
+        if (!checkValidation())
+            return;
+
+        ScheduleModel model;
+        if (cityModel != null)
+            model = new ScheduleModel(userModel, cityModel, scheduleModel.getTrip_no(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
+        else
+            model = new ScheduleModel(userModel, scheduleModel.getTrip_no(), scheduleModel.getCountry(), scheduleModel.getCity(), TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
         Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
+                Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
                 if (response.isSuccessful()) {
                     ResponseModel<ScheduleModel> result = response.body();
-                    if (result.getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                        onBackPressed();
-                    } else
-                        netFail();
+                    switch (result.getSuccess()) {
+                        case DataDefinition.Network.CODE_SUCCESS:
+                            onBackPressed();
+                            break;
+                        case DataDefinition.Network.CODE_ERROR:
+                            netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
+                            break;
+                    }
                 } else
-                    netFail();
+                    netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail);
             }
 
             @Override
             public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                netFail();
+                netFail(R.string.myschedule_modify_fail_alert_title_fail, R.string.myschedule_modify_fail_alert_content_fail2);
             }
         });
-
-
     }
 
     @Override
@@ -197,8 +208,33 @@ public class MyScheduleModify extends AppCompatActivity {
         }
     }
 
-    private void netFail() {
-        AlertManager.getInstance().createAlert(MyScheduleModify.this, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((R.string.myschedule_modify_fail_alert_title_fail)), resourceManager.getResourceString((R.string.myschedule_modify_fail_alert_content_fail2))).show();
+    private void netFail(int title, int content) {
+        AlertManager.getInstance().showNetFailAlert(MyScheduleModify.this, title, content);
     }
 
+    private boolean checkValidation() {
+        boolean result = false;
+        String starDate = TV_dateStart.getText().toString();
+        String endDate = TV_dateEnd.getText().toString();
+
+        if (ET_tripName.getText().toString().isEmpty()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_2)).show();
+        } else if (TV_citySearch.getText().toString().isEmpty()) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_3)).show();
+        } else if (!(starDate.matches(DataDefinition.RegularExpression.REG_DATE) && endDate.matches(DataDefinition.RegularExpression.REG_DATE))) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_4)).show();
+        } else if (!DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
+            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_alert_title_fail), resourceManager.getResourceString(R.string.regist_alert_content_fail_6)).show();
+        } else if (!SessionManager.getInstance().isLogin()) {
+            netFail(R.string.regist_alert_title_fail, R.string.alert_content_not_login);
+        } else if (DateManager.getInstance().compareDate(starDate, endDate, DataDefinition.RegularExpression.FORMAT_DATE)) {
+            result = true;
+        }
+        return result;
+    }
+
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
+    }
 }

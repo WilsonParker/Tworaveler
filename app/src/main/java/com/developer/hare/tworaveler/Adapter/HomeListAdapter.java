@@ -19,6 +19,7 @@ import com.developer.hare.tworaveler.Activity.MyScheduleModify;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Model.LikeModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -27,6 +28,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -36,16 +38,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+
 /**
  * Created by Hare on 2017-08-01.
  */
 
 public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private ArrayList<ScheduleModel> items;
+    private OnItemDataChangeListener onItemDeleteListener;
     private ImageManager imageManager = ImageManager.getInstance();
 
-    public HomeListAdapter(ArrayList<ScheduleModel> items) {
+    public HomeListAdapter(ArrayList<ScheduleModel> items, OnItemDataChangeListener onItemDeleteListener) {
         this.items = items;
+        this.onItemDeleteListener = onItemDeleteListener;
     }
 
     @Override
@@ -100,34 +106,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     context.startActivity(intent);
                 }
             });
-            IV_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    popupMenu = new PopupMenu(context, view);
-                    MenuInflater inflater = popupMenu.getMenuInflater();
-                    Menu menu = popupMenu.getMenu();
-
-                    inflater.inflate(R.menu.popup_menu, menu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            Intent intent;
-                            switch (item.getItemId()) {
-                                case R.id.popup_menu$modify:
-                                    intent = new Intent(context, MyScheduleModify.class);
-                                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
-                                    context.startActivity(intent);
-                                    break;
-                                case R.id.popup_menu$delete:
-
-                                    break;
-                            }
-                            return false;
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
         }
 
         public void toBind(ScheduleModel model) {
@@ -150,6 +128,61 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                     likeClick(model.isLike());
                 }
             });
+            IV_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popupMenu = new PopupMenu(context, view);
+                    MenuInflater inflater = popupMenu.getMenuInflater();
+                    Menu menu = popupMenu.getMenu();
+
+                    inflater.inflate(R.menu.popup_menu, menu);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            Intent intent;
+                            switch (item.getItemId()) {
+                                case R.id.popup_menu$modify:
+                                    intent = new Intent(context, MyScheduleModify.class);
+                                    intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, model);
+                                    context.startActivity(intent);
+                                    break;
+                                case R.id.popup_menu$delete:
+                                    Net.getInstance().getFactoryIm().deleteTirp(model.getTrip_no()).enqueue(new Callback<ResponseModel<String>>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getSuccess());
+                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getMessage());
+                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getResult());
+                                            if (response.isSuccessful()) {
+                                                switch (response.body().getSuccess()) {
+                                                    case CODE_SUCCESS:
+                                                        HandlerManager.getInstance().post(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onDelete running");
+                                                                items.remove(model);
+                                                                onItemDeleteListener.onDelete();
+                                                            }
+                                                        });
+                                                        break;
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                            Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                                        }
+                                    });
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                }
+            });
+
             changeLike(model.isLike());
         }
 
@@ -161,27 +194,27 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             }
         }
 
-        private void likeClick(boolean isLike){
-            if(isLike){
+        private void likeClick(boolean isLike) {
+            if (isLike) {
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
+                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getSuccess());
+                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getMessage());
+                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getResult().toString());
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
-                                case DataDefinition.Network.CODE_SUCCESS:
+                                case CODE_SUCCESS:
                                     changeLike(false);
-                                    int likeCount =model.getLikeCount()-1;
-                                    TV_like.setText(""+likeCount );
+                                    int likeCount = model.getLikeCount() - 1;
+                                    TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
                                     break;
 
                             }
-                        }else{
-                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
@@ -190,20 +223,21 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                         Log_HR.log(HomeListAdapter.class, "onFailure", t);
                     }
                 });
-            }else {
+            } else {
                 Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        if(response.isSuccessful()){
-                            switch (response.body().getSuccess()){
-                                case DataDefinition.Network.CODE_SUCCESS:
+                        if (response.isSuccessful()) {
+                            switch (response.body().getSuccess()) {
+                                case CODE_SUCCESS:
                                     changeLike(true);
-                                    int likeCount =model.getLikeCount()+1;
-                                    TV_like.setText(""+likeCount);
+                                    int likeCount = model.getLikeCount() + 1;
+                                    TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
+                                    onItemDeleteListener.onDelete();
                                     break;
                             }
-                        }else{
+                        } else {
 
                         }
                     }

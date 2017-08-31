@@ -75,9 +75,18 @@ public interface NetFactoryIm {
     @POST("/users/profile/modify")
     Call<ResponseModel<UserModel>> modifyProfile(@Body UserReqModel model);
 
+    // 프로필 이미지 수정
+    @Multipart
+    @POST("/users/profile/modify_profile_pic")
+    Call<ResponseModel<UserModel>> modifyProfileImage(@Part MultipartBody.Part part);
+
     // 일정 수정
     @POST("/trips/update_trip")
     Call<ResponseModel<ScheduleModel>> modifySchedule(@Body ScheduleModel model);
+
+    // 세부 일정 수정
+    @POST("/trips/update_dtrip")
+    Call<ResponseModel<ScheduleDayModel>> modifyScheduleDetail(@Body ScheduleDayModel model);
 
     // 좋아요
     @FormUrlEncoded
@@ -183,6 +192,15 @@ public interface NetFactoryIm {
     @POST("/backpack/delete_item")
     Call<ResponseModel<String>> deleteBagItemList(@Field("item_no") ArrayList<Integer> item_no);
 
+    // 일정 삭제
+    @FormUrlEncoded
+    @POST("/trips/delete_trip")
+    Call<ResponseModel<String>> deleteTirp(@Field("trip_no") int trip_no);
+
+    // 세부 일정 삭제
+    @FormUrlEncoded
+    @POST("/trips/delete_dtrip")
+    Call<ResponseModel<String>> deleteDetailTirp(@Field("dtrip_no") int dtrip_no);
     // 가방 아이템 1개 삭제
 //    @FormUrlEncoded
 //    @POST("/backpack/delete_item")

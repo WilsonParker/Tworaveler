@@ -141,7 +141,7 @@ public class RegistDayList extends AppCompatActivity {
                                     });
                                     break;
                                 case DataDefinition.Network.CODE_ERROR:
-                                    netFail(R.string.regist_day_list_alert_title_fail, R.string.regist_day_list_alert_content_fail);
+//                                    netFail(R.string.regist_day_list_alert_title_fail, R.string.regist_day_list_alert_content_fail);
                                     break;
                             }
                         } else

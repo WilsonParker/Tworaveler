@@ -23,15 +23,15 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,6 +39,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_USER_FILE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class MyProfileSet extends AppCompatActivity {
@@ -51,6 +52,7 @@ public class MyProfileSet extends AppCompatActivity {
     private UserModel userModel;
     private ResourceManager resourceManager;
     private ProgressManager progressManager;
+    private File imageFile;
     private Activity activity;
 
     @Override
@@ -88,25 +90,27 @@ public class MyProfileSet extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
-                AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.ic_camera_alt_black_24dp, new View.OnClickListener() {
+                AlertSelectionItemModels.add(new AlertSelectionItemModel("사진 촬영", R.drawable.icon_camera_2, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         PhotoManager.getInstance().onCameraSelect(MyProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(MyProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                imageFile = fileData.getFile();
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile , circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
                     }
                 }));
-                AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.ic_filter_black_24dp, new View.OnClickListener() {
+                AlertSelectionItemModels.add(new AlertSelectionItemModel("갤러리", R.drawable.icon_gallery, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         PhotoManager.getInstance().onGallerySingleSelect(MyProfileSet.this, new OnPhotoBindListener() {
                             @Override
                             public void bindData(FileData fileData) {
-                                ImageManager.getInstance().loadImage(MyProfileSet.this, fileData.getFile(), circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                imageFile = fileData.getFile();
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile , circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -186,9 +190,8 @@ public class MyProfileSet extends AppCompatActivity {
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
-//                                String cookie = SessionManager.getInstance().getUserModel().getCookie();
-                                String cookie = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>()).iterator().next();
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
+//                                String cookie = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>()).iterator().next();
+//                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
                                 Net.getInstance().getFactoryIm().userSignOut(new UserReqModel(userModel.getEmail(), input)).enqueue(new Callback<ResponseModel<ResponseModel<String>>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<ResponseModel<String>>> call, Response<ResponseModel<ResponseModel<String>>> response) {
@@ -255,10 +258,16 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
+        if (imageFile != null)
+            modifyProfile();
         UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getResult());
+
                 if (response.isSuccessful()) {
                     ResponseModel<UserModel> result = response.body();
                     switch (result.getSuccess()) {
@@ -269,6 +278,7 @@ public class MyProfileSet extends AppCompatActivity {
                             break;
                         case DataDefinition.Network.CODE_NOT_LOGIN:
                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
+                            SessionManager.getInstance().logout(activity);
                             break;
                         case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
@@ -283,6 +293,28 @@ public class MyProfileSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                 netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+            }
+        });
+    }
+
+    private void modifyProfile() {
+        Net.getInstance().getFactoryIm().modifyProfileImage(RetrofitBodyParser.getInstance().createImageMultipartBodyPart(KEY_USER_FILE, imageFile)).enqueue(new Callback<ResponseModel<UserModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getSuccess());
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getMessage());
+                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getResult());
+                if (response.isSuccessful()) {
+                    switch (response.body().getSuccess()) {
+                        case CODE_SUCCESS:
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
             }
         });
     }
