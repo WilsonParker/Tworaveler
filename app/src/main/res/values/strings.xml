@@ -103,6 +103,8 @@
     <string name="comment_alert_title_fail_2">댓글 목록 불러오기 실패</string>
     <string name="comment_alert_title_fail_3">댓글 수정 실패</string>
     <string name="comment_alert_title_fail_4">댓글 삭제 실패</string>
+    <string name="comment_detail_alert_title_fail_3">세부일정 댓글 수정 실패</string>
+    <string name="comment_detail_alert_title_fail_4">세부일정 댓글 삭제 실패</string>
     <string name="comment_alert_content_fail">댓글 등록을 실패하였습니다</string>
     <string name="comment_alert_content_fail_2">댓글 목록을 불러오는데 실패하였습니다</string>
     <string name="comment_alert_content_fail_3">댓글 수정을 실패 하였습니다</string>

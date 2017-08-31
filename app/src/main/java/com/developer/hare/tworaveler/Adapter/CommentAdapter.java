@@ -38,9 +38,12 @@ import retrofit2.Response;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     private ArrayList<CommentModel> items;
+    private int type;
+    public static final int COMMENT = 0x0001, COMMENT_DETAIL = 0x0010;
 
-    public CommentAdapter(ArrayList<CommentModel> items) {
+    public CommentAdapter(ArrayList<CommentModel> items, int type) {
         this.items = items;
+        this.type = type;
     }
 
     @Override
@@ -109,26 +112,25 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             });
         }
 
-        private void showModifyEditor(boolean visible){
-            if(visible) {
+        private void showModifyEditor(boolean visible) {
+            if (visible) {
                 ET_comment.setVisibility(View.VISIBLE);
                 TV_comment.setVisibility(View.INVISIBLE);
                 up_btn.setVisibility(View.VISIBLE);
                 IV_btn.setVisibility(View.INVISIBLE);
-            }else{
-                    ET_comment.setVisibility(View.INVISIBLE);
-                    TV_comment.setVisibility(View.VISIBLE);
-                    up_btn.setVisibility(View.INVISIBLE);
-                    IV_btn.setVisibility(View.VISIBLE);
-                }
+            } else {
+                ET_comment.setVisibility(View.INVISIBLE);
+                TV_comment.setVisibility(View.VISIBLE);
+                up_btn.setVisibility(View.INVISIBLE);
+                IV_btn.setVisibility(View.VISIBLE);
             }
+        }
 
-        public void toBind(CommentModel model)
-        {
+        public void toBind(CommentModel model) {
             this.model = model;
-            TV_nickname.setText(model.getNickname()+"");
-            TV_comment.setText(model.getContent()+"");
-            if(SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())){
+            TV_nickname.setText(model.getNickname() + "");
+            TV_comment.setText(model.getContent() + "");
+            if (SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())) {
                 LL_more.setVisibility(View.VISIBLE);
             }
             up_btn.setOnClickListener(new View.OnClickListener() {
@@ -138,31 +140,63 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 }
             });
         }
-        public void changeComment(){
-            Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
-                @Override
-                public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+
+        public void changeComment() {
+            switch (type) {
+                case COMMENT:
+                    Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
 //                    Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
 
-                    if(response.isSuccessful()){
-                        switch (response.body().getSuccess()){
-                            case DataDefinition.Network.CODE_SUCCESS:
-                                model.setContent(ET_comment.getText().toString());
-                                TV_comment.setText(model.getContent()+"");
-                                showModifyEditor(false);
-                                break;
+                            if (response.isSuccessful()) {
+                                switch (response.body().getSuccess()) {
+                                    case DataDefinition.Network.CODE_SUCCESS:
+                                        model.setContent(ET_comment.getText().toString());
+                                        TV_comment.setText(model.getContent() + "");
+                                        showModifyEditor(false);
+                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getResult());
+                                        break;
+                                }
+                            } else {
+                                netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_2);
+                            }
                         }
-                    }else{
-                        netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_2);
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
-                    Log_HR.log(CommentAdapter.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
-                    netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
-                }
-            });
+                        @Override
+                        public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                            netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
+                        }
+                    });
+                    break;
+                case COMMENT_DETAIL:
+                    Net.getInstance().getFactoryIm().commentDetailModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "commentDetailModify", "body : " + response.body().getSuccess());
+                            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "commentDetailModify", "body : " + response.body().getMessage());
+                            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "commentDetailModify", "body : " + response.body().getResult());
+
+                            if (response.isSuccessful()) {
+                                switch (response.body().getSuccess()) {
+                                    case DataDefinition.Network.CODE_SUCCESS:
+                                        model.setContent(ET_comment.getText().toString());
+                                        TV_comment.setText(model.getContent() + "");
+                                        showModifyEditor(false);
+                                        break;
+                                }
+                            } else {
+                                netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_2);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                            netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_5);
+                        }
+                    });
+                    break;
+            }
         }
         private void netFail(int title, int content) {
             progressManager.endRunning();
@@ -170,4 +204,5 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
     }
 }
+
 

@@ -236,6 +236,5 @@ public class AlertManager {
             }
         });
         dialog.show();
-//        ad.show();
     }
 }

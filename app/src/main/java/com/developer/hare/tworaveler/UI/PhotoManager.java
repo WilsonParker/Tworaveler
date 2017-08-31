@@ -33,7 +33,6 @@ public class PhotoManager {
 
     private void createOptions(Activity activity) {
         options.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
-//        options.withMaxResultSize(1920, 1280);
     }
 
     public void onGalleryMultiSelect(Activity activity, OnPhotoBindListener onPhotoBindListener) {

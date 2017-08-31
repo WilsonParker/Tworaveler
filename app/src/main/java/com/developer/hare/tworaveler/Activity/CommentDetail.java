@@ -86,7 +86,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +162,10 @@ public class CommentDetail extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-                                        commentAdapter = new CommentAdapter(items);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
+//                                        commentAdapter.notifyDataSetChanged();
+//                                        RV_commentlist.setAdapter(new CommentAdapter(items));
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }
