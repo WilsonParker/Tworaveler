@@ -48,15 +48,12 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView TV_contents;
-//        private CircleImageView CV_profile;
         private LinearLayout LL_cell;
-//        private ImageManager imageManager;
 
         public ViewHolder(View itemView) {
             super(itemView);
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             TV_contents = uiFactory.createView(R.id.item_search_nickname$TV_contents);
-//            CV_profile = uiFactory.createView(R.id.item_search_nickname$CV_profile);
             LL_cell = uiFactory.createView(R.id.item_search_nickname$LL_cell);
         }
 

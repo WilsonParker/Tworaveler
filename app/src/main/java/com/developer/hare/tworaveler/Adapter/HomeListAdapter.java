@@ -150,9 +150,8 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     Net.getInstance().getFactoryIm().deleteTirp(model.getTrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                         @Override
                                         public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getSuccess());
-                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getMessage());
-                                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "body : " + response.body().getResult());
+//                                            Log_HR.log(HomeListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+
                                             if (response.isSuccessful()) {
                                                 switch (response.body().getSuccess()) {
                                                     case CODE_SUCCESS:

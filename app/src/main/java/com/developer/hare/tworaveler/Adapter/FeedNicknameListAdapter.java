@@ -66,7 +66,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView TV_title, TV_date, TV_like, TV_commenet, TV_nickname, TV_message;
-        private LinearLayout IV_btn, LL_like, LL_comment;
+        private LinearLayout  LL_like, LL_comment;
         private ImageView IV_cover, IV_like;
         private CircleImageView CV_profile;
         private ScheduleModel model;
@@ -145,9 +145,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
+//                        Log_HR.log(FeedNicknameListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
@@ -160,13 +158,13 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
 
                             }
                         }else{
-                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
+                            Log_HR.log(Log_HR.LOG_INFO,FeedNicknameListAdapter.class, "onResponse","onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                        Log_HR.log(FeedNicknameListAdapter.class, "onFailure", t);
                     }
                 });
             }else {

@@ -44,9 +44,7 @@ public class BagListAdapter extends RecyclerView.Adapter<BagListAdapter.ViewHold
         holder.cardVIew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(activity, position+"번쨰 카드 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, BigImage.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.putExtra(DataDefinition.Intent.KEY_BAGMODEL, items.get(position));
                 intent.putExtra(DataDefinition.Intent.KEY_BAGMODELS, items);
                 intent.putExtra(DataDefinition.Intent.KEY_POSITION, position);
                 activity.startActivity(intent);

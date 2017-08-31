@@ -13,11 +13,8 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 
 import java.util.ArrayList;
 
-import uk.co.senab.photoview.PhotoView;
-
 public class BigImage extends Activity {
 
-    private PhotoView photoView;
     private RecyclerView recyclerView;
     private UIFactory uiFactory;
 

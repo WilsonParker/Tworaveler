@@ -2,6 +2,11 @@ package com.developer.hare.tworaveler.Util;
 
 import android.util.Log;
 
+import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+
+import retrofit2.Response;
+
 /**
  * Created by Hare on 2017-06-29.
  */
@@ -161,6 +166,24 @@ public class Log_HR {
 
     private static String setNotiMsg(String msg) {
         return NOTI + "\n" + msg + "\n" + NOTI;
+    }
+
+    public static <T> void log(Class<?> cls, String mName, Response<ResponseModel<T>> response) {
+        String m = setNotiMsg("#Class : " + cls.getCanonicalName() + "\n#Method : " + mName + "" +
+                "\n#Message : " + response.body().getSuccess()
+                + "\n#Message : " + response.body().getMessage()
+                + "\n#Message : " + response.body().getResult()
+        );
+        print(LOG_INFO, m);
+    }
+
+    public static <T> void log(Class<?> cls, String mName, Response<ResponseArrayModel<T>> response) {
+        String m = setNotiMsg("#Class : " + cls.getCanonicalName() + "\n#Method : " + mName + "" +
+                "\n#Message : " + response.body().getSuccess()
+                + "\n#Message : " + response.body().getMessage());
+        for (T t : response.body().getResult())
+            m += "\n#Message : " + t.toString();
+        print(LOG_INFO, m);
     }
 
 }

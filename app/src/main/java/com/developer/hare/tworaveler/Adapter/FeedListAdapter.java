@@ -147,7 +147,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
             }else{
                 imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
-//                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
             }
         }
         private void likeClick(boolean isLike){
@@ -155,10 +154,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
-
+//                        Log_HR.log(FeedListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if(response.isSuccessful()){
                             switch (response.body().getSuccess()){
                                 case DataDefinition.Network.CODE_SUCCESS:
@@ -170,13 +166,13 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
                             }
                         }else{
-                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
+                            Log_HR.log(Log_HR.LOG_INFO,FeedListAdapter.class, "onResponse","onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                        Log_HR.log(FeedListAdapter.class, "onFailure", t);
                     }
                 });
             }else {
@@ -193,13 +189,15 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                                     break;
                             }
                         }else{
+                            Log_HR.log(Log_HR.LOG_INFO,FeedListAdapter.class, "onResponse","onResponse is not successful");
+
 
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-
+                        Log_HR.log(FeedListAdapter.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
                     }
                 });
             }

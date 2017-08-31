@@ -112,8 +112,6 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             }
             TV_like.setText(model.getLikeCount() + "");
             TV_commenet.setText(model.getCommentCount() + "");
-//            TV_city.setText(model.getTrip_address() + "");
-//            TV_address.setText(model.getAddress() + "");
             TV_city.setText(model.getAddress() + "");
             TV_address.setText(model.getTrip_address() + "");
             TV_time.setText(model.getStart_time() + " ~ " + model.getEnd_time());
@@ -141,30 +139,28 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                     case R.id.popup_menu$modify:
                                         intent = new Intent(context, MyScheduleDetailModify.class);
                                         intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL, model);
-                                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "setOnMenuItemClickListener", "ScheduleDayModel : " + model);
                                         context.startActivity(intent);
                                         break;
                                     case R.id.popup_menu$delete:
                                         Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                             @Override
                                             public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getSuccess());
-                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getMessage());
-                                                Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "body : " + response.body().getResult());
+//                                                Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+
                                                 if (response.isSuccessful()) {
                                                     switch (response.body().getSuccess()) {
                                                         case CODE_SUCCESS:
                                                             HandlerManager.getInstance().post(new Runnable() {
                                                                 @Override
                                                                 public void run() {
-                                                                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onDelete running");
                                                                     items.remove(model);
                                                                     onItemDeleteListener.onDelete();
                                                                 }
                                                             });
                                                             break;
                                                     }
-                                                }
+                                                } else
+                                                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                                             }
 
                                             @Override
@@ -185,6 +181,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             }
             changeLike(model.isLike());
         }
+
         private void changeLike(boolean isLike) {
             if (isLike) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_click, ImageManager.FIT_TYPE).centerCrop().noFade(), IV_like);
@@ -198,9 +195,8 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                 Net.getInstance().getFactoryIm().modifyDetailUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getDtrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.isSuccessful());
-//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.message());
-//                        Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "Call<ResponseModel<LikeModel>> call" + response.body().getResult().toString());
+                        Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
                                 case CODE_SUCCESS:
@@ -223,7 +219,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
                     }
                 });
             } else {
@@ -240,19 +236,18 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                             int likeCount = model.getLikeCount() + 1;
                                             TV_like.setText("" + likeCount);
                                             model.setLikeCount(likeCount);
-//                                            onItemDeleteListener.onDelete();
                                         }
                                     });
                                     break;
                             }
                         } else {
-
+                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-
+                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
                     }
                 });
             }

@@ -117,28 +117,23 @@ public class CommentDetail extends AppCompatActivity {
         Net.getInstance().getFactoryIm().commentDetailUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getSuccess());
-//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getMessage());
-//                Log_HR.log(Log_HR.LOG_INFO,Comment.class, "onResponse","body : "+response.body().getResult());
+                Log_HR.log(CommentDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     if (model.getSuccess() == CODE_SUCCESS) {
                         HandlerManager.getInstance().post(new Runnable() {
                             @Override
                             public void run() {
-                                Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "items Size : " + items.size());
-//                                Toast.makeText(Comment.this, "글이 등록 되었습니다.", Toast.LENGTH_SHORT).show();
                                 ET_comment.setText("");
                                 items.add(commentModel);
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
-                                scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount()+1);
+                                scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount() + 1);
                                 changeView();
                             }
                         });
                     } else {
                         netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
-//                        Toast.makeText(Comment.this, "등록 실패.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -146,7 +141,7 @@ public class CommentDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                 netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
-//                Toast.makeText(Comment.this, "Comment onFailure", Toast.LENGTH_SHORT).show();
+                Log_HR.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
             }
         });
 
@@ -159,9 +154,6 @@ public class CommentDetail extends AppCompatActivity {
                 Net.getInstance().getFactoryIm().commentDetailList(scheduleDayModel.getDtrip_no(), scheduleDayModel.getTrip_date()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
-                    Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " + response.isSuccessful());
-                    Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " + response.message());
-                        response.body().getResult().forEach((model) -> Log_HR.log(Log_HR.LOG_INFO, CommentDetail.class, "댓글 리스트 불러오기", "items Size : " +model));
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -170,8 +162,6 @@ public class CommentDetail extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-//                                        commentAdapter.notifyDataSetChanged();
-//                                        RV_commentlist.setAdapter(new CommentAdapter(items));
                                         commentAdapter = new CommentAdapter(items);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
@@ -179,16 +169,14 @@ public class CommentDetail extends AppCompatActivity {
                                 });
                             } else {
                                 netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
-//                        Toast.makeText(Comment.this, "덧글 불러오기 실패.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
-                        Log_HR.log(CommentDetail.class, "onFailure()", t);
+                        Log_HR.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
-//                Toast.makeText(Comment.this, "CreatList onFailure", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

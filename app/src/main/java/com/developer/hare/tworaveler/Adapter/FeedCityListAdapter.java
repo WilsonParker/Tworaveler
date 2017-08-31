@@ -40,7 +40,6 @@ import retrofit2.Response;
 public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapter.ViewHolder> {
     private ArrayList<ScheduleModel> items;
     private OnListScrollListener onListScrollListenrer;
-    private int scrollCount = 0;
     private ImageManager imageManager = ImageManager.getInstance();
 
     public FeedCityListAdapter(ArrayList<ScheduleModel> items, OnListScrollListener onListScrollListenrer) {
@@ -65,7 +64,7 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
-        private ImageView IV_cover,IV_like;
+        private ImageView IV_cover, IV_like;
         private CircleImageView CV_profile;
         private TextView TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment;
         private LinearLayout LL_like, LL_comment;
@@ -120,11 +119,11 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
-            TV_nickname.setText(model.getNickname()+"");
-            TV_message.setText(model.getStatus_message()+"");
-            TV_title.setText(model.getTripName()+"");
-            TV_like.setText(model.getLikeCount()+"");
-            TV_comment.setText(model.getCommentCount()+"");
+            TV_nickname.setText(model.getNickname() + "");
+            TV_message.setText(model.getStatus_message() + "");
+            TV_title.setText(model.getTripName() + "");
+            TV_like.setText(model.getLikeCount() + "");
+            TV_comment.setText(model.getCommentCount() + "");
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
 
             LL_like.setOnClickListener(new View.OnClickListener() {
@@ -136,63 +135,63 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
             changeLike(model.isLike());
         }
 
-        private void changeLike(boolean isLike){
-            if(isLike){
+        private void changeLike(boolean isLike) {
+            if (isLike) {
                 imageManager.loadImage(context, R.drawable.icon_heart_click, IV_like, ImageManager.FIT_TYPE);
-            }else{
+            } else {
                 imageManager.loadImage(context, R.drawable.icon_heart_unclick, IV_like, ImageManager.FIT_TYPE);
 //                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.icon_heart_unclick, ImageManager.FIT_TYPE) .centerCrop(), IV_like);
             }
         }
-        private void likeClick(boolean isLike){
-            if(isLike){
+
+        private void likeClick(boolean isLike) {
+            if (isLike) {
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","body : "+response.body().getResult().toString());
+                        Log_HR.log(FeedCityListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
-                        if(response.isSuccessful()){
-                            switch (response.body().getSuccess()){
+                        if (response.isSuccessful()) {
+                            switch (response.body().getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(false);
-                                    int likeCount =model.getLikeCount()-1;
-                                    TV_like.setText(""+likeCount );
+                                    int likeCount = model.getLikeCount() - 1;
+                                    TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
                                     break;
 
                             }
-                        }else{
-                            Log_HR.log(Log_HR.LOG_INFO,HomeListAdapter.class, "onResponse","onResponse is not successful");
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                        Log_HR.log(FeedCityListAdapter.class, "onFailure", t);
                     }
                 });
-            }else {
+            } else {
                 Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        if(response.isSuccessful()){
-                            switch (response.body().getSuccess()){
+                        if (response.isSuccessful()) {
+                            switch (response.body().getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     changeLike(true);
-                                    int likeCount =model.getLikeCount()+1;
-                                    TV_like.setText(""+likeCount);
+                                    int likeCount = model.getLikeCount() + 1;
+                                    TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
                                     break;
                             }
-                        }else{
-
+                        } else {
+                            Log_HR.log(Log_HR.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
+                        Log_HR.log(FeedCityListAdapter.class, "onFailure", t);
 
                     }
                 });

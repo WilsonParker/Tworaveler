@@ -34,7 +34,6 @@ public class AlertSelectionModeAdapter extends RecyclerView.Adapter<AlertSelecti
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.toBind(items.get(position));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "onBindViewHolder(ViewHolder, int)", "binding");
     }
 
     @Override

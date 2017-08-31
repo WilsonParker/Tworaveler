@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.FrameLayout;
 
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
@@ -20,7 +19,6 @@ import com.developer.hare.tworaveler.Util.BackClickManager;
 import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
-    private FrameLayout FL_content;
     private Fragment default_fragment = FragmentMyPage.newInstance();
     private UIFactory uiFactory;
     private CustomNavigationView customNavigationView;
@@ -38,7 +36,6 @@ public class Main extends AppCompatActivity {
         FragmentManager.getInstance().setActivity(this);
         uiFactory = UIFactory.getInstance(this);
 
-        FL_content = uiFactory.createView(R.id.main$FL_content);
         createNavigationView();
     }
 

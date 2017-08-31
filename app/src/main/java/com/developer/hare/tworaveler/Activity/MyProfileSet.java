@@ -266,10 +266,7 @@ public class MyProfileSet extends AppCompatActivity {
         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getSuccess());
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getMessage());
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response.body().getResult());
-
+                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<UserModel> result = response.body();
                     switch (result.getSuccess()) {
@@ -295,6 +292,7 @@ public class MyProfileSet extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                 netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
             }
         });
     }
