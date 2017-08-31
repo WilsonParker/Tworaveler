@@ -258,8 +258,10 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        if (imageFile != null)
+        if (imageFile != null){
             modifyProfile();
+            return;
+        }
         UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override

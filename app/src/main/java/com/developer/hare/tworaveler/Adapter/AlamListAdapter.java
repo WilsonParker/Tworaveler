@@ -62,7 +62,6 @@ public class AlamListAdapter extends RecyclerView.Adapter<AlamListAdapter.ViewHo
         public void toBind(AlamModel model) {
             this.model = model;
             ImageManager imageManager = ImageManager.getInstance();
-//            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_url_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getFile(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
             TV_alam.setText(model.getNickname()+"님 Tworaveler에 오신걸 환영합니다.");
         }

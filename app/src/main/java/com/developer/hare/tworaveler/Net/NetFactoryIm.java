@@ -156,6 +156,9 @@ public interface NetFactoryIm {
     @POST("/users/email_login")
     Call<ResponseModel<UserModel>> userSignIn(@Body UserReqModel model);
 
+    @POST("/usres/kakao_login")
+    Call<ResponseModel<UserModel>> kakaoSignIn(@Body UserReqModel model);
+
     // 여행 가방 목록
     @GET("/backpack/get_category_backpack")
     Call<ResponseArrayModel<BagModel>> selectBagList(@Query("user_no") int user_no, @Query("category_theme") String category_theme);

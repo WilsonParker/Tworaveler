@@ -142,8 +142,14 @@ public class KakaoSignManager {
                 Log_HR.log(Log_HR.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", "UserProfile : " + userProfile);
                 Log_HR.log(Log_HR.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", "UserProfile : " + userProfile.toString());
 //                redirectMainActivity(); // 로그인 성공시 MainActivity로
+                signWith();
             }
         });
+    }
+
+    private void signWith(){
+//        Net.getInstance().getFactoryIm().
+
     }
 
     private void redirectMainActivity() {

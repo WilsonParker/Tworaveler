@@ -20,7 +20,7 @@ import okhttp3.RequestBody;
 
 public class RetrofitBodyParser {
     private static RetrofitBodyParser retrofitBodyParser = new RetrofitBodyParser();
-    private static final int UPLOAD_MAX_SIZE = 640;
+    private static final int UPLOAD_MAX_SIZE = 1080;
 
     public static RetrofitBodyParser getInstance() {
         return retrofitBodyParser;
@@ -40,8 +40,8 @@ public class RetrofitBodyParser {
         FileManager fileManager = FileManager.getInstance();
         byte[] byteData= fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(fileManager.encodeFileToBitmap(file), UPLOAD_MAX_SIZE));
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteData);
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteData);
         MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData(key, file.getName(), requestBody);
         return multipartBodyPart;
     }
