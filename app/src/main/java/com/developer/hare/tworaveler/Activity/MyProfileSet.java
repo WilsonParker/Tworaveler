@@ -97,7 +97,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void bindData(FileData fileData) {
                                 imageFile = fileData.getFile();
-                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile , circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile, circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -110,7 +110,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void bindData(FileData fileData) {
                                 imageFile = fileData.getFile();
-                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile , circleImageView, ImageManager.THUMBNAIL_TYPE);
+                                ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile, circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
                         });
@@ -258,65 +258,78 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        if (imageFile != null){
-            modifyProfile();
-            return;
-        }
-        UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
-        Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-                if (response.isSuccessful()) {
-                    ResponseModel<UserModel> result = response.body();
-                    switch (result.getSuccess()) {
-                        case DataDefinition.Network.CODE_SUCCESS:
-                            UserModel model = result.getResult();
-                            SessionManager.getInstance().setUserModel(model);
-                            finish();
-                            break;
-                        case DataDefinition.Network.CODE_NOT_LOGIN:
-                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
-                            SessionManager.getInstance().logout(activity);
-                            break;
-                        case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
-                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
-                            break;
-                    }
+        if (imageFile != null) {
+            RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
+            Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                    Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
-                } else {
+                    if (response.isSuccessful()) {
+                        ResponseModel<UserModel> result = response.body();
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                UserModel model = result.getResult();
+                                SessionManager.getInstance().setUserModel(model);
+                                finish();
+                                break;
+                            case DataDefinition.Network.CODE_NOT_LOGIN:
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
+                                SessionManager.getInstance().logout(activity);
+                                break;
+                            case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
+                                break;
+                        }
+
+                    } else {
+                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                    Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+                }
+            });
+        } else
+
+        {
+            UserReqModel userReqModel = new UserReqModel(0, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
+            Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                    Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    if (response.isSuccessful()) {
+                        ResponseModel<UserModel> result = response.body();
+                        switch (result.getSuccess()) {
+                            case DataDefinition.Network.CODE_SUCCESS:
+                                UserModel model = result.getResult();
+                                SessionManager.getInstance().setUserModel(model);
+                                finish();
+                                break;
+                            case DataDefinition.Network.CODE_NOT_LOGIN:
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
+                                SessionManager.getInstance().logout(activity);
+                                break;
+                            case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
+                                break;
+                        }
+
+                    } else {
+                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                     netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                    Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
                 }
-            }
+            });
+        }
 
-            @Override
-            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
-                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
-            }
-        });
-    }
-
-    private void modifyProfile() {
-        Net.getInstance().getFactoryIm().modifyProfileImage(RetrofitBodyParser.getInstance().createImageMultipartBodyPart(KEY_USER_FILE, imageFile)).enqueue(new Callback<ResponseModel<UserModel>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getSuccess());
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getMessage());
-                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response)", "body : " + response.body().getResult());
-                if (response.isSuccessful()) {
-                    switch (response.body().getSuccess()) {
-                        case CODE_SUCCESS:
-                            break;
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
-            }
-        });
     }
 
     private void netFail(int title, int content) {

@@ -81,8 +81,8 @@ public interface NetFactoryIm {
 
     // 프로필 이미지 수정
     @Multipart
-    @POST("/users/profile/modify_profile_pic")
-    Call<ResponseModel<UserModel>> modifyProfile(@Part MultipartBody.Part part);
+    @POST("/users/profile/modify")
+    Call<ResponseModel<UserModel>> modifyProfile(@Part MultipartBody.Part part, @PartMap Map<String, RequestBody> map);
 
   /*  // 프로필 이미지 수정
     @Multipart
@@ -166,8 +166,8 @@ public interface NetFactoryIm {
 
     // 닉네임 검색
     @GET("/feed/getNickname/{nickname}")
-
     Call<ResponseModel<ScheduleModel>> searchNickname(@Path("nickname") String nickname);
+
     // 피드 도시 검색
     @GET("/feed/searchCity/{user_no}/{city}")
     Call<ResponseArrayModel<ScheduleModel>> searchFeedCity(@Path("user_no") int user_no, @Path("city") String city);
@@ -235,7 +235,7 @@ public interface NetFactoryIm {
 
     // 댓글 삭제
     @POST("/comment/delete")
-    Call<ResponseModel<CommentModel>> commentDelete(@Body CommentModel model);
+    Call<ResponseModel<String>> commentDelete(@Body CommentModel model);
 
     // 세부일정 댓글 삭제
     @POST("/detailedComment/delete")

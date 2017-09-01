@@ -22,7 +22,6 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
-import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -74,7 +73,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private CommentModel model;
         private PopupMenu popupMenu;
         private Context context;
-        private ProgressManager progressManager;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -146,6 +144,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
         private void changeComment() {
+            model.setContent(ET_comment.getText().toString());
+
             switch (type) {
                 case COMMENT:
                     Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
@@ -208,9 +208,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             switch (type)
             {
                 case COMMENT :
-                    Net.getInstance().getFactoryIm().commentDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                    Net.getInstance().getFactoryIm().commentDelete(model).enqueue(new Callback<ResponseModel<String>>() {
                         @Override
-                        public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                        public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if(response.isSuccessful()){
                                 if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
                                     HandlerManager.getInstance().post(new Runnable() {
@@ -223,12 +224,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             }else {
                                 netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_4);
+                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                        public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                             netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_5);
+                            Log_HR.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;
@@ -236,6 +239,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     Net.getInstance().getFactoryIm().commentDetailDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if(response.isSuccessful()){
                                 if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
                                     HandlerManager.getInstance().post(new Runnable() {
@@ -248,12 +252,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             }else{
                                 netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_4);
+                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                             netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_5);
+                            Log_HR.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;
@@ -261,7 +267,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
 
         private void netFail(int title, int content) {
-            progressManager.endRunning();
             AlertManager.getInstance().showNetFailAlert(context, title, content);
         }
     }

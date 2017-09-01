@@ -7,7 +7,7 @@ package com.developer.hare.tworaveler.Util.Exception;
 public class NullChecker {
     private static NullChecker nullChecker = new NullChecker();
 
-    public NullChecker getInstance() {
+    public static NullChecker getInstance() {
         return nullChecker;
     }
 
@@ -15,9 +15,11 @@ public class NullChecker {
         return false;
     }
 
-    private boolean checkNnull(Object obj) {
+    public boolean nullCheck(Object obj) {
         boolean result = false;
-        if (obj instanceof String) {
+        if (obj == null) {
+            result = true;
+        } else if (obj instanceof String) {
             String s = (String) obj;
             if (s == null | s.isEmpty())
                 result = true;
