@@ -107,6 +107,9 @@
             android:name=".Activity.BigImage"
             android:windowSoftInputMode="adjustNothing" />
         <activity
+            android:name=".Activity.BigImageProfile"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
             android:name=".Activity.Regist"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".Activity.RegistDetail" />

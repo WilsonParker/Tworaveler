@@ -71,7 +71,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
         private ImageView IV_cover,IV_like;
         private CircleImageView CV_profile;
         private TextView TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment;
-        private LinearLayout LL_like, LL_comment;
+        private LinearLayout LL_like, LL_comment, LL_profile;
         private ScheduleModel model;
 
         public ViewHolder(View itemView, Context context) {
@@ -90,6 +90,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             LL_like = uiFactory.createView(R.id.item_feed$LL_like);
             LL_comment = uiFactory.createView(R.id.item_feed$LL_comment);
             IV_like = uiFactory.createView(R.id.item_feed$IV_like);
+            LL_profile = uiFactory.createView(R.id.item_feed$LL_profile);
 
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,6 +140,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 }
             });
             changeLike(model.isLike());
+            LL_profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         private void changeLike(boolean isLike){

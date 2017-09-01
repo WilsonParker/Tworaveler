@@ -15,6 +15,7 @@ import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -57,6 +58,12 @@ public class Comment extends AppCompatActivity {
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
     private ScheduleModel scheduleModel;
+    private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
+        @Override
+        public void onDelete() {
+            createCommentList();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +110,7 @@ public class Comment extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Comment.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +191,7 @@ public class Comment extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }
@@ -194,7 +201,6 @@ public class Comment extends AppCompatActivity {
                             }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);

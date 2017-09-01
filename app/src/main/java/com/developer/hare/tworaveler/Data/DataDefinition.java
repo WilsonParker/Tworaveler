@@ -11,6 +11,7 @@ public class DataDefinition {
                  KEY_ITEMS = "intent_items"
                 ,KEY_TITLE = "intent_title"
 
+                ,KEY_USERMODEL= "UserModel"
                 ,KEY_CITYMODEL= "CityModel"
                 ,KEY_BAGMODEL= "BagModel"
                 ,KEY_BAGMODELS= "BagModels"

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -49,6 +50,12 @@ public class CommentDetail extends AppCompatActivity {
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
     private ScheduleDayModel scheduleDayModel;
+    private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
+        @Override
+        public void onDelete() {
+            createCommentList();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -162,10 +169,9 @@ public class CommentDetail extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
 //                                        commentAdapter.notifyDataSetChanged();
 //                                        RV_commentlist.setAdapter(new CommentAdapter(items));
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }
