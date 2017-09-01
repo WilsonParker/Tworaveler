@@ -10,7 +10,13 @@ public class NullChecker {
         return false;
     }
 
-    private void a() {
-
+    private boolean checkNnull(Object obj) {
+        boolean result = false;
+        if (obj instanceof String) {
+            String s = (String) obj;
+            if (s == null | s.isEmpty())
+                result = true;
+        }
+        return result;
     }
 }

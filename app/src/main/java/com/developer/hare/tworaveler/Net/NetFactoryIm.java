@@ -82,7 +82,12 @@ public interface NetFactoryIm {
     // 프로필 이미지 수정
     @Multipart
     @POST("/users/profile/modify_profile_pic")
-    Call<ResponseModel<UserModel>> modifyProfileImage(@Part MultipartBody.Part part);
+    Call<ResponseModel<UserModel>> modifyProfile(@Part MultipartBody.Part part);
+
+  /*  // 프로필 이미지 수정
+    @Multipart
+    @POST("/users/profile/modify_profile_pic")
+    Call<ResponseModel<UserModel>> modifyProfileImage(@Part MultipartBody.Part part);*/
 
     // 일정 수정
     @POST("/trips/update_trip")
@@ -127,7 +132,7 @@ public interface NetFactoryIm {
     @POST("/trips/follow")
     Call<ResponseModel<FollowModel>> selectFollow(@Field("user_no") int user_no, @Field("fuser_no") int fuser_no);
 
-    // 팔로우우 취소
+    // 팔로우 취소
     @FormUrlEncoded
     @POST("/trips/unfollow")
     Call<ResponseModel<FollowModel>> selectUnFollow(@Field("user_no") int user_no, @Field("fuser_no") int fuser_no);
@@ -161,8 +166,8 @@ public interface NetFactoryIm {
 
     // 닉네임 검색
     @GET("/feed/getNickname/{nickname}")
-    Call<ResponseModel<ScheduleModel>> searchNickname(@Path("nickname") String nickname);
 
+    Call<ResponseModel<ScheduleModel>> searchNickname(@Path("nickname") String nickname);
     // 피드 도시 검색
     @GET("/feed/searchCity/{user_no}/{city}")
     Call<ResponseArrayModel<ScheduleModel>> searchFeedCity(@Path("user_no") int user_no, @Path("city") String city);
