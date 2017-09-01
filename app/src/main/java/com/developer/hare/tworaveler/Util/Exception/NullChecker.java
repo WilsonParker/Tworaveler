@@ -5,6 +5,11 @@ package com.developer.hare.tworaveler.Util.Exception;
  */
 
 public class NullChecker {
+    private static NullChecker nullChecker = new NullChecker();
+
+    public NullChecker getInstance() {
+        return nullChecker;
+    }
 
     public boolean nullCheck(Object... obj) {
         return false;
