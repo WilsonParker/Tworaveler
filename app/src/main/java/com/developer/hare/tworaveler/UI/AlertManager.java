@@ -45,6 +45,7 @@ public class AlertManager {
     private RecyclerView RV_items;
     private ListView LV_items;
 
+    private final String DEFAULT_CONFIRM_TEXT = "확인", DEFAULT_CANCEL_TEXT ="취소";
     {
         resourceManager = ResourceManager.getInstance();
     }
@@ -117,8 +118,13 @@ public class AlertManager {
         return dialog;
     }
 
-    public SweetAlertDialog createNoTitleAlert(Context context, int alertType, int content, int confirm, SweetAlertDialog.OnSweetClickListener confirmClick, int cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
-        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(resourceManager.getResourceString(content)).setConfirmText(resourceManager.getResourceString(confirm)).setConfirmClickListener(confirmClick).setCancelText(resourceManager.getResourceString(cancel)).setCancelClickListener(cancelClick);
+    public SweetAlertDialog createNoTitleAlert(Context context, int alertType, int content, SweetAlertDialog.OnSweetClickListener confirmClick) {
+        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(resourceManager.getResourceString(content)).setConfirmText(DEFAULT_CONFIRM_TEXT).setConfirmClickListener(confirmClick).setCancelText(DEFAULT_CANCEL_TEXT).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        });
         return dialog;
     }
 
