@@ -157,12 +157,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 }
             });
             changeLike(model.isLike());
-            LL_profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
 
         private void changeLike(boolean isLike) {

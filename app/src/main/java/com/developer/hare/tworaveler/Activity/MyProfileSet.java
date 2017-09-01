@@ -24,6 +24,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -255,7 +256,11 @@ public class MyProfileSet extends AppCompatActivity {
         ET_nickname.setText(userModel.getNickname());
         ET_message.setText(userModel.getStatus_message());
         ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
+        if (NullChecker.getInstance().nullCheck(userModel.getProfile_pic_url())) {
+            imageManager.loadImage(imageManager.createRequestCreator(this, R.drawable.image_profile, ImageManager.BASIC_TYPE), circleImageView);
+        } else{
+            imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
+        }
     }
 
     private void modifyData() {

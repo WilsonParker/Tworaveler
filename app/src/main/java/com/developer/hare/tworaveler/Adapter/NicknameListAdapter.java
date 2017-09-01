@@ -14,16 +14,18 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 
+import java.util.ArrayList;
+
 /**
  * Created by Hare on 2017-08-01.
  */
 
 public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapter.ViewHolder> {
     private OnSelectNicknameListener onSelectNicknameListener;
-    private ScheduleModel items;
+    private ArrayList<ScheduleModel> items;
     private Context context;
 
-    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, ScheduleModel items, Context context) {
+    public NicknameListAdapter(OnSelectNicknameListener onSelectNicknameListener, ArrayList<ScheduleModel> items, Context context) {
         this.onSelectNicknameListener = onSelectNicknameListener;
         this.items = items;
         this.context = context;
@@ -38,12 +40,12 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.toBind(items);
+        holder.toBind(items.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return items == null ? 0 : 1;
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,13 +60,12 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
         }
 
         public void toBind(ScheduleModel model) {
-            items = model;
             TV_contents.setText(model.getNickname());
             FontManager.getInstance().setFont(TV_contents, "NotoSansCJKkr-Medium.otf");
             LL_cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onSelectNicknameListener.onSelectNickname(items);
+                    onSelectNicknameListener.onSelectNickname(model);
                 }
             });
         }

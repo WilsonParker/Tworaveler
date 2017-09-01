@@ -39,7 +39,7 @@ public class BigImageProfile extends Activity {
         if(NullChecker.getInstance().nullCheck(model.getProfile_pic_url())){
             photoView.setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
-            imageManager.loadImage(imageManager.createRequestCreator(this, R.drawable.image_profile, ImageManager.FIT_TYPE), imageView);
+            imageManager.loadImage(imageManager.createRequestCreator(this, R.drawable.image_profile, ImageManager.BASIC_TYPE), imageView);
         }else{
             photoView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.GONE);

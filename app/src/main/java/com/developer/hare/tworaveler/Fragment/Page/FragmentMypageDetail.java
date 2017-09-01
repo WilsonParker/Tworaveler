@@ -111,6 +111,7 @@ public class FragmentMypageDetail extends BaseFragment {
                 onRegister();
             }
         });
+        userModel = SessionManager.getInstance().getUserModel();
         menuTopTitle.getTV_title().setText(userModel.getNickname());
         recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));

@@ -127,7 +127,6 @@ public class FragmentFeedFilter extends BaseFragment {
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                                 if (response.isSuccessful()) {
 //                                   Log_HR.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
                                     if (model.getSuccess() == CODE_SUCCESS) {
@@ -170,7 +169,7 @@ public class FragmentFeedFilter extends BaseFragment {
                         Net.getInstance().getFactoryIm().searchFeedNickname(user_no, scheduleModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                                //                                   Log_HR.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                                // Log_HR.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 if (response.isSuccessful()) {
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();

@@ -39,6 +39,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_USERM
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NONE_SESSION;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NOT_LOGIN;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+import static com.developer.hare.tworaveler.R.drawable.image_profile;
 
 public class FragmentMyPageProfile extends BaseFragment {
     private UIFactory uiFactory;
@@ -111,42 +112,44 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     private void setData() {
         Net.getInstance().getFactoryIm().selectUserInfo(userModel.getUser_no()).enqueue(
-                new Callback<ResponseModel<UserModel>>() {
-                    @Override
-                    public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                        ResponseModel<UserModel> result = response.body();
+            new Callback<ResponseModel<UserModel>>() {
+                @Override
+                public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                    ResponseModel<UserModel> result = response.body();
 //                        Log_HR.log(FragmentMyPageProfile.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-                        if (response.isSuccessful()) {
-                            switch (result.getSuccess()) {
-                                case CODE_SUCCESS:
-                                    UserModel model = result.getResult();
-                                    SessionManager.getInstance().setUserModel(model);
-                                    TV_cntFollower.setText(model.getFollowers().size() + "");
-                                    TV_cntFollowing.setText(model.getFollowees().size() + "");
-                                    TV_nickname.setText(model.getNickname());
-                                    TV_message.setText(model.getStatus_message());
-                                    if (NullChecker.getInstance().nullCheck(model.getProfile_pic_url())) {
-                                        ImageManager imageManager = ImageManager.getInstance();
-                                        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
-                                    }
-                                    break;
-                                case CODE_NOT_LOGIN:
-                                    break;
-                                case CODE_NONE_SESSION:
-                                    break;
-                            }
-                        } else {
-                            AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageProfile.class, "onResponse", "onResponse is not successful");
+                    if (response.isSuccessful()) {
+                        switch (result.getSuccess()) {
+                            case CODE_SUCCESS:
+                                UserModel model = result.getResult();
+                                SessionManager.getInstance().setUserModel(model);
+                                TV_cntFollower.setText(model.getFollowers().size() + "");
+                                TV_cntFollowing.setText(model.getFollowees().size() + "");
+                                TV_nickname.setText(model.getNickname());
+                                TV_message.setText(model.getStatus_message());
+                                ImageManager imageManager = ImageManager.getInstance();
+                                if (NullChecker.getInstance().nullCheck(model.getProfile_pic_url())) {
+                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.image_profile, ImageManager.BASIC_TYPE).placeholder(image_profile), IV_profile);
+                                }else{
+                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url(), ImageManager.THUMBNAIL_TYPE).placeholder(image_profile), IV_profile);
+                                }
+                                break;
+                            case CODE_NOT_LOGIN:
+                                break;
+                            case CODE_NONE_SESSION:
+                                break;
                         }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                    } else {
                         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
-                        Log_HR.log(FragmentMyPageProfile.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                        Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageProfile.class, "onResponse", "onResponse is not successful");
                     }
                 }
+
+                @Override
+                public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                    AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
+                    Log_HR.log(FragmentMyPageProfile.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                }
+            }
         );
     }
 }
