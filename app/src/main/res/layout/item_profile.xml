@@ -10,11 +10,19 @@
     android:paddingRight="15dp">
 
     <uk.co.senab.photoview.PhotoView
-        android:id="@+id/item_photoview$PV_image"
+        android:id="@+id/item_profile$PV_image"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         />
+    <ImageView
+        android:id="@+id/item_profile$IV_image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/image_profile"
+        android:visibility="gone"
+        />
+
 </LinearLayout>

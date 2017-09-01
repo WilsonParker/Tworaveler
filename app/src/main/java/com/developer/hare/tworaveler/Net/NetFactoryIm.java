@@ -184,6 +184,10 @@ public interface NetFactoryIm {
     @GET("/users/profile")
     Call<ResponseModel<UserModel>> selectUserInfo(@Query("user_no") int user_no);
 
+    // 프로필 피드 정보 조회
+    @GET("/users/profile")
+    Call<ResponseModel<ScheduleModel>> selectFeedInfo(@Query("user_no") int user_no);
+
 
     // 내 여행 목록 조회
     @GET("/trips/mytrip/{user_no}")

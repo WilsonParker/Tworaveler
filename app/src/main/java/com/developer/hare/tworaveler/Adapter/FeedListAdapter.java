@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.Comment;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedProfile;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.LikeModel;
@@ -126,6 +127,14 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                     FragmentManager.getInstance().setFragmentContent(FragmentFeedSchedule.newInstance(model));
                 }
             });
+            LL_profile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log_HR.log(Log_HR.LOG_INFO, FeedListAdapter.class, "onResponse", "클릭클릭");
+                    FragmentManager.getInstance().setFragmentContent(FragmentFeedProfile.newInstance(model.getUser_no()));
+                }
+            });
+
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
