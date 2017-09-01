@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
+import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
 import com.developer.hare.tworaveler.Model.CityModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
@@ -23,6 +24,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
+import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.FontManager;
@@ -49,6 +51,7 @@ public class Regist extends AppCompatActivity {
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
     private ResourceManager resourceManager;
+    private ProgressManager progressManager;
     private ImageManager imageManager;
     private File imageFile;
 
@@ -115,7 +118,7 @@ public class Regist extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
         imageManager = ImageManager.getInstance();
-        sessionCheck();
+        progressManager = new ProgressManager(this);
 
         menuTopTitle = uiFactory.createView(R.id.activity_regist$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -143,7 +146,7 @@ public class Regist extends AppCompatActivity {
         ET_tripName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_NEXT){
+                if (i == EditorInfo.IME_ACTION_NEXT) {
                     TV_dateStart.callOnClick();
                 }
                 return true;
@@ -172,66 +175,76 @@ public class Regist extends AppCompatActivity {
     private void onRegister() {
         if (!checkValidation())
             return;
+        progressManager.actionWithState(new OnProgressAction() {
+            @Override
+            public void run() {
+                ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
+                if (imageFile != null) {
+                    MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
-        ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
-        if (imageFile != null) {
-            MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
-
-            Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
-                @Override
-                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                    if (response.isSuccessful()) {
-                        ResponseModel<ScheduleModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
-                        switch (result.getSuccess()) {
-                            case DataDefinition.Network.CODE_SUCCESS:
-                                Intent intent = new Intent(Regist.this, RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-                                startActivity(intent);
-                                finish();
-                                break;
+                    Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                            progressManager.endRunning();
+                            if (response.isSuccessful()) {
+                                ResponseModel<ScheduleModel> result = response.body();
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                                switch (result.getSuccess()) {
+                                    case DataDefinition.Network.CODE_SUCCESS:
+                                        Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
+                                        startActivity(intent);
+                                        finish();
+                                        break;
+                                }
+                            } else
+                                netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
                         }
-                    } else
-                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
-                }
 
-                @Override
-                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                    Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
-                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
-                }
-            });
-        } else {
-            Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
-                @Override
-                public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                    if (response.isSuccessful()) {
-                        ResponseModel<ScheduleModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
-                        switch (result.getSuccess()) {
-                            case DataDefinition.Network.CODE_SUCCESS:
-                                Intent intent = new Intent(Regist.this, RegistDetail.class);
-                                intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-                                startActivity(intent);
-                                break;
+                        @Override
+                        public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                            Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                            netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
                         }
-                    } else
-                        netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
-                }
+                    });
+                } else {
+                    Net.getInstance().getFactoryIm().insertSchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
+                            progressManager.endRunning();
+                            if (response.isSuccessful()) {
+                                ResponseModel<ScheduleModel> result = response.body();
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
+                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                                switch (result.getSuccess()) {
+                                    case DataDefinition.Network.CODE_SUCCESS:
+                                        Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                        intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
+                                        startActivity(intent);
+                                        break;
+                                }
+                            } else
+                                netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail);
+                        }
 
-                @Override
-                public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                    netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                        @Override
+                        public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
+                            netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
+                        }
+                    });
                 }
-            });
-        }
+            }
+        });
     }
 
     private boolean checkValidation() {
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(Regist.this, R.string.regist_alert_title_fail);
+            return false;
+        }
         boolean result = false;
         String starDate = TV_dateStart.getText().toString();
         String endDate = TV_dateEnd.getText().toString();
@@ -279,6 +292,7 @@ public class Regist extends AppCompatActivity {
     }
 
     private void netFail(int title, int content) {
+        progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(Regist.this, title, content);
     }
 

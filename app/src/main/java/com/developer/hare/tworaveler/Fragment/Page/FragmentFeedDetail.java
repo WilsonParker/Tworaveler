@@ -84,7 +84,6 @@ public class FragmentFeedDetail extends BaseFragment {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         trip_Date = bundle.getString(KEY_TRIPDATE);
-        sessionCheck();
 
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(getActivity());
@@ -115,6 +114,10 @@ public class FragmentFeedDetail extends BaseFragment {
     }
 
     private void updateList() {
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.regist_day_list_alert_title_fail);
+            return;
+        }
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {

@@ -110,7 +110,6 @@ public class MyScheduleModify extends AppCompatActivity {
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
 
-        sessionCheck();
         menuTopTitle = uiFactory.createView(R.id.activity_myschedule_modify$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,6 +238,10 @@ public class MyScheduleModify extends AppCompatActivity {
     }
 
     private boolean checkValidation() {
+        if(!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(MyScheduleModify.this, R.string.regist_day_detail_alert_title_fail);
+            return false;
+        }
         boolean result = false;
         String starDate = TV_dateStart.getText().toString();
         String endDate = TV_dateEnd.getText().toString();

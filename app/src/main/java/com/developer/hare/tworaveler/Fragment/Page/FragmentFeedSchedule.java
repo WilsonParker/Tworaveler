@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.Comment;
-import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -211,8 +210,8 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     private void likeClick(boolean isLike) {
-        if (!sessionCheck()) {
-            netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.alert_content_not_login);
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.regist_day_list_alert_title_fail);
             return;
         }
 
@@ -288,8 +287,8 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     public void followSelect(boolean isFollow) {
-        if (!sessionCheck()) {
-            netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.alert_content_not_login);
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeed_schedule_alert_title_fail);
             return;
         }
         if (isFollow) {

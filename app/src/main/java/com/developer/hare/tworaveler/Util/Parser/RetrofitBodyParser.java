@@ -9,6 +9,7 @@ import com.developer.hare.tworaveler.Util.Log_HR;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,8 @@ public class RetrofitBodyParser {
             requestBody = RequestBody.create(MediaType.parse("text/plain"), (String) object);
         } else if (object instanceof Integer) {
             requestBody = RequestBody.create(MediaType.parse("text/plain"), ((int) object) + "");
+        }else if (object instanceof ArrayList){
+            requestBody = RequestBody.create(MediaType.parse("text/plain"), ((ArrayList) object).toString());
         }
         return requestBody;
     }
@@ -79,6 +82,7 @@ public class RetrofitBodyParser {
             Method method = methodMap.get(GET_KEY + fieldName.toUpperCase());
             if (method != null) {
                 Object value = method.invoke(obj);
+//                Log_HR.log(Log_HR.LOG_INFO, getClass(), "insertFieldData", String.format("fieldName : %s, value : %s",fieldName, value));
                 if (value != null)
                     dataMap.put(fieldName, createRequestBody(value));
             }

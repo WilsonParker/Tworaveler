@@ -41,6 +41,7 @@
     <!-- Activity/MyProfileSet -->
     <string name="profileSet_mod_fail_alert_title">수정 실패</string>
     <string name="profileSet_mod_fail_alert_content">문제가 발생하여 수정 실패 하였습니다</string>
+    <string name="profileSet_mod_fail_alert_content_2">수정 실패 하였습니다</string>
     <string name="profileSet_mod_fail_alert_content_3">닉네임이 중복 되었습니다</string>
     <string name="profileSet_mod_success_alert_title">수정 성공</string>
     <string name="profileSet_mod_success_alert_content">수정 성공 하였습니다</string>

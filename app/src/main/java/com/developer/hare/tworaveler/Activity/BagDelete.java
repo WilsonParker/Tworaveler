@@ -99,7 +99,6 @@ public class BagDelete extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        sessionCheck();
     }
 
     private void itemEmptyCheck(ArrayList<BagModel> items) {
@@ -118,8 +117,10 @@ public class BagDelete extends AppCompatActivity {
     }
 
     private void createList(String theme) {
-        if (!sessionCheck())
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(this, R.string.bagDelete_alert_title_fail);
             return;
+        }
         items = bags.get(theme);
         if (items != null) {
             setItem(theme);

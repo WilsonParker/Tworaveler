@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.UI;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Adapter.AlertSelectionModeAdapter;
 import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Model.AlertSelectionItemModel;
@@ -186,6 +188,17 @@ public class AlertManager {
     public void showNetFailAlert(Context context, int title, int content) {
         createAlert(context, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((content))).show();
     }
+
+    public void showNotLoginAlert(Context context, int title) {
+        createAlert(context, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((R.string.alert_content_not_login)), new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+                context.startActivity(new Intent(context, SignIn.class));
+            }
+        }).show();
+    }
+
    /* public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
         AlertDialog.Builder ad = new AlertDialog.Builder(activity);
         ad.setTitle(resourceManager.getResourceString(title));       // 제목 설정

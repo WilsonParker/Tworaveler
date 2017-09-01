@@ -130,14 +130,12 @@ public class FragmentBag extends BaseFragment {
 
         createNavigationBagView();
         itemEmptyCheck(items);
-        sessionCheck();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         itemLoginCheck();
-        sessionCheck();
         setList(theme);
     }
 
@@ -222,8 +220,10 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
-        if (!sessionCheck())
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentBag_alert_title_fail);
             return;
+        }
         Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme).enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {

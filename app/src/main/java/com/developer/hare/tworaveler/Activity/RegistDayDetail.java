@@ -264,8 +264,7 @@ public class RegistDayDetail extends AppCompatActivity {
     // 일정 등록 전 유효성 검사
     private boolean checkValidation() {
         if (!sessionCheck()) {
-            AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.alert_content_not_login)).show();
-            sessionManager.logout(this);
+            AlertManager.getInstance().showNotLoginAlert(this, R.string.regist_day_detail_alert_title_fail);
             return false;
         }
 

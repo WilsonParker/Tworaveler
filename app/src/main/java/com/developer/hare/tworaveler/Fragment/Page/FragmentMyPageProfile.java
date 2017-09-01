@@ -22,6 +22,7 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -120,15 +121,17 @@ public class FragmentMyPageProfile extends BaseFragment {
                                     TV_cntFollowing.setText(model.getFollowees().size() + "");
                                     TV_nickname.setText(model.getNickname());
                                     TV_message.setText(model.getStatus_message());
-                                    ImageManager imageManager = ImageManager.getInstance();
-                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url_thumbnail(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                                    if (NullChecker.getInstance().nullCheck(model.getProfile_pic_url())) {
+                                        ImageManager imageManager = ImageManager.getInstance();
+                                        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                                    }
                                     break;
                                 case CODE_NOT_LOGIN:
                                     break;
                                 case CODE_NONE_SESSION:
                                     break;
                             }
-                        } else{
+                        } else {
                             AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
                             Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageProfile.class, "onResponse", "onResponse is not successful");
                         }

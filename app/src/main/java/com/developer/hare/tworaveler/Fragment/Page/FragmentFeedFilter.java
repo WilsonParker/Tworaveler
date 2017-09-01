@@ -111,7 +111,8 @@ public class FragmentFeedFilter extends BaseFragment {
     }
 
     private void updateList(int type) {
-        if (!sessionCheck()) {
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeed_alert_title_fail);
             return;
         }
         int user_no = userModel.getUser_no();

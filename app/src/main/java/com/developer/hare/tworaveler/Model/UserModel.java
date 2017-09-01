@@ -10,18 +10,18 @@ import java.util.ArrayList;
 
 public class UserModel implements Serializable {
     private int user_no;
-    private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionID, Cookie;
+    private String email, pw, nickname, profile_pic_url, profile_pic_thumbnail_url, status_message, reg_date, del_yn, sessionID, Cookie;
     private ArrayList<Integer> followees, followers;
     private File file;
     private boolean isFile;
 
-    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn, String sessionID, ArrayList<Integer> followees, ArrayList<Integer> followers) {
+    public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_thumbnail_url, String status_message, String reg_date, String del_yn, String sessionID, ArrayList<Integer> followees, ArrayList<Integer> followers) {
         this.user_no = user_no;
         this.email = email;
         this.pw = pw;
         this.nickname = nickname;
         this.profile_pic_url = profile_pic_url;
-        this.profile_pic_url_thumbnail = profile_pic_url_thumbnail;
+        this.profile_pic_thumbnail_url = profile_pic_thumbnail_url;
         this.status_message = status_message;
         this.reg_date = reg_date;
         this.del_yn = del_yn;
@@ -85,12 +85,12 @@ public class UserModel implements Serializable {
         this.profile_pic_url = profile_pic_url;
     }
 
-    public String getProfile_pic_url_thumbnail() {
-        return profile_pic_url_thumbnail;
+    public String getProfile_pic_thumbnail_url() {
+        return profile_pic_thumbnail_url;
     }
 
-    public void setProfile_pic_url_thumbnail(String profile_pic_url_thumbnail) {
-        this.profile_pic_url_thumbnail = profile_pic_url_thumbnail;
+    public void setProfile_pic_thumbnail_url(String profile_pic_thumbnail_url) {
+        this.profile_pic_thumbnail_url = profile_pic_thumbnail_url;
     }
 
     public String getStatus_message() {
@@ -161,7 +161,7 @@ public class UserModel implements Serializable {
                 ", pw='" + pw + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", profile_pic_url='" + profile_pic_url + '\'' +
-                ", profile_pic_url_thumbnail='" + profile_pic_url_thumbnail + '\'' +
+                ", profile_pic_thumbnail_url='" + profile_pic_thumbnail_url + '\'' +
                 ", status_message='" + status_message + '\'' +
                 ", reg_date='" + reg_date + '\'' +
                 ", del_yn='" + del_yn + '\'' +

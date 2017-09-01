@@ -58,6 +58,7 @@ public class SessionManager {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     sweetAlertDialog.dismiss();
+                    logout((Activity)context);
                     context.startActivity(new Intent(context, SignIn.class));
                 }
             }).show();

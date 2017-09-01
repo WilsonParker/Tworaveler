@@ -86,7 +86,6 @@ public class FragmentMypageDetail extends BaseFragment {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         trip_date = bundle.getString(KEY_TRIPDATE);
-        sessionCheck();
 
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
@@ -129,6 +128,10 @@ public class FragmentMypageDetail extends BaseFragment {
 
     // 세부 일정 List Update
     private void updateList() {
+        if (!sessionCheck()){
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeed_schedule_alert_title_like_fail);
+            return;
+        }
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {

@@ -79,7 +79,6 @@ public class RegistDayList extends AppCompatActivity {
                 onRegister();
             }
         });
-        sessionCheck();
         menuTopTitle = uiFactory.createView(R.id.activity_regist_day_detail_list$menuTopTItle);
         menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,13 +111,13 @@ public class RegistDayList extends AppCompatActivity {
 
     private void createList() {
         if (!sessionCheck()) {
-            netFail(R.string.regist_day_list_alert_title_fail, R.string.alert_content_not_login);
+            AlertManager.getInstance().showNotLoginAlert(this, R.string.regist_day_list_alert_title_fail);
             return;
         }
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no(), selected_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(userModel.getUser_no(), scheduleModel.getTrip_no(), selected_date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         if (response.isSuccessful()) {

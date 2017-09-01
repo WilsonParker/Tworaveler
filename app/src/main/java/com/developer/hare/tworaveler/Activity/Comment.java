@@ -132,8 +132,8 @@ public class Comment extends AppCompatActivity {
     }
 
     public void onSendComment(View view) {
-        if(!sessionCheck()){
-            netFail(R.string.comment_alert_title_fail, R.string.alert_content_not_login);
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(Comment.this, R.string.comment_alert_title_fail);
             return;
         }
         String msg = ET_comment.getText().toString().trim();
