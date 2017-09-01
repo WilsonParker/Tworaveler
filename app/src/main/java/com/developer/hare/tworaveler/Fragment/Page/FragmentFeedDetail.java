@@ -17,7 +17,6 @@ import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
-import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -27,7 +26,6 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
-import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -45,11 +43,11 @@ public class FragmentFeedDetail extends BaseFragment {
     private RecyclerView recyclerView;
     private TextView TV_noItem, TV_date;
     private LinearLayout linearLayout, LL_commnet, LL_like;
-    private MypageDetailAdapter mypageDetailAdapter;
-    private UserModel userModel;
-    private ResourceManager resourceManager;
+
     private ProgressManager progressManager;
+    private SessionManager sessionManager;
     private ArrayList<ScheduleDayModel> items = new ArrayList<>();
+    private int user_no;
     private ScheduleModel scheduleModel;
     private String trip_Date;
     private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
@@ -73,6 +71,7 @@ public class FragmentFeedDetail extends BaseFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_feed_detail, container, false);
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -85,7 +84,7 @@ public class FragmentFeedDetail extends BaseFragment {
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
         trip_Date = bundle.getString(KEY_TRIPDATE);
 
-        resourceManager = ResourceManager.getInstance();
+        sessionManager = SessionManager.getInstance();
         progressManager = new ProgressManager(getActivity());
         uiFactory = UIFactory.getInstance(view);
         linearLayout = uiFactory.createView(R.id.fragment_feed_detail$LL_empty);
@@ -101,10 +100,9 @@ public class FragmentFeedDetail extends BaseFragment {
 
         recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(mypageDetailAdapter);
 
         TV_noItem = uiFactory.createView(R.id.fragment_feed_detail$TV_noitem);
-        TV_date= uiFactory.createView(R.id.fragment_feed_detail$TV_date);
+        TV_date = uiFactory.createView(R.id.fragment_feed_detail$TV_date);
         TV_date.setText(trip_Date);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -114,14 +112,15 @@ public class FragmentFeedDetail extends BaseFragment {
     }
 
     private void updateList() {
-        if (!sessionCheck()){
-            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.regist_day_list_alert_title_fail);
-            return;
-        }
+        if (sessionCheck())
+            user_no = sessionManager.getUserModel().getUser_no();
+        else
+            user_no = -1;
+
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                Net.getInstance().getFactoryIm().selectDetailSchedule(userModel.getUser_no(),scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
+                Net.getInstance().getFactoryIm().selectDetailSchedule(user_no, scheduleModel.getTrip_no(), trip_Date).enqueue(new Callback<ResponseArrayModel<ScheduleDayModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
 //                        Log_HR.log(FragmentFeedDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
@@ -164,8 +163,8 @@ public class FragmentFeedDetail extends BaseFragment {
             recyclerView.setVisibility(View.INVISIBLE);
         }
     }
+
     private boolean sessionCheck() {
-        userModel = SessionManager.getInstance().getUserModel();
         return SessionManager.getInstance().isLogin();
     }
 }
