@@ -118,7 +118,7 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
             });
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
             TV_nickname.setText(model.getNickname() + "");
             TV_message.setText(model.getStatus_message() + "");
             TV_title.setText(model.getTripName() + "");

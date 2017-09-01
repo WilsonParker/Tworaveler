@@ -138,6 +138,11 @@
     <string name="fragmentMyPageDetail_alert_title_fail">세부일정 목록이 없습니다.</string>
     <string name="fragmentMyPageDetail_alert_content_fail">세부일정 목록을 추가해 주세요</string>
 
+    <!-- Fragment/FragmentFeedSchedule -->
+    <string name="fragmentFeedSchedule_alert_title_fail">일정 조회 실패.</string>
+    <string name="fragmentFeedSchedule_alert_content_fail">일정 조회를 실패하였습니다</string>
+    <string name="fragmentFeedSchedule_alert_content_fail_2">문제가 발생하여 일정 조회를 실패하였습니다</string>
+
     <!--
         ############################################################################################
                                                    Layout

@@ -27,6 +27,7 @@ import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -157,7 +158,7 @@ public class FragmentFeedSchedule extends BaseFragment {
         changeFollow(scheduleModel.isFollow());
         ImageManager imageManager = ImageManager.getInstance();
         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
         TV_nickname.setText(scheduleModel.getNickname() + "");
         TV_message.setText(scheduleModel.getStatus_message() + "");
         TV_title.setText(scheduleModel.getTripName() + "");
@@ -197,8 +198,10 @@ public class FragmentFeedSchedule extends BaseFragment {
         TV_title.setText(scheduleModel.getTripName());
         TV_date.setText(scheduleModel.getStart_date() + " ~ " + scheduleModel.getEnd_date());
         TV_comment.setText(scheduleModel.getCommentCount() + "");
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+        if (!NullChecker.getInstance().nullCheck(scheduleModel.getTrip_pic_url()))
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
+        if (!NullChecker.getInstance().nullCheck(scheduleModel.getProfile_pic_thumbnail_url()))
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
     }
 
     private void changeLike(boolean isLike) {
@@ -210,8 +213,8 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     private void likeClick(boolean isLike) {
-        if (!sessionCheck()){
-            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.regist_day_list_alert_title_fail);
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeedSchedule_alert_title_fail);
             return;
         }
 
@@ -287,8 +290,8 @@ public class FragmentFeedSchedule extends BaseFragment {
     }
 
     public void followSelect(boolean isFollow) {
-        if (!sessionCheck()){
-            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeed_schedule_alert_title_fail);
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeedSchedule_alert_title_fail);
             return;
         }
         if (isFollow) {
@@ -302,7 +305,7 @@ public class FragmentFeedSchedule extends BaseFragment {
                             Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
                             changeFollow(false);
                         }
-                    }else
+                    } else
                         Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
@@ -322,7 +325,7 @@ public class FragmentFeedSchedule extends BaseFragment {
                             Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
                             changeFollow(true);
                         }
-                    }else
+                    } else
                         Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 

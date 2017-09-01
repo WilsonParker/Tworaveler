@@ -31,7 +31,7 @@ public class BigImageProfile extends Activity {
     }
 
     private void init() {
-        UserModel model = (UserModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_USERMODEL);
+        UserModel model = (UserModel) getIntent().getSerializableExtra(DataDefinition.Intent.KEY_USERMODEL);
         uiFactory = UIFactory.getInstance(this);
         photoView = uiFactory.createView(R.id.item_profile$PV_image);
         imageView = uiFactory.createView(R.id.item_profile$IV_image);

@@ -7,9 +7,8 @@ import java.io.Serializable;
  */
 
 public class ScheduleModel implements Serializable {
-    // Regist Detail Model
     private int user_no, trip_no, likeCount, CommentCount;
-    private String nickname, status_message, country, city, start_date, end_date, profile_pic_thumbnail, trip_pic_url, reg_date, mod_date, tripName;
+    private String nickname, status_message, country, city, start_date, end_date, profile_pic_thumbnail_url, trip_pic_url, reg_date, mod_date, tripName;
     private boolean isLike, isFollow;
 
     public ScheduleModel(int user_no, String nickname, String status_message, String country, String city, String start_date, String end_date, String tripName) {
@@ -153,12 +152,12 @@ public class ScheduleModel implements Serializable {
         this.end_date = end_date;
     }
 
-    public String getProfile_pic_thumbnail() {
-        return profile_pic_thumbnail;
+    public String getProfile_pic_thumbnail_url() {
+        return profile_pic_thumbnail_url;
     }
 
-    public void setProfile_pic_thumbnail(String profile_pic_thumbnail) {
-        this.profile_pic_thumbnail = profile_pic_thumbnail;
+    public void setProfile_pic_thumbnail_url(String profile_pic_thumbnail_url) {
+        this.profile_pic_thumbnail_url = profile_pic_thumbnail_url;
     }
 
     public String getTrip_pic_url() {
@@ -222,7 +221,7 @@ public class ScheduleModel implements Serializable {
                 ", city='" + city + '\'' +
                 ", start_date='" + start_date + '\'' +
                 ", end_date='" + end_date + '\'' +
-                ", profile_pic_thumbnail='" + profile_pic_thumbnail + '\'' +
+                ", profile_pic_thumbnail_url='" + profile_pic_thumbnail_url + '\'' +
                 ", trip_pic_url='" + trip_pic_url + '\'' +
                 ", reg_date='" + reg_date + '\'' +
                 ", mod_date='" + mod_date + '\'' +
