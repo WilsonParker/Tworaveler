@@ -144,30 +144,35 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                         context.startActivity(intent);
                                         break;
                                     case R.id.popup_menu$delete:
-                                        Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
+                                        AlertManager.getInstance().createNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
-                                            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
 //                                                Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
-                                                if (response.isSuccessful()) {
-                                                    switch (response.body().getSuccess()) {
-                                                        case CODE_SUCCESS:
-                                                            HandlerManager.getInstance().post(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    items.remove(model);
-                                                                    onItemDeleteListener.onDelete();
-                                                                }
-                                                            });
-                                                            break;
+                                                        if (response.isSuccessful()) {
+                                                            switch (response.body().getSuccess()) {
+                                                                case CODE_SUCCESS:
+                                                                    HandlerManager.getInstance().post(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            items.remove(model);
+                                                                            onItemDeleteListener.onDelete();
+                                                                        }
+                                                                    });
+                                                                    break;
+                                                            }
+                                                        } else
+                                                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                                                     }
-                                                } else
-                                                    Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
-                                            }
 
-                                            @Override
-                                            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                                                Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                                                    @Override
+                                                    public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                                                    }
+                                                });
                                             }
                                         });
                                         break;
