@@ -25,15 +25,18 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,6 +79,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
         private LinearLayout IV_btn, LL_like, LL_comment;
         private PopupMenu popupMenu;
         private ScheduleModel model;
+        private ResourceManager resourceManager;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);

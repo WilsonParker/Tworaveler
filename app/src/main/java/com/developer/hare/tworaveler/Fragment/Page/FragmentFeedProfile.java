@@ -126,7 +126,7 @@ public class FragmentFeedProfile extends BaseFragment {
                                     if(NullChecker.getInstance().nullCheck(model.getProfile_pic_url())){
                                          imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.image_profile, ImageManager.BASIC_TYPE), IV_profile);
                                     }else{
-                                         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
+                                         imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE).placeholder(R.drawable.image_profile), IV_profile);
                                     }
                                     break;
                                 case CODE_NOT_LOGIN:

@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -83,8 +81,8 @@ public class FragmentMyPageProfile extends BaseFragment {
                 Intent intent = new Intent(getActivity(), BigImageProfile.class);
                 intent.putExtra(KEY_USERMODEL, SessionManager.getInstance().getUserModel());
                 getActivity().startActivity(intent);
-                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.center_zoom_in);
-                IV_profile.startAnimation(animation);
+                /*Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.center_zoom_in);
+                IV_profile.startAnimation(animation);*/
 
             }
         });
@@ -130,7 +128,7 @@ public class FragmentMyPageProfile extends BaseFragment {
                                 if (NullChecker.getInstance().nullCheck(model.getProfile_pic_url())) {
                                     imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.image_profile, ImageManager.BASIC_TYPE).placeholder(image_profile), IV_profile);
                                 }else{
-                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_url(), ImageManager.THUMBNAIL_TYPE).placeholder(image_profile), IV_profile);
+                                    imageManager.loadImage(imageManager.createRequestCreator(getActivity(), model.getProfile_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE).placeholder(image_profile), IV_profile);
                                 }
                                 break;
                             case CODE_NOT_LOGIN:

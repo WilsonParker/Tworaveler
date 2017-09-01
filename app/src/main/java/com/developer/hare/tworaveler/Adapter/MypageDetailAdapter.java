@@ -24,6 +24,7 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
@@ -31,6 +32,7 @@ import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

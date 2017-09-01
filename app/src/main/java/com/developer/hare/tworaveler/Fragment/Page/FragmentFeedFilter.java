@@ -82,6 +82,8 @@ public class FragmentFeedFilter extends BaseFragment {
             cityModel = (CityModel) getArguments().getSerializable(KEY_SERIALIZABLE);
         } else if (type == TYPE_NICKNAME) {
             scheduleModel = (ScheduleModel) getArguments().getSerializable(KEY_SERIALIZABLE);
+        }else{
+            FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());
         }
 
         uiFactory = UIFactory.getInstance(view);
@@ -205,4 +207,5 @@ public class FragmentFeedFilter extends BaseFragment {
         super.onStop();
         scrollCount = 0;
     }
+
 }

@@ -171,8 +171,8 @@ public class SearchFeed extends AppCompatActivity {
         IB_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ET_city.setText("");
-                onFinish(DataDefinition.Intent.RESULT_CODE_SUCCESS, null);
+                ET_city.setText("");
+//                onFinish(DataDefinition.Intent.RESULT_CODE_SUCCESS, null);
             }
         });
         city.callOnClick();

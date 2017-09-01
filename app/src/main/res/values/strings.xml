@@ -123,6 +123,7 @@
     <!-- Fragment/FragmentFeed -->
     <string name="fragmentFeed_alert_title_fail">피드 불러오기 실패</string>
     <string name="fragmentFeed_alert_content_fail">피드 불러오는데 실패 하였습니다</string>
+    <string name="fragmentFeed_Delete_alert_content_fail">삭제하시겠습니까?</string>
 
     <!-- Fragment/FragmentFeedSchedule -->
     <string name="fragmentFeed_schedule_alert_title_fail">팔로우 실패</string>
