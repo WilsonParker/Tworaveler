@@ -1,15 +1,19 @@
 package com.developer.hare.tworaveler.Model;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Hare on 2017-08-10.
  */
 
-public class UserModel {
+public class UserModel implements Serializable {
     private int user_no;
     private String email, pw, nickname, profile_pic_url, profile_pic_url_thumbnail, status_message, reg_date, del_yn, sessionID, Cookie;
     private ArrayList<Integer> followees, followers;
+    private File file;
+    private boolean isFile;
 
     public UserModel(int user_no, String email, String pw, String nickname, String profile_pic_url, String profile_pic_url_thumbnail, String status_message, String reg_date, String del_yn, String sessionID, ArrayList<Integer> followees, ArrayList<Integer> followers) {
         this.user_no = user_no;
@@ -24,6 +28,21 @@ public class UserModel {
         this.sessionID = sessionID;
         this.followees = followees;
         this.followers = followers;
+    }
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public boolean isFile() {
+        return isFile;
+    }
+
+    public void setFile(boolean file) {
+        isFile = file;
     }
 
     public int getUser_no() {

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.developer.hare.tworaveler.Activity.BigImageProfile;
 import com.developer.hare.tworaveler.Activity.MyProfileSet;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
@@ -31,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_USERMODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NONE_SESSION;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NOT_LOGIN;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
@@ -40,6 +42,7 @@ public class FragmentMyPageProfile extends BaseFragment {
     private MenuTopTitle menuTopTitle;
     private TextView TV_cntFollower, TV_cntFollowing, TV_nickname, TV_message;
     private ImageView IV_profile;
+    private UserModel userModel;
 
     public static FragmentMyPageProfile newInstance() {
         return new FragmentMyPageProfile();
@@ -53,6 +56,8 @@ public class FragmentMyPageProfile extends BaseFragment {
 
     @Override
     protected void init(View view) {
+        userModel = SessionManager.getInstance().getUserModel();
+
         uiFactory = UIFactory.getInstance(getActivity());
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_profile$topbar);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -68,6 +73,15 @@ public class FragmentMyPageProfile extends BaseFragment {
             }
         });
         IV_profile = uiFactory.createView(R.id.fragment_mypage_profile$IV_profile);
+        IV_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BigImageProfile.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(KEY_USERMODEL, SessionManager.getInstance().getUserModel());
+                getActivity().startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_slide_out_top);
+            }
+        });
         TV_cntFollower = uiFactory.createView(R.id.fragment_mypage_profile$TV_cntfollower);
         TV_cntFollowing = uiFactory.createView(R.id.fragment_mypage_profile$TV_cntfollowing);
         TV_nickname = uiFactory.createView(R.id.fragment_mypage_profile$TV_nickname);
@@ -91,7 +105,6 @@ public class FragmentMyPageProfile extends BaseFragment {
     }
 
     private void setData() {
-        UserModel userModel = SessionManager.getInstance().getUserModel();
         Net.getInstance().getFactoryIm().selectUserInfo(userModel.getUser_no()).enqueue(
                 new Callback<ResponseModel<UserModel>>() {
                     @Override

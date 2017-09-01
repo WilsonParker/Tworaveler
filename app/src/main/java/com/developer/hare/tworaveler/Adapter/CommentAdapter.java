@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -23,6 +24,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
@@ -39,11 +41,13 @@ import retrofit2.Response;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
     private ArrayList<CommentModel> items;
     private int type;
+    private OnItemDataChangeListener onItemDeleteListener;
     public static final int COMMENT = 0x0001, COMMENT_DETAIL = 0x0010;
 
-    public CommentAdapter(ArrayList<CommentModel> items, int type) {
+    public CommentAdapter(ArrayList<CommentModel> items, int type, OnItemDataChangeListener onItemDeleteListener) {
         this.items = items;
         this.type = type;
+        this.onItemDeleteListener = onItemDeleteListener;
     }
 
     @Override
@@ -101,7 +105,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     showModifyEditor(true);
                                     break;
                                 case R.id.popup_menu$delete:
-
+                                    commentDelete();
                                     break;
                             }
                             return false;
@@ -141,9 +145,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             });
         }
 
-        public void changeComment() {
-//            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", " model : " + model);
-            model.setContent(ET_comment.getText().toString());
+        private void changeComment() {
             switch (type) {
                 case COMMENT:
                     Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
@@ -157,7 +159,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         model.setContent(ET_comment.getText().toString());
                                         TV_comment.setText(model.getContent() + "");
                                         showModifyEditor(false);
-                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "body : " + response.body().getResult());
+                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response : " + response.body().getResult());
                                         break;
                                 }
                             } else {
@@ -197,6 +199,61 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                             netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_5);
                             Log_HR.log(CommentAdapter.class, "onFailure", t);
+                        }
+                    });
+                    break;
+            }
+        }
+        private void commentDelete(){
+            switch (type)
+            {
+                case COMMENT :
+                    Net.getInstance().getFactoryIm().commentDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                            if(response.isSuccessful()){
+                                if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            items.remove(model);
+                                            onItemDeleteListener.onDelete();
+                                        }
+                                    });
+                                }
+                            }else {
+                                netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_4);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                            netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_5);
+                        }
+                    });
+                    break;
+                case COMMENT_DETAIL :
+                    Net.getInstance().getFactoryIm().commentDetailDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
+                        @Override
+                        public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
+                            if(response.isSuccessful()){
+                                if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            items.remove(model);
+                                            onItemDeleteListener.onDelete();
+                                        }
+                                    });
+                                }
+                            }else{
+                                netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_4);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
+                            netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_5);
                         }
                     });
                     break;
