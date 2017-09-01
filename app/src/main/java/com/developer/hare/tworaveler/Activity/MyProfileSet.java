@@ -258,18 +258,19 @@ public class MyProfileSet extends AppCompatActivity {
         ImageManager imageManager = ImageManager.getInstance();
         if (NullChecker.getInstance().nullCheck(userModel.getProfile_pic_url())) {
             imageManager.loadImage(imageManager.createRequestCreator(this, R.drawable.image_profile, ImageManager.BASIC_TYPE), circleImageView);
-        } else{
+        } else {
             imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
         }
     }
 
     private void modifyData() {
+        UserReqModel userReqModel = new UserReqModel(0, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
                 if (imageFile != null) {
                     RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
-                    Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
+                    Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userReqModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                             Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
@@ -308,7 +309,6 @@ public class MyProfileSet extends AppCompatActivity {
                         }
                     });
                 } else {
-                    UserReqModel userReqModel = new UserReqModel(0, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
                     Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
