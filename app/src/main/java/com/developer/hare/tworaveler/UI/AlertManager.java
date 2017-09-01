@@ -191,6 +191,12 @@ public class AlertManager {
                 .show();
     }
 
+    public void showSimplePopup(Context context, String msg, int type) {
+        new SweetAlertDialog(context, type)
+                .setContentText(msg)
+                .show();
+    }
+
     public void showNetFailAlert(Activity activity, int title, int content) {
         showNetFailAlert((Context) activity, title, content);
     }

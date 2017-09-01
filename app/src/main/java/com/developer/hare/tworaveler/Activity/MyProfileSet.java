@@ -264,11 +264,11 @@ public class MyProfileSet extends AppCompatActivity {
     }
 
     private void modifyData() {
-        UserReqModel userReqModel = new UserReqModel(0, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
                 if (imageFile != null) {
+                    UserReqModel userReqModel = new UserReqModel(1, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
                     RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
                     Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userReqModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
                         @Override
@@ -309,6 +309,7 @@ public class MyProfileSet extends AppCompatActivity {
                         }
                     });
                 } else {
+                    UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
                     Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {

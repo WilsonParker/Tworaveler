@@ -156,9 +156,6 @@ public class FragmentFeedSchedule extends BaseFragment {
             }
         });
         changeFollow(scheduleModel.isFollow());
-        ImageManager imageManager = ImageManager.getInstance();
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-        imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
         TV_nickname.setText(scheduleModel.getNickname() + "");
         TV_message.setText(scheduleModel.getStatus_message() + "");
         TV_title.setText(scheduleModel.getTripName() + "");
@@ -202,6 +199,8 @@ public class FragmentFeedSchedule extends BaseFragment {
             imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
         if (!NullChecker.getInstance().nullCheck(scheduleModel.getProfile_pic_thumbnail_url()))
             imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+        else
+            imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.image_profile, ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
     }
 
     private void changeLike(boolean isLike) {
