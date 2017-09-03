@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="text"
+        android:textColor="@color/alert_message_color"
         android:textAlignment="center"
         android:textSize="14sp" />
 

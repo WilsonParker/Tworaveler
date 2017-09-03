@@ -144,14 +144,14 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                         context.startActivity(intent);
                                         break;
                                     case R.id.popup_menu$delete:
-                                        AlertManager.getInstance().createNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
+                                        AlertManager.getInstance().showNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                 Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
 //                                                Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-
+                                                            sweetAlertDialog.dismissWithAnimation();
                                                         if (response.isSuccessful()) {
                                                             switch (response.body().getSuccess()) {
                                                                 case CODE_SUCCESS:
@@ -170,6 +170,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
 
                                                     @Override
                                                     public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                                        sweetAlertDialog.dismissWithAnimation();
                                                         Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
                                                     }
                                                 });
@@ -177,7 +178,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                         });
                                         break;
                                 }
-                                return false;
+                                return true;
                             }
                         });
                         popupMenu.show();

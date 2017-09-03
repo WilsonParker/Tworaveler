@@ -45,7 +45,8 @@ public class AlertManager {
     private RecyclerView RV_items;
     private ListView LV_items;
 
-    private final String DEFAULT_CONFIRM_TEXT = "확인", DEFAULT_CANCEL_TEXT ="취소";
+    private final String DEFAULT_CONFIRM_TEXT = "확인", DEFAULT_CANCEL_TEXT = "취소";
+
     {
         resourceManager = ResourceManager.getInstance();
     }
@@ -118,14 +119,13 @@ public class AlertManager {
         return dialog;
     }
 
-    public SweetAlertDialog createNoTitleAlert(Context context, int alertType, int content, SweetAlertDialog.OnSweetClickListener confirmClick) {
-        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(resourceManager.getResourceString(content)).setConfirmText(DEFAULT_CONFIRM_TEXT).setConfirmClickListener(confirmClick).setCancelText(DEFAULT_CANCEL_TEXT).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+    public void showNoTitleAlert(Context context, int alertType, int content, SweetAlertDialog.OnSweetClickListener confirmClick) {
+        setAlert(context, alertType).setTitleText(resourceManager.getResourceString(content)).setConfirmText(DEFAULT_CONFIRM_TEXT).setConfirmClickListener(confirmClick).setCancelText(DEFAULT_CANCEL_TEXT).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 sweetAlertDialog.dismissWithAnimation();
             }
-        });
-        return dialog;
+        }).show();
     }
 
     public AlertDialog showAlertSelectionMode(Activity activity, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
@@ -154,24 +154,6 @@ public class AlertManager {
             alertDialog.dismiss();
     }
 
-    public SweetAlertDialog showLoading(Context context) {
-        return showLoading(context, "Loading");
-    }
-
-    public SweetAlertDialog showLoading(Context context, String msg) {
-        return showLoading(context, msg, "#A5DC86");
-    }
-
-    public SweetAlertDialog showLoading(Context context, String msg, String color) {
-        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading");
-        pDialog.setCancelable(false); // 백키를 눌러도 닫히지 않는다.
-        pDialog.show();
-
-        return pDialog;
-    }
-
     public void showPopup(Context context, String title, String msg,
                           String cName, SweetAlertDialog.OnSweetClickListener cEvent,
                           String oName, SweetAlertDialog.OnSweetClickListener oEvent) {
@@ -192,6 +174,30 @@ public class AlertManager {
                 .show();
     }
 
+    public SweetAlertDialog createLoadingDialog(Context context) {
+        return createLoadingDialog(context, resourceManager.getResourceString(R.string.progress_message));
+    }
+
+    public SweetAlertDialog createLoadingDialog(Context context, String msg) {
+        return createLoadingDialog(context, msg, resourceManager.getResourceString(R.color.default_theme_Image_color));
+    }
+
+    public SweetAlertDialog createLoadingDialog(Context context, String msg, String color) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor(color));
+        pDialog.setTitleText(msg);
+        pDialog.setCancelable(false); // 백키를 눌러도 닫히지 않는다.
+        return pDialog;
+    }
+
+    public SweetAlertDialog createLoadingDialog(Context context, int msg, int color) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor(resourceManager.getResourceString(color)));
+        pDialog.setTitleText(resourceManager.getResourceString(msg));
+        pDialog.setCancelable(false);
+        return pDialog;
+    }
+
     public void showNetFailAlert(Activity activity, int title, int content) {
         showNetFailAlert((Context) activity, title, content);
     }
@@ -209,34 +215,6 @@ public class AlertManager {
             }
         }).show();
     }
-
-   /* public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(activity);
-        ad.setTitle(resourceManager.getResourceString(title));       // 제목 설정
-        ad.setMessage(resourceManager.getResourceString(message));   // 내용 설정
-
-        // EditText 삽입하기
-        final EditText et = new EditText(activity);
-        ad.setView(et);
-
-        // 확인 버튼 설정
-        ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                onConfirmClickListener.onConfirmClick(et.getText().toString());
-            }
-        });
-
-        // 취소 버튼 설정
-        ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();     //닫기
-            }
-        });
-
-        ad.show();
-    }*/
 
     public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {
         View view = activity.getLayoutInflater().inflate(R.layout.alert_input_check, null);
@@ -261,4 +239,5 @@ public class AlertManager {
         });
         dialog.show();
     }
+
 }

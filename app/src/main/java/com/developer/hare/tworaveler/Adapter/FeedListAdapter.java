@@ -26,7 +26,7 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
-import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ScrollEndMethod;
@@ -109,11 +109,12 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
             ArrayList<TextView> textlist1 = new ArrayList<>();
             ArrayList<TextView> textlist2 = new ArrayList<>();
-            textlist1.add(TV_nickname);
             textlist1.add(TV_date);
+//            textlist1.add(TV_nickname);
             textlist1.add(TV_like);
             textlist1.add(TV_comment);
             FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
+            FontManager.getInstance().setFont(TV_nickname, "Roboto-Bold.ttf");
             textlist2.add(TV_message);
             textlist2.add(TV_title);
             FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");

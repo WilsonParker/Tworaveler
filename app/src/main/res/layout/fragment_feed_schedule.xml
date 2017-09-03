@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_weight="@string/FRAGMENT_HEIGHT">
+    android:layout_weight="@string/FRAGMENT_HEIGHT"
+    android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_feed_schedule$menuToptitle"
@@ -30,51 +30,65 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center_vertical"
-                >
+                android:orientation="horizontal">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/fragment_feed_schedule$CV_profile"
                     android:layout_width="60dp"
                     android:layout_height="match_parent" />
+
                 <ImageView
                     android:layout_width="16dp"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp" />
+
                 <LinearLayout
-                    android:layout_width="211dp"
+                    android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/fragment_feed_schedule$TV_nickname"
                         android:layout_width="match_parent"
                         android:layout_height="33dp"
+                        android:textColor="@color/feed_nickname_color"
+                        android:gravity="center_vertical"
                         android:text="에비츄~"
                         android:textSize="13sp"
-                        android:gravity="center_vertical"
-                        />
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/fragment_feed_schedule$TV_message"
                         android:layout_width="match_parent"
                         android:layout_height="27dp"
                         android:gravity="top"
                         android:paddingTop="1.5dp"
-                        android:textSize="9sp"
-                        android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"/>
+                        android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
+                        android:textSize="9sp" />
                 </LinearLayout>
-                <ImageView
-                    android:id="@+id/fragment_feed_schedule$IV_follow"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/icon_follow"
-                    />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/fragment_feed_schedule$IV_follow"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_follow" />
+                </RelativeLayout>
             </LinearLayout>
 
             <RelativeLayout
@@ -98,10 +112,11 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="11.3dp"
+                    android:layout_below="@+id/fragment_feed_schedule$LL_scrollItem"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
-                    android:layout_below="@+id/fragment_feed_schedule$LL_scrollItem">
+                    android:layout_marginTop="11.3dp">
+
                     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                         android:id="@+id/fragment_feed_schedule$calendar"
                         android:layout_width="match_parent"

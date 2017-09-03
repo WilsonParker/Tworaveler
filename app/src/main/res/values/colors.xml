@@ -21,8 +21,12 @@
     <color name="menu_top_title_bar_color">#33d4d1</color>
     <color name="menu_top_title_text_color">#ffffff</color>
 
+    <!-- Alert -->
+    <color name="alert_message_color">#3b3b3b</color>
+
     <!-- Feed -->
     <color name="feed_title_color">#434343</color>
+    <color name="feed_nickname_color">#000000</color>
     <color name="feed_date_color">#535353</color>
     <color name="feed_num_color">#a0a0a0</color>
 

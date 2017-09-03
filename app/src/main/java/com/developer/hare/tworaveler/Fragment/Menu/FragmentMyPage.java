@@ -17,7 +17,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 
 public class FragmentMyPage extends BaseFragment {
     private static FragmentMyPage instance = new FragmentMyPage();

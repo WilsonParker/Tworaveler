@@ -1,4 +1,4 @@
-package com.developer.hare.tworaveler.Util;
+package com.developer.hare.tworaveler.UI;
 
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -16,7 +16,7 @@ public class FontManager {
     private AssetManager assetManager;
     private final String FontPath = "fonts/";
     private final String[] strFonts = {"NotoSansCJKkr-Bold.otf", "NotoSansCJKkr-Medium.otf","SCRIPTBL.TTF","NotoSansCJKkr-Regular.otf"
-                                        ,"Roboto-Medium.ttf"};
+                                        ,"Roboto-Medium.ttf","Roboto-Bold.ttf"};
     private static FontManager fontManager = new FontManager();
     private static Map<String, Typeface> fonts = new HashMap<>();
 

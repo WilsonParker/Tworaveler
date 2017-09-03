@@ -17,7 +17,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;

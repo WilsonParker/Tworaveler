@@ -10,6 +10,7 @@
 
     <!-- Common String-->
     <string name="alert_content_not_login">로그인이 되어있지 않습니다</string>
+    <string name="progress_message">Loading</string>
 
     <!--
       ############################################################################################

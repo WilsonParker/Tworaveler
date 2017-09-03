@@ -28,7 +28,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -151,14 +151,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     context.startActivity(intent);
                                     break;
                                 case R.id.popup_menu$delete:
-                                    AlertManager.getInstance().createNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
+                                    AlertManager.getInstance().showNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             Net.getInstance().getFactoryIm().deleteTirp(model.getTrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                                 @Override
                                                 public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
 //                                            Log_HR.log(HomeListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-
+                                                    sweetAlertDialog.dismissWithAnimation();
                                                     if (response.isSuccessful()) {
                                                         switch (response.body().getSuccess()) {
                                                             case CODE_SUCCESS:
@@ -174,8 +174,10 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                         }
                                                     }
                                                 }
+
                                                 @Override
                                                 public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                                    sweetAlertDialog.dismissWithAnimation();
                                                     Log_HR.log(HomeListAdapter.class, "onFailure", t);
                                                 }
                                             });
