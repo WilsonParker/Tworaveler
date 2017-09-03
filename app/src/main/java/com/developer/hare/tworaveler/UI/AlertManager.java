@@ -127,7 +127,10 @@ public class AlertManager {
         });
         return dialog;
     }
-
+    public SweetAlertDialog createNoTitleAlert(Context context, int alertType, int content, int confirm, SweetAlertDialog.OnSweetClickListener confirmClick, int cancel, SweetAlertDialog.OnSweetClickListener cancelClick) {
+        SweetAlertDialog dialog = setAlert(context, alertType).setContentText(resourceManager.getResourceString(content)).setCancelText(resourceManager.getResourceString(confirm)).setConfirmClickListener(confirmClick).setCancelText(resourceManager.getResourceString(cancel)).setCancelClickListener(cancelClick);
+        return dialog;
+    }
     public AlertDialog showAlertSelectionMode(Activity activity, String title, int spanCount, ArrayList<AlertSelectionItemModel> items) {
         handler = HandlerManager.getInstance().getHandler();
         view = LayoutInflater.from(activity).inflate(R.layout.alert_selectionmode, null);
@@ -177,6 +180,17 @@ public class AlertManager {
                           String oName, SweetAlertDialog.OnSweetClickListener oEvent) {
         new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(title)
+                .setContentText(msg)
+                .setConfirmText(cName)
+                .setConfirmClickListener(cEvent)
+                .setCancelText(oName)
+                .setCancelClickListener(oEvent)
+                .show();
+    }
+    public void showPopup(Context context, String msg,
+                          String cName, SweetAlertDialog.OnSweetClickListener cEvent,
+                          String oName, SweetAlertDialog.OnSweetClickListener oEvent) {
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
                 .setContentText(msg)
                 .setConfirmText(cName)
                 .setConfirmClickListener(cEvent)

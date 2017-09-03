@@ -144,7 +144,12 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                         context.startActivity(intent);
                                         break;
                                     case R.id.popup_menu$delete:
-                                        AlertManager.getInstance().createNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
+                                        AlertManager.getInstance().showPopup(context, "일정 삭제","삭제하시겠습니까?", "취소", new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismissWithAnimation();
+                                            }
+                                        },  "확인", new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                 Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
@@ -160,6 +165,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                                                         public void run() {
                                                                             items.remove(model);
                                                                             onItemDeleteListener.onDelete();
+                                                                            sweetAlertDialog.dismissWithAnimation();
                                                                         }
                                                                     });
                                                                     break;

@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:leftButton="@drawable/icon_back"
-        app:rightButton="@drawable/icon_search"
+        app:rightButton="@drawable/if_search"
         app:titleText="@string/fragment_feed_title" />
 
     <android.support.v7.widget.RecyclerView

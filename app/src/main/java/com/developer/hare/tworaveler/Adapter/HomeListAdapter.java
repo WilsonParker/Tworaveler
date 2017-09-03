@@ -151,7 +151,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     context.startActivity(intent);
                                     break;
                                 case R.id.popup_menu$delete:
-                                    AlertManager.getInstance().createNoTitleAlert(context, SweetAlertDialog.WARNING_TYPE, R.string.fragmentFeed_Delete_alert_content_fail, new SweetAlertDialog.OnSweetClickListener() {
+                                    AlertManager.getInstance().showPopup(context, "일정 삭제", "삭제하시겠습니까?", "취소", new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            sweetAlertDialog.dismissWithAnimation();
+                                        }
+                                    }, "확인", new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             Net.getInstance().getFactoryIm().deleteTirp(model.getTrip_no()).enqueue(new Callback<ResponseModel<String>>() {
@@ -168,12 +173,14 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                                         Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onDelete running");
                                                                         items.remove(model);
                                                                         onItemDeleteListener.onDelete();
+                                                                        sweetAlertDialog.dismissWithAnimation();
                                                                     }
                                                                 });
                                                                 break;
                                                         }
                                                     }
                                                 }
+
                                                 @Override
                                                 public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                                                     Log_HR.log(HomeListAdapter.class, "onFailure", t);

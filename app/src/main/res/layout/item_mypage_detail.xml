@@ -2,10 +2,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_mypage_detail$Root"
-    android:layout_width="260dp"
+    android:layout_width="270dp"
     android:layout_height="match_parent"
-    android:layout_marginLeft="25dp"
-    android:layout_marginRight="20dp"
+    android:layout_marginLeft="35dp"
     android:gravity="center_horizontal">
 
     <LinearLayout
