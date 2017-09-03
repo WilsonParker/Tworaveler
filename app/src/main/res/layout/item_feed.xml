@@ -54,7 +54,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:textStyle="bold"
                         android:text="에비츄~"
+                        android:textColor="@color/feed_nickname_color"
                         android:textSize="13sp"
                         android:gravity="bottom"
                         android:paddingBottom="1.5dp"/>

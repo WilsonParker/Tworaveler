@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Model.AlamModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.FontManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class AlamListAdapter extends RecyclerView.Adapter<AlamListAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
