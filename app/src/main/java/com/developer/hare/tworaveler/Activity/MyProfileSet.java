@@ -281,6 +281,7 @@ public class MyProfileSet extends AppCompatActivity {
             public void run() {
                 UserReqModel userReqModel = new UserReqModel(type, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
                 switch (type) {
+                    case 2:
                     case 0:
                         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
                             @Override
@@ -357,8 +358,7 @@ public class MyProfileSet extends AppCompatActivity {
                             }
                         });
                         break;
-                    case 2:
-                        break;
+
                 }
             }
         });

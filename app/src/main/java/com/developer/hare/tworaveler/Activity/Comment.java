@@ -31,6 +31,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -55,6 +56,7 @@ public class Comment extends AppCompatActivity {
     private int started;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
+    private ResourceManager resourceManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
     private ScheduleModel scheduleModel;
@@ -77,6 +79,10 @@ public class Comment extends AppCompatActivity {
         super.onResume();
         createCommentList();
         changeView();
+        if(!sessionCheck()){
+            ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));
+            ET_comment.setEnabled(false);
+        }
     }
 
     private void init() {
@@ -84,6 +90,7 @@ public class Comment extends AppCompatActivity {
         started = getIntent().getIntExtra(KEY_STARTED_BY, -1);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
+        resourceManager = new ResourceManager();
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
         LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);

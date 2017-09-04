@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,6 +42,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private ArrayList<CommentModel> items;
     private int type;
     private OnItemDataChangeListener onItemDeleteListener;
+    private ViewHolder editing_holder;
     public static final int COMMENT = 0x0001, COMMENT_DETAIL = 0x0010;
 
     public CommentAdapter(ArrayList<CommentModel> items, int type, OnItemDataChangeListener onItemDeleteListener) {
@@ -99,6 +101,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.popup_menu$modify:
+                                    if(editing_holder != null)
+                                        editing_holder.showModifyEditor(false);
+                                    editing_holder = ViewHolder.this;
+                                    ET_comment.findFocus();
+                                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                     ET_comment.setText(model.getContent());
                                     showModifyEditor(true);
                                     break;

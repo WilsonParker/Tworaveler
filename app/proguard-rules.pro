@@ -40,7 +40,9 @@
 -dontwarn android.support.v4.**,org.slf4j.**,com.google.android.gms.**
 -dontwarn com.squareup.okhttp.**
 
-
+# RecyclerViewPager
+-keep class com.lsjwzh.widget.recyclerviewpager.**
+-dontwarn com.lsjwzh.widget.recyclerviewpager.**
 
 # Rxjava rules
 -dontwarn rx.internal.util.**

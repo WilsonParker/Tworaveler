@@ -101,6 +101,7 @@
     <string name="bagDelete_alert_content_fail_2">여행 가방을 삭제하는데 문제가 발생하였습니다</string>
 
     <!-- Activity/Comment-->
+    <string name="comment_not_login_editText_message">로그인이 필요합니다</string>
     <string name="comment_alert_title_fail">댓글 등록 실패</string>
     <string name="comment_alert_title_fail_2">댓글 목록 불러오기 실패</string>
     <string name="comment_alert_title_fail_3">댓글 수정 실패</string>

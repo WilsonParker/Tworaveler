@@ -5,18 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDark"
-    tools:context="com.developer.hare.tworaveler.Activity.BigImage"
-    >
+    tools:context="com.developer.hare.tworaveler.Activity.BigImage">
 
-
-    <android.support.v7.widget.RecyclerView
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
         android:id="@+id/activity_big_image$RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        >
-    </android.support.v7.widget.RecyclerView>
-
+        android:clipToPadding="false"
+        app:rvp_singlePageFling="true"
+        app:rvp_triggerOffset="0.1" />
 
 </LinearLayout>

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class BigImage extends Activity {
 
+//    private RecyclerView recyclerView;
     private RecyclerView recyclerView;
     private UIFactory uiFactory;
 
