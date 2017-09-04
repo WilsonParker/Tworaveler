@@ -119,7 +119,16 @@ public class MyProfileSet extends AppCompatActivity {
                     }
 
                 }));
-                AlertManager.getInstance().showAlertSelectionMode(MyProfileSet.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
+                AlertSelectionItemModels.add(new AlertSelectionItemModel("기본 이미지", R.drawable.image_profile, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageManager imageManager = ImageManager.getInstance();
+                        imageManager.loadImage(imageManager.createRequestCreator(MyProfileSet.this, R.drawable.image_profile, ImageManager.BASIC_TYPE), circleImageView);
+                        AlertManager.getInstance().dismissAlertSelectionMode();
+                    }
+
+                }));
+                AlertManager.getInstance().showAlertSelectionMode(MyProfileSet.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
 
             }
         });

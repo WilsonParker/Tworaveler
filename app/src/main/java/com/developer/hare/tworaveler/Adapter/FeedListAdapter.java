@@ -155,7 +155,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                     }
                 }
             });
-
+            if (!NullChecker.getInstance().nullCheck(model.getTrip_pic_url()))
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
             if (NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url())) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.BASIC_TYPE), CV_profile);
             } else {
