@@ -163,7 +163,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                 @Override
                                                 public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
 //                                            Log_HR.log(HomeListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-                                                    sweetAlertDialog.dismissWithAnimation();
+                                                    sweetAlertDialog.dismiss();
                                                     if (response.isSuccessful()) {
                                                         switch (response.body().getSuccess()) {
                                                             case CODE_SUCCESS:
@@ -183,7 +183,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
                                                 @Override
                                                 public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                                                    sweetAlertDialog.dismissWithAnimation();
+                                                    sweetAlertDialog.dismiss();
                                                     Log_HR.log(HomeListAdapter.class, "onFailure", t);
                                                 }
                                             });

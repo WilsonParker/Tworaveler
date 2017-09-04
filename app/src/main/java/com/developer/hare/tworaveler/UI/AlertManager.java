@@ -123,7 +123,7 @@ public class AlertManager {
         setAlert(context, alertType).setTitleText(resourceManager.getResourceString(content)).setConfirmText(DEFAULT_CONFIRM_TEXT).setConfirmClickListener(confirmClick).setCancelText(DEFAULT_CANCEL_TEXT).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                sweetAlertDialog.dismissWithAnimation();
+                sweetAlertDialog.dismiss();
             }
         }).show();
     }
@@ -224,7 +224,7 @@ public class AlertManager {
         createAlert(context, SweetAlertDialog.ERROR_TYPE, resourceManager.getResourceString((title)), resourceManager.getResourceString((R.string.alert_content_not_login)), new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                sweetAlertDialog.dismissWithAnimation();
+                sweetAlertDialog.dismiss();
                 context.startActivity(new Intent(context, SignIn.class));
             }
         }).show();

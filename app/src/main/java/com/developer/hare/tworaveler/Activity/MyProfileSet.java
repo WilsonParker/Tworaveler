@@ -139,7 +139,7 @@ public class MyProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
+                        sweetAlertDialog.dismiss();
                     }
                 },
                 "확인",
@@ -181,14 +181,14 @@ public class MyProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
+                        sweetAlertDialog.dismiss();
                     }
                 },
                 "확인",
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
+                        sweetAlertDialog.dismiss();
                         AlertManager.getInstance().showInputAlert(activity, R.string.profileSet_signOut_alert_title, R.string.profileSet_signOut_alert_input_messae, new OnInputAlertClickListener() {
                             @Override
                             public void onConfirmClick(String input) {
