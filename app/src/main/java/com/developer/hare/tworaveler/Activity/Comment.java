@@ -26,10 +26,11 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.ResourceManager;
@@ -58,6 +59,7 @@ public class Comment extends AppCompatActivity {
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ResourceManager resourceManager;
+    private KeyboardManager keyboardManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
     private ScheduleModel scheduleModel;
@@ -92,10 +94,7 @@ public class Comment extends AppCompatActivity {
         super.onResume();
         createCommentList();
         changeView();
-        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","resourceManager  is Null? "+(resourceManager == null));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","ET_comment  is Null? "+(ET_comment == null));
-        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","string? "+(resourceManager.getResourceString(R.string.comment_not_login_editText_message)));
-        if(!sessionCheck()){
+        if (!sessionCheck()) {
             ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));
             ET_comment.setEnabled(false);
         }
@@ -106,7 +105,8 @@ public class Comment extends AppCompatActivity {
         started = getIntent().getIntExtra(KEY_STARTED_BY, -1);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
-        resourceManager = new ResourceManager();
+        resourceManager = ResourceManager.getInstance();
+        keyboardManager = new KeyboardManager();
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
         LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);
@@ -141,6 +141,7 @@ public class Comment extends AppCompatActivity {
                 onSendComment(view);
             }
         });
+
     }
 
     private void changeView() {
@@ -179,11 +180,12 @@ public class Comment extends AppCompatActivity {
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
                                 scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
+                                keyboardManager.dismissInputKeyboard(getApplicationContext());
                                 changeView();
                             }
                         });
                     } else {
-                        Log_HR.log(Log_HR.LOG_WARN,Comment.class, "onResponse","onResponse is not successful");
+                        Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse", "onResponse is not successful");
                         netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
                     }
                 }
@@ -223,6 +225,7 @@ public class Comment extends AppCompatActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);

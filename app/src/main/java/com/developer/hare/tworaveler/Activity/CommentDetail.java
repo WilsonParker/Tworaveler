@@ -14,6 +14,7 @@ import com.developer.hare.tworaveler.Adapter.CommentAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
+import com.developer.hare.tworaveler.Listener.OnModifyListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -22,10 +23,10 @@ import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -41,7 +42,7 @@ public class CommentDetail extends AppCompatActivity {
 
     private RecyclerView RV_commentlist;
     private MenuTopTitle menuToptitle;
-    private LinearLayout LL_noitem;
+    private LinearLayout LL_noitem, LL_comment_write;
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
@@ -54,6 +55,18 @@ public class CommentDetail extends AppCompatActivity {
         @Override
         public void onChange() {
             createCommentList();
+        }
+    };
+
+    private OnModifyListener onModifyListener = new OnModifyListener() {
+        @Override
+        public void onEditing() {
+            LL_comment_write.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onComplete() {
+            LL_comment_write.setVisibility(View.VISIBLE);
         }
     };
 
@@ -78,6 +91,7 @@ public class CommentDetail extends AppCompatActivity {
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
         LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);
+        LL_comment_write = uiFactory.createView(R.id.activity_comment$LL_comment_write);
         TV_noitem = uiFactory.createView(R.id.activity_comment$TV_noitem);
         up_btn = uiFactory.createView(R.id.activity_comment$up_btn);
         ET_comment = uiFactory.createView(R.id.activity_comment$ET_comment);
@@ -93,7 +107,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +185,7 @@ public class CommentDetail extends AppCompatActivity {
                                         items = model.getResult();
 //                                        commentAdapter.notifyDataSetChanged();
 //                                        RV_commentlist.setAdapter(new CommentAdapter(items));
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }

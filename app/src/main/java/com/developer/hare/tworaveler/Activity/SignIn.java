@@ -164,6 +164,8 @@ public class SignIn extends AppCompatActivity {
 //        kakaoSignInManager.setLoginButton();
         ET_email.setText("");
         ET_password.setText("");
+        if(SessionManager.getInstance().isLogin())
+            finish();
     }
 
     @Override

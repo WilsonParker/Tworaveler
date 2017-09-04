@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,6 +23,7 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -45,6 +45,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private OnItemDataChangeListener onItemDeleteListener;
     private OnModifyListener onModifyListener;
     private ViewHolder editing_holder;
+    private KeyboardManager keyboardManager;
     public static final int COMMENT = 0x0001, COMMENT_DETAIL = 0x0010;
 
     public CommentAdapter(ArrayList<CommentModel> items, int type, OnItemDataChangeListener onItemDeleteListener, OnModifyListener onModifyListener) {
@@ -52,6 +53,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.type = type;
         this.onItemDeleteListener = onItemDeleteListener;
         this.onModifyListener = onModifyListener;
+        keyboardManager = new KeyboardManager();
     }
 
     @Override
@@ -108,8 +110,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         editing_holder.showModifyEditor(false);
                                     editing_holder = ViewHolder.this;
                                     ET_comment.findFocus();
-                                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                                    keyboardManager.showInputKeyboard(context);
                                     ET_comment.setText(model.getContent());
                                     showModifyEditor(true);
                                     onModifyListener.onEditing();
@@ -164,7 +165,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
                             Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
-
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
@@ -173,6 +173,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         TV_comment.setText(model.getContent() + "");
                                         showModifyEditor(false);
                                         onModifyListener.onComplete();
+                                        keyboardManager.dismissInputKeyboard(context);
                                         break;
                                 }
                             } else {
@@ -200,6 +201,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         model.setContent(ET_comment.getText().toString());
                                         TV_comment.setText(model.getContent() + "");
                                         showModifyEditor(false);
+                                        keyboardManager.dismissInputKeyboard(context);
                                         break;
                                 }
                             } else {
