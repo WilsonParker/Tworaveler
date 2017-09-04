@@ -55,7 +55,7 @@ public class FragmentMypageDetail extends BaseFragment {
     private UserModel userModel;
     private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
         @Override
-        public void onDelete() {
+        public void onChange() {
             updateList();
         }
     };

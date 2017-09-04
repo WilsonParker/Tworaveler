@@ -5,5 +5,5 @@ package com.developer.hare.tworaveler.Listener;
  */
 
 public interface OnItemDataChangeListener {
-    void onDelete();
+    void onChange();
 }

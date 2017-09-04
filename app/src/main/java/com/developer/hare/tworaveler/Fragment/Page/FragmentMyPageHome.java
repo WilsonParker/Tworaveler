@@ -52,7 +52,7 @@ public class FragmentMyPageHome extends BaseFragment {
     private ArrayList<ScheduleModel> items = new ArrayList<>();
     private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
         @Override
-        public void onDelete() {
+        public void onChange() {
             updateList();
         }
     };

@@ -52,7 +52,7 @@ public class FragmentFeedDetail extends BaseFragment {
     private String trip_Date;
     private OnItemDataChangeListener onItemDataChangeListener = new OnItemDataChangeListener() {
         @Override
-        public void onDelete() {
+        public void onChange() {
             updateList();
         }
     };

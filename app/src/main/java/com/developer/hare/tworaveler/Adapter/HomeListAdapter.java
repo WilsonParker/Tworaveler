@@ -170,9 +170,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                                 HandlerManager.getInstance().post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onDelete running");
+                                                                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onChange running");
                                                                         items.remove(model);
-                                                                        onItemDeleteListener.onDelete();
+                                                                        onItemDeleteListener.onChange();
                                                                         sweetAlertDialog.dismissWithAnimation();
                                                                     }
                                                                 });
@@ -244,7 +244,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                     int likeCount = model.getLikeCount() + 1;
                                     TV_like.setText("" + likeCount);
                                     model.setLikeCount(likeCount);
-//                                    onItemDeleteListener.onDelete();
+//                                    onItemDeleteListener.onChange();
                                     break;
                             }
                         } else {

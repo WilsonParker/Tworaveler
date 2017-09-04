@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
+import com.developer.hare.tworaveler.Listener.OnModifyListener;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Net.Net;
@@ -42,13 +43,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private ArrayList<CommentModel> items;
     private int type;
     private OnItemDataChangeListener onItemDeleteListener;
+    private OnModifyListener onModifyListener;
     private ViewHolder editing_holder;
     public static final int COMMENT = 0x0001, COMMENT_DETAIL = 0x0010;
 
-    public CommentAdapter(ArrayList<CommentModel> items, int type, OnItemDataChangeListener onItemDeleteListener) {
+    public CommentAdapter(ArrayList<CommentModel> items, int type, OnItemDataChangeListener onItemDeleteListener, OnModifyListener onModifyListener) {
         this.items = items;
         this.type = type;
         this.onItemDeleteListener = onItemDeleteListener;
+        this.onModifyListener = onModifyListener;
     }
 
     @Override
@@ -109,6 +112,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
                                     ET_comment.setText(model.getContent());
                                     showModifyEditor(true);
+                                    onModifyListener.onEditing();
                                     break;
                                 case R.id.popup_menu$delete:
                                     commentDelete();
@@ -164,10 +168,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
+                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response : " + response.body().getResult());
                                         model.setContent(ET_comment.getText().toString());
                                         TV_comment.setText(model.getContent() + "");
                                         showModifyEditor(false);
-                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response : " + response.body().getResult());
+                                        onModifyListener.onComplete();
                                         break;
                                 }
                             } else {
@@ -226,7 +231,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         @Override
                                         public void run() {
                                             items.remove(model);
-                                            onItemDeleteListener.onDelete();
+                                            onItemDeleteListener.onChange();
                                         }
                                     });
                                 }
@@ -254,7 +259,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         @Override
                                         public void run() {
                                             items.remove(model);
-                                            onItemDeleteListener.onDelete();
+                                            onItemDeleteListener.onChange();
                                         }
                                     });
                                 }

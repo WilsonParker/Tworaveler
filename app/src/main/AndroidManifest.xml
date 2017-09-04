@@ -47,7 +47,7 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
 
-                <!-- <onDelete android:name="android.intent.onDelete.MAIN" /> -->
+                <!-- <onChange android:name="android.intent.onChange.MAIN" /> -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

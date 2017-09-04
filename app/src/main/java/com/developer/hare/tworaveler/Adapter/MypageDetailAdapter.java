@@ -164,7 +164,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                                                         @Override
                                                                         public void run() {
                                                                             items.remove(model);
-                                                                            onItemDeleteListener.onDelete();
+                                                                            onItemDeleteListener.onChange();
                                                                             sweetAlertDialog.dismissWithAnimation();
                                                                         }
                                                                     });

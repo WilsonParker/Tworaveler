@@ -52,7 +52,7 @@ public class CommentDetail extends AppCompatActivity {
     private ScheduleDayModel scheduleDayModel;
     private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
         @Override
-        public void onDelete() {
+        public void onChange() {
             createCommentList();
         }
     };

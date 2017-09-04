@@ -16,6 +16,7 @@ import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
+import com.developer.hare.tworaveler.Listener.OnModifyListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
@@ -48,7 +49,7 @@ public class Comment extends AppCompatActivity {
 
     private RecyclerView RV_commentlist;
     private MenuTopTitle menuToptitle;
-    private LinearLayout LL_noitem;
+    private LinearLayout LL_noitem, LL_comment_write;
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
@@ -62,8 +63,20 @@ public class Comment extends AppCompatActivity {
     private ScheduleModel scheduleModel;
     private OnItemDataChangeListener onItemDeleteListener = new OnItemDataChangeListener() {
         @Override
-        public void onDelete() {
+        public void onChange() {
             createCommentList();
+        }
+    };
+
+    private OnModifyListener onModifyListener = new OnModifyListener() {
+        @Override
+        public void onEditing() {
+            LL_comment_write.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onComplete() {
+            LL_comment_write.setVisibility(View.VISIBLE);
         }
     };
 
@@ -79,6 +92,9 @@ public class Comment extends AppCompatActivity {
         super.onResume();
         createCommentList();
         changeView();
+        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","resourceManager  is Null? "+(resourceManager == null));
+        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","ET_comment  is Null? "+(ET_comment == null));
+        Log_HR.log(Log_HR.LOG_INFO, getClass(),"onResume()","string? "+(resourceManager.getResourceString(R.string.comment_not_login_editText_message)));
         if(!sessionCheck()){
             ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));
             ET_comment.setEnabled(false);
@@ -94,6 +110,7 @@ public class Comment extends AppCompatActivity {
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
         LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);
+        LL_comment_write = uiFactory.createView(R.id.activity_comment$LL_comment_write);
         TV_noitem = uiFactory.createView(R.id.activity_comment$TV_noitem);
         up_btn = uiFactory.createView(R.id.activity_comment$up_btn);
         ET_comment = uiFactory.createView(R.id.activity_comment$ET_comment);
@@ -117,8 +134,6 @@ public class Comment extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Comment.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener);
-        RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +213,7 @@ public class Comment extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         items = model.getResult();
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener, onModifyListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }
