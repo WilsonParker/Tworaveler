@@ -188,9 +188,7 @@ public class Regist extends AppCompatActivity {
                             progressManager.endRunning();
                             if (response.isSuccessful()) {
                                 ResponseModel<ScheduleModel> result = response.body();
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                                Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
                                         Intent intent = new Intent(Regist.this, RegistDetail.class);
@@ -216,9 +214,7 @@ public class Regist extends AppCompatActivity {
                             progressManager.endRunning();
                             if (response.isSuccessful()) {
                                 ResponseModel<ScheduleModel> result = response.body();
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getSuccess());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getMessage());
-                                Log_HR.log(Log_HR.LOG_INFO, Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", "body : " + result.getResult());
+                                Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
                                         Intent intent = new Intent(Regist.this, RegistDetail.class);
@@ -281,8 +277,10 @@ public class Regist extends AppCompatActivity {
                     cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (cityModel != null) {
                         TV_citySearch.setText(cityModel.getCountry() + " " + cityModel.getCity());
-                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
-                        imageManager.loadImage(requestCreator, IV_cover);
+                        if (imageFile == null) {
+                            RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+                            imageManager.loadImage(requestCreator, IV_cover);
+                        }
                         IV_camera.setVisibility(View.INVISIBLE);
                     }
 

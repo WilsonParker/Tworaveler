@@ -46,6 +46,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
 
 public class MyProfileSet extends AppCompatActivity {
 
+    private int type = 0;
     private EditText ET_nickname, ET_message;
     private CircleImageView circleImageView;
     private MenuTopTitle menuTopTitle;
@@ -99,6 +100,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void bindData(FileData fileData) {
                                 imageFile = fileData.getFile();
+                                type = 1;
                                 ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile, circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
@@ -112,6 +114,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void bindData(FileData fileData) {
                                 imageFile = fileData.getFile();
+                                type = 1;
                                 ImageManager.getInstance().loadImage(MyProfileSet.this, imageFile, circleImageView, ImageManager.THUMBNAIL_TYPE);
                                 AlertManager.getInstance().dismissAlertSelectionMode();
                             }
@@ -122,11 +125,11 @@ public class MyProfileSet extends AppCompatActivity {
                 AlertSelectionItemModels.add(new AlertSelectionItemModel("기본 이미지", R.drawable.image_profile, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        type = 2;
                         ImageManager imageManager = ImageManager.getInstance();
                         imageManager.loadImage(imageManager.createRequestCreator(MyProfileSet.this, R.drawable.image_profile, ImageManager.BASIC_TYPE), circleImageView);
                         AlertManager.getInstance().dismissAlertSelectionMode();
                     }
-
                 }));
                 AlertManager.getInstance().showAlertSelectionMode(MyProfileSet.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
 
@@ -276,82 +279,86 @@ public class MyProfileSet extends AppCompatActivity {
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
-                if (imageFile != null) {
-                    UserReqModel userReqModel = new UserReqModel(1, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
-                    RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
-                    Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userReqModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
-                        @Override
-                        public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                            Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-                            progressManager.endRunning();
-                            if (response.isSuccessful()) {
-                                ResponseModel<UserModel> result = response.body();
-                                switch (result.getSuccess()) {
-                                    case DataDefinition.Network.CODE_SUCCESS:
-                                        AlertManager.getInstance().createAlert(MyProfileSet.this, SweetAlertDialog.SUCCESS_TYPE, R.string.profileSet_mod_success_alert_title, R.string.profileSet_mod_success_alert_content, new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                UserModel model = result.getResult();
-                                                SessionManager.getInstance().setUserModel(model);
-                                                finish();
-                                            }
-                                        }).show();
-                                        break;
-                                    case DataDefinition.Network.CODE_NOT_LOGIN:
-                                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
-                                        SessionManager.getInstance().logout(activity);
-                                        break;
-                                    case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
-                                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
-                                        break;
+                UserReqModel userReqModel = new UserReqModel(type, userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
+                switch (type) {
+                    case 0:
+                        Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
+                            @Override
+                            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                                if (response.isSuccessful()) {
+                                    progressManager.endRunning();
+                                    ResponseModel<UserModel> result = response.body();
+                                    switch (result.getSuccess()) {
+                                        case DataDefinition.Network.CODE_SUCCESS:
+                                            UserModel model = result.getResult();
+                                            SessionManager.getInstance().setUserModel(model);
+                                            finish();
+                                            break;
+                                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
+                                            SessionManager.getInstance().logout(activity);
+                                            break;
+                                        case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
+                                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
+                                            break;
+                                    }
+
+                                } else {
+                                    netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
                                 }
-
-                            } else {
-                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
-                            Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
-                        }
-                    });
-                } else {
-                    UserReqModel userReqModel = new UserReqModel(userModel.getUser_no(), userModel.getNickname(), ET_nickname.getText().toString(), ET_message.getText().toString());
-                    Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
-                        @Override
-                        public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                            Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-                            if (response.isSuccessful()) {
+                            @Override
+                            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+                            }
+                        });
+                        break;
+                    case 1:
+                        RetrofitBodyParser retrofitBodyParser = RetrofitBodyParser.getInstance();
+                        Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userReqModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
+                            @Override
+                            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 progressManager.endRunning();
-                                ResponseModel<UserModel> result = response.body();
-                                switch (result.getSuccess()) {
-                                    case DataDefinition.Network.CODE_SUCCESS:
-                                        UserModel model = result.getResult();
-                                        SessionManager.getInstance().setUserModel(model);
-                                        finish();
-                                        break;
-                                    case DataDefinition.Network.CODE_NOT_LOGIN:
-                                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
-                                        SessionManager.getInstance().logout(activity);
-                                        break;
-                                    case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
-                                        netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
-                                        break;
+                                if (response.isSuccessful()) {
+                                    ResponseModel<UserModel> result = response.body();
+                                    switch (result.getSuccess()) {
+                                        case DataDefinition.Network.CODE_SUCCESS:
+                                            AlertManager.getInstance().createAlert(MyProfileSet.this, SweetAlertDialog.SUCCESS_TYPE, R.string.profileSet_mod_success_alert_title, R.string.profileSet_mod_success_alert_content, new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    UserModel model = result.getResult();
+                                                    SessionManager.getInstance().setUserModel(model);
+                                                    finish();
+                                                }
+                                            }).show();
+                                            break;
+                                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
+                                            SessionManager.getInstance().logout(activity);
+                                            break;
+                                        case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
+                                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
+                                            break;
+                                    }
+
+                                } else {
+                                    netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
                                 }
-
-                            } else {
-                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_2);
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-                            netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
-                            Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                                netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
+                                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+                            }
+                        });
+                        break;
+                    case 2:
+                        break;
                 }
             }
         });

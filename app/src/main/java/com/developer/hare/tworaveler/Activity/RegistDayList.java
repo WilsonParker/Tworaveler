@@ -64,6 +64,8 @@ public class RegistDayList extends AppCompatActivity {
         selected_date = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
         scheduleModel = (ScheduleModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
 
+        sessionCheck();
+
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         progressManager = new ProgressManager(this);
