@@ -68,7 +68,7 @@ public class ProgressManager {
     public void alertDismiss() {
         if (isDialog) {
             if (sweetAlertDialog != null && sweetAlertDialog.isShowing())
-                sweetAlertDialog.dismissWithAnimation();
+                sweetAlertDialog.dismiss();
         } else {
             if (alertDialog != null && alertDialog.isShowing())
                 alertDialog.dismiss();

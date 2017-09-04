@@ -121,12 +121,10 @@ public class FragmentFeed extends BaseFragment {
                                     }
                                 });
                             }
-
                         } else {
                             Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
-
                     }
 
                     @Override
