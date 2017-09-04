@@ -20,9 +20,10 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
@@ -118,7 +119,10 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
             });
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+            if (!NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url()))
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile).centerCrop(), CV_profile);
+            else
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.BASIC_TYPE), CV_profile);
             TV_nickname.setText(model.getNickname() + "");
             TV_message.setText(model.getStatus_message() + "");
             TV_title.setText(model.getTripName() + "");

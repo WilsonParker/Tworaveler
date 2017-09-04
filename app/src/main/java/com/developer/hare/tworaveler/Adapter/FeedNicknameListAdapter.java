@@ -19,15 +19,14 @@ import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +55,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 //        View view = LayoutInflater.from(context).inflate(R.layout.item_mypage, parent, false);
 //        ViewHolder viewHolder = new ViewHolder(view);
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_feed, parent, false), parent.getContext());
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mypage, parent, false), parent.getContext());
     }
 
     @Override
@@ -65,10 +64,9 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView TV_title, TV_date, TV_like, TV_commenet, TV_nickname, TV_message;
+        private TextView TV_title, TV_date, TV_like, TV_commenet;
         private LinearLayout  LL_like, LL_comment;
         private ImageView IV_cover, IV_like;
-        private CircleImageView CV_profile;
         private ScheduleModel model;
         private Context context;
 
@@ -77,17 +75,14 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
-            TV_title = uiFactory.createView(R.id.item_feed$TV_title);
-            TV_date = uiFactory.createView(R.id.item_feed$TV_date);
-            TV_like = uiFactory.createView(R.id.item_feed$TV_like);
-            CV_profile = uiFactory.createView(R.id.item_feed$CV_profile);
-            TV_nickname = uiFactory.createView(R.id.item_feed$TV_nickname);
-            TV_message = uiFactory.createView(R.id.item_feed$TV_message);
-            TV_commenet = uiFactory.createView(R.id.item_feed$TV_comment);
-            LL_like = uiFactory.createView(R.id.item_feed$LL_like);
-            LL_comment = uiFactory.createView(R.id.item_feed$LL_comment);
-            IV_cover = uiFactory.createView(R.id.item_feed$IV_cover);
-            IV_like = uiFactory.createView(R.id.item_feed$IV_like);
+            TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
+            TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
+            TV_like = uiFactory.createView(R.id.item_mypage$TV_like);
+            TV_commenet = uiFactory.createView(R.id.item_mypage$TV_comment);
+            LL_like = uiFactory.createView(R.id.item_mypage$LL_like);
+            LL_comment = uiFactory.createView(R.id.item_mypage$LL_comment);
+            IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
+            IV_like = uiFactory.createView(R.id.item_mypage$IV_like);
 
             ArrayList<TextView> textlist1 = new ArrayList<>();
             textlist1.add(TV_date);
@@ -117,9 +112,6 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
             });
             ImageManager imageManager = ImageManager.getInstance();
             imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
-            TV_nickname.setText(model.getNickname()+"");
-            TV_message.setText(model.getStatus_message()+"");
             TV_title.setText(model.getTripName());
             TV_date.setText(model.getStart_date() + " ~ " + model.getEnd_date());
             TV_like.setText(model.getLikeCount() + "");

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.developer.hare.tworaveler.Activity.SearchFeed;
 import com.developer.hare.tworaveler.Adapter.FeedListAdapter;
@@ -49,6 +50,8 @@ public class FragmentFeed extends BaseFragment {
     private RecyclerView recyclerView;
     private MenuTopTitle menuTopTitle;
 
+    private LinearLayout LL_info;
+
     private UIFactory uiFactory;
     private ArrayList<ScheduleModel> feedItemModels = new ArrayList<>();
     private ProgressManager progressManager;
@@ -89,6 +92,9 @@ public class FragmentFeed extends BaseFragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(feedListAdapter);
+
+        LL_info = uiFactory.createView(R.id.fragment_feed$LL_info);
+        LL_info.setVisibility(View.GONE);
 
         loginFilter();
     }

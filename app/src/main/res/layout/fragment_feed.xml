@@ -8,16 +8,83 @@
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_feed$menuToptitle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="@dimen/menu_top_title_height"
         app:leftButton="@drawable/icon_back"
         app:rightButton="@drawable/if_search"
         app:titleText="@string/fragment_feed_title" />
+    <LinearLayout
+        android:id="@+id/fragment_feed$LL_info"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fragment_feed$CV_profile"
+                android:layout_width="60dp"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fragment_feed$TV_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    android:textColor="@color/feed_nickname_color"
+                    android:gravity="center_vertical"
+                    android:text="에비츄~"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fragment_feed$TV_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"
+                    android:gravity="top"
+                    android:paddingTop="1.5dp"
+                    android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/fragment_feed$IV_follow"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_follow" />
+            </RelativeLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="12dp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_feed$RV"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -132,13 +132,13 @@ public class SearchFeed extends AppCompatActivity {
                         }
                     });
                 }else{
-                    Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname");
                     Net.getInstance().getFactoryIm().searchNickname(ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                         @Override
                         public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.body());
+                           /* Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "ScheduleModel", "" + nicknameItems);
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)",response.body().toString());
                             Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.isSuccessful());
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());
+                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());*/
                             if (response.isSuccessful()) {
                                 ResponseArrayModel<ScheduleModel> result = response.body();
                                 nicknameItems = result.getResult();
