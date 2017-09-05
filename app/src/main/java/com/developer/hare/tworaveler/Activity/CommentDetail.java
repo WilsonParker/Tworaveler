@@ -38,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_ERROR;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class CommentDetail extends AppCompatActivity {
@@ -150,21 +151,25 @@ public class CommentDetail extends AppCompatActivity {
                 Log_HR.log(CommentDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
-                    if (model.getSuccess() == CODE_SUCCESS) {
-                        HandlerManager.getInstance().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ET_comment.setText("");
-                                items.add(commentModel);
-                                commentAdapter.notifyDataSetChanged();
-                                RV_commentlist.scrollToPosition(items.size() - 1);
-                                scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount() + 1);
-                                changeView();
-                            }
-                        });
-                    } else {
-                        netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
+                    switch (model.getSuccess()) {
+                        case CODE_SUCCESS:
+                            HandlerManager.getInstance().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ET_comment.setText("");
+                                    items.add(commentModel);
+                                    commentAdapter.notifyDataSetChanged();
+                                    RV_commentlist.scrollToPosition(items.size() - 1);
+                                    scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount() + 1);
+                                    changeView();
+                                }
+                            });
+                        case CODE_ERROR:
+                            netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
+                            break;
                     }
+                } else {
+                    netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
                 }
             }
 
@@ -187,21 +192,25 @@ public class CommentDetail extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
-                            if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        items = model.getResult();
+                            switch (model.getSuccess()) {
+                                case CODE_SUCCESS:
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            items = model.getResult();
 //                                        commentAdapter.notifyDataSetChanged();
 //                                        RV_commentlist.setAdapter(new CommentAdapter(items));
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
-                                        RV_commentlist.setAdapter(commentAdapter);
-                                        commentAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            } else {
-                                netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
+                                            commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
+                                            RV_commentlist.setAdapter(commentAdapter);
+                                            commentAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                case CODE_ERROR:
+                                    netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
+                                    break;
                             }
+                        } else {
+                            netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
                         }
                     }
 

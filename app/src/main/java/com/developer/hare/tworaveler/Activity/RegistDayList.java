@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+
 public class RegistDayList extends AppCompatActivity {
 
     private UIFactory uiFactory;
@@ -62,7 +64,7 @@ public class RegistDayList extends AppCompatActivity {
     protected void init() {
         intent = getIntent();
         selected_date = intent.getExtras().getString(DataDefinition.Intent.KEY_DATE);
-        scheduleModel = (ScheduleModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
+        scheduleModel = (ScheduleModel) intent.getSerializableExtra(KEY_SCHEDULE_MODEL);
 
         sessionCheck();
 
@@ -171,7 +173,10 @@ public class RegistDayList extends AppCompatActivity {
     }
 
     private void onRegister() {
-        startActivity(new Intent(this, RegistDayDetail.class));
+        Intent intent = new Intent(this, RegistDayDetail.class);
+        intent.putExtra(DataDefinition.Intent.KEY_DATE, selected_date);
+        intent.putExtra(KEY_SCHEDULE_MODEL, scheduleModel);
+        startActivity(intent);
     }
 
 
