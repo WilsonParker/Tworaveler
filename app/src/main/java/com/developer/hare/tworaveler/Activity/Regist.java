@@ -74,7 +74,12 @@ public class Regist extends AppCompatActivity {
                     });
                     break;
                 case R.id.activity_regist$TV_end:
-                    dateManager.getDateYMD(Regist.this, TV_dateEnd);
+                    dateManager.getDateYMD(Regist.this, TV_dateEnd, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            menuTopTitle.getIB_right().callOnClick();
+                        }
+                    });
                     break;
                 case R.id.activity_regist$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
@@ -100,7 +105,7 @@ public class Regist extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
+                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
                     break;
             }
         }
@@ -277,10 +282,8 @@ public class Regist extends AppCompatActivity {
                     cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (cityModel != null) {
                         TV_citySearch.setText(cityModel.getCountry() + " " + cityModel.getCity());
-                        if (imageFile == null) {
-                            RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
-                            imageManager.loadImage(requestCreator, IV_cover);
-                        }
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+                        imageManager.loadImage(requestCreator, IV_cover);
                         IV_camera.setVisibility(View.INVISIBLE);
                     }
 

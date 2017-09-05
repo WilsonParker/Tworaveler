@@ -22,6 +22,7 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
@@ -58,6 +59,7 @@ public class RegistDayDetail extends AppCompatActivity {
     private String selected_date;
     private ScheduleModel scheduleModel;
     private File imageFile;
+    private KeyboardManager keyboardManager;
 
     private MenuTopTitle menuTopTitle;
     private ImageView IV_cover, IV_camera;
@@ -127,7 +129,7 @@ public class RegistDayDetail extends AppCompatActivity {
         scheduleModel = (ScheduleModel) intent.getSerializableExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL);
         sessionManager = SessionManager.getInstance();
         progressManager = new ProgressManager(this);
-
+        keyboardManager = new KeyboardManager();
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         imageManager = ImageManager.getInstance();
@@ -140,6 +142,15 @@ public class RegistDayDetail extends AppCompatActivity {
         TV_endTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_end);
         TV_endTime.setOnClickListener(onClickListener);
         ET_memo = uiFactory.createView(R.id.activity_regist_day_detail$ET_meno);
+        ET_memo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    keyboardManager.dismissInputKeyboard(getApplicationContext());
+                }
+                return false;
+            }
+        });
         IV_cover = uiFactory.createView(R.id.activity_regist_day_detail$IV_cover);
         IV_cover.setOnClickListener(onClickListener);
         IV_camera = uiFactory.createView(R.id.activity_regist_day_detail$IV_camera);
