@@ -214,6 +214,7 @@ public class Comment extends AppCompatActivity {
                 Net.getInstance().getFactoryIm().commentList(scheduleModel.getTrip_no()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
+                        Log_HR.logA(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -237,6 +238,7 @@ public class Comment extends AppCompatActivity {
                             netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
                         }
                     }
+
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
