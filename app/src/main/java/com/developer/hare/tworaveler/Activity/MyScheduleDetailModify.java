@@ -296,7 +296,7 @@ public class MyScheduleDetailModify extends AppCompatActivity {
     // 도시 검색
     public void searchCity(View view) {
         Intent intent = new Intent(this, SearchCity.class);
-        startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+        startActivityForResult(intent, DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY);
     }
 
     // Network 실패 경고창 show

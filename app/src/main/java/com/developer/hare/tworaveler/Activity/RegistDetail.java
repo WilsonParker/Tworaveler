@@ -107,7 +107,7 @@ public class RegistDetail extends AppCompatActivity {
                 Intent intent = new Intent(RegistDetail.this, RegistDayList.class);
                 intent.putExtra(DataDefinition.Intent.KEY_DATE, DateManager.getInstance().formatDate(date.getDate().getTime(), DataDefinition.RegularExpression.FORMAT_DATE));
                 intent.putExtra(KEY_SCHEDULE_MODEL, scheduleModel);
-                startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_REGIST_DAY_LIST);
+                startActivityForResult(intent, DataDefinition.Intent.REQUEST_CODE_REGIST_DAY_LIST);
             }
         });
         materialCalendarView.setTitleFormatter(new DateFormatTitleFormatter(new SimpleDateFormat(DataDefinition.RegularExpression.FORMAT_DATE_REGIST_DETAIL)));
@@ -131,7 +131,7 @@ public class RegistDetail extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
         // Check which request we're responding to
-        if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
+        if (requestCode == DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY) {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
 //                CityModel model = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);

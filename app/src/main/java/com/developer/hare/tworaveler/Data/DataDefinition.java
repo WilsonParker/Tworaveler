@@ -30,9 +30,11 @@ public class DataDefinition {
         public static final int
                 RESULT_CODE_SUCCESS = 0x0000
                 ,RESULT_CODE_FAIL = 0x1111
-                ,RESULT_CODE_SEARCH_CITY = 0x0001
-                ,RESULT_CODE_REGIST_DETAIL= 0x0010
-                , RESULT_CODE_REGIST_DAY_LIST = 0x0011
+
+                , REQUEST_CODE_SEARCH_CITY = 0x0001
+                , REQUEST_CODE_REGIST_DETAIL = 0x0010
+                , REQUEST_CODE_REGIST_DAY_LIST = 0x0011
+                , REQUEST_CODE_REGIST= 0x0100
 
                 ,RESULT_CODE_CITY_MODEL= 0x0100
                 , RESULT_CODE_SCHEDULE_MODEL = 0x0101
@@ -87,7 +89,7 @@ public class DataDefinition {
     }
 
     public class RegularExpression{
-        public static final String REG_EMAIL = "^([a-zA-Z0-9]){3,16}@[a-z]+.[com|org|net]+$"
+        public static final String REG_EMAIL = "^([a-zA-Z0-9]){4,16}@[a-z]+.[com|org|net]+$"
                 ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,32}$"
                 ,REG_NICKNAME="^([a-zA-Z0-9가-힣]){2,16}$"
                 ,REG_DATE="^([0-9]){4}-([0-9]){1,2}-([0-9]){1,2}$"

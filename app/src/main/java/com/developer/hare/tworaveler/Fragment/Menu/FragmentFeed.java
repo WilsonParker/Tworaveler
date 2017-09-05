@@ -40,7 +40,7 @@ import retrofit2.Response;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SCHEDULE_MODEL;
-import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SEARCH_CITY;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Size.SIZE_FEED_LIST_COUNT;
 
@@ -83,7 +83,7 @@ public class FragmentFeed extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SearchFeed.class);
-                startActivityForResult(intent, RESULT_CODE_SEARCH_CITY);
+                startActivityForResult(intent, REQUEST_CODE_SEARCH_CITY);
             }
         });
         recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
@@ -173,7 +173,7 @@ public class FragmentFeed extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         Serializable serializable = null;
         int type = 0;
-        if (requestCode == RESULT_CODE_SEARCH_CITY) {
+        if (requestCode == REQUEST_CODE_SEARCH_CITY) {
             if (resultCode == RESULT_CODE_CITY_MODEL) {
                 serializable = data.getSerializableExtra(KEY_CITYMODEL);
                 type = FragmentFeedFilter.TYPE_CITY;

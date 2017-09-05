@@ -10,6 +10,8 @@ import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
@@ -17,6 +19,10 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.BackClickManager;
 
 import java.util.ArrayList;
+
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.REQUEST_CODE_REGIST;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SUCCESS;
 
 public class Main extends AppCompatActivity {
     private Fragment default_fragment = FragmentFeed.newInstance();
@@ -64,7 +70,7 @@ public class Main extends AppCompatActivity {
                 SessionManager.getInstance().actionAfterSessoinCheck(Main.this, new SessionManager.OnActionAfterSessionCheckListener() {
                     @Override
                     public void action() {
-                        startActivity(new Intent(Main.this, Regist.class));
+                        startActivityForResult(new Intent(Main.this, Regist.class), REQUEST_CODE_REGIST);
                     }
                 });
             }
@@ -92,4 +98,16 @@ public class Main extends AppCompatActivity {
         BackClickManager.getInstance().onBackPressed(this);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_REGIST:
+                if (requestCode == RESULT_CODE_SUCCESS) {
+                    ScheduleModel model = (ScheduleModel) data.getSerializableExtra(KEY_SCHEDULE_MODEL);
+                    FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(model));
+                }
+                break;
+        }
+    }
 }

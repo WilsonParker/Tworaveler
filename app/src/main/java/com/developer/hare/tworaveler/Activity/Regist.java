@@ -22,12 +22,12 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
@@ -44,6 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SUCCESS;
 import static com.developer.hare.tworaveler.R.id.activity_regist$TV_start;
 
 public class Regist extends AppCompatActivity {
@@ -174,7 +175,7 @@ public class Regist extends AppCompatActivity {
 
     public void searchCity(View view) {
         Intent intent = new Intent(Regist.this, SearchCity.class);
-        startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+        startActivityForResult(intent, DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY);
     }
 
     private void onRegister() {
@@ -222,9 +223,10 @@ public class Regist extends AppCompatActivity {
                                 Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
-                                        Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                        Intent intent = new Intent();
                                         intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-                                        startActivity(intent);
+                                        setResult(RESULT_CODE_SUCCESS, intent);
+                                        finish();
                                         break;
                                 }
                             } else
@@ -275,9 +277,9 @@ public class Regist extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
         // Check which request we're responding to
-        if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
+        if (requestCode == DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY) {
             // Make sure the request was successful
-            if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
+            if (resultCode == RESULT_CODE_SUCCESS) {
                 if (data != null) {
                     cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (cityModel != null) {

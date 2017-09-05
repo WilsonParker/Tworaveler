@@ -94,7 +94,6 @@ public class Comment extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         createCommentList();
-        changeView();
         if (!sessionCheck()) {
             ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));
             ET_comment.setEnabled(false);
@@ -147,7 +146,7 @@ public class Comment extends AppCompatActivity {
     }
 
     private void changeView() {
-        if (scheduleModel.getCommentCount() == 0) {
+        if (items == null || items.size() == 0) {
             LL_noitem.setVisibility(View.VISIBLE);
             RV_commentlist.setVisibility(View.INVISIBLE);
         } else {
@@ -180,7 +179,7 @@ public class Comment extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     ET_comment.setText("");
-                                    items.add(commentModel);
+                                    items.add(model.getResult());
                                     commentAdapter.notifyDataSetChanged();
                                     RV_commentlist.scrollToPosition(items.size() - 1);
                                     scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
@@ -188,6 +187,7 @@ public class Comment extends AppCompatActivity {
                                     changeView();
                                 }
                             });
+                            break;
                         case CODE_ERROR:
                             netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
                             break;
@@ -227,6 +227,7 @@ public class Comment extends AppCompatActivity {
                                             commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener, onModifyListener);
                                             RV_commentlist.setAdapter(commentAdapter);
                                             commentAdapter.notifyDataSetChanged();
+                                            changeView();
                                         }
                                     });
                                     break;

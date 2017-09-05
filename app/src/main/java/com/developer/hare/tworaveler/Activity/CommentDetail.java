@@ -119,7 +119,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +159,7 @@ public class CommentDetail extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     ET_comment.setText("");
-                                    items.add(commentModel);
+                                    items.add(model.getResult());
                                     commentAdapter.notifyDataSetChanged();
                                     RV_commentlist.scrollToPosition(items.size() - 1);
                                     scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount() + 1);

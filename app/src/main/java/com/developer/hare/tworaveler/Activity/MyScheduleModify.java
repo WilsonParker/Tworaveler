@@ -65,7 +65,7 @@ public class MyScheduleModify extends AppCompatActivity {
                     break;
                 case R.id.activity_myschedule_modify$TV_citySearch:
                     Intent intent = new Intent(MyScheduleModify.this, SearchCity.class);
-                    startActivityForResult(intent, DataDefinition.Intent.RESULT_CODE_SEARCH_CITY);
+                    startActivityForResult(intent, DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY);
                     break;
                 case R.id.activity_myschedule_modify$IV_cover:
                     ArrayList<AlertSelectionItemModel> AlertSelectionItemModels = new ArrayList<>();
@@ -221,7 +221,7 @@ public class MyScheduleModify extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
         // Check which request we're responding to
-        if (requestCode == DataDefinition.Intent.RESULT_CODE_SEARCH_CITY) {
+        if (requestCode == DataDefinition.Intent.REQUEST_CODE_SEARCH_CITY) {
             // Make sure the request was successful
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
