@@ -69,7 +69,7 @@
                         android:id="@+id/activity_regist_day_detail_list$IV_nologin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/btn_add" />
+                        app:srcCompat="@drawable/btn_add" />
                 </LinearLayout>
 
                 <ImageView

@@ -37,6 +37,9 @@ public class TestManager {
     }
 
     public void testLogin() {
+
+    }
+    public void testLogin2() {
         ResourceManager resourceManager = ResourceManager.getInstance();
         UserReqModel signIn = new UserReqModel("a14@naver.com", "aaaa1111");
         Net.getInstance().getFactoryIm().userSignIn(signIn).enqueue(new Callback<ResponseModel<UserModel>>() {

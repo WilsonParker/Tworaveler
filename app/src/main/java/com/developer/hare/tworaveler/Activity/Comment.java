@@ -44,6 +44,7 @@ import retrofit2.Response;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_FEED;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_MYPAGE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_STARTED_BY;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_ERROR;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class Comment extends AppCompatActivity {
@@ -173,23 +174,27 @@ public class Comment extends AppCompatActivity {
                 Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
-                    if (model.getSuccess() == CODE_SUCCESS) {
-                        HandlerManager.getInstance().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ET_comment.setText("");
-                                items.add(commentModel);
-                                commentAdapter.notifyDataSetChanged();
-                                RV_commentlist.scrollToPosition(items.size() - 1);
-                                scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
-                                keyboardManager.dismissInputKeyboard(getApplicationContext());
-                                changeView();
-                            }
-                        });
-                    } else {
-                        Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse", "onResponse is not successful");
-                        netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
+                    switch (model.getSuccess()) {
+                        case CODE_SUCCESS:
+                            HandlerManager.getInstance().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ET_comment.setText("");
+                                    items.add(commentModel);
+                                    commentAdapter.notifyDataSetChanged();
+                                    RV_commentlist.scrollToPosition(items.size() - 1);
+                                    scheduleModel.setCommentCount(scheduleModel.getCommentCount() + 1);
+                                    keyboardManager.dismissInputKeyboard(getApplicationContext());
+                                    changeView();
+                                }
+                            });
+                        case CODE_ERROR:
+                            netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
+                            break;
                     }
+                } else {
+                    Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse", "onResponse is not successful");
+                    netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
                 }
             }
 
@@ -212,19 +217,23 @@ public class Comment extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
-                            if (model.getSuccess() == CODE_SUCCESS) {
-                                HandlerManager.getInstance().post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        items = model.getResult();
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener, onModifyListener);
-                                        RV_commentlist.setAdapter(commentAdapter);
-                                        commentAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                            } else {
-                                netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
+                            switch (model.getSuccess()) {
+                                case CODE_SUCCESS:
+                                    HandlerManager.getInstance().post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            items = model.getResult();
+                                            commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener, onModifyListener);
+                                            RV_commentlist.setAdapter(commentAdapter);
+                                            commentAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                case CODE_ERROR:
+                                    netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
+                                    break;
                             }
+                        } else {
+                            netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
                         }
                     }
                     @Override

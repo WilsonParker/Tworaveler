@@ -26,7 +26,7 @@
     <string name="signUp_alert_content_fail4">이메일 입력이 잘못 되었습니다</string>
     <string name="signUp_alert_content_fail5">비밀번호는 영,한,숫자,특수문자 8자리 이상 입니다</string>
     <string name="signUp_alert_content_fail6">닉네임은 영,한,숫자 4자리 이상 입니다</string>
-    <string name="signUp_alert_content_fail7">문제가 발생하여 회원가입을 할 수 가 없습니다</string>
+    <string name="signUp_alert_content_fail7">서버에 문제가 발생하여 회원가입을 할 수 가 없습니다</string>
     <string name="signUp_alert_title_success">회원가입 성공</string>
     <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>
 
@@ -35,13 +35,13 @@
     <string name="signIn_alert_content_faile">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
     <string name="signIn_alert_content_fail2">이메일과 비밀번호가 일치하지 않습니다</string>
     <string name="signIn_alert_content_fail3">회원 가입하지 않은 계정 입니다</string>
-    <string name="signIn_alert_content_fail4">문제가 발생하여 로그인에 실패하였습니다</string>
+    <string name="signIn_alert_content_fail4">서버에 문제가 발생하여 로그인에 실패하였습니다</string>
     <string name="signIn_alert_title_success">로그인 성공</string>
     <string name="signIn_alert_content_success">로그인에 성공 하였습니다</string>
 
     <!-- Activity/MyProfileSet -->
     <string name="profileSet_mod_fail_alert_title">수정 실패</string>
-    <string name="profileSet_mod_fail_alert_content">문제가 발생하여 수정 실패 하였습니다</string>
+    <string name="profileSet_mod_fail_alert_content">서버에 문제가 발생하여 수정 실패 하였습니다</string>
     <string name="profileSet_mod_fail_alert_content_2">수정 실패 하였습니다</string>
     <string name="profileSet_mod_fail_alert_content_3">닉네임이 중복 되었습니다</string>
     <string name="profileSet_mod_success_alert_title">수정 성공</string>
@@ -55,7 +55,7 @@
     <string name="profileSet_signOut_alert_title">회원 탈퇴</string>
     <string name="profileSet_signOut_fail_alert_title">회원 탈퇴 실패</string>
     <string name="profileSet_signOut_fail_alert_content">정말이야? 다시 한번 생각해봐 ㅠㅠ</string>
-    <string name="profileSet_signOut_fail_alert_content2">문제가 발생하여 회원 탈퇴 실패하였습니다</string>
+    <string name="profileSet_signOut_fail_alert_content2">서버에 문제가 발생하여 회원 탈퇴 실패하였습니다</string>
     <string name="profileSet_signOut_fail_alert_content3">회원 탈퇴 성공</string>
     <string name="profileSet_signOut_fail_alert_content5">비밀번호가 일치하지 않습니다</string>
     <string name="profileSet_signOut_fail_alert_content6">이메일이 일치하지 않습니다</string>
@@ -67,13 +67,13 @@
     <string name="regist_alert_content_fail_2">여행 제목을 등록해주세요</string>
     <string name="regist_alert_content_fail_3">도시를 검색해주세요</string>
     <string name="regist_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
-    <string name="regist_alert_content_fail_5">문제가 발생하여 일정 등록 실패 하였습니다</string>
-    <string name="regist_alert_content_fail_6">일정 시작 날짜가 종료 날짜 보다 늦을 수 없습니다</string>
+    <string name="regist_alert_content_fail_5">서버에 문제가 발생하여 일정 등록 실패 하였습니다</string>
+    <string name="regist_alert_content_fail_6">일정 시작 날짜가 종료 날짜 보다 같거나 늦을 수 없습니다</string>
 
     <!-- Activity/RegistDayList-->
     <string name="regist_day_list_alert_title_fail">세부 일정 불러오기 실패</string>
     <string name="regist_day_list_alert_content_fail">세부 일정 불러오기 실패 하였습니다</string>
-    <string name="regist_day_list_alert_content_fail_2">문제가 발생하여 불러오기 실패 하였습니다</string>
+    <string name="regist_day_list_alert_content_fail_2">서버에 문제가 발생하여 불러오기 실패 하였습니다</string>
 
     <!-- Activity/RegistDayDetail-->
     <string name="regist_day_detail_alert_title_fail">세부 일정 등록 실패</string>
@@ -81,7 +81,7 @@
     <string name="regist_day_detail_alert_content_fail_2">장소 제목을 등록해주세요</string>
     <string name="regist_day_detail_alert_content_fail_3">위치를 검색해주세요</string>
     <string name="regist_day_detail_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
-    <string name="regist_day_detail_alert_content_fail_5">문제가 발생하여 일정 등록 실패 하였습니다</string>
+    <string name="regist_day_detail_alert_content_fail_5">서버에 문제가 발생하여 일정 등록 실패 하였습니다</string>
     <string name="regist_day_detail_alert_content_fail_6">메모를 등록해 주세요</string>
     <string name="regist_day_detail_alert_content_fail_7">일정 시작 시간이 종료 시간 보다 같거나 늦을 수 없습니다</string>
 
@@ -91,7 +91,7 @@
     <!-- Activity/RegistDayDetail-->
     <string name="myscheduleDetailModify_alert_title_fail">세부 일정 수정 실패</string>
     <string name="myscheduleDetailModify_alert_content_fail">세부 일정 수정 실패 하였습니다</string>
-    <string name="myscheduleDetailModify_alert_content_fail_2">문제가 발생하여 세부 일정 수정 실패 하였습니다</string>
+    <string name="myscheduleDetailModify_alert_content_fail_2">서버에 문제가 발생하여 세부 일정 수정 실패 하였습니다</string>
     <string name="myscheduleDetailModify_alert_title_success">세부 일정 수정 성공</string>
     <string name="myscheduleDetailModify_alert_content_success">세부 일정 수정 성공 하였습니다</string>
 
@@ -111,7 +111,7 @@
     <string name="comment_alert_content_fail_2">댓글 목록을 불러오는데 실패하였습니다</string>
     <string name="comment_alert_content_fail_3">댓글 수정을 실패 하였습니다</string>
     <string name="comment_alert_content_fail_4">댓글 삭제를 실패 하였습니다</string>
-    <string name="comment_alert_content_fail_5">문제가 발생하였습니다</string>
+    <string name="comment_alert_content_fail_5">서버에 문제가 발생하였습니다</string>
 
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>
@@ -144,7 +144,7 @@
     <!-- Fragment/FragmentFeedSchedule -->
     <string name="fragmentFeedSchedule_alert_title_fail">일정 조회 실패.</string>
     <string name="fragmentFeedSchedule_alert_content_fail">일정 조회를 실패하였습니다</string>
-    <string name="fragmentFeedSchedule_alert_content_fail_2">문제가 발생하여 일정 조회를 실패하였습니다</string>
+    <string name="fragmentFeedSchedule_alert_content_fail_2">서버에 문제가 발생하여 일정 조회를 실패하였습니다</string>
 
     <!--
         ############################################################################################
@@ -175,18 +175,18 @@
     <string name="activity_regist_text_5">여행 시작 날짜</string>
     <string name="activity_regist_text_6">여행 종료 날짜</string>
     <string name="regist_fail_alert_title_fail">여행등록 실패</string>
-    <string name="regist_fail_alert_content_fail2">문제가 발생하여 여행등록에 실패 하였습니다</string>
+    <string name="regist_fail_alert_content_fail2">서버에 문제가 발생하여 여행등록에 실패 하였습니다</string>
 
     <!-- layout/activity_myschedule_modify-->
     <string name="activity_myschedule_modify_title">edit trip</string>
     <string name="myschedule_modify_fail_alert_title_fail">여행 수정 실패</string>
     <string name="myschedule_modify_fail_alert_content_fail">수정 실패 하였습니다</string>
-    <string name="myschedule_modify_fail_alert_content_fail2">문제가 발생하여 여행 수정에 실패 하였습니다</string>
+    <string name="myschedule_modify_fail_alert_content_fail2">서버에 문제가 발생하여 여행 수정에 실패 하였습니다</string>
 
     <!-- layout/activity_myschedule_detail_modify-->
     <string name="activity_myschedule_detail_modify_title">edit plan</string>
     <string name="myschedule_detail_modify_fail_alert_title_fail">여행계획 수정 실패</string>
-    <string name="myschedule_detail_modify_fail_alert_content_fail2">문제가 발생하여 여행계획 수정에 실패 하였습니다</string>
+    <string name="myschedule_detail_modify_fail_alert_content_fail2">서버에 문제가 발생하여 여행계획 수정에 실패 하였습니다</string>
 
     <!-- layout/activity_regist_detail-->
     <string name="activity_regist_detail_title">Regist Detail</string>
