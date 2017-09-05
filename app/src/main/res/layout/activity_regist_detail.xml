@@ -61,7 +61,6 @@
                     android:layout_weight="1"
                     app:mcv_arrowColor="#b75d5d"
                     app:mcv_dateTextAppearance="@color/bg_login_button"
-
                     app:mcv_selectionColor="#67b777"
                     app:mcv_showOtherDates="all" />
             </RelativeLayout>

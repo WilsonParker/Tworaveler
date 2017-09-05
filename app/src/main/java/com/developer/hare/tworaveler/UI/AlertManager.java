@@ -136,6 +136,7 @@ public class AlertManager {
         view = LayoutInflater.from(activity).inflate(R.layout.alert_selectionmode, null);
         UIFactory uiFactory = UIFactory.getInstance(view);
         TV_title = uiFactory.createView(R.id.alert_selectionmode$TV_title);
+        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
         TV_title.setText(title);
         RV_items = uiFactory.createView(R.id.alert_selectionmode$RV_items);
         RV_items.setLayoutManager(new GridLayoutManager(activity, spanCount, LinearLayoutManager.VERTICAL, false));

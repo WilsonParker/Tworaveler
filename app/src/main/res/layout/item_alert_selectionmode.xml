@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/item_alert_selectionmode$IV_icon"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_alert_selectionmode$IV_height" />
+        android:layout_width="80dp"
+        android:layout_height="100dp" />
 
     <TextView
         android:id="@+id/item_alert_selectionmode$TV_text"
