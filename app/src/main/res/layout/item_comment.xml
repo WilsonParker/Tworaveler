@@ -2,102 +2,112 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_mypage$Root"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
->
+    android:layout_height="72dp">
+
     <LinearLayout
         android:id="@+id/item_comment$LL_see"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="@string/DEVICE_WIDTH">
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="14.7"/>
+            android:layout_weight="14.7" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="40"
-            android:weightSum="72"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:weightSum="72">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/item_comment$IV_profile"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="40"
-                android:background="@drawable/image_comment_profile"/>
+                android:background="@drawable/image_comment_profile" />
         </LinearLayout>
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="10.3"/>
+            android:layout_weight="10.3" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="264"
-            android:weightSum="72"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="72">
+
             <TextView
                 android:id="@+id/item_comment$TV_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="30"
-                android:text="Nickname"
-                android:textSize="13sp"
                 android:gravity="bottom"
                 android:paddingBottom="2dp"
-                />
+                android:text="Nickname"
+                android:textSize="13sp" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="42">
+
                 <TextView
                     android:id="@+id/item_comment$TV_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingRight="@dimen/EditText_Padding"
                     android:text="댓글을 달아주세요"
-                    android:textSize="11sp"
-                    />
+                    android:textSize="11sp" />
+
                 <EditText
                     android:id="@+id/item_comment$ET_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@null"
+                    android:paddingRight="@dimen/EditText_Padding"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/EditTextSize_Content_2"
-                    android:visibility="invisible"
-                    android:background="@null"
-                    />
+                    android:visibility="invisible" />
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/item_comment$LL_more"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="31"
-            android:visibility="invisible"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="invisible">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
+
                 <ImageView
                     android:id="@+id/item_comment$IV_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/icon_more_2"
-                    />
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/icon_more_2" />
+
                 <TextView
                     android:id="@+id/item_comment$up_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="invisible"
+                    android:gravity="center"
                     android:text="@string/activity_comment_up_btn"
                     android:textColor="@color/default_theme_Image_color"
                     android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:visibility="invisible" />
 
             </RelativeLayout>
         </LinearLayout>

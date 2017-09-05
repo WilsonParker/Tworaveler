@@ -91,7 +91,7 @@ public class FragmentFeedSchedule extends BaseFragment {
     protected void init(View view) {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
-        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
+//        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
         uiFactory = UIFactory.getInstance(getActivity());
         imageManager = ImageManager.getInstance();
 
@@ -223,7 +223,6 @@ public class FragmentFeedSchedule extends BaseFragment {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
 //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
-
                     if (response.isSuccessful()) {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:

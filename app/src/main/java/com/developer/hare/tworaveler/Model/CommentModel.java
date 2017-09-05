@@ -11,13 +11,15 @@ public class CommentModel {
     private String nickname, content, _id, del_yn, mod_date, reg_date, email, status_message, profile_pic_thumbnail_url, profile_pic_url, trip_date;
     private ArrayList<Integer> followees, followers;
 
-    public CommentModel(int trip_no, int dtrip_no, String nickname, String content) {
+    public CommentModel(int trip_no, int user_no, int dtrip_no, String nickname, String content) {
+        this.user_no = user_no;
         this.trip_no = trip_no;
         this.dtrip_no = dtrip_no;
         this.nickname = nickname;
         this.content = content;
     }
-    public CommentModel(int trip_no, String nickname, String content) {
+    public CommentModel(int trip_no, int user_no, String nickname, String content) {
+        this.user_no = user_no;
         this.trip_no = trip_no;
         this.nickname = nickname;
         this.content = content;
@@ -172,7 +174,6 @@ public class CommentModel {
         return "CommentModel{" +
                 "comment_no=" + comment_no +
                 ", trip_no=" + trip_no +
-                ", trip_date=" + trip_date +
                 ", __v=" + __v +
                 ", user_no=" + user_no +
                 ", dtrip_no=" + dtrip_no +
@@ -186,6 +187,7 @@ public class CommentModel {
                 ", status_message='" + status_message + '\'' +
                 ", profile_pic_thumbnail_url='" + profile_pic_thumbnail_url + '\'' +
                 ", profile_pic_url='" + profile_pic_url + '\'' +
+                ", trip_date='" + trip_date + '\'' +
                 ", followees=" + followees +
                 ", followers=" + followers +
                 '}';

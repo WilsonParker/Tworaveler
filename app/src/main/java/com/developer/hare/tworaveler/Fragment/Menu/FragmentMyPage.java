@@ -13,11 +13,13 @@ import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.R;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.Util.TestManager;
 
 public class FragmentMyPage extends BaseFragment {
     private static FragmentMyPage instance = new FragmentMyPage();
@@ -63,7 +65,18 @@ public class FragmentMyPage extends BaseFragment {
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
     }
 
+    private boolean isFirst = true;
+
     private void loginAction() {
+        if (isFirst) {
+            new TestManager(getActivity(), new OnItemDataChangeListener() {
+                @Override
+                public void onChange() {
+                    loginAction();
+                }
+            }).testLogin();
+            isFirst = false;
+        }
         if (SessionManager.getInstance().isLogin())
             FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
     }

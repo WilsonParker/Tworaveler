@@ -48,7 +48,8 @@
                         android:hint="@string/activity_sign_up$hint_ET_email"
                         android:inputType="textEmailAddress"
                         android:nextFocusDown="@+id/signUp$ET_password"
-                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:paddingLeft="@dimen/EditText_Padding"
+                        android:paddingRight="@dimen/EditText_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
 
                 </LinearLayout>
@@ -71,7 +72,8 @@
                         android:hint="@string/activity_sign_up$hint_ET_password"
                         android:inputType="textPassword"
                         android:nextFocusDown="@+id/signUp$ET_nickname"
-                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:paddingLeft="@dimen/EditText_Padding"
+                        android:paddingRight="@dimen/EditText_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 
@@ -92,7 +94,8 @@
                         android:background="@drawable/button_nickname"
                         android:hint="@string/activity_sign_up$hint_ET_nickname"
                         android:inputType="textAutoComplete|text"
-                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:paddingLeft="@dimen/EditText_Padding"
+                        android:paddingRight="@dimen/EditText_Padding"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 

@@ -34,7 +34,8 @@
     <dimen name="item_regist_day_detail$box_width">300dp</dimen>
 
     <!-- Padding-->
-    <dimen name="EditText_Left_Padding">15dp</dimen>
+    <dimen name="EditText_Padding">15dp</dimen>
+    <dimen name="EditText_Top_Padding">3dp</dimen>
 
     <!-- Text Size -->
     <dimen name="TextSize_Content_1">13sp</dimen>

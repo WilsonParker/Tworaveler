@@ -181,8 +181,10 @@ public class Log_HR {
         String m = setNotiMsg("#Class : " + cls.getCanonicalName() + "\n#Method : " + mName + "" +
                 "\n#Message : " + response.body().getSuccess()
                 + "\n#Message : " + response.body().getMessage());
-        for (T t : response.body().getResult())
-            m += "\n#Message : " + t.toString();
+        if (response.body().getResult() != null) {
+            for (T t : response.body().getResult())
+                m += "\n#Message : " + t.toString();
+        }
         print(LOG_INFO, m);
     }
 

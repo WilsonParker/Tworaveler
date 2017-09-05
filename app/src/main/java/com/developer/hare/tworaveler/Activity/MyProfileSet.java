@@ -42,6 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_USER_FILE;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NOT_LOGIN;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
 public class MyProfileSet extends AppCompatActivity {
@@ -161,8 +162,10 @@ public class MyProfileSet extends AppCompatActivity {
                         Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
                             @Override
                             public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response);
                                 if (response.isSuccessful()) {
                                     switch (response.body().getSuccess()) {
+                                        case CODE_NOT_LOGIN :
                                         case CODE_SUCCESS:
                                             SessionManager.getInstance().setUserModel(null);
                                             Intent intent = new Intent(activity, Main.class);
@@ -230,7 +233,7 @@ public class MyProfileSet extends AppCompatActivity {
                                                         }
                                                     }).show();
                                                     break;
-                                                case DataDefinition.Network.CODE_NOT_LOGIN:
+                                                case CODE_NOT_LOGIN:
                                                     netFail(R.string.profileSet_signOut_fail_alert_title, R.string.alert_content_not_login);
                                                     break;
                                                 case DataDefinition.Network.CODE_EMAIL_INCORRECT:
@@ -296,7 +299,7 @@ public class MyProfileSet extends AppCompatActivity {
                                             SessionManager.getInstance().setUserModel(model);
                                             finish();
                                             break;
-                                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                                        case CODE_NOT_LOGIN:
                                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
                                             SessionManager.getInstance().logout(activity);
                                             break;
@@ -337,7 +340,7 @@ public class MyProfileSet extends AppCompatActivity {
                                                 }
                                             }).show();
                                             break;
-                                        case DataDefinition.Network.CODE_NOT_LOGIN:
+                                        case CODE_NOT_LOGIN:
                                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
                                             SessionManager.getInstance().logout(activity);
                                             break;

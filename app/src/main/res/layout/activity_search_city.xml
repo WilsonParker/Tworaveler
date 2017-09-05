@@ -69,16 +69,20 @@
                     android:id="@+id/search_city$ET_city"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="251.33"
+                    android:layout_weight="239.03"
+                    android:textAlignment="gravity"
                     android:background="@null"
-                    android:gravity="center_vertical"
                     android:hint="@string/activity_search_city_hint_1"
                     android:inputType="textAutoComplete"
                     android:lines="1"
-                    android:paddingTop="1dp"
+                    android:paddingTop="@dimen/EditText_Top_Padding"
                     android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/TextSize_Content_1" />
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="12.3" />
             </LinearLayout>
         </LinearLayout>
 

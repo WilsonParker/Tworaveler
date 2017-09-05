@@ -72,7 +72,8 @@
                         android:hint="@string/activity_login$hint_ET_email"
                         android:inputType="textEmailAddress|textAutoComplete"
                         android:nextFocusDown="@+id/activty_login$ET_password"
-                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:paddingLeft="@dimen/EditText_Padding"
+                        android:paddingRight="@dimen/EditText_Padding"
                         android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
 
@@ -94,7 +95,8 @@
                         android:imeOptions="actionNext"
                         android:hint="@string/activity_login$hint_ET_password"
                         android:inputType="textPassword"
-                        android:paddingLeft="@dimen/EditText_Left_Padding"
+                        android:paddingLeft="@dimen/EditText_Padding"
+                        android:paddingRight="@dimen/EditText_Padding"
                         android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
 

@@ -45,7 +45,7 @@ public class DateManager {
     private TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker timePicker, int i, int i1) {
-            stringTime = i + ":" + i1;
+            stringTime = String.format("%02d:%02d", i, i1);
             textView.setText(stringTime);
             if (onClickListener != null)
                 onClickListener.onClick(null);
@@ -88,14 +88,14 @@ public class DateManager {
     public void getDateTime(Context context, TextView textView) {
         onClickListener = null;
         this.textView = textView;
-        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("hh"), getIntegerDate("mm"), true);
+        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("HH"), getIntegerDate("mm"), true);
         timePickerDialog.show();
     }
 
     public void getDateTime(Context context, TextView textView, View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
         this.textView = textView;
-        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("hh"), getIntegerDate("mm"), true);
+        timePickerDialog = new TimePickerDialog(context, onTimeSetListener, getIntegerDate("HH"), getIntegerDate("mm"), true);
         timePickerDialog.show();
     }
 

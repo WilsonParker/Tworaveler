@@ -164,11 +164,12 @@ public class Comment extends AppCompatActivity {
             ET_comment.setError("글을 작성 해주세요");
             return;
         }
-        CommentModel commentModel = new CommentModel(scheduleModel.getTrip_no(), SessionManager.getInstance().getUserModel().getNickname(), msg);
+        CommentModel commentModel = new CommentModel(scheduleModel.getTrip_no(), userModel.getUser_no(), userModel.getNickname(), msg);
+        Log_HR.log(Log_HR.LOG_INFO, Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", "commentModel : " + commentModel);
         Net.getInstance().getFactoryIm().commentUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-//                Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     if (model.getSuccess() == CODE_SUCCESS) {

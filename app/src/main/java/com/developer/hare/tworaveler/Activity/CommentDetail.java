@@ -20,6 +20,7 @@ import com.developer.hare.tworaveler.Model.CommentModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.ScheduleDayModel;
+import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -29,6 +30,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,8 @@ public class CommentDetail extends AppCompatActivity {
     private TextView TV_noitem, up_btn;
     private EditText ET_comment;
 
+    private ResourceManager resourceManager;
+    private UserModel userModel;
     private UIFactory uiFactory;
     private ProgressManager progressManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
@@ -82,12 +86,17 @@ public class CommentDetail extends AppCompatActivity {
         super.onResume();
         createCommentList();
         changeView();
+        if (!sessionCheck()) {
+            ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));
+            ET_comment.setEnabled(false);
+        }
     }
 
     private void init() {
         scheduleDayModel = (ScheduleDayModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
+        resourceManager = ResourceManager.getInstance();
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
         LL_noitem = uiFactory.createView(R.id.activity_comment$LL_noitem);
@@ -107,7 +116,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +143,7 @@ public class CommentDetail extends AppCompatActivity {
             ET_comment.setError("글을 작성 해주세요");
             return;
         }
-        CommentModel commentModel = new CommentModel(scheduleDayModel.getTrip_no(), scheduleDayModel.getDtrip_no(), SessionManager.getInstance().getUserModel().getNickname(), msg);
+        CommentModel commentModel = new CommentModel(scheduleDayModel.getTrip_no(), userModel.getUser_no(), scheduleDayModel.getDtrip_no(), userModel.getNickname(), msg);
         Net.getInstance().getFactoryIm().commentDetailUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
@@ -185,7 +194,7 @@ public class CommentDetail extends AppCompatActivity {
                                         items = model.getResult();
 //                                        commentAdapter.notifyDataSetChanged();
 //                                        RV_commentlist.setAdapter(new CommentAdapter(items));
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }
@@ -209,5 +218,10 @@ public class CommentDetail extends AppCompatActivity {
     private void netFail(int title, int content) {
         progressManager.endRunning();
         AlertManager.getInstance().showNetFailAlert(this, title, content);
+    }
+
+    private boolean sessionCheck() {
+        userModel = SessionManager.getInstance().getUserModel();
+        return SessionManager.getInstance().isLogin();
     }
 }

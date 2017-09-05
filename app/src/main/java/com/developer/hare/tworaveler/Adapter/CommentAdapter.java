@@ -106,7 +106,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.popup_menu$modify:
-                                    if(editing_holder != null)
+                                    if (editing_holder != null)
                                         editing_holder.showModifyEditor(false);
                                     editing_holder = ViewHolder.this;
                                     ET_comment.findFocus();
@@ -145,7 +145,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             this.model = model;
             TV_nickname.setText(model.getNickname() + "");
             TV_comment.setText(model.getContent() + "");
-            if (SessionManager.getInstance().isLogin() && SessionManager.getInstance().getUserModel().getNickname().equals(model.getNickname())) {
+            if (SessionManager.getInstance().isLogin() && SessionManager.getInstance().getUserModel().getUser_no() == model.getUser_no()) {
                 LL_more.setVisibility(View.VISIBLE);
             }
             up_btn.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +158,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         private void changeComment() {
             model.setContent(ET_comment.getText().toString());
+            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "CommentModel : " + model);
 
             switch (type) {
                 case COMMENT:
@@ -168,12 +169,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
-                                        Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response : " + response.body().getResult());
                                         model.setContent(ET_comment.getText().toString());
                                         TV_comment.setText(model.getContent() + "");
                                         showModifyEditor(false);
                                         onModifyListener.onComplete();
                                         keyboardManager.dismissInputKeyboard(context);
+                                        break;
+                                    case DataDefinition.Network.CODE_ERROR:
+                                        netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
                                         break;
                                 }
                             } else {
@@ -203,6 +206,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         showModifyEditor(false);
                                         keyboardManager.dismissInputKeyboard(context);
                                         break;
+                                    case DataDefinition.Network.CODE_ERROR:
+                                        netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
+                                        break;
                                 }
                             } else {
                                 netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_2);
@@ -219,25 +225,30 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     break;
             }
         }
-        private void commentDelete(){
-            switch (type)
-            {
-                case COMMENT :
+
+        private void commentDelete() {
+            switch (type) {
+                case COMMENT:
                     Net.getInstance().getFactoryIm().commentDelete(model).enqueue(new Callback<ResponseModel<String>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
                             Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
-                            if(response.isSuccessful()){
-                                if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
-                                    HandlerManager.getInstance().post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            items.remove(model);
-                                            onItemDeleteListener.onChange();
-                                        }
-                                    });
+                            if (response.isSuccessful()) {
+                                switch (response.body().getSuccess()) {
+                                    case DataDefinition.Network.CODE_SUCCESS:
+                                        HandlerManager.getInstance().post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                items.remove(model);
+                                                onItemDeleteListener.onChange();
+                                            }
+                                        });
+                                        break;
+                                    case DataDefinition.Network.CODE_ERROR:
+                                        netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_5);
+                                        break;
                                 }
-                            }else {
+                            } else {
                                 netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_4);
                                 Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
@@ -250,13 +261,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         }
                     });
                     break;
-                case COMMENT_DETAIL :
+                case COMMENT_DETAIL:
                     Net.getInstance().getFactoryIm().commentDetailDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
                             Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
-                            if(response.isSuccessful()){
-                                if(response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS){
+                            if (response.isSuccessful()) {
+                                if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                                     HandlerManager.getInstance().post(new Runnable() {
                                         @Override
                                         public void run() {
@@ -265,7 +276,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                         }
                                     });
                                 }
-                            }else{
+                            } else {
                                 netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_4);
                                 Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
