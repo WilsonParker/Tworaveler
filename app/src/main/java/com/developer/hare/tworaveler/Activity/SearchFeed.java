@@ -196,7 +196,7 @@ public class SearchFeed extends AppCompatActivity {
                     city.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
                     nickname.setTextColor(ContextCompat.getColor(getBaseContext(), black));
                     RV_citylist.setAdapter(new CityListAdapter(null, cityItems, getApplicationContext() ));
-                    ET_city.setHint("찾으시는 도시를 검색하세요");
+                    ET_city.setHint(R.string.select_feed_city);
                 }
             });
         }else {
@@ -206,7 +206,7 @@ public class SearchFeed extends AppCompatActivity {
                     nickname.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
                     city.setTextColor(ContextCompat.getColor(getBaseContext(), black));
                     RV_citylist.setAdapter(new NicknameListAdapter(null, nicknameItems, getApplicationContext()));
-                    ET_city.setHint("찾으시는 닉네임의 풀네임을 적어주세요");
+                    ET_city.setHint(R.string.select_feed_nickname);
                 }
             });
         }

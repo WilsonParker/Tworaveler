@@ -64,7 +64,6 @@ public class CommentDetail extends AppCompatActivity {
             createCommentList();
         }
     };
-//dasd
     private OnModifyListener onModifyListener = new OnModifyListener() {
         @Override
         public void onEditing() {
