@@ -25,6 +25,7 @@ import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -63,7 +64,7 @@ public class CommentDetail extends AppCompatActivity {
             createCommentList();
         }
     };
-
+//dasd
     private OnModifyListener onModifyListener = new OnModifyListener() {
         @Override
         public void onEditing() {
