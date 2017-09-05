@@ -193,6 +193,7 @@ public class CommentDetail extends AppCompatActivity {
                 Net.getInstance().getFactoryIm().commentDetailList(scheduleDayModel.getDtrip_no(), scheduleDayModel.getTrip_date()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
+                        Log_HR.logA(CommentDetail.class, "onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -209,6 +210,7 @@ public class CommentDetail extends AppCompatActivity {
                                             commentAdapter.notifyDataSetChanged();
                                         }
                                     });
+                                    break;
                                 case CODE_ERROR:
                                     netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
                                     break;
