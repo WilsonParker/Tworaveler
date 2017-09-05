@@ -100,7 +100,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             textlist1.add(TV_like);
             textlist1.add(TV_commenet);
             FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
-            FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
+            FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Bold.otf");
 
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override

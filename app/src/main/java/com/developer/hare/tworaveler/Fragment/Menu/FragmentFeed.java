@@ -50,7 +50,7 @@ public class FragmentFeed extends BaseFragment {
     private RecyclerView recyclerView;
     private MenuTopTitle menuTopTitle;
 
-    private LinearLayout LL_info;
+    private LinearLayout LL_info, LL_search, LL_feed;
 
     private UIFactory uiFactory;
     private ArrayList<ScheduleModel> feedItemModels = new ArrayList<>();
@@ -72,15 +72,20 @@ public class FragmentFeed extends BaseFragment {
     protected void init(View view) {
         uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
+
         menuTopTitle = uiFactory.createView(R.id.fragment_feed$menuToptitle);
-        menuTopTitle.getIB_right().setOnClickListener(new View.OnClickListener() {
+        menuTopTitle.setVisibility(View.GONE);
+
+        LL_feed = uiFactory.createView(R.id.fragment_feed$LL_feed);
+        LL_feed.setVisibility(View.VISIBLE);
+        LL_search = uiFactory.createView(R.id.fragment_feed$LL_search);
+        LL_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SearchFeed.class);
                 startActivityForResult(intent, RESULT_CODE_SEARCH_CITY);
             }
         });
-        menuTopTitle.getIB_left().setVisibility(View.INVISIBLE);
         recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override

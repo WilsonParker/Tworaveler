@@ -50,6 +50,7 @@
                         android:nextFocusDown="@+id/signUp$ET_password"
                         android:paddingLeft="@dimen/EditText_Padding"
                         android:paddingRight="@dimen/EditText_Padding"
+                        android:maxLength="29"
                         android:textCursorDrawable="@color/editText_cursor_color" />
 
                 </LinearLayout>
@@ -74,6 +75,7 @@
                         android:nextFocusDown="@+id/signUp$ET_nickname"
                         android:paddingLeft="@dimen/EditText_Padding"
                         android:paddingRight="@dimen/EditText_Padding"
+                        android:maxLength="32"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 
@@ -96,6 +98,7 @@
                         android:inputType="textAutoComplete|text"
                         android:paddingLeft="@dimen/EditText_Padding"
                         android:paddingRight="@dimen/EditText_Padding"
+                        android:maxLength="18"
                         android:textCursorDrawable="@color/editText_cursor_color" />
                 </LinearLayout>
 

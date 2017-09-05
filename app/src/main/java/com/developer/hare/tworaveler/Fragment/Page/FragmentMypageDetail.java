@@ -93,6 +93,8 @@ public class FragmentMypageDetail extends BaseFragment {
         TV_date= uiFactory.createView(R.id.fragment_mypage_detail$TV_date);
         TV_date.setText(trip_date);
 
+        FontManager.getInstance().setFont(TV_date, "Roboto-Medium.ttf");
+
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_detail$menuTopTItle);
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_detail$TV_noitem);
         recyclerView = uiFactory.createView(R.id.fragment_mypage_detail$RV_list);

@@ -74,6 +74,7 @@
                         android:nextFocusDown="@+id/activty_login$ET_password"
                         android:paddingLeft="@dimen/EditText_Padding"
                         android:paddingRight="@dimen/EditText_Padding"
+                        android:maxLength="29"
                         android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
 
@@ -97,6 +98,7 @@
                         android:inputType="textPassword"
                         android:paddingLeft="@dimen/EditText_Padding"
                         android:paddingRight="@dimen/EditText_Padding"
+                        android:maxLength="32"
                         android:textCursorDrawable="@drawable/cursor_edittext" />
                 </LinearLayout>
 

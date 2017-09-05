@@ -3,15 +3,56 @@
     android:id="@+id/fragment_feed$Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    >
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_feed$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         app:leftButton="@drawable/icon_back"
-        app:rightButton="@drawable/if_search"
-        app:titleText="@string/fragment_feed_title" />
+        app:rightButton="@drawable/icon_feedsearch"
+        app:titleText="@string/fragment_feed_title"
+        android:visibility="visible"/>
+    <LinearLayout
+        android:id="@+id/fragment_feed$LL_feed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_top_title_height"
+        android:background="@color/default_theme_Image_color"
+        android:weightSum="56"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="32"
+            android:weightSum="360"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/fragment_feed$LL_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="328"
+                android:gravity="center_vertical"
+                android:background="@drawable/input_feed"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_search"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center_vertical"
+                    android:textSize="13sp"
+                    android:text="@string/fragment_feed_search"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/fragment_feed$LL_info"
         android:visibility="gone"

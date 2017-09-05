@@ -83,7 +83,7 @@
     <string name="regist_day_detail_alert_content_fail_4">일정 시작 날짜와 종료 날짜가 올바르지 않습니다</string>
     <string name="regist_day_detail_alert_content_fail_5">문제가 발생하여 일정 등록 실패 하였습니다</string>
     <string name="regist_day_detail_alert_content_fail_6">메모를 등록해 주세요</string>
-    <string name="regist_day_detail_alert_content_fail_7">일정 시작 시간이 종료 시간 보다 늦을 수 없습니다</string>
+    <string name="regist_day_detail_alert_content_fail_7">일정 시작 시간이 종료 시간 보다 같거나 늦을 수 없습니다</string>
 
     <string name="regist_day_detail_alert_title_success">세부 일정 등록 성공</string>
     <string name="regist_day_detail_alert_content_success">세부 일정 등록을 성공하였습니다</string>
@@ -101,7 +101,6 @@
     <string name="bagDelete_alert_content_fail_2">여행 가방을 삭제하는데 문제가 발생하였습니다</string>
 
     <!-- Activity/Comment-->
-    <string name="comment_not_login_editText_message">로그인이 필요합니다</string>
     <string name="comment_alert_title_fail">댓글 등록 실패</string>
     <string name="comment_alert_title_fail_2">댓글 목록 불러오기 실패</string>
     <string name="comment_alert_title_fail_3">댓글 수정 실패</string>
@@ -213,14 +212,16 @@
     <string name="activity_comment_list_title">comment</string>
     <string name="activity_comment_hint">댓글달기</string>
     <string name="activity_comment_up_btn">게시</string>
-    <string name="activity_comment_nocomment">댓글을 남겨주세요</string>
+    <string name="activity_comment_nocomment">등록된 글이 없습니다.</string>
+    <string name="comment_not_login_editText_message">로그인이 필요합니다</string>
 
     <!--
         ############################################################################################
     -->
 
     <!-- layout/fragment_feed-->
-    <string name="fragment_feed_title">Feed</string>
+    <string name="fragment_feed_title">tworaveler</string>
+    <string name="fragment_feed_search">도시 및 여행자 검색</string>
 
     <!-- layout/fragment_alarm-->
     <string name="fragment_alarm_title">alarm</string>

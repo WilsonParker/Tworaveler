@@ -13,6 +13,7 @@ import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             TV_contents = uiFactory.createView(R.id.item_search_nickname$TV_contents);
             LL_cell = uiFactory.createView(R.id.item_search_nickname$LL_cell);
+            CV_profile = uiFactory.createView(R.id.item_search_nickname$CV_profile);
 
         }
 
@@ -74,11 +76,11 @@ public class NicknameListAdapter extends RecyclerView.Adapter<NicknameListAdapte
                 }
             });
             imageManager = ImageManager.getInstance();
-            /*if (NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url())) {
+            if (NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url())) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.BASIC_TYPE), CV_profile);
             } else {
                 imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), CV_profile);
-            }*/
+            }
         }
     }
 

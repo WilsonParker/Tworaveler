@@ -105,6 +105,8 @@ public class FragmentFeedDetail extends BaseFragment {
         TV_date = uiFactory.createView(R.id.fragment_feed_detail$TV_date);
         TV_date.setText(trip_Date);
 
+        FontManager.getInstance().setFont(TV_date, "Roboto-Medium.ttf");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");

@@ -123,16 +123,14 @@ public class FragmentFeedSchedule extends BaseFragment {
         menuTopTitle.setTitleText(scheduleModel.getNickname());
 
         ArrayList<TextView> textlist1 = new ArrayList<>();
-        ArrayList<TextView> textlist2 = new ArrayList<>();
         textlist1.add(TV_date);
 //        textlist1.add(TV_nickname);
         textlist1.add(TV_like);
         textlist1.add(TV_comment);
         FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
         FontManager.getInstance().setFont(TV_nickname, "Roboto-Bold.ttf");
-        textlist2.add(TV_message);
-        textlist2.add(TV_title);
-        FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(TV_message, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Bold.otf");
 
         LL_like.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,15 +23,19 @@
                 android:id="@+id/item_mypage_detail$IV_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-
-            <ImageView
-                android:id="@+id/item_mypage_detail$IV_more"
-                android:layout_width="25dp"
-                android:layout_height="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_margin="10.7dp"
-                android:layout_weight="5"
-                app:srcCompat="@drawable/icon_more" />
+            <LinearLayout
+                android:id="@+id/item_mypage_detail$LL_more"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:id="@+id/item_mypage_detail$IV_more"
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_margin="10.7dp"
+                    android:layout_weight="5"
+                    app:srcCompat="@drawable/icon_more" />
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -54,16 +58,13 @@
                 android:orientation="vertical"
                 android:weightSum="158">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="8.7" />
 
                 <TextView
                     android:id="@+id/item_mypage_detail$TV_city"
                     android:layout_width="match_parent"
+                    android:gravity="top"
                     android:layout_height="0dp"
-                    android:layout_weight="18"
+                    android:layout_weight="28"
                     android:textSize="16sp"/>
 
                 <ImageView
@@ -75,25 +76,19 @@
                     android:id="@+id/item_mypage_detail$TV_address"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:gravity="top"
                     android:textSize="14sp"
-                    android:layout_weight="15" />
+                    android:layout_weight="25" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="8.7" />
 
                 <TextView
                     android:id="@+id/item_mypage_detail$TV_time"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:gravity="top"
                     android:textSize="14sp"
-                    android:layout_weight="15" />
+                    android:layout_weight="25" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="8.7" />
 
                 <TextView
                     android:id="@+id/item_mypage_detail$TV_memo"

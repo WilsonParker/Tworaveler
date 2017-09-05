@@ -25,6 +25,7 @@ import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
@@ -51,6 +52,7 @@ public class CommentDetail extends AppCompatActivity {
     private ResourceManager resourceManager;
     private UserModel userModel;
     private UIFactory uiFactory;
+    private KeyboardManager keyboardManager;
     private ProgressManager progressManager;
     private ArrayList<CommentModel> items = new ArrayList<>();
     private CommentAdapter commentAdapter;
@@ -96,6 +98,7 @@ public class CommentDetail extends AppCompatActivity {
         scheduleDayModel = (ScheduleDayModel) getIntent().getExtras().get(DataDefinition.Intent.KEY_SCHEDULE_DAY_MODEL);
         uiFactory = UIFactory.getInstance(this);
         progressManager = new ProgressManager(this);
+        keyboardManager = new KeyboardManager();
         resourceManager = ResourceManager.getInstance();
 
         RV_commentlist = uiFactory.createView(R.id.activity_comment$RV_commentlist);
@@ -116,7 +119,7 @@ public class CommentDetail extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CommentDetail.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
-        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
         RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +162,7 @@ public class CommentDetail extends AppCompatActivity {
                                 commentAdapter.notifyDataSetChanged();
                                 RV_commentlist.scrollToPosition(items.size() - 1);
                                 scheduleDayModel.setCommentCount(scheduleDayModel.getCommentCount() + 1);
+                                keyboardManager.dismissInputKeyboard(getApplicationContext());
                                 changeView();
                             }
                         });
@@ -194,7 +198,7 @@ public class CommentDetail extends AppCompatActivity {
                                         items = model.getResult();
 //                                        commentAdapter.notifyDataSetChanged();
 //                                        RV_commentlist.setAdapter(new CommentAdapter(items));
-                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener, onModifyListener);
+                                        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT_DETAIL, onItemDeleteListener,onModifyListener);
                                         RV_commentlist.setAdapter(commentAdapter);
                                         commentAdapter.notifyDataSetChanged();
                                     }

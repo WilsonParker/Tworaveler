@@ -63,7 +63,7 @@ public class FragmentFeedFilter extends BaseFragment {
     private CircleImageView CV_profile;
     private TextView TV_nickname, TV_message;
     private ImageView IV_follow;
-    private LinearLayout LL_info;
+    private LinearLayout LL_info, LL_feed;
 
     private UIFactory uiFactory;
     private ArrayList<ScheduleModel> feedICityModels = new ArrayList<>();
@@ -103,7 +103,10 @@ public class FragmentFeedFilter extends BaseFragment {
 
         uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
+        LL_feed = uiFactory.createView(R.id.fragment_feed$LL_feed);
+        LL_feed.setVisibility(View.GONE);
         menuTopTitle = uiFactory.createView(R.id.fragment_feed$menuToptitle);
+        menuTopTitle.setVisibility(View.VISIBLE);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,6 +198,13 @@ public class FragmentFeedFilter extends BaseFragment {
                     imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile).centerCrop(), CV_profile);
                 else
                     imageManager.loadImage(imageManager.createRequestCreator(getActivity(), R.drawable.image_profile, ImageManager.BASIC_TYPE), CV_profile);
+                changeFollow(scheduleModel.isFollow());
+                IV_follow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        followSelect(scheduleModel.isFollow());
+                    }
+                });
                 menuTopTitle.getTV_title().setText(scheduleModel.getNickname());
                 progressManager.actionWithState(new OnProgressAction() {
                     @Override

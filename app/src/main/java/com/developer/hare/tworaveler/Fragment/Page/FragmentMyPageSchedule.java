@@ -135,7 +135,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
         textlist1.add(TV_like);
         textlist1.add(TV_comment);
         FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
-        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Bold.otf");
     }
 
     // 캘린더 초기 세팅

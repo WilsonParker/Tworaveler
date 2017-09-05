@@ -25,6 +25,7 @@ import com.developer.hare.tworaveler.Model.ScheduleDayModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
@@ -74,7 +75,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
         private Context context;
         private TextView TV_like, TV_commenet, TV_city, TV_address, TV_time, TV_memo;
         private ImageView IV_cover, IV_like, IV_btn;
-        private LinearLayout LL_comment, LL_like;
+        private LinearLayout LL_comment, LL_like, LL_more;
         private PopupMenu popupMenu;
         private ScheduleDayModel model;
         public static final int TYPE_MYPAGE = 0x0001;
@@ -95,6 +96,18 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             IV_like = uiFactory.createView(R.id.item_mypage_detail$IV_like);
             LL_comment = uiFactory.createView(R.id.item_mypage_detail$LL_comment);
             LL_like = uiFactory.createView(R.id.item_mypage_detail$LL_like);
+            LL_more = uiFactory.createView(R.id.item_mypage_detail$LL_more);
+
+            ArrayList<TextView> textlist1 = new ArrayList<>();
+            ArrayList<TextView> textlist2 = new ArrayList<>();
+            textlist1.add(TV_time);
+            textlist1.add(TV_memo);
+            FontManager.getInstance().setFont(textlist1, "NotoSansCJKkr-Regular.otf");
+            textlist2.add(TV_like);
+            textlist2.add(TV_commenet);
+            FontManager.getInstance().setFont(textlist2, "Roboto-Medium.ttf");
+            FontManager.getInstance().setFont(TV_address, "NotoSansCJKkr-Medium.otf");
+            FontManager.getInstance().setFont(TV_city, "NotoSansCJKkr-Bold.otf");
 
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -125,7 +138,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                 }
             });
             if (type == TYPE_MYPAGE) {
-                IV_btn.setOnClickListener(new View.OnClickListener() {
+                LL_more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         popupMenu = new PopupMenu(context, view);
@@ -191,7 +204,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                     }
                 });
             } else {
-                IV_btn.setVisibility(View.INVISIBLE);
+                LL_more.setVisibility(View.INVISIBLE);
             }
             changeLike(model.isLike());
         }

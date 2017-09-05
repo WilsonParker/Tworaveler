@@ -134,6 +134,8 @@ public class Comment extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Comment.this, LinearLayoutManager.VERTICAL, false);
         RV_commentlist.setLayoutManager(linearLayoutManager);
+        commentAdapter = new CommentAdapter(items, CommentAdapter.COMMENT, onItemDeleteListener, onModifyListener);
+        RV_commentlist.setAdapter(commentAdapter);
 
         up_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +143,6 @@ public class Comment extends AppCompatActivity {
                 onSendComment(view);
             }
         });
-
     }
 
     private void changeView() {
@@ -226,7 +227,6 @@ public class Comment extends AppCompatActivity {
                             }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);

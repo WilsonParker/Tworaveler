@@ -3,6 +3,7 @@ package com.developer.hare.tworaveler.Adapter;
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -112,6 +113,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     ET_comment.findFocus();
                                     keyboardManager.showInputKeyboard(context);
                                     ET_comment.setText(model.getContent());
+//                                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class,"ET_comment","count" + ET_comment.getLineCount());
+                                    ET_comment.setOnKeyListener(new View.OnKeyListener() {
+                                        @Override
+                                        public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                                            if(ET_comment.getLineCount() == 3) {
+                                                if (i == keyEvent.KEYCODE_ENTER) {
+                                                    return true;
+                                                }
+                                            }
+                                            return false;
+                                        }
+                                    });
                                     showModifyEditor(true);
                                     onModifyListener.onEditing();
                                     break;
@@ -197,7 +210,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
                             Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
-
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:

@@ -165,8 +165,8 @@ public interface NetFactoryIm {
     Call<ResponseArrayModel<CityModel>> searchCity(@Query("city") String city);
 
     // 닉네임 검색
-    @GET("/feed/getNickname/{nickname}")
-    Call<ResponseArrayModel<ScheduleModel>> searchNickname(@Path("nickname") String nickname);
+    @GET("/feed/getNickname/{user_no}/{nickname}")
+    Call<ResponseArrayModel<ScheduleModel>> searchNickname(@Path("user_no") int user_no, @Path("nickname") String nickname);
 
     // 피드 도시 검색
     @GET("/feed/searchCity/{user_no}/{city}")

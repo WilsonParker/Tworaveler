@@ -74,6 +74,9 @@
                     android:background="@null"
                     android:paddingRight="@dimen/EditText_Padding"
                     android:textCursorDrawable="@drawable/cursor_edittext"
+                    android:maxLength="70"
+                    android:inputType="textMultiLine"
+                    android:maxLines="3"
                     android:textSize="@dimen/EditTextSize_Content_2"
                     android:visibility="invisible" />
             </RelativeLayout>

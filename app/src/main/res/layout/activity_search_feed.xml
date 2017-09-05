@@ -71,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="239.03"
                     android:background="@null"
+                    android:gravity="center_vertical"
                     android:hint="@string/activity_search_city_hint_1"
                     android:inputType="textAutoComplete"
                     android:lines="1"
@@ -113,12 +114,12 @@
         </LinearLayout>
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="560"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
         <!--<com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/search_feed$navigation"
             android:layout_width="match_parent"
@@ -132,33 +133,31 @@
             android:layout_height="0dp"
             android:layout_weight="32"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/search_feed$city"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="도시" />
-
+                android:text="도시"
+                />
             <TextView
                 android:id="@+id/search_feed$nickname"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="닉네임" />
+                android:text="닉네임"/>
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="528">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/search_feed$RV_citylist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_feed$RV_citylist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         </FrameLayout>
     </LinearLayout>

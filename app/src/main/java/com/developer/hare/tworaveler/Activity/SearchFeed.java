@@ -18,6 +18,7 @@ import com.developer.hare.tworaveler.Adapter.FeedCityListAdapter;
 import com.developer.hare.tworaveler.Adapter.FeedNicknameListAdapter;
 import com.developer.hare.tworaveler.Adapter.NicknameListAdapter;
 import com.developer.hare.tworaveler.Data.DataDefinition;
+import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Listener.OnSelectCityListener;
 import com.developer.hare.tworaveler.Listener.OnSelectNicknameListener;
 import com.developer.hare.tworaveler.Model.CityModel;
@@ -132,7 +133,7 @@ public class SearchFeed extends AppCompatActivity {
                         }
                     });
                 }else{
-                    Net.getInstance().getFactoryIm().searchNickname(ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
+                    Net.getInstance().getFactoryIm().searchNickname(SessionManager.getInstance().getUserModel().getUser_no(), ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                         @Override
                         public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                            /* Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "ScheduleModel", "" + nicknameItems);
@@ -189,15 +190,25 @@ public class SearchFeed extends AppCompatActivity {
 
     private void selectFeed(boolean isCity){
         if(isCity){
-            city.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
-            nickname.setTextColor(ContextCompat.getColor(getBaseContext(), black));
-            RV_citylist.setAdapter(new CityListAdapter(null, cityItems, getApplicationContext() ));
-            ET_city.setHint("찾으시는 도시를 검색하세요");
+            SessionManager.getInstance().actionAfterSessoinCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
+                @Override
+                public void action() {
+                    city.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
+                    nickname.setTextColor(ContextCompat.getColor(getBaseContext(), black));
+                    RV_citylist.setAdapter(new CityListAdapter(null, cityItems, getApplicationContext() ));
+                    ET_city.setHint("찾으시는 도시를 검색하세요");
+                }
+            });
         }else {
-            nickname.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
-            city.setTextColor(ContextCompat.getColor(getBaseContext(), black));
-            RV_citylist.setAdapter(new NicknameListAdapter(null, nicknameItems, getApplicationContext()));
-            ET_city.setHint("찾으시는 닉네임의 풀네임을 적어주세요");
+            SessionManager.getInstance().actionAfterSessoinCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
+                @Override
+                public void action() {
+                    nickname.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
+                    city.setTextColor(ContextCompat.getColor(getBaseContext(), black));
+                    RV_citylist.setAdapter(new NicknameListAdapter(null, nicknameItems, getApplicationContext()));
+                    ET_city.setHint("찾으시는 닉네임의 풀네임을 적어주세요");
+                }
+            });
         }
     }
 }

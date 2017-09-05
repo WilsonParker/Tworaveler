@@ -19,7 +19,7 @@ import com.developer.hare.tworaveler.Util.BackClickManager;
 import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
-    private Fragment default_fragment = FragmentMyPage.newInstance();
+    private Fragment default_fragment = FragmentFeed.newInstance();
     private UIFactory uiFactory;
     private CustomNavigationView customNavigationView;
 
@@ -82,7 +82,7 @@ public class Main extends AppCompatActivity {
             }
         }));
         customNavigationView.bindItemView(this, items);
-        customNavigationView.setFirstClickItem(0);
+        customNavigationView.setFirstClickItem(1);
 
     }
 
