@@ -277,10 +277,9 @@ public class Regist extends AppCompatActivity {
                     cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
                     if (cityModel != null) {
                         TV_citySearch.setText(cityModel.getCountry() + " " + cityModel.getCity());
-                        if (imageFile == null) {
-                            RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+//                        if (imageFile == null) { }
+                        RequestCreator requestCreator = imageManager.createRequestCreator(Regist.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
                             imageManager.loadImage(requestCreator, IV_cover);
-                        }
                         IV_camera.setVisibility(View.INVISIBLE);
                     }
 
