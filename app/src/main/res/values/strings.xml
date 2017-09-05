@@ -100,6 +100,10 @@
     <string name="bagDelete_alert_content_fail">여행 가방을 삭제하는데 실패하였습니다</string>
     <string name="bagDelete_alert_content_fail_2">여행 가방을 삭제하는데 문제가 발생하였습니다</string>
 
+    <!-- Activity/BagDelete-->
+    <string name="select_feed_city">찾으시는 도시를 검색하세요</string>
+    <string name="select_feed_nickname">찾으시는 닉네임을 검색하세요</string>
+
     <!-- Activity/Comment-->
     <string name="comment_alert_title_fail">댓글 등록 실패</string>
     <string name="comment_alert_title_fail_2">댓글 목록 불러오기 실패</string>

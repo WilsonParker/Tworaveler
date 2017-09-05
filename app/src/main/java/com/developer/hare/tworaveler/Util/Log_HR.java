@@ -16,7 +16,7 @@ public class Log_HR {
     private static final String TAG = "Tworaveler";
 
     private static final String NOTI = "############################################################";
-    private static final boolean isDebug = true;
+    private static final boolean isDebug = false;
     private static final boolean onError = true;
 
     public static final int LOG_INFO = 0x0001;

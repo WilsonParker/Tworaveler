@@ -17,12 +17,12 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="26" />
+        android:layout_weight="12" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="534"
+        android:layout_weight="548"
         android:weightSum="@string/DEVICE_WIDTH">
 
         <ImageView
@@ -35,57 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="328"
             android:orientation="vertical"
-            android:weightSum="534">
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="196">
-
-                <ImageView
-                    android:id="@+id/activity_regist$IV_cover"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/default_theme_Image_color"
-                    android:scaleType="centerCrop" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="328">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="136" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="56"
-                        android:orientation="vertical"
-                        android:weightSum="171">
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="62.7" />
-
-                        <ImageView
-                            android:id="@+id/activity_regist$IV_camera"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="45.7"
-                            app:srcCompat="@drawable/icon_camera" />
-                    </LinearLayout>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="20" />
+            android:weightSum="550">
 
             <TextView
                 android:id="@+id/activity_regist$TV_txt_2"
@@ -145,6 +95,55 @@
                     android:textColor="@color/regist_text_ET_color"
                     android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="20" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="210">
+
+                <ImageView
+                    android:id="@+id/activity_regist$IV_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/default_theme_Image_color"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="328">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="136" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="56"
+                        android:orientation="vertical"
+                        android:weightSum="171">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="62.7" />
+
+                        <ImageView
+                            android:id="@+id/activity_regist$IV_camera"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="45.7"
+                            app:srcCompat="@drawable/icon_camera" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:layout_width="0dp"

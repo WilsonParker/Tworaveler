@@ -2,7 +2,9 @@ package com.developer.hare.tworaveler.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +57,15 @@ public class SignUp extends AppCompatActivity {
         ET_email = uiFactory.createView(R.id.signUp$ET_email);
         ET_password = uiFactory.createView(R.id.signUp$ET_password);
         ET_nickName = uiFactory.createView(R.id.signUp$ET_nickname);
+        ET_nickName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    BT_signUp.callOnClick();
+                }
+                return true;
+            }
+        });
         BT_signUp = uiFactory.createView(R.id.signUp$BT_signUp);
         BT_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
