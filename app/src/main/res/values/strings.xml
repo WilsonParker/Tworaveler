@@ -23,9 +23,9 @@
     <string name="signUp_alert_content_fail">이메일 또는 비밀번호 입력이 잘못 되었습니다</string>
     <string name="signUp_alert_content_fail2">중복된 이메일 입니다</string>
     <string name="signUp_alert_content_fail3">중복된 닉네임 입니다</string>
-    <string name="signUp_alert_content_fail4">이메일 입력이 잘못 되었습니다</string>
-    <string name="signUp_alert_content_fail5">비밀번호는 영,한,숫자,특수문자 8자리 이상 입니다</string>
-    <string name="signUp_alert_content_fail6">닉네임은 영,한,숫자 4자리 이상 입니다</string>
+    <string name="signUp_alert_content_fail4">이메일 형식은 (3~16자리 문자)@(문자).com,org,net 입니다</string>
+    <string name="signUp_alert_content_fail5">비밀번호는 영,한,숫자,특수문자 8자리에서 32자리 까지 입니다</string>
+    <string name="signUp_alert_content_fail6">닉네임은 영,한,숫자 2자리에서 16자리 까지 입니다</string>
     <string name="signUp_alert_content_fail7">서버에 문제가 발생하여 회원가입을 할 수 가 없습니다</string>
     <string name="signUp_alert_title_success">회원가입 성공</string>
     <string name="signUp_alert_content_success">회원가입에 성공 하였습니다</string>

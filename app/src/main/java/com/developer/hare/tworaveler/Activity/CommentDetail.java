@@ -168,9 +168,10 @@ public class CommentDetail extends AppCompatActivity {
                                     changeView();
                                 }
                             });
-                        case CODE_ERROR:
-                            netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
                             break;
+                      /*  case CODE_ERROR:
+                            netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
+                            break;*/
                     }
                 } else {
                     netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);

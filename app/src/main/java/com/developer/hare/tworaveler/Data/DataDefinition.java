@@ -87,8 +87,8 @@ public class DataDefinition {
     }
 
     public class RegularExpression{
-        public static final String REG_EMAIL = "(^[a-zA-z0-9]+@[a-z]+.(com|org|net)+$)"
-                ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,}$"
+        public static final String REG_EMAIL = "^([a-zA-Z0-9]){3,16}@[a-z]+.[com|org|net]+$"
+                ,REG_PASSWORD="^([a-zA-Z0-9!@#$%]){8,32}$"
                 ,REG_NICKNAME="^([a-zA-Z0-9가-힣]){2,16}$"
                 ,REG_DATE="^([0-9]){4}-([0-9]){1,2}-([0-9]){1,2}$"
                 ,REG_TIME ="^([0-9]){1,2}:([0-9]){1,2}$"

@@ -228,9 +228,10 @@ public class Comment extends AppCompatActivity {
                                             commentAdapter.notifyDataSetChanged();
                                         }
                                     });
-                                case CODE_ERROR:
-                                    netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
                                     break;
+                              /*  case CODE_ERROR:
+                                    netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
+                                    break;*/
                             }
                         } else {
                             netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_2);
