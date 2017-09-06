@@ -93,6 +93,7 @@ public class Comment extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         createCommentList();
         if (!sessionCheck()) {
             ET_comment.setHint(resourceManager.getResourceString(R.string.comment_not_login_editText_message));

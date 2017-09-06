@@ -17,6 +17,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Hare on 2017-08-10.
  */
 
+/*
+        compile 'cn.pedant.sweetalert:library:1.3'
+ */
 public class ProgressManager {
 
     private Activity activity;

@@ -17,6 +17,9 @@ import java.io.File;
  * Created by Hare on 2017-07-17.
  */
 
+/*
+    compile 'com.squareup.picasso:picasso:2.5.2'
+ */
 public class ImageManager {
     private static ImageManager imageManager = new ImageManager();
     public static final int BASIC_TYPE = 0x0000, FIT_TYPE = 0x0001, PICTURE_TYPE = 0x0010, THUMBNAIL_TYPE = 0x0011, ICON_TYPE = 0x0100;

@@ -126,7 +126,7 @@
                         android:layout_marginRight="15.3dp"
                         android:layout_marginTop="11.3dp"
                         android:layout_weight="1"
-                        app:mcv_selectionColor="#67b777"
+                        app:mcv_selectionColor="@color/default_theme_Image_color"
                         app:mcv_showOtherDates="all" />
                 </android.support.v7.widget.CardView>
             </RelativeLayout>

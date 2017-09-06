@@ -148,7 +148,7 @@ public class FragmentFeedSchedule extends BaseFragment {
                 startActivity(intent);
             }
         });
-        if(sessionCheck()) {
+        if (sessionCheck()) {
             if (userModel.getUser_no() == scheduleModel.getUser_no()) {
                 IV_follow.setVisibility(View.INVISIBLE);
             }
