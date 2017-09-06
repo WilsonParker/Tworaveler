@@ -22,6 +22,10 @@ import static android.app.Activity.RESULT_OK;
  * Created by Hare on 2017-08-03.
  */
 
+/*
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
+ */
 public class PhotoManager {
     private static final PhotoManager ourInstance = new PhotoManager();
     private OnPhotoBindListener onPhotoBindListener;

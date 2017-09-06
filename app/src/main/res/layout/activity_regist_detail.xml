@@ -59,9 +59,7 @@
                     android:layout_marginRight="15.3dp"
                     android:layout_marginTop="11.3dp"
                     android:layout_weight="1"
-                    app:mcv_arrowColor="#b75d5d"
-                    app:mcv_dateTextAppearance="@color/bg_login_button"
-                    app:mcv_selectionColor="#67b777"
+                    app:mcv_selectionColor="@color/default_theme_Image_color"
                     app:mcv_showOtherDates="all" />
             </RelativeLayout>
         </LinearLayout>
