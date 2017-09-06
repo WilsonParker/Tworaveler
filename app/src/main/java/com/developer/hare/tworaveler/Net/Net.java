@@ -43,10 +43,10 @@ public class Net {
         cookieHandler.setDefault(cookieManager);
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
-//                .addInterceptor(loggingInterceptor)
+                .addInterceptor(loggingInterceptor)
                 .addInterceptor(new AddCookiesInterceptor())
                 .addInterceptor(new ReceivedCookiesInterceptor())
                 .cookieJar(new JavaNetCookieJar(cookieHandler))
