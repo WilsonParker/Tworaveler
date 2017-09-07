@@ -133,7 +133,6 @@ public class MyProfileSet extends AppCompatActivity {
                     }
                 }));
                 AlertManager.getInstance().showAlertSelectionMode(MyProfileSet.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
-
             }
         });
         ET_nickname = uiFactory.createView(R.id.profile_set$ET_nickname);

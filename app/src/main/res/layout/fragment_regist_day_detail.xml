@@ -228,6 +228,8 @@
                 android:background="@color/default_theme_text_color"
                 android:gravity="center_vertical"
                 android:hint="@string/activity_regist_day_detail_text_8"
+                android:inputType="textMultiLine"
+                android:maxLines="2"
                 android:textCursorDrawable="@drawable/cursor_edittext"
                 android:textSize="@dimen/TextSize_Content_1" />
         </LinearLayout>

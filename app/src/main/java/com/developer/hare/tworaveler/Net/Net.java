@@ -50,9 +50,9 @@ public class Net {
                 .addInterceptor(new AddCookiesInterceptor())
                 .addInterceptor(new ReceivedCookiesInterceptor())
                 .cookieJar(new JavaNetCookieJar(cookieHandler))
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
                 .build();
 
         retrofit = new Retrofit.Builder()
