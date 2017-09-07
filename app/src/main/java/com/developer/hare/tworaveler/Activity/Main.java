@@ -16,7 +16,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.BackClickManager;
+import com.developer.hare.tworaveler.Util.Key.BackClickManager;
 
 import java.util.ArrayList;
 
