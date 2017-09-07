@@ -1,10 +1,12 @@
-package com.developer.hare.tworaveler.Util;
+package com.developer.hare.tworaveler.Util.Key;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
+
+import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
