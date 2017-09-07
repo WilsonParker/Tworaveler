@@ -302,7 +302,7 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
+//
     public String getFilePath() {
         return activity.getFilesDir().getAbsolutePath() + File.separator;
     }
