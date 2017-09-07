@@ -1,7 +1,5 @@
 package com.developer.hare.tworaveler.Util.Parser;
 
-import android.os.Build;
-
 import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -10,7 +8,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,11 +71,12 @@ public class RetrofitBodyParser {
             }
         }
 
-        if (Build.VERSION.SDK_INT <= 19) {
+       /* if (Build.VERSION.SDK_INT <= 19) {
             for (Field field : objClass.getDeclaredFields()) insertFieldData(field, obj);
         } else {
             Arrays.asList(objClass.getDeclaredFields()).forEach(field -> { insertFieldData(field, obj); });
-        }
+        }*/
+        for (Field field : objClass.getDeclaredFields()) insertFieldData(field, obj);
         return dataMap;
     }
 

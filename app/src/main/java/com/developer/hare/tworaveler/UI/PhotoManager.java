@@ -1,6 +1,9 @@
 package com.developer.hare.tworaveler.UI;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.support.v4.content.ContextCompat;
 
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
@@ -11,11 +14,14 @@ import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 import com.yalantis.ucrop.UCrop;
 
+import java.io.IOException;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+import static android.R.attr.path;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -37,6 +43,7 @@ public class PhotoManager {
 
     private void createOptions(Activity activity) {
         options.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
+
     }
 
     public void onGalleryMultiSelect(Activity activity, OnPhotoBindListener onPhotoBindListener) {
@@ -62,6 +69,7 @@ public class PhotoManager {
         RxPaparazzo.single(activity)
                 .crop(options)
                 .usingGallery()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     if (response.resultCode() != RESULT_OK) {
@@ -98,5 +106,60 @@ public class PhotoManager {
     private void bindData(FileData fileData) {
         onPhotoBindListener.bindData(fileData);
     }
+    public Bitmap rotate(Bitmap bitmap) {
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(String.valueOf(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED);
 
+        Bitmap bmRotated = rotateBitmap(bitmap, orientation);
+        return bmRotated;
+    }
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

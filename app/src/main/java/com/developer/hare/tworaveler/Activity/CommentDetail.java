@@ -141,6 +141,10 @@ public class CommentDetail extends AppCompatActivity {
     }
 
     public void onSendComment(View view) {
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(CommentDetail.this, R.string.comment_alert_title_fail);
+            return;
+        }
         String msg = ET_comment.getText().toString().trim();
         if (TextUtils.isEmpty(msg)) {
             ET_comment.setError("글을 작성 해주세요");

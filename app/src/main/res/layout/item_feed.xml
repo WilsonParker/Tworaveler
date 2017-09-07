@@ -59,14 +59,13 @@
                         android:textColor="@color/feed_nickname_color"
                         android:textSize="13sp"
                         android:gravity="bottom"
-                        android:paddingBottom="1.5dp"/>
+                        />
                     <TextView
                         android:id="@+id/item_feed$TV_message"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top"
-                        android:paddingTop="1.5dp"
                         android:textSize="9sp"
                         android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"/>
 

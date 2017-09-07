@@ -106,7 +106,7 @@ public class Regist extends AppCompatActivity {
                             });
                         }
                     }));
-                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 3, AlertSelectionItemModels).show();
+                    AlertManager.getInstance().showAlertSelectionMode(Regist.this, "등록 방법 선택", 2, AlertSelectionItemModels).show();
                     break;
             }
         }
@@ -186,8 +186,8 @@ public class Regist extends AppCompatActivity {
             public void run() {
                 ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
                 if (imageFile != null) {
-                    MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
 
+                    MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
                     Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
@@ -197,6 +197,7 @@ public class Regist extends AppCompatActivity {
                                 Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
+
                                         Intent intent = new Intent(Regist.this, RegistDetail.class);
                                         intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
                                         startActivity(intent);

@@ -44,6 +44,7 @@
         <activity
             android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
 
@@ -52,6 +53,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -59,10 +61,12 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -73,7 +77,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.Intro">
+        <activity
+            android:name=".Activity.Intro"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,46 +89,67 @@
         <activity
             android:name=".Activity.Main"
             android:label="@string/navigation_title_activity_home"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified" />
         <activity
             android:name=".Activity.SignIn"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.SignUp"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BagDelete"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.SearchCity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activity.SearchFeed"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activity.MyProfileSet"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.BigImage"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.BigImageProfile"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.Regist"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".Activity.RegistDetail" />
-        <activity android:name=".Activity.RegistDayList" />
+        <activity
+            android:name=".Activity.RegistDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.RegistDayList"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.RegistDayDetail"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".Activity.MyScheduleModify" />
-        <activity android:name=".Activity.MyScheduleDetailModify" />
+        <activity
+            android:name=".Activity.MyScheduleModify"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MyScheduleDetailModify"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Comment"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.CommentDetail"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 

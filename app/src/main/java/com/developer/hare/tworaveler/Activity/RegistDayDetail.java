@@ -142,11 +142,13 @@ public class RegistDayDetail extends AppCompatActivity {
         TV_endTime = uiFactory.createView(R.id.activity_regist_day_detail$TV_end);
         TV_endTime.setOnClickListener(onClickListener);
         ET_memo = uiFactory.createView(R.id.activity_regist_day_detail$ET_meno);
-        ET_memo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        ET_memo.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_DONE){
-                    keyboardManager.dismissInputKeyboard(getApplicationContext());
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(ET_memo.getLineCount() == 2) {
+                    if (i == keyEvent.KEYCODE_ENTER) {
+                        return true;
+                    }
                 }
                 return false;
             }

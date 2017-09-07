@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <!-- 이 경로로 파일을 저장하겠다 -->
-
     <files-path
         name="RxPaparazzoImages"
-        path="/"/>
+        path="/RxPaparazzo"/>
         <!--path="Tworaveler/"/>-->
 </paths>
