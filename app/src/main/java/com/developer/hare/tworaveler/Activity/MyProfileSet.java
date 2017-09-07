@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
@@ -20,12 +21,12 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
@@ -44,6 +45,9 @@ import retrofit2.Response;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Key.KEY_USER_FILE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_NOT_LOGIN;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
+import static com.developer.hare.tworaveler.Model.UserModel.TYPE_FACEBOOK;
+import static com.developer.hare.tworaveler.Model.UserModel.TYPE_KAKAO;
+import static com.developer.hare.tworaveler.Model.UserModel.TYPE_TWORAVELER;
 
 public class MyProfileSet extends AppCompatActivity {
 
@@ -159,30 +163,40 @@ public class MyProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
-                            @Override
-                            public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response);
-                                if (response.isSuccessful()) {
-                                    switch (response.body().getSuccess()) {
-                                        case CODE_NOT_LOGIN :
-                                        case CODE_SUCCESS:
-                                            SessionManager.getInstance().setUserModel(null);
-                                            Intent intent = new Intent(activity, Main.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(intent);
-                                            break;
+                        switch (userModel.getType()) {
+                            case TYPE_TWORAVELER:
+                                Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
+                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response);
+                                        if (response.isSuccessful()) {
+                                            switch (response.body().getSuccess()) {
+                                                case CODE_NOT_LOGIN:
+                                                case CODE_SUCCESS:
+                                                    SessionManager.getInstance().setUserModel(null);
+                                                    Intent intent = new Intent(activity, Main.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                    break;
+                                            }
+                                        } else {
+                                            netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
+                                        }
                                     }
-                                } else {
-                                    netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
-                                }
-                            }
 
-                            @Override
-                            public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                                netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
-                            }
-                        });
+                                    @Override
+                                    public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
+                                        netFail(R.string.profileSet_logout_fail_alert_title, R.string.profileSet_logout_fail_alert_content);
+                                    }
+                                });
+                                break;
+                            case TYPE_KAKAO:
+                                new KakaoSignManager(MyProfileSet.this).onLogOutClick();
+                                break;
+                            case TYPE_FACEBOOK:
+//                                new FaceBookLoginManager(MyProfileSet.this).onLogoutClick();
+                                break;
+                        }
                     }
                 }
         );

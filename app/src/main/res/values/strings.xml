@@ -4,7 +4,8 @@
     <!-- key hash -->
     <string name="kakao_app_key">24a1dd382f073b0b884987243830b44b</string>
     <string name="facebook_app_id">155809951644243</string>.
-    <string name="fb_login_protocol_scheme">fb155809951644243</string>
+    <!--<string name="fb_login_protocol_scheme">fb155809951644243</string>-->
+    <string name="fb_login_protocol_scheme">fac10b3266092ac6bd94e69e10f954e6</string>
     <!--<string name="fb_secret_code">4675e710332af2378e67a95dfe1a6d48</string>-->
     <!--<string name="fb_hash">AV4A36DcA2EO/8A2IXQSts7NwsU=</string>-->
 

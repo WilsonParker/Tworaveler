@@ -153,8 +153,15 @@ public interface NetFactoryIm {
     @POST("/users/email_login")
     Call<ResponseModel<UserModel>> userSignIn(@Body UserReqModel model);
 
+    // 카카오 로그인
+    @FormUrlEncoded
     @POST("/usres/kakao_login")
-    Call<ResponseModel<UserModel>> kakaoSignIn(@Body UserReqModel model);
+    Call<ResponseModel<UserModel>> kakaoSignIn(@Field("kakao_token") String token);
+
+    // 페이스북 로그인
+    @FormUrlEncoded
+    @POST("/users/facebook_login")
+    Call<ResponseModel<UserModel>> facebookSignIn(@Field("facebook_token") String token);
 
     // 여행 가방 목록
     @GET("/backpack/get_category_backpack")

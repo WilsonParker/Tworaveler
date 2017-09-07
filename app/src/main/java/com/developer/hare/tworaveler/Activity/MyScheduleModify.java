@@ -44,6 +44,7 @@ public class MyScheduleModify extends AppCompatActivity {
     private MenuTopTitle menuTopTitle;
     private DateManager dateManager;
     private ResourceManager resourceManager;
+    private ImageManager imageManager;
 
     private UserModel userModel;
     private CityModel cityModel;
@@ -109,6 +110,7 @@ public class MyScheduleModify extends AppCompatActivity {
         uiFactory = UIFactory.getInstance(this);
         dateManager = DateManager.getInstance();
         resourceManager = ResourceManager.getInstance();
+        imageManager = ImageManager.getInstance();
 
         menuTopTitle = uiFactory.createView(R.id.activity_myschedule_modify$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
@@ -226,8 +228,12 @@ public class MyScheduleModify extends AppCompatActivity {
             if (resultCode == DataDefinition.Intent.RESULT_CODE_SUCCESS) {
                 if (data != null) {
                     cityModel = (CityModel) data.getSerializableExtra(DataDefinition.Intent.KEY_CITYMODEL);
-                    if (cityModel != null)
-                        TV_citySearch.setText(cityModel.getCity());
+                    if (cityModel != null){
+                        TV_citySearch.setText(cityModel.getCountry() + " " + cityModel.getCity());
+                        RequestCreator requestCreator = imageManager.createRequestCreator(MyScheduleModify.this, cityModel.getMain_pic_url(), ImageManager.PICTURE_TYPE).centerCrop();
+                        imageManager.loadImage(requestCreator, IV_cover);
+                        IV_camera.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         }

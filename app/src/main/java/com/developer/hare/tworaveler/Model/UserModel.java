@@ -9,7 +9,8 @@ import java.util.ArrayList;
  */
 
 public class UserModel implements Serializable {
-    private int user_no;
+    public static final int TYPE_TWORAVELER = 1, TYPE_KAKAO = 2, TYPE_FACEBOOK = 3;
+    private int user_no, type;
     private String email, pw, nickname, profile_pic_url, profile_pic_thumbnail_url, status_message, reg_date, del_yn, sessionID, Cookie;
     private ArrayList<Integer> followees, followers;
     private File file;
@@ -29,6 +30,7 @@ public class UserModel implements Serializable {
         this.followees = followees;
         this.followers = followers;
     }
+
     public File getFile() {
         return file;
     }
@@ -134,7 +136,7 @@ public class UserModel implements Serializable {
     }
 
     public ArrayList<Integer> getFollowees() {
-        if(followees == null)
+        if (followees == null)
             followees = new ArrayList<>();
         return followees;
     }
@@ -144,7 +146,7 @@ public class UserModel implements Serializable {
     }
 
     public ArrayList<Integer> getFollowers() {
-        if(followers == null)
+        if (followers == null)
             followers = new ArrayList<>();
         return followers;
     }
@@ -153,10 +155,19 @@ public class UserModel implements Serializable {
         this.followers = followers;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "UserModel{" +
                 "user_no=" + user_no +
+                ", type=" + type +
                 ", email='" + email + '\'' +
                 ", pw='" + pw + '\'' +
                 ", nickname='" + nickname + '\'' +
@@ -166,8 +177,11 @@ public class UserModel implements Serializable {
                 ", reg_date='" + reg_date + '\'' +
                 ", del_yn='" + del_yn + '\'' +
                 ", sessionID='" + sessionID + '\'' +
+                ", Cookie='" + Cookie + '\'' +
                 ", followees=" + followees +
                 ", followers=" + followers +
+                ", file=" + file +
+                ", isFile=" + isFile +
                 '}';
     }
 }

@@ -164,7 +164,7 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/activity_profile_set$BT_logout"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/btn_logout"

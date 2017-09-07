@@ -55,6 +55,12 @@ public class RetrofitBodyParser {
         return multipartBodyPart;
     }
 
+    public MultipartBody.Part createImageMultipartBodyPart(String key, String fileName, byte[] byteDate ) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteDate);
+        MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData(key, fileName, requestBody);
+        return multipartBodyPart;
+    }
+
     public Map<String, RequestBody> parseMapRequestBody(Object obj) {
         dataMap = new HashMap<>();
         methodMap = new HashMap<>();

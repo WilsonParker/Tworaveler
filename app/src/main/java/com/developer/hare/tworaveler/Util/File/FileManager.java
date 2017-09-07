@@ -2,6 +2,7 @@ package com.developer.hare.tworaveler.Util.File;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -253,4 +254,57 @@ public class FileManager {
         }
         return buf;
     }
+
+    public void copyAssetAll(String srcPath) {
+        AssetManager assetMgr = activity.getAssets();
+        String assets[] = null;
+        try {
+            assets = assetMgr.list(srcPath);
+            if (assets.length == 0) {
+                copyFile(srcPath);
+            } else {
+                String destPath = activity.getFilesDir().getAbsolutePath() + File.separator + srcPath;
+
+                File dir = new File(destPath);
+                if (!dir.exists())
+                    dir.mkdir();
+                for (String element : assets) {
+                    copyAssetAll(srcPath + File.separator + element);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void copyFile(String srcFile) {
+        AssetManager assetMgr = activity.getAssets();
+
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            String destFile = activity.getFilesDir().getAbsolutePath() + File.separator + srcFile;
+
+            is = assetMgr.open(srcFile);
+            os = new FileOutputStream(destFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = is.read(buffer)) != -1) {
+                os.write(buffer, 0, read);
+            }
+            is.close();
+            os.flush();
+            os.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getFilePath() {
+        return activity.getFilesDir().getAbsolutePath() + File.separator;
+    }
+
 }

@@ -52,7 +52,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -96,10 +95,10 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.SearchCity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activity.SearchFeed"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activity.MyProfileSet"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -121,10 +120,10 @@
         <activity android:name=".Activity.MyScheduleDetailModify" />
         <activity
             android:name=".Activity.Comment"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".Activity.CommentDetail"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 
 </manifest>

@@ -3,13 +3,10 @@ package com.developer.hare.tworaveler.Kakao.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.view.View;
 import android.widget.Button;
 
 import com.developer.hare.tworaveler.Activity.Main;
 import com.developer.hare.tworaveler.Activity.SignIn;
-import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.kakao.auth.AuthType;
@@ -19,7 +16,6 @@ import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.LoginButton;
 import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
@@ -37,7 +33,7 @@ public class KakaoSignManager {
     private UIFactory uiFactory;
 //    private com.kakao.usermgmt.LoginButton BT_kakaoLogin;
     private KakaoLoginButton BT_kakaoLogin;
-    private Button BT_logout;
+    private Button BT_kakaoLogout;
 
     public KakaoSignManager(Activity activity) {
         this.activity = activity;
@@ -54,20 +50,18 @@ public class KakaoSignManager {
         Session.getCurrentSession().checkAndImplicitOpen();
 
         uiFactory = UIFactory.getInstance(activity);
-//        BT_kakaoLogin = uiFactory.createView(R.id.activity_login$BT_kakao);
         BT_kakaoLogin = new KakaoLoginButton(activity);
-        BT_logout = uiFactory.createView(R.id.activity_login$BT_kakao_logout);
-        BT_logout.setOnClickListener(new View.OnClickListener() {
+       /* BT_kakaoLogout = uiFactory.createView(R.id.activity_login$BT_kakao_logout);
+        BT_kakaoLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UserManagement.requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onCompleteLogout() {
-                        Log_HR.log(Log_HR.LOG_INFO, getClass(), "BT_logout.onCompleteLogout()", "logout");
+                        Log_HR.log(Log_HR.LOG_INFO, getClass(), "BT_kakaoLogout.onCompleteLogout()", "logout");
                         new Handler().post(new Runnable() {
                             @Override
                             public void run() {
-                                setLoginButton();
                                 Intent intent = new Intent(activity, SignIn.class);
 //                                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 activity.startActivity(intent);
@@ -77,12 +71,15 @@ public class KakaoSignManager {
                     }
                 });
             }
-        });
-        setLoginButton();
+        });*/
+        requestMe();
     }
 
     public void onLoginClick() {
-//        return BT_kakaoLogin.callOnClick();
+        BT_kakaoLogin.call();
+    }
+
+    public void onLogOutClick() {
         BT_kakaoLogin.call();
     }
 
@@ -102,23 +99,12 @@ public class KakaoSignManager {
 //        activity.finish();
     }
 
-    public void setLoginButton() {
-        if (Session.getCurrentSession().isClosed()) {
-//            BT_kakaoLogin.setVisibility(View.VISIBLE);
-            BT_logout.setVisibility(View.INVISIBLE);
-        } else {
-//            BT_kakaoLogin.setVisibility(View.INVISIBLE);
-            BT_logout.setVisibility(View.VISIBLE);
-            requestMe();
-        }
-    }
-
     protected void requestMe() { //유저의 정보를 받아오는 함수
         UserManagement.requestMe(new MeResponseCallback() {
             @Override
             public void onFailure(ErrorResult errorResult) {
                 String message = "failed to get user info. msg=" + errorResult;
-                Log_HR.log(getClass(), "requesetMe() onFailure(ErrorResult)", message, errorResult.getException());
+                Log_HR.log(getClass(), "request() onFailure(ErrorResult)", message, errorResult.getException());
 
                 ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
                 if (result == ErrorCode.CLIENT_ERROR_CODE) {
