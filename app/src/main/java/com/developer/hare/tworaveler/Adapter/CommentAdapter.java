@@ -26,7 +26,9 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.KeyboardManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.HandlerManager;
+import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
 
 import java.util.ArrayList;
@@ -160,6 +162,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             TV_comment.setText(model.getContent() + "");
             if (SessionManager.getInstance().isLogin() && SessionManager.getInstance().getUserModel().getUser_no() == model.getUser_no()) {
                 LL_more.setVisibility(View.VISIBLE);
+            }
+            ImageManager imageManager = ImageManager.getInstance();
+            if (NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url())) {
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.BASIC_TYPE), IV_profile);
+            } else {
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE).centerInside().placeholder(R.drawable.image_profile), IV_profile);
             }
             up_btn.setOnClickListener(new View.OnClickListener() {
                 @Override

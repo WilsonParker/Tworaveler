@@ -153,17 +153,15 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                     }
                 }
             });
-            if (!NullChecker.getInstance().nullCheck(model.getTrip_pic_url()))
-                imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
             if (NullChecker.getInstance().nullCheck(model.getProfile_pic_thumbnail_url())) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.BASIC_TYPE), CV_profile);
             } else {
-                imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), CV_profile);
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getProfile_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE).centerInside().placeholder(R.drawable.image_profile), CV_profile);
             }
             if (NullChecker.getInstance().nullCheck(model.getTrip_pic_url())) {
-                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.noimage, ImageManager.BASIC_TYPE), IV_cover);
+                imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.noimage, ImageManager.BASIC_TYPE).centerCrop(), IV_cover);
             } else {
-                imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE), IV_cover);
+                imageManager.loadImage(imageManager.createRequestCreator(context, model.getTrip_pic_url(), ImageManager.FIT_TYPE).centerCrop(), IV_cover);
             }
             changeLike(model.isLike());
         }

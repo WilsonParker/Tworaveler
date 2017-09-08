@@ -184,7 +184,7 @@ public class FragmentBag extends BaseFragment {
         map.put(KEY_USER_NO, retrofitBodyParser.createRequestBody(userModel.getUser_no()));
         map.put(KEY_CATEGORY_THEME, retrofitBodyParser.createRequestBody(theme));
 
-        MultipartBody.Part part = retrofitBodyParser.createImageMultipartBodyPart("userfile", file);
+        MultipartBody.Part part = retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, file);
 
         Net.getInstance().getFactoryIm().insertBack(part, map).enqueue(new Callback<ResponseModel<BagModel>>() {
             @Override

@@ -287,7 +287,7 @@ public class MyProfileSet extends AppCompatActivity {
         if (NullChecker.getInstance().nullCheck(userModel.getProfile_pic_url())) {
             imageManager.loadImage(imageManager.createRequestCreator(this, R.drawable.image_profile, ImageManager.BASIC_TYPE), circleImageView);
         } else {
-            imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile), circleImageView);
+            imageManager.loadImage(imageManager.createRequestCreator(this, userModel.getProfile_pic_thumbnail_url(), ImageManager.THUMBNAIL_TYPE).centerInside().placeholder(R.drawable.image_profile), circleImageView);
         }
     }
 

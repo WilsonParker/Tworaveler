@@ -181,12 +181,12 @@ public class Regist extends AppCompatActivity {
     private void onRegister() {
         if (!checkValidation())
             return;
+
         progressManager.actionWithState(new OnProgressAction() {
             @Override
             public void run() {
                 ScheduleModel model = new ScheduleModel(userModel, cityModel, TV_dateStart.getText().toString(), TV_dateEnd.getText().toString(), ET_tripName.getText().toString());
                 if (imageFile != null) {
-
                     MultipartBody.Part multipart = RetrofitBodyParser.getInstance().createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile);
                     Net.getInstance().getFactoryIm().insertSchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                         @Override

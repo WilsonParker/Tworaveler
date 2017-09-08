@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.widget.Button;
 
 import com.developer.hare.tworaveler.Activity.Main;
-import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Log_HR;
 import com.kakao.auth.AuthType;
@@ -144,10 +143,10 @@ public class KakaoSignManager {
     }
 
     protected void redirectLoginActivity() {
-        final Intent intent = new Intent(activity, SignIn.class);
+        /*final Intent intent = new Intent(activity, SignIn.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         activity.startActivity(intent);
-        activity.finish();
+        activity.finish();*/
     }
 
     private class SessionCallback implements ISessionCallback {

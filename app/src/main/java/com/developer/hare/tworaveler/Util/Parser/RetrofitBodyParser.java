@@ -1,5 +1,8 @@
 package com.developer.hare.tworaveler.Util.Parser;
 
+import android.graphics.Bitmap;
+
+import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.Log_HR;
@@ -44,14 +47,15 @@ public class RetrofitBodyParser {
 
     public MultipartBody.Part createImageMultipartBodyPart(String key, File file) {
         FileManager fileManager = FileManager.getInstance();
-        byte[] byteData = fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(fileManager.encodeFileToBitmap(file), UPLOAD_MAX_SIZE));
+        Bitmap rImage = PhotoManager.getInstance().rotate(file);
+
+        byte[] byteData = fileManager.encodeBitmapToByteArray(ImageManager.getInstance().resizeImage(rImage, UPLOAD_MAX_SIZE));
 
 //        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteData);
         MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData(key, file.getName(), requestBody);
         return multipartBodyPart;
     }
-
     public MultipartBody.Part createImageMultipartBodyPart(String key, String fileName, byte[] byteDate ) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), byteDate);
         MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData(key, fileName, requestBody);
