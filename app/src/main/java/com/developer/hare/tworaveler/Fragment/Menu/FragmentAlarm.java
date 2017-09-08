@@ -32,7 +32,7 @@ public class FragmentAlarm extends BaseFragment {
     private ArrayList<AlamModel> items = new ArrayList<>();
 
     public static FragmentAlarm newInstance() {
-        return instance;
+        return new FragmentAlarm();
     }
 
     @Nullable

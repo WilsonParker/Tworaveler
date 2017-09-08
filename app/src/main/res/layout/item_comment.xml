@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_mypage$Root"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="73dp"
+    android:layout_weight="73"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/item_comment$LL_see"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="72"
         android:orientation="horizontal"
         android:weightSum="@string/DEVICE_WIDTH">
 
@@ -29,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="40"
-                android:background="@drawable/image_comment_profile" />
+                />
         </LinearLayout>
 
         <ImageView
@@ -41,18 +44,27 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="264"
-            android:orientation="vertical"
-            android:weightSum="72">
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="17.7" />
 
             <TextView
                 android:id="@+id/item_comment$TV_nickname"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="30"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:gravity="bottom"
                 android:paddingBottom="2dp"
                 android:text="Nickname"
-                android:textSize="13sp" />
+                android:textSize="@dimen/TextSize_Comment_title" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2.2" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -64,19 +76,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingRight="@dimen/EditText_Padding"
-                    android:text="댓글을 달아주세요"
-                    android:textSize="11sp" />
+                    android:text="@string/comment_EditText_content"
+                    android:textSize="@dimen/TextSize_Comment_content" />
 
                 <EditText
                     android:id="@+id/item_comment$ET_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
+                    android:inputType="textMultiLine"
+                    android:maxLength="70"
+                    android:maxLines="3"
                     android:paddingRight="@dimen/EditText_Padding"
                     android:textCursorDrawable="@drawable/cursor_edittext"
-                    android:maxLength="70"
-                    android:inputType="textMultiLine"
-                    android:maxLines="3"
                     android:textSize="@dimen/EditTextSize_Content_2"
                     android:visibility="invisible" />
             </RelativeLayout>
@@ -114,7 +126,11 @@
 
             </RelativeLayout>
         </LinearLayout>
-
     </LinearLayout>
 
-</FrameLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/underLine_color" />
+</LinearLayout>

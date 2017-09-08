@@ -112,12 +112,11 @@ public class FragmentFeedProfile extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         ResponseModel<UserModel> result = response.body();
-//                        Log_HR.log(FragmentMyPageProfile.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                        Log_HR.log(FragmentMyPageProfile.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     model = result.getResult();
-
                                     TV_cntFollower.setText(model.getFollowers().size() + "");
                                     TV_cntFollowing.setText(model.getFollowees().size() + "");
                                     TV_nickname.setText(model.getNickname());

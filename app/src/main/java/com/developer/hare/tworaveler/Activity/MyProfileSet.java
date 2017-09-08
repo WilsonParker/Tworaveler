@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnInputAlertClickListener;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
@@ -59,6 +60,7 @@ public class MyProfileSet extends AppCompatActivity {
     private UIFactory uiFactory;
     private UserModel userModel;
     private ResourceManager resourceManager;
+    private SessionManager sessionManager;
     private ProgressManager progressManager;
     private File imageFile;
     private Activity activity;
@@ -75,6 +77,7 @@ public class MyProfileSet extends AppCompatActivity {
         uiFactory = UIFactory.getInstance(this);
         resourceManager = ResourceManager.getInstance();
         progressManager = new ProgressManager(this);
+        sessionManager = SessionManager.getInstance();
 
         ET_nickname = uiFactory.createView(R.id.profile_set$ET_nickname);
         ET_message = uiFactory.createView(R.id.profile_set$ET_message);
@@ -162,6 +165,7 @@ public class MyProfileSet extends AppCompatActivity {
                 new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismiss();
                         switch (userModel.getType()) {
                             case TYPE_TWORAVELER:
                                 Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
@@ -172,10 +176,7 @@ public class MyProfileSet extends AppCompatActivity {
                                             switch (response.body().getSuccess()) {
                                                 case CODE_NOT_LOGIN:
                                                 case CODE_SUCCESS:
-                                                    SessionManager.getInstance().setUserModel(null);
-                                                    Intent intent = new Intent(activity, Main.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(intent);
+                                                    sessionManager.logout(MyProfileSet.this);
                                                     break;
                                             }
                                         } else {
@@ -190,10 +191,10 @@ public class MyProfileSet extends AppCompatActivity {
                                 });
                                 break;
                             case TYPE_KAKAO:
-                                new KakaoSignManager(MyProfileSet.this).onLogOutClick();
+                                new KakaoSignManager(MyProfileSet.this).onLogOut();
                                 break;
                             case TYPE_FACEBOOK:
-//                                new FaceBookLoginManager(MyProfileSet.this).onLogoutClick();
+                                new FaceBookLoginManager(MyProfileSet.this).onLogout();
                                 break;
                         }
                     }
@@ -309,12 +310,12 @@ public class MyProfileSet extends AppCompatActivity {
                                     switch (result.getSuccess()) {
                                         case DataDefinition.Network.CODE_SUCCESS:
                                             UserModel model = result.getResult();
-                                            SessionManager.getInstance().setUserModel(model);
+                                            sessionManager.setUserModel(model);
                                             finish();
                                             break;
                                         case CODE_NOT_LOGIN:
                                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.alert_content_not_login);
-                                            SessionManager.getInstance().logout(activity);
+                                            sessionManager.logout(activity);
                                             break;
                                         case DataDefinition.Network.CODE_NICKNAME_CONFLICT:
                                             netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content_3);
@@ -347,6 +348,7 @@ public class MyProfileSet extends AppCompatActivity {
                                             AlertManager.getInstance().createAlert(MyProfileSet.this, SweetAlertDialog.SUCCESS_TYPE, R.string.profileSet_mod_success_alert_title, R.string.profileSet_mod_success_alert_content, new SweetAlertDialog.OnSweetClickListener() {
                                                 @Override
                                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
                                                     UserModel model = result.getResult();
                                                     SessionManager.getInstance().setUserModel(model);
                                                     finish();

@@ -10,6 +10,7 @@
     <color name="default_Image_color">#99dadada</color>
     <color name="default_theme_Image_color">#33d4d1</color>
     <color name="default_theme_text_color">#dcdcdc</color>
+    <color name="underLine_color">#d2d2d2</color>
 
     <color name="profile_text_color">#dadada</color>
     <color name="editText_cursor_color">#33d4d1</color>

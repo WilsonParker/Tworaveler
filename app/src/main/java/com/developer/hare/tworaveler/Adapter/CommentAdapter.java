@@ -119,7 +119,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     ET_comment.setOnKeyListener(new View.OnKeyListener() {
                                         @Override
                                         public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                                            if(ET_comment.getLineCount() == 3) {
+                                            if (ET_comment.getLineCount() == 3) {
                                                 if (i == keyEvent.KEYCODE_ENTER) {
                                                     return true;
                                                 }

@@ -207,7 +207,11 @@ public class SignIn extends AppCompatActivity {
                                                     if (model.getFollowers() == null)
                                                         model.setFollowers(new ArrayList<>());
                                                     SessionManager.getInstance().setUserModel(model);
-                                                    onBackPressed();
+//                                                    onBackPressed();
+                                                    Intent  intent = new Intent(SignIn.this, Main.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                    finish();
                                                 }
                                             }).show();
                                     break;

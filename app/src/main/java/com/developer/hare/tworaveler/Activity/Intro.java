@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.developer.hare.tworaveler.R;
-import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
@@ -46,7 +46,9 @@ public class Intro extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                startActivity(new Intent(Intro.this, Main.class));
+                Intent intent = new Intent(Intro.this, Main.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
                 finish();
             }
         }, 500);

@@ -117,6 +117,7 @@
     <string name="comment_alert_content_fail_3">댓글 수정을 실패 하였습니다</string>
     <string name="comment_alert_content_fail_4">댓글 삭제를 실패 하였습니다</string>
     <string name="comment_alert_content_fail_5">서버에 문제가 발생하였습니다</string>
+    <string name="comment_EditText_content">댓글을 달아주세요</string>
 
     <!-- Fragment/FragmentBag-->
     <string name="fragmentBag_alert_title_fail">카테고리 불러오기 실패</string>

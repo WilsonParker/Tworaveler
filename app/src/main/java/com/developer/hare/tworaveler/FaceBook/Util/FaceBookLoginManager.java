@@ -7,12 +7,20 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.developer.hare.tworaveler.Activity.Main;
+import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
+import com.developer.hare.tworaveler.Model.UserModel;
+import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.Util.Log_HR;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
@@ -21,42 +29,47 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static java.util.Arrays.asList;
 
 /**
  * Created by Hare on 2017-07-25.
  */
 
 public class FaceBookLoginManager {
+    private Class selfCls = getClass();
     private Activity activity;
     private CallbackManager callbackManager;
+    private final String[] params = {"id", "first_name", "last_name", "email", "gender", "birthday", "location", "picture"};
+
+    private LoginManager loginManager;
+    private Button BT_fbLogin;
     FacebookCallback callback = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
             Toast.makeText(activity, "페이스북 로그인에 성공했습니다", Toast.LENGTH_SHORT).show();
-            getUserInfo(loginResult);
+            signWith(loginResult.getAccessToken().getUserId());
+//            getUserInfo(loginResult);
         }
 
         @Override
         public void onCancel() {
-
+            Log_HR.log(Log_HR.LOG_INFO, selfCls, " onCancel()", "onCancel");
         }
 
         @Override
         public void onError(FacebookException error) {
-
+            Log_HR.log(Log_HR.LOG_INFO, selfCls, " onError(FacebookException error)", "oNError : " + error.getMessage());
         }
     };
-    private LoginManager loginManager;
-    private Button BT_fbLogin;
 
     public FaceBookLoginManager(Activity activity) {
         this.activity = activity;
         init();
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public void init() {
@@ -70,28 +83,34 @@ public class FaceBookLoginManager {
 //        LoginButton loginButton = activity.findViewById(R.id.facebook_sign_in$login_button);
         loginManager = LoginManager.getInstance();
         loginManager.registerCallback(callbackManager, callback);
-//        loginButton.registerCallback(callback);
+        checkSession();
+    }
+
+    private void checkSession() {
+        if (AccessToken.getCurrentAccessToken() == null)
+            return; // not login
+        else
+            setLoginPermission(activity);
     }
 
     public void onLoginClick() {
         setLoginPermission(activity);
-
     }
 
     public void setLoginPermission(Activity activity) {
         loginManager.logInWithReadPermissions(
                 activity,
-                Arrays.asList("public_profile"));
+                asList("public_profile"));
     }
 
     public void getUserInfo(LoginResult loginResult) {
         com.facebook.AccessToken accessToken = loginResult.getAccessToken();
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "Token : " + accessToken.getToken());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "ApplicationId : " + accessToken.getApplicationId());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "UserId : " + accessToken.getUserId());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "Source : " + accessToken.getSource());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "toString : " + accessToken.toString());
-        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserINfo(LoginResult)", "Expires : " + accessToken.getExpires());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "Token : " + accessToken.getToken());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "ApplicationId : " + accessToken.getApplicationId());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "UserId : " + accessToken.getUserId());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "Source : " + accessToken.getSource());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "toString : " + accessToken.toString());
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserINfo(LoginResult)", "Expires : " + accessToken.getExpires());
 
         GraphRequest request = GraphRequest.newMeRequest(
                 loginResult.getAccessToken(),
@@ -101,9 +120,9 @@ public class FaceBookLoginManager {
                             JSONObject object,
                             GraphResponse response) {
                         // Application code
-                        Log_HR.log(Log_HR.LOG_INFO, getClass(), "getUserInfo(LoginResult) onCompleted(JSONObject, GraphResponse)", response.toString());
+                        Log_HR.log(Log_HR.LOG_INFO, selfCls, "getUserInfo(LoginResult) onCompleted(JSONObject, GraphResponse)", response.toString());
                         // Get facebook data from login
-                        Bundle bFacebookData = getFacebookData(object);
+//                        Bundle bFacebookData = getFacebookData(object);
                     }
                 });
         Bundle parameters = new Bundle();
@@ -115,12 +134,11 @@ public class FaceBookLoginManager {
     }
 
     private Bundle getFacebookData(JSONObject object) {
-        String[] params = {"id", "first_name", "last_name", "email", "gender", "birthday", "location", "picture"};
         try {
             for (String param : params) {
                 String v = object.getString(param);
                 if (!v.isEmpty())
-                    Log_HR.log(Log_HR.LOG_INFO, getClass(), "getFacebookData(JSONObject)", param + " :  " + object.getString(param));
+                    Log_HR.log(Log_HR.LOG_INFO, selfCls, "getFacebookData(JSONObject)", param + " :  " + object.getString(param));
             }
 
             Bundle bundle = new Bundle();
@@ -154,12 +172,57 @@ public class FaceBookLoginManager {
 
             return bundle;
         } catch (JSONException e) {
-            Log_HR.log(getClass(), "getFacebookData(JSONObject)", e);
+            Log_HR.log(selfCls, "getFacebookData(JSONObject)", e);
         }
         return null;
     }
 
-    public void onDestroyed() {
+    private void signWith(String id) {
+        Log_HR.log(Log_HR.LOG_INFO, selfCls, "signWith()", "signWith");
 
+        Net.getInstance().getFactoryIm().facebookSignIn(id).enqueue(new Callback<ResponseModel<UserModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
+                Log_HR.log(KakaoSignManager.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
+                if (response.isSuccessful()) {
+                    SessionManager.getInstance().setUserModel(response.body().getResult());
+                    Intent intent = new Intent(activity, Main.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.startActivity(intent);
+                    activity.finish();
+                } else {
+                    Log_HR.log(Log_HR.LOG_INFO, selfCls, "onResponse(Call<ResponseModel<ScheduleModel>> call", "response is not successful");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
+                Log_HR.log(selfCls, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+            }
+        });
+
+    }
+
+    public void onLogout() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            return; // already logged out
+        }
+
+        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, new GraphRequest
+                .Callback() {
+            @Override
+            public void onCompleted(GraphResponse graphResponse) {
+                if (graphResponse.getError() != null) {
+                    Log_HR.log(FaceBookLoginManager.class, "getFacebookData(JSONObject)", graphResponse.getError().getException());
+                }
+                Log_HR.log(Log_HR.LOG_INFO, FaceBookLoginManager.class, "getFacebookData(JSONObject)", "facebook logout");
+                LoginManager.getInstance().logOut();
+                SessionManager.getInstance().logout(activity);
+            }
+        }).executeAsync();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }

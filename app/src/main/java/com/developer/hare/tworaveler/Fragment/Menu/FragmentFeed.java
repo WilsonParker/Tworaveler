@@ -58,7 +58,7 @@ public class FragmentFeed extends BaseFragment {
     private int scrollCount = 0;
 
     public static FragmentFeed newInstance() {
-        return instance;
+        return new FragmentFeed();
     }
 
     @Nullable

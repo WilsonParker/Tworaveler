@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.developer.hare.tworaveler.Activity.SignIn;
+import com.developer.hare.tworaveler.Activity.Main;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -37,9 +37,12 @@ public class SessionManager {
             return false;
     }
 
-    public void logout(Activity activity){
-        USER_MODEL = null;
-        activity.startActivity(new Intent(activity, SignIn.class));
+    public void logout(Activity activity) {
+        this.USER_MODEL = null;
+        Intent intent = new Intent(activity, Main.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     public UserModel getUserModel() {
@@ -58,7 +61,7 @@ public class SessionManager {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     sweetAlertDialog.dismiss();
-                    logout((Activity)context);
+                    logout((Activity) context);
 //                    context.startActivity(new Intent(context, SignIn.class));
                 }
             }).show();

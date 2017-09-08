@@ -155,7 +155,7 @@ public interface NetFactoryIm {
 
     // 카카오 로그인
     @FormUrlEncoded
-    @POST("/usres/kakao_login")
+    @POST("/users/kakao_login")
     Call<ResponseModel<UserModel>> kakaoSignIn(@Field("kakao_token") String token);
 
     // 페이스북 로그인
