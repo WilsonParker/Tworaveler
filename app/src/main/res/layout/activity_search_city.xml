@@ -31,14 +31,13 @@
                 android:layout_weight="12" />
 
             <LinearLayout
+                android:id="@+id/activity_search_city$LL_search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="32"
-                android:id="@+id/activity_search_city$LL_search_bar"
                 android:background="@drawable/background_edittxet"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <!--android:background="@drawable/background_edittxet"-->
 
                 <ImageView
                     android:layout_width="0dp"
@@ -71,15 +70,16 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="239.03"
-                    android:textAlignment="gravity"
                     android:background="@null"
                     android:hint="@string/activity_search_city_hint_1"
                     android:inputType="textAutoComplete"
                     android:lines="1"
                     android:paddingTop="@dimen/EditText_Top_Padding"
+                    android:textAlignment="gravity"
                     android:textColor="@color/regist_text_ET_color"
                     android:textCursorDrawable="@drawable/cursor_edittext"
                     android:textSize="@dimen/TextSize_Content_1" />
+
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -105,19 +105,22 @@
                 android:layout_height="0dp"
                 android:layout_weight="48"
                 android:background="@drawable/icon_search_cancel" />
-            <!--app:srcCompat="@drawable/icon_search_cancel"-->
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="4" />
         </LinearLayout>
-
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="7.3" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_city$RV_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="528" />
+        android:layout_weight="552.7" />
 </LinearLayout>

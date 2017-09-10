@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="52dp"
-    android:background="@drawable/list"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="52dp"
         android:orientation="horizontal">
 
         <TextView
@@ -31,6 +31,10 @@
             android:layout_marginLeft="16.7dp"
             android:textColor="@color/regist_text_ET_color"
             android:textSize="@dimen/TextSize_Content_1" />
-
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/underLine_color" />
 </LinearLayout>
