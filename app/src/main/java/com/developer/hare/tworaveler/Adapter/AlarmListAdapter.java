@@ -62,9 +62,12 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.View
 
         public void toBind(AlarmModel model) {
             this.model = model;
-            ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, SessionManager.getInstance().getUserModel().getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
-            TV_alam.setText(model.getNickname()+"님 Tworaveler에 오신걸 환영합니다.");
+            String pic_url = SessionManager.getInstance().getUserModel().getProfile_pic_thumbnail_url();
+            if (pic_url != null && !pic_url.isEmpty()) {
+                ImageManager imageManager = ImageManager.getInstance();
+                imageManager.loadImage(imageManager.createRequestCreator(context, pic_url, ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+            }
+            TV_alam.setText(model.getNickname() + "님 Tworaveler에 오신걸 환영합니다.");
         }
     }
 }

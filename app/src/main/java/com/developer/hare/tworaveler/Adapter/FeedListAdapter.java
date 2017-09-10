@@ -83,6 +83,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
+            uiFactory.createViewWithRateParams(R.id.item_feed$Root);
             IV_cover = uiFactory.createView(R.id.item_feed$IV_cover);
             CV_profile = uiFactory.createView(R.id.item_feed$CV_profile);
             TV_date = uiFactory.createView(R.id.item_feed$TV_date);

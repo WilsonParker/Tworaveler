@@ -1,215 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_feed$Root"
     android:layout_width="match_parent"
-    android:layout_height="277dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="9dp">
+    android:layout_height="277px"
+    android:weightSum="@string/DEVICE_WIDTH">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="16" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="328"
         android:orientation="vertical"
         android:weightSum="277">
 
-        <LinearLayout
-            android:id="@+id/item_feed$LL_profile"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="9" />
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="61"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="12" />
+            android:layout_weight="268">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="40"
-                android:orientation="horizontal"
-                android:weightSum="327.7">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="17.3" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/item_feed$CV_profile"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="16.4" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="277">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="254"
-                    android:gravity="center"
+                    android:id="@+id/item_feed$LL_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="61"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/item_feed$TV_nickname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="에비츄~"
-                        android:textColor="@color/feed_nickname_color"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/item_feed$TV_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:gravity="top"
-                        android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
-                        android:textColor="@color/feed_message_color"
-                        android:textSize="10sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="9" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="176">
-
-            <ImageView
-                android:id="@+id/item_feed$IV_cover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@color/default_Image_color" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
-            android:orientation="horizontal"
-            android:weightSum="328">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="16" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="296"
-                android:orientation="horizontal"
-                android:weightSum="296">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="188"
-                    android:orientation="vertical"
-                    android:weightSum="40">
-
-                    <TextView
-                        android:id="@+id/item_feed$TV_title"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="22"
-                        android:text="title"
-                        android:textColor="@color/feed_title_color"
-                        android:textSize="@dimen/TextSize_Feed_Title" />
-
-                    <TextView
-                        android:id="@+id/item_feed$TV_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="18"
-                        android:text="2017..8.04 ~ 2017.09.30"
-                        android:textColor="@color/feed_date_color"
-                        android:textSize="@dimen/TextSize_Feed_Date" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="108"
-                    android:gravity="center_vertical|right"
-                    android:orientation="horizontal"
-                    android:weightSum="128">
+                        android:layout_weight="12" />
 
                     <LinearLayout
-                        android:id="@+id/item_feed$LL_like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="40"
+                        android:orientation="horizontal"
+                        android:weightSum="327.7">
 
                         <ImageView
-                            android:id="@+id/item_feed$IV_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/icon_heart_unclick" />
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="17.3" />
 
-                        <TextView
-                            android:id="@+id/item_feed$TV_like"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="@color/feed_num_color"
-                            android:textSize="@dimen/TextSize_Feed_Num" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/item_feed$LL_comment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/item_feed$CV_profile"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="40" />
 
                         <ImageView
-                            android:id="@+id/item_feed$IV_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/icon_comment" />
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="16.4" />
 
-                        <TextView
-                            android:id="@+id/item_feed$TV_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="@color/feed_num_color"
-                            android:textSize="@dimen/TextSize_Feed_Num" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="254"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/item_feed$TV_nickname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="에비츄~"
+                                android:textColor="@color/feed_nickname_color"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/item_feed$TV_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:gravity="top"
+                                android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
+                                android:textColor="@color/feed_message_color"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="7.7" />
+                        android:layout_weight="9" />
 
                 </LinearLayout>
-            </LinearLayout>
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="16" />
-        </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="176">
+
+                    <ImageView
+                        android:id="@+id/item_feed$IV_cover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@color/default_Image_color" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:orientation="horizontal"
+                    android:weightSum="328">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="16" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="296"
+                        android:orientation="horizontal"
+                        android:weightSum="296">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="188"
+                            android:orientation="vertical"
+                            android:weightSum="40">
+
+                            <TextView
+                                android:id="@+id/item_feed$TV_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="22"
+                                android:text="title"
+                                android:textColor="@color/feed_title_color"
+                                android:textSize="@dimen/TextSize_Feed_Title" />
+
+                            <TextView
+                                android:id="@+id/item_feed$TV_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="18"
+                                android:text="2017..8.04 ~ 2017.09.30"
+                                android:textColor="@color/feed_date_color"
+                                android:textSize="@dimen/TextSize_Feed_Date" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="108"
+                            android:gravity="center_vertical|right"
+                            android:orientation="horizontal"
+                            android:weightSum="128">
+
+                            <LinearLayout
+                                android:id="@+id/item_feed$LL_like"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/item_feed$IV_like"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/icon_heart_unclick" />
+
+                                <TextView
+                                    android:id="@+id/item_feed$TV_like"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/feed_num_color"
+                                    android:textSize="@dimen/TextSize_Feed_Num" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/item_feed$LL_comment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/item_feed$IV_comment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/icon_comment" />
+
+                                <TextView
+                                    android:id="@+id/item_feed$TV_comment"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/feed_num_color"
+                                    android:textSize="@dimen/TextSize_Feed_Num" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="7.7" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="16" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
-</android.support.v7.widget.CardView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="16" />
+</LinearLayout>

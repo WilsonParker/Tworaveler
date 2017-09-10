@@ -85,6 +85,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
+            uiFactory.createViewWithRateParams(R.id.item_mypage_detail$Root);
             IV_cover = uiFactory.createView(R.id.item_mypage_detail$IV_cover);
             TV_city = uiFactory.createView(R.id.item_mypage_detail$TV_city);
             TV_address = uiFactory.createView(R.id.item_mypage_detail$TV_address);

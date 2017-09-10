@@ -94,8 +94,7 @@ public class FragmentFeedSchedule extends BaseFragment {
 //        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
         uiFactory = UIFactory.getInstance(getActivity());
         imageManager = ImageManager.getInstance();
-
-        scheduleItem = uiFactory.createView(R.id.fragment_feed_schedule$IC_schedul_item);
+        scheduleItem = uiFactory.createViewWithRateParams(R.id.fragment_feed_schedule$IC_schedul_item);
         CV_profile = uiFactory.createView(R.id.fragment_feed_schedule$CV_profile);
         menuTopTitle = uiFactory.createView(R.id.fragment_feed_schedule$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {

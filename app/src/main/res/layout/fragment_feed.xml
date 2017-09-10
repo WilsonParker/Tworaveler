@@ -4,12 +4,14 @@
     android:id="@+id/fragment_feed$Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="@string/FRAGMENT_HEIGHT">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_feed$menuToptitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         android:visibility="visible"
         app:leftButton="@drawable/icon_back"
         app:rightButton="@drawable/icon_feedsearch"
@@ -18,7 +20,8 @@
     <LinearLayout
         android:id="@+id/fragment_feed$LL_feed"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         android:background="@color/default_theme_Image_color"
         android:gravity="center"
         android:orientation="vertical"
@@ -62,6 +65,7 @@
         android:id="@+id/fragment_feed$LL_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="504"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -133,6 +137,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_feed$RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="504" />
 
 </LinearLayout>

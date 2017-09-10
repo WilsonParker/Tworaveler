@@ -85,6 +85,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
+            uiFactory.createViewWithRateParams(R.id.item_mypage$Root);
             IV_cover = uiFactory.createView(R.id.item_mypage$IV_cover);
             TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
             TV_date = uiFactory.createView(R.id.item_mypage$TV_date);

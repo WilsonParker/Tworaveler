@@ -55,7 +55,7 @@ public class MenuTopTitle extends LinearLayout {
         IB_left = uiFactory.createView(R.id.menu_top_title$IB_left);
         IB_right = uiFactory.createView(R.id.menu_top_title$IB_right);
         TV_title = uiFactory.createView(R.id.menu_top_title$TV_title);
-        FontManager.getInstance().setFont(TV_title, "SCRIPTBL.TTF");
+        setTitleFont("SCRIPTBL.TTF");
     }
 
     private void getAttrs(AttributeSet attrs) {
@@ -80,7 +80,7 @@ public class MenuTopTitle extends LinearLayout {
         String title = typedArray.getString(R.styleable.menu_top_title_titleText);
         if (!title.isEmpty())
             TV_title.setText(title);
-        float size = typedArray.getDimensionPixelSize(R.styleable.menu_top_title_titleTextSize, SizeManager.getInstance().convertSpToPixels(Title_Size_SP, getContext()));
+        float size = typedArray.getDimensionPixelSize(R.styleable.menu_top_title_titleTextSize, SizeManager.getInstance().convertSpToPixels(Title_Size_SP));
         TV_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         typedArray.recycle();
     }
@@ -107,5 +107,9 @@ public class MenuTopTitle extends LinearLayout {
 
     public void setIBRightOnClickListener(OnClickListener onClickListener) {
         IB_right.setOnClickListener(onClickListener);
+    }
+
+    public void setTitleFont(String  font){
+        FontManager.getInstance().setFont(TV_title, font);
     }
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_mypage_detail$Root"
-    android:layout_width="277dp"
+    android:layout_width="277px"
     android:layout_height="match_parent"
     android:weightSum="277">
 

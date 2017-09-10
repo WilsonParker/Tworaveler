@@ -1,27 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:weightSum="@string/FRAGMENT_HEIGHT"
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/activity_regist_detail$menuToptitle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/menu_top_title_height"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="56"
         app:leftButton="@drawable/icon_back"
         app:rightButton="@drawable/icon_edit"
         app:titleText="@string/activity_regist_detail_title" />
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/activity_regist_detail$menuToptitle"
-        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:layout_weight="504"
         android:fillViewport="true"
         android:overScrollMode="always"
         android:scrollbars="vertical">
@@ -64,6 +60,4 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-
-</RelativeLayout>
+</LinearLayout>

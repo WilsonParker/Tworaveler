@@ -78,7 +78,7 @@ public class FragmentFeed extends BaseFragment {
 
         LL_feed = uiFactory.createView(R.id.fragment_feed$LL_feed);
         LL_feed.setVisibility(View.VISIBLE);
-        LL_search = uiFactory.createView(R.id.fragment_feed$LL_search);
+        LL_search = uiFactory.createViewWithRateParams(R.id.fragment_feed$LL_search, UIFactory.TYPE_BASIC_MARGIN | UIFactory.TYPE_RADIUS);
         LL_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
