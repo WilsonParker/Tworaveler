@@ -115,7 +115,7 @@ public class FragmentFeedFilter extends BaseFragment {
         });
         menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
         menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
-        recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
+        recyclerView = uiFactory.createView(R.id.fragment_feed$RV_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         LL_info = uiFactory.createView(R.id.fragment_feed$LL_info);

@@ -86,7 +86,7 @@ public class FragmentFeed extends BaseFragment {
                 startActivityForResult(intent, REQUEST_CODE_SEARCH_CITY);
             }
         });
-        recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
+        recyclerView = uiFactory.createView(R.id.fragment_feed$RV_1);
         feedListAdapter = new FeedListAdapter(feedItemModels, new OnListScrollListener() {
             @Override
             public void scrollEnd() {

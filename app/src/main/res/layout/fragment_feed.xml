@@ -1,144 +1,161 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_feed$Root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="@string/FRAGMENT_HEIGHT">
-
-    <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
-        android:id="@+id/fragment_feed$menuToptitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="56"
-        android:visibility="visible"
-        app:leftButton="@drawable/icon_back"
-        app:rightButton="@drawable/icon_feedsearch"
-        app:titleText="@string/fragment_feed_title" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/fragment_feed$LL_feed"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="56"
-        android:background="@color/default_theme_Image_color"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:weightSum="56">
+        android:weightSum="@string/FRAGMENT_HEIGHT">
 
-        <LinearLayout
+        <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
+            android:id="@+id/fragment_feed$menuToptitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="32"
+            android:layout_weight="56"
+            android:visibility="visible"
+            app:leftButton="@drawable/icon_back"
+            app:rightButton="@drawable/icon_feedsearch"
+            app:titleText="@string/fragment_feed_title" />
+
+        <LinearLayout
+            android:id="@+id/fragment_feed$LL_feed"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="56"
+            android:background="@color/default_theme_Image_color"
             android:gravity="center"
-            android:weightSum="360">
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:weightSum="56">
 
             <LinearLayout
-                android:id="@+id/fragment_feed$LL_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="328"
-                android:background="@drawable/background_edittxet"
-                android:gravity="center_vertical">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="32"
+                android:gravity="center"
+                android:weightSum="360">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/icon_search" />
-
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/fragment_feed$LL_search"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/fragment_feed_search"
-                    android:textSize="13sp" />
+                    android:layout_weight="328"
+                    android:background="@drawable/background_edittxet"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/icon_search" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/fragment_feed_search"
+                        android:textSize="13sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_feed$RV_1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="504" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/fragment_feed$LL_info"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="84"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
-        android:weightSum="82">
-
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:layout_weight="12" />
+        android:weightSum="@string/FRAGMENT_HEIGHT">
 
         <LinearLayout
+            android:id="@+id/fragment_feed$LL_info"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="60"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/fragment_feed$CV_profile"
-                android:layout_width="60dp"
-                android:layout_height="match_parent" />
+            android:layout_weight="84"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:weightSum="84">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="1dp" />
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="12" />
 
             <LinearLayout
-                android:layout_width="220dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/fragment_feed$TV_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="에비츄~"
-                    android:textColor="@color/feed_nickname_color"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/fragment_feed$TV_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
-                    android:textSize="9sp" />
-            </LinearLayout>
-
-            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="60"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/fragment_feed$CV_profile"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent" />
 
                 <ImageView
-                    android:id="@+id/fragment_feed$IV_follow"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/icon_follow" />
-            </RelativeLayout>
+                    android:layout_width="16dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fragment_feed$TV_nickname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="에비츄~"
+                        android:textColor="@color/feed_nickname_color"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/fragment_feed$TV_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/fragment_feed$IV_follow"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/icon_follow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="12" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="1dp"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_feed$RV_2"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="12" />
+            android:layout_weight="476" />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment_feed$RV"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="420" />
-
-</LinearLayout>
+</FrameLayout>
