@@ -37,6 +37,9 @@
     <color name="regist_text_TV_color_2">#37c2c4</color>
     <color name="regist_text_ET_color">#868686</color>
 
+    <!-- layout/item_search_city-->
+    <color name="item_search_city_underLine_color">#d2d2d2</color>
+
     <!-- layout/activity_myschedule_modify-->
     <color name="modify_IV_color">#48000000</color>
 

@@ -10,31 +10,35 @@
         android:id="@+id/fragment_bag$LL_noLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="@string/FRAGMENT_HEIGHT"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="@string/FRAGMENT_HEIGHT">
+
         <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="56"
             app:titleText="@string/fragment_bag_title" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="505"
-            android:weightSum="505"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="505">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="169"/>
+                android:layout_weight="169" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="116"
                 android:gravity="center"
-                android:weightSum="360"
-                >
+                android:weightSum="360">
+
                 <ImageView
                     android:id="@+id/fragment_bag$IV_nologin"
                     android:layout_width="0dp"
@@ -42,25 +46,28 @@
                     android:layout_weight="116"
                     app:srcCompat="@drawable/mypage_login" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="219"
-                android:weightSum="219"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="219">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="14"/>
+                    android:layout_weight="14" />
+
                 <TextView
                     android:id="@+id/fragment_bag$TV_bag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/fragment_bag_text"
-                    android:textSize="@dimen/TextSize_Content_1"
-                    android:textColor="@color/fragment_login_text_color" />
+                    android:textColor="@color/fragment_login_text_color"
+                    android:textSize="@dimen/TextSize_Content_1" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -102,8 +109,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:weightSum="@string/DEVICE_WIDTH"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:weightSum="@string/DEVICE_WIDTH">
+
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -139,8 +147,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="@string/DEVICE_WIDTH"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:weightSum="@string/DEVICE_WIDTH">
 
                     <ImageView
                         android:id="@+id/fragment_bag$noimage"
@@ -167,8 +175,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/fragment_bag$RV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_bag_layout" />
+                android:layout_height="wrap_content" />
         </FrameLayout>
     </LinearLayout>
 

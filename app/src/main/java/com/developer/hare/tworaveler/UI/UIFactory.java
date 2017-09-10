@@ -7,7 +7,6 @@ import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.SizeManager;
 
 /**
@@ -65,22 +64,16 @@ public class UIFactory {
 
     public <E extends View> E createViewWithRateParams(int id, int type) {
         E e = createView(id);
-        //        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         ViewGroup.MarginLayoutParams mLayoutParams = (ViewGroup.MarginLayoutParams) e.getLayoutParams();
-
         if ((type & TYPE_BASIC) != 0) {
-            LogManager.log(LogManager.LOG_INFO, getClass(), "createViewWithRateParams(int id, int type)","TYPE_BASIC running");
             int width = mLayoutParams.width, height = mLayoutParams.height;
-            if (width != ViewGroup.LayoutParams.MATCH_PARENT && width != ViewGroup.LayoutParams.WRAP_CONTENT) {
+            if (width != ViewGroup.LayoutParams.MATCH_PARENT && width != ViewGroup.LayoutParams.WRAP_CONTENT)
                 mLayoutParams.width = rounds(mLayoutParams.width, RAT_DEVISE_WIDTH);
-            }
-            if (height != ViewGroup.LayoutParams.MATCH_PARENT && height != ViewGroup.LayoutParams.WRAP_CONTENT) {
+            if (height != ViewGroup.LayoutParams.MATCH_PARENT && height != ViewGroup.LayoutParams.WRAP_CONTENT)
                 mLayoutParams.height = rounds(mLayoutParams.height, RAT_DEVICE_HEIGHT);
-            }
         }
 
         if ((type & TYPE_MARGIN) != 0) {
-            LogManager.log(LogManager.LOG_INFO, getClass(), "createViewWithRateParams(int id, int type)","TYPE_MARGIN running");
             mLayoutParams.topMargin = rounds(mLayoutParams.topMargin, RAT_DEVICE_HEIGHT);
             mLayoutParams.bottomMargin = rounds(mLayoutParams.bottomMargin, RAT_DEVICE_HEIGHT);
             mLayoutParams.leftMargin = rounds(mLayoutParams.leftMargin, RAT_DEVISE_WIDTH);
@@ -88,7 +81,6 @@ public class UIFactory {
         }
 
         if ((type & TYPE_RADIUS) != 0) {
-            LogManager.log(LogManager.LOG_INFO, getClass(), "createViewWithRateParams(int id, int type)","TYPE_RADIUS running");
             GradientDrawable gradientDrawable = (GradientDrawable) e.getBackground();
             gradientDrawable.setCornerRadius(rounds(SizeManager.getInstance().convertDpToPixels(13), RAT_DEVICE_HEIGHT));
         }

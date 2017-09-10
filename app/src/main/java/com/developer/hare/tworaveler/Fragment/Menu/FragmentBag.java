@@ -126,14 +126,16 @@ public class FragmentBag extends BaseFragment {
                 startActivity(new Intent(getActivity(), SignIn.class));
             }
         });
+        customNavigationBagView = uiFactory.createView(R.id.fragment_bag$BN_navigation);
 
-        itemEmptyCheck(items);
+        createNavigationBagView();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         itemLoginCheck();
+        itemEmptyCheck(items);
         setList(theme);
     }
 
@@ -160,7 +162,6 @@ public class FragmentBag extends BaseFragment {
         if (SessionManager.getInstance().isLogin()) {
             LL_login.setVisibility(View.VISIBLE);
             LL_noLogin.setVisibility(View.INVISIBLE);
-            createNavigationBagView();
         } else {
             LL_login.setVisibility(View.INVISIBLE);
             LL_noLogin.setVisibility(View.VISIBLE);
@@ -269,7 +270,6 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void createNavigationBagView() {
-        customNavigationBagView = uiFactory.createView(R.id.fragment_bag$BN_navigation);
         ArrayList<CustomNavigationView.NavigationItem> items = new ArrayList<>();
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
@@ -308,6 +308,5 @@ public class FragmentBag extends BaseFragment {
         }));
         customNavigationBagView.bindItemView(getActivity(), items);
         customNavigationBagView.setFirstClickItem(0);
-
     }
 }
