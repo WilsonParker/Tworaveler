@@ -147,6 +147,7 @@ public class FragmentFeedFilter extends BaseFragment {
         int user_no = userModel.getUser_no();
         switch (type) {
             case TYPE_CITY:
+                LL_info.setVisibility(View.GONE);
                 menuTopTitle.getTV_title().setText(cityModel.getCity());
                 progressManager.actionWithState(new OnProgressAction() {
                     @Override
@@ -193,7 +194,7 @@ public class FragmentFeedFilter extends BaseFragment {
                 LL_info.setVisibility(View.VISIBLE);
                 TV_nickname.setText(scheduleModel.getNickname() + "");
                 TV_message.setText(scheduleModel.getStatus_message() + "");
-                LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
+//                LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
                 ImageManager imageManager = ImageManager.getInstance();
                 if (!NullChecker.getInstance().nullCheck(scheduleModel.getProfile_pic_thumbnail_url()))
                     imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile).centerCrop(), CV_profile);
