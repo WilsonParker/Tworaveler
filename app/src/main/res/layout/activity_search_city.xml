@@ -34,7 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="32"
-                android:background="@drawable/inputtext_search"
+                android:id="@+id/activity_search_city$LL_search_bar"
+                android:background="@drawable/background_edittxet"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <!--android:background="@drawable/background_edittxet"-->
