@@ -23,7 +23,7 @@ import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -164,7 +164,7 @@ public class BagDelete extends AppCompatActivity {
         Net.getInstance().getFactoryIm().deleteBagItemList(nos).enqueue(new Callback<ResponseModel<String>>() {
             @Override
             public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                Log_HR.log(BagDelete.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                LogManager.log(BagDelete.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     switch (response.body().getSuccess()) {
                         case CODE_SUCCESS:
@@ -193,7 +193,7 @@ public class BagDelete extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
-                Log_HR.log(BagDelete.class, "onFailure(Call<ResponseArrayModel<String>> call, Throwable t)", t);
+                LogManager.log(BagDelete.class, "onFailure(Call<ResponseArrayModel<String>> call, Throwable t)", t);
                 netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail_2);
             }
         });

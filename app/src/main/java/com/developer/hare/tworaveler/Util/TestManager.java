@@ -93,7 +93,7 @@ public class TestManager {
 
 
                 } else {
-                    Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isFail");
+                    LogManager.log(LogManager.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isFail");
                     netFail();
                 }
             }

@@ -30,7 +30,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -210,7 +210,7 @@ public class RegistDayDetail extends AppCompatActivity {
                     Net.getInstance().getFactoryIm().insertDaySchedule(multipart, RetrofitBodyParser.getInstance().parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
-                            Log_HR.log(RegistDayDetail.class, "onResponse", response);
+                            LogManager.log(RegistDayDetail.class, "onResponse", response);
                             if (response.isSuccessful()) {
                                 progressManager.endRunning();
                                 ResponseModel<ScheduleDayModel> result = response.body();
@@ -227,13 +227,13 @@ public class RegistDayDetail extends AppCompatActivity {
                                 }
                             } else {
                                 netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
-                                Log_HR.log(Log_HR.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                            Log_HR.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                            LogManager.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                             netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
                         }
                     });
@@ -241,7 +241,7 @@ public class RegistDayDetail extends AppCompatActivity {
                     Net.getInstance().getFactoryIm().insertDaySchedule(model).enqueue(new Callback<ResponseModel<ScheduleDayModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
-                            Log_HR.log(RegistDayDetail.class, "onResponse", response);
+                            LogManager.log(RegistDayDetail.class, "onResponse", response);
                             if (response.isSuccessful()) {
                                 progressManager.endRunning();
                                 ResponseModel<ScheduleDayModel> result = response.body();
@@ -258,14 +258,14 @@ public class RegistDayDetail extends AppCompatActivity {
                                 }
                             } else {
                                 netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail);
-                                Log_HR.log(Log_HR.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_WARN, RegistDayDetail.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
                             netFail(R.string.regist_day_detail_alert_title_fail, R.string.regist_day_detail_alert_content_fail_5);
-                            Log_HR.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                            LogManager.log(RegistDayDetail.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                         }
                     });
                 }

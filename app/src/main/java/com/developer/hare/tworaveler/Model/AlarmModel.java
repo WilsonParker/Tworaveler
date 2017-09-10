@@ -4,12 +4,12 @@ package com.developer.hare.tworaveler.Model;
  * Created by Hare on 2017-08-10.
  */
 
-public class AlamModel {
+public class AlarmModel {
     private int user_no, file;
     private String nickname, profile_pic_url_thumbnail;
     private boolean isLike, isFollow;
 
-    public AlamModel(int file, String nickname) {
+    public AlarmModel(int file, String nickname) {
         this.file = file;
         this.nickname = nickname;
     }

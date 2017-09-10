@@ -1,8 +1,11 @@
 package com.developer.hare.tworaveler.UI;
 
 import android.app.Activity;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.View;
-import android.widget.TextView;
+
+import com.developer.hare.tworaveler.Util.LogManager;
 
 /**
  * Created by Hare on 2017-07-04.
@@ -11,6 +14,8 @@ import android.widget.TextView;
 public class UIFactory {
     private static UIFactory uiFactory = new UIFactory();
     private static boolean isActivity = false;
+    private static final int BASE_WIDTH = 360, BASE_HEIGHT = 640;
+    private static double RAT_DEVISE_WIDTH, RAT_DEVICE_HEIGHT;
     private Activity activity;
     private View view;
 
@@ -18,6 +23,17 @@ public class UIFactory {
         uiFactory.setResource(view);
         isActivity = false;
         return uiFactory;
+    }
+
+    public static void init(Activity activity) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width, height;
+        RAT_DEVISE_WIDTH = width = size.x;
+        RAT_DEVICE_HEIGHT = height = size.y;
+        LogManager.log(LogManager.LOG_INFO, UIFactory.class, "init(Activity)", String.format("width : %s, height : %s",width,height));
+//        width : 720, height : 1280
     }
 
     public static UIFactory getInstance(Activity activity) {
@@ -46,8 +62,7 @@ public class UIFactory {
     }
 
     private View initView(View view) {
-        if (view instanceof TextView) {
-        }
+
         return view;
     }
 }

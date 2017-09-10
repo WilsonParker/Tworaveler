@@ -18,7 +18,7 @@ import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 public class FragmentMyPage extends BaseFragment {
     private static FragmentMyPage instance = new FragmentMyPage();
@@ -39,7 +39,7 @@ public class FragmentMyPage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log_HR.log(Log_HR.LOG_INFO, FragmentMyPage.class, "onResume()", "onResume");
+        LogManager.log(LogManager.LOG_INFO, FragmentMyPage.class, "onResume()", "onResume");
         loginAction();
     }
 

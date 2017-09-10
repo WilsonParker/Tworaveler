@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.developer.hare.tworaveler.Activity.Main;
+import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
@@ -53,7 +54,7 @@ public class SessionManager {
         this.USER_MODEL = userModel;
     }
 
-    public void actionAfterSessoinCheck(Context context, OnActionAfterSessionCheckListener onActionAfterSessionCheckListener) {
+    public void actionAfterSessionCheck(Context context, OnActionAfterSessionCheckListener onActionAfterSessionCheckListener) {
         if (isLogin())
             onActionAfterSessionCheckListener.action();
         else {
@@ -61,8 +62,8 @@ public class SessionManager {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     sweetAlertDialog.dismiss();
-                    logout((Activity) context);
-//                    context.startActivity(new Intent(context, SignIn.class));
+                    USER_MODEL = null;
+                    context.startActivity(new Intent(context, SignIn.class));
                 }
             }).show();
         }

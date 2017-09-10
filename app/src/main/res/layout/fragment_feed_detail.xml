@@ -44,7 +44,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="476">
+            android:layout_weight="421">
 
             <LinearLayout
                 android:id="@+id/fragment_feed_detail$LL_empty"

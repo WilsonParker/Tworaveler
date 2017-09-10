@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -90,12 +90,12 @@ public class RetrofitBodyParser {
             Method method = methodMap.get(GET_KEY + fieldName.toUpperCase());
             if (method != null) {
                 Object value = method.invoke(obj);
-//                Log_HR.log(Log_HR.LOG_INFO, getClass(), "insertFieldData", String.format("fieldName : %s, value : %s",fieldName, value));
+//                LogManager.log(LogManager.LOG_INFO, getClass(), "insertFieldData", String.format("fieldName : %s, value : %s",fieldName, value));
                 if (value != null)
                     dataMap.put(fieldName, createRequestBody(value));
             }
         } catch (Exception e) {
-            Log_HR.log(getClass(), "parseMapRequestBody(Object obj)", e);
+            LogManager.log(getClass(), "parseMapRequestBody(Object obj)", e);
         }
     }
 }

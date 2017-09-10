@@ -30,7 +30,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -142,7 +142,7 @@ public class FragmentMypageDetail extends BaseFragment {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response) {
                         progressManager.endRunning();
-//                        Log_HR.log(FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
@@ -157,13 +157,13 @@ public class FragmentMypageDetail extends BaseFragment {
                                 }
                             });
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
+                            LogManager.log(LogManager.LOG_ERROR, FragmentMypageDetail.class, "onResponse(Call<ResponseArrayModel<ScheduleDayRootModel>>, Response<ResponseArrayModel<ScheduleDayRootModel>>)", "response is not Successful");
                             netFail();
                         }
                     }
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t) {
-                        Log_HR.log(FragmentMypageDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
+                        LogManager.log(FragmentMypageDetail.class, "onFailure(Call<ResponseArrayModel<ScheduleDayRootModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

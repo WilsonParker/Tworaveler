@@ -228,7 +228,7 @@ public class AlertManager {
                 sweetAlertDialog.dismiss();
                 context.startActivity(new Intent(context, SignIn.class));
             }
-        }).show();
+        }).setCancelText(DEFAULT_CANCEL_TEXT).show();
     }
 
     public void showInputAlert(Activity activity, int title, int message, OnInputAlertClickListener onConfirmClickListener) {

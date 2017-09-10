@@ -26,7 +26,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -201,13 +201,13 @@ public class FragmentMyPageSchedule extends BaseFragment {
                                 break;
                         }
                     } else {
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentMyPageSchedule.class, "onResponse", "onResponse is not successful");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                    Log_HR.log(FragmentMyPageSchedule.class, "onFailure(Call<ResponseArrayModel<LikeModel>> call, Throwable t)", t);
+                    LogManager.log(FragmentMyPageSchedule.class, "onFailure(Call<ResponseArrayModel<LikeModel>> call, Throwable t)", t);
                 }
             });
         } else {
@@ -224,13 +224,13 @@ public class FragmentMyPageSchedule extends BaseFragment {
                                 break;
                         }
                     } else {
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentMyPageSchedule.class, "onResponse", "onResponse is not successful");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                    Log_HR.log(FragmentMyPageSchedule.class, "onFailure(Call<ResponseArrayModel<LikeModel>> call, Throwable t)", t);
+                    LogManager.log(FragmentMyPageSchedule.class, "onFailure(Call<ResponseArrayModel<LikeModel>> call, Throwable t)", t);
                 }
             });
         }

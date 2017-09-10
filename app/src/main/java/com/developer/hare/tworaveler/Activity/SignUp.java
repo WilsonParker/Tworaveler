@@ -107,10 +107,10 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                         UserModel result = response.body().getResult();
-//                        Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
+//                        LogManager.log(LogManager.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "body : " + result);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
-//                            Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
+//                            LogManager.log(LogManager.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isSuccess ");
                             switch (response.body().getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignUp.this, SweetAlertDialog.SUCCESS_TYPE
@@ -139,14 +139,14 @@ public class SignUp extends AppCompatActivity {
                             }
 
                         } else {
-//                            Log_HR.log(Log_HR.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
+//                            LogManager.log(LogManager.LOG_INFO, SignUp.class, "signUp - onResponse(Call, Response)", "isFail");
                             netFail();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
-//                        Log_HR.log(SignUp.class, "onFailure()", t);
+//                        LogManager.log(SignUp.class, "onFailure()", t);
                         netFail();
                     }
                 });

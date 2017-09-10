@@ -28,7 +28,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -118,7 +118,7 @@ public class FragmentFeed extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectFeedList(user_no, scrollCount).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-//                        Log_HR.log(FragmentFeed.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FragmentFeed.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
@@ -133,14 +133,14 @@ public class FragmentFeed extends BaseFragment {
                                 });
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                            LogManager.log(LogManager.LOG_ERROR, FragmentFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                        Log_HR.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
+                        LogManager.log(FragmentFeed.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

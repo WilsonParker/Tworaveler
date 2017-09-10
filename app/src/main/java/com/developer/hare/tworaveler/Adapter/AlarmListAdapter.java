@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.developer.hare.tworaveler.Model.AlamModel;
+import com.developer.hare.tworaveler.Data.SessionManager;
+import com.developer.hare.tworaveler.Model.AlarmModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
@@ -21,10 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Hare on 2017-08-01.
  */
 
-public class AlamListAdapter extends RecyclerView.Adapter<AlamListAdapter.ViewHolder> {
-    private ArrayList<AlamModel> items;
+public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.ViewHolder> {
+    private ArrayList<AlarmModel> items;
 
-    public AlamListAdapter(ArrayList<AlamModel> items) {
+    public AlarmListAdapter(ArrayList<AlarmModel> items) {
         this.items = items;
     }
 
@@ -47,7 +48,7 @@ public class AlamListAdapter extends RecyclerView.Adapter<AlamListAdapter.ViewHo
         private Context context;
         private CircleImageView CV_profile;
         private TextView TV_alam;
-        private AlamModel model;
+        private AlarmModel model;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -59,10 +60,10 @@ public class AlamListAdapter extends RecyclerView.Adapter<AlamListAdapter.ViewHo
 
         }
 
-        public void toBind(AlamModel model) {
+        public void toBind(AlarmModel model) {
             this.model = model;
             ImageManager imageManager = ImageManager.getInstance();
-            imageManager.loadImage(imageManager.createRequestCreator(context, model.getFile(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
+            imageManager.loadImage(imageManager.createRequestCreator(context, SessionManager.getInstance().getUserModel().getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
             TV_alam.setText(model.getNickname()+"님 Tworaveler에 오신걸 환영합니다.");
         }
     }

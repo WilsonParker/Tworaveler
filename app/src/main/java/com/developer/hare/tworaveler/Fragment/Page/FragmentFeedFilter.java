@@ -36,7 +36,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -154,7 +154,7 @@ public class FragmentFeedFilter extends BaseFragment {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                                 if (response.isSuccessful()) {
-//                                   Log_HR.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                                   LogManager.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
                                     if (model.getSuccess() == CODE_SUCCESS) {
@@ -174,14 +174,14 @@ public class FragmentFeedFilter extends BaseFragment {
                                         });
                                     }
                                 } else {
-                                    Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                                    LogManager.log(LogManager.LOG_ERROR, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>, Response<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                                     netFail();
                                 }
                             }
 
                             @Override
                             public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                                Log_HR.log(FragmentFeedFilter.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
+                                LogManager.log(FragmentFeedFilter.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
                                 netFail();
                             }
                         });
@@ -192,7 +192,7 @@ public class FragmentFeedFilter extends BaseFragment {
                 LL_info.setVisibility(View.VISIBLE);
                 TV_nickname.setText(scheduleModel.getNickname() + "");
                 TV_message.setText(scheduleModel.getStatus_message() + "");
-                Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
+                LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
                 ImageManager imageManager = ImageManager.getInstance();
                 if (!NullChecker.getInstance().nullCheck(scheduleModel.getProfile_pic_thumbnail_url()))
                     imageManager.loadImage(imageManager.createRequestCreator(getActivity(), scheduleModel.getProfile_pic_thumbnail_url(), ImageManager.FIT_TYPE).placeholder(R.drawable.image_profile).centerCrop(), CV_profile);
@@ -212,8 +212,8 @@ public class FragmentFeedFilter extends BaseFragment {
                         Net.getInstance().getFactoryIm().searchFeedNickname(user_no, scheduleModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
-                                // Log_HR.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                            LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
+                                // LogManager.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 if (response.isSuccessful()) {
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
@@ -221,7 +221,7 @@ public class FragmentFeedFilter extends BaseFragment {
                                         nicknameListAdapter = new FeedNicknameListAdapter(model.getResult(), getActivity());
                                         recyclerView.setAdapter(nicknameListAdapter);
                                     } else {
-                                        Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "model.getSuccess() != CODE_SUCCESS", "response is not Successful");
+                                        LogManager.log(LogManager.LOG_ERROR, FragmentFeedFilter.class, "model.getSuccess() != CODE_SUCCESS", "response is not Successful");
                                         netFail();
                                     }
                                 }
@@ -229,7 +229,7 @@ public class FragmentFeedFilter extends BaseFragment {
 
                             @Override
                             public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                                Log_HR.log(Log_HR.LOG_ERROR, FragmentFeedFilter.class, "onFailure", "통신 실패" + t);
+                                LogManager.log(LogManager.LOG_ERROR, FragmentFeedFilter.class, "onFailure", "통신 실패" + t);
                                 netFail();
                             }
                         });
@@ -254,20 +254,20 @@ public class FragmentFeedFilter extends BaseFragment {
             Net.getInstance().getFactoryIm().selectUnFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    //                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
+                            LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
                             changeFollow(false);
                         }
                     } else
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure", t);
                     netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });
@@ -275,19 +275,19 @@ public class FragmentFeedFilter extends BaseFragment {
             Net.getInstance().getFactoryIm().selectFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    //                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
+                            LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
                             changeFollow(true);
                         }
                     } else
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure", t);
                     netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });

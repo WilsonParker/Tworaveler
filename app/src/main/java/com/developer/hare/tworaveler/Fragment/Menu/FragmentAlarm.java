@@ -12,10 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Activity.SignIn;
-import com.developer.hare.tworaveler.Adapter.AlamListAdapter;
+import com.developer.hare.tworaveler.Adapter.AlarmListAdapter;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.Fragment.BaseFragment;
-import com.developer.hare.tworaveler.Model.AlamModel;
+import com.developer.hare.tworaveler.Model.AlarmModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
@@ -28,8 +28,8 @@ public class FragmentAlarm extends BaseFragment {
     private UIFactory uiFactory;
     private RecyclerView RV_list;
     private LinearLayout LL_empty;
-    private AlamListAdapter alamListAdapter;
-    private ArrayList<AlamModel> items = new ArrayList<>();
+    private AlarmListAdapter alamListAdapter;
+    private ArrayList<AlarmModel> items = new ArrayList<>();
 
     public static FragmentAlarm newInstance() {
         return new FragmentAlarm();
@@ -61,7 +61,7 @@ public class FragmentAlarm extends BaseFragment {
         textView = uiFactory.createView(R.id.fragment_alarm$TV_alarm);
         FontManager.getInstance().setFont(textView,  "NotoSansCJKkr-Regular.otf");
 
-        alamListAdapter = new AlamListAdapter(items);
+        alamListAdapter = new AlarmListAdapter(items);
         RV_list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         RV_list.setAdapter(alamListAdapter);
     }
@@ -77,7 +77,7 @@ public class FragmentAlarm extends BaseFragment {
     }
     private void makeItem(){
         items.clear();
-        items.add(new AlamModel(R.drawable.image_history_profile, SessionManager.getInstance().getUserModel().getNickname()));
+        items.add(new AlarmModel(R.drawable.image_history_profile, SessionManager.getInstance().getUserModel().getNickname()));
         alamListAdapter.notifyDataSetChanged();
 
     }

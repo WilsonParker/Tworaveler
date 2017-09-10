@@ -25,12 +25,12 @@ public class ReceivedCookiesInterceptor implements Interceptor {
 
         Response originalResponse = chain.proceed(request);
 
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie")));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", (originalResponse.headers().toString()));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("set-cookie")));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookie is empty? " + (originalResponse.headers("Cookie")));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "Cookies is empty? " + (originalResponse.headers("Cookies")));
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "intercept(Chain)", "connect.sid is empty? " + (originalResponse.headers("connect.sid")));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("Set-Cookie")));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", (originalResponse.headers().toString()));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", "Set-Cookie is empty? " + (originalResponse.headers("set-cookie")));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", "Cookie is empty? " + (originalResponse.headers("Cookie")));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", "Cookies is empty? " + (originalResponse.headers("Cookies")));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "intercept(Chain)", "connect.sid is empty? " + (originalResponse.headers("connect.sid")));
 
         if (!originalResponse.headers("Set-Cookie").isEmpty()) {
             HashSet<String> cookies = new HashSet<>();

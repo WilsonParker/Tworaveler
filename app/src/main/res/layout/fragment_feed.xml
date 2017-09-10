@@ -1,64 +1,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_feed$Root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
         android:id="@+id/fragment_feed$menuToptitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
+        android:visibility="visible"
         app:leftButton="@drawable/icon_back"
         app:rightButton="@drawable/icon_feedsearch"
-        app:titleText="@string/fragment_feed_title"
-        android:visibility="visible"/>
+        app:titleText="@string/fragment_feed_title" />
+
     <LinearLayout
         android:id="@+id/fragment_feed$LL_feed"
         android:layout_width="match_parent"
         android:layout_height="@dimen/menu_top_title_height"
         android:background="@color/default_theme_Image_color"
-        android:weightSum="56"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-        android:gravity="center">
+        android:weightSum="56">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="32"
-            android:weightSum="360"
-            android:gravity="center">
+            android:gravity="center"
+            android:weightSum="360">
+
             <LinearLayout
                 android:id="@+id/fragment_feed$LL_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="328"
-                android:gravity="center_vertical"
-                android:background="@drawable/input_feed"
-                >
+                android:background="@drawable/background_edittxet"
+                android:gravity="center_vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/icon_search"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"/>
+                    android:background="@drawable/icon_search" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
-                    android:textSize="13sp"
                     android:text="@string/fragment_feed_search"
-                    />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/fragment_feed$LL_info"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <ImageView
             android:layout_width="1dp"
             android:layout_height="12dp" />
@@ -89,9 +95,9 @@
                     android:id="@+id/fragment_feed$TV_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="33dp"
-                    android:textColor="@color/feed_nickname_color"
                     android:gravity="center_vertical"
                     android:text="에비츄~"
+                    android:textColor="@color/feed_nickname_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -118,6 +124,7 @@
                     android:background="@drawable/icon_follow" />
             </RelativeLayout>
         </LinearLayout>
+
         <ImageView
             android:layout_width="1dp"
             android:layout_height="12dp" />

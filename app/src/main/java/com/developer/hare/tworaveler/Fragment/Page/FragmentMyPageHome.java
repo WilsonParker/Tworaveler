@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -108,7 +108,7 @@ public class FragmentMyPageHome extends BaseFragment {
                 Net.getInstance().getFactoryIm().selectMyScheduleList(SessionManager.getInstance().getUserModel().getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-//                        Log_HR.log(FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleModel> model = response.body();
@@ -123,14 +123,14 @@ public class FragmentMyPageHome extends BaseFragment {
                                 });
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_WARN, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
+                            LogManager.log(LogManager.LOG_WARN, FragmentMyPageHome.class, "onResponse(Call<ResponseArrayModel<ScheduleModel>>)", "response is not Successful");
                             netFail();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                        Log_HR.log(FragmentMyPageHome.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
+                        LogManager.log(FragmentMyPageHome.class, "onFailure(Call<ResponseArrayModel<ScheduleModel>> ,Throwable)", "Fail", t);
                         netFail();
                     }
                 });

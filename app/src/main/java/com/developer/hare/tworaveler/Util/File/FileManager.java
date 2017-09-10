@@ -8,7 +8,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.developer.hare.tworaveler.Net.Net;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -51,7 +51,7 @@ public class FileManager {
         try {
             bitmap = BitmapFactory.decodeStream(new FileInputStream(file));
         } catch (Exception e) {
-            Log_HR.log(getClass(), "encodeFileToBitmap(File file)", e);
+            LogManager.log(getClass(), "encodeFileToBitmap(File file)", e);
         }
         return bitmap;
     }
@@ -61,7 +61,7 @@ public class FileManager {
         try {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         } catch (Exception e) {
-            Log_HR.log(getClass(), "encodeBitmapToFile(Bitmap bitmap)", e);
+            LogManager.log(getClass(), "encodeBitmapToFile(Bitmap bitmap)", e);
         }
         return bytes.toByteArray();
     }
@@ -139,59 +139,6 @@ public class FileManager {
             Log.e("Debug", "error: " + ioex.getMessage(), ioex);
         }
     }
-
-    // 이미지를 서버로 전송  =>
-        /*File file = fileData.getFile();
-        if (file != null && file.exists()) {
-            ImageManager.getInstance().loadImage(IV_noimage.getContext(),
-                    fileData,
-                    IV_noimage);
-        } else {
-            Drawable drawable = AppCompatDrawableManager.get().getDrawable(IV_noimage.getContext(), R.drawable.blue_button_background);
-            IV_noimage.setImageDrawable(drawable);
-        }*/
-
-    /*private void uploadFile(Uri fileUri) {
-        // create upload service client
-        FileUploadService service =
-                ServiceGenerator.createService(FileUploadService.class);
-
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
-        File file = FileUtils.getFile(this, fileUri);
-
-        // create RequestBody instance from file
-        RequestBody requestFile =
-                RequestBody.create(
-                        MediaType.parse(getContentResolver().getType(fileUri)),
-                        file
-                );
-
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-
-        // add another part within the multipart request
-        String descriptionString = "hello, this is description speaking";
-        RequestBody description =
-                RequestBody.create(
-                        okhttp3.MultipartBody.FORM, descriptionString);
-
-        // finally, execute the request
-        Call<ResponseBody> call = service.upload(description, body);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call,
-                                   Response<ResponseBody> response) {
-                Log.v("Upload", "success");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Upload error:", t.getMessage());
-            }
-        });
-    }*/
 
     // 값 불러오기
     public SharedPreferences getPreference() {

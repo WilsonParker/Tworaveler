@@ -11,7 +11,7 @@ import retrofit2.Response;
  * Created by Hare on 2017-06-29.
  */
 
-public class Log_HR {
+public class LogManager {
 
     private static final String TAG = "Tworaveler";
 

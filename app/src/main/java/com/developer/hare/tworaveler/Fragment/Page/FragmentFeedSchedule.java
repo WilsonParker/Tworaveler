@@ -30,7 +30,7 @@ import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -91,7 +91,7 @@ public class FragmentFeedSchedule extends BaseFragment {
     protected void init(View view) {
         Bundle bundle = getArguments();
         scheduleModel = (ScheduleModel) bundle.getSerializable(KEY_SCHEDULE_MODEL);
-//        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
+//        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "scheduleModel", scheduleModel.toString());
         uiFactory = UIFactory.getInstance(getActivity());
         imageManager = ImageManager.getInstance();
 
@@ -225,7 +225,7 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-//                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
@@ -237,14 +237,14 @@ public class FragmentFeedSchedule extends BaseFragment {
 
                         }
                     } else {
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                         netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure", t);
                     netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
                 }
             });
@@ -252,7 +252,7 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().modifyLike(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    //                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         switch (response.body().getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
@@ -264,14 +264,14 @@ public class FragmentFeedSchedule extends BaseFragment {
                         }
                     } else {
                         netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
                     netFail(R.string.fragmentFeed_schedule_alert_title_like_fail, R.string.fragmentFeed_schedule_alert_content_like_content_fail);
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
                 }
             });
         }
@@ -300,20 +300,20 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().selectUnFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    //                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
+                            LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isunFollow : " + scheduleModel.isFollow());
                             changeFollow(false);
                         }
                     } else
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure", t);
                     netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });
@@ -321,19 +321,19 @@ public class FragmentFeedSchedule extends BaseFragment {
             Net.getInstance().getFactoryIm().selectFollow(SessionManager.getInstance().getUserModel().getUser_no(), scheduleModel.getUser_no()).enqueue(new Callback<ResponseModel<FollowModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<FollowModel>> call, Response<ResponseModel<FollowModel>> response) {
-                    //                    Log_HR.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                    //                    LogManager.log(FragmentFeedSchedule.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
-                            Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
+                            LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "isFollow : " + scheduleModel.isFollow());
                             changeFollow(true);
                         }
                     } else
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentFeedSchedule.class, "onResponse", "onResponse is not successful");
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<FollowModel>> call, Throwable t) {
-                    Log_HR.log(FragmentFeedSchedule.class, "onFailure", t);
+                    LogManager.log(FragmentFeedSchedule.class, "onFailure", t);
                     netFail(R.string.fragmentFeed_schedule_alert_title_fail, R.string.fragmentFeed_schedule_alert_content_fail);
                 }
             });

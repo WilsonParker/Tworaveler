@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.File.FileManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
@@ -19,6 +20,7 @@ public class Intro extends AppCompatActivity {
             ResourceManager.getInstance().setResources(getResources());
             FontManager.getInstance().setAssetManager(getAssets());
             FileManager.getInstance().setActivity(activity);
+            UIFactory.init(Intro.this);
             initComplete = true;
         }
     });

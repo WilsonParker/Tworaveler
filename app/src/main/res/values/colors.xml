@@ -28,6 +28,7 @@
     <!-- Feed -->
     <color name="feed_title_color">#434343</color>
     <color name="feed_nickname_color">#000000</color>
+    <color name="feed_message_color">#535353</color>
     <color name="feed_date_color">#535353</color>
     <color name="feed_num_color">#a0a0a0</color>
 
@@ -41,6 +42,9 @@
 
     <!-- fragment need login-->
     <color name="fragment_login_text_color">#252525</color>
+
+    <!-- layout/fragment_mypage_profile-->
+    <color name="fragment_mypage_profile_line">#b5b5b5</color>
 
     <!-- layout/item_mypage_detail-->
     <color name="item_mypage_detail_count_color">#a0a0a0</color>

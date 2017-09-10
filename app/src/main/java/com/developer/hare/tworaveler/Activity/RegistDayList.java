@@ -26,7 +26,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -127,9 +127,9 @@ public class RegistDayList extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<ScheduleDayModel> result = response.body();
-                            Log_HR.log(Log_HR.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                            Log_HR.log(Log_HR.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                            Log_HR.log(Log_HR.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getResult());
+                            LogManager.log(LogManager.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                            LogManager.log(LogManager.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                            LogManager.log(LogManager.LOG_INFO, RegistDayList.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
                                     HandlerManager.getInstance().post(new Runnable() {
@@ -153,7 +153,7 @@ public class RegistDayList extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t) {
-                        Log_HR.log(RegistDayList.class, "onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t)", t);
+                        LogManager.log(RegistDayList.class, "onFailure(Call<ResponseArrayModel<ScheduleDayModel>> call, Throwable t)", t);
                         netFail(R.string.regist_day_list_alert_title_fail, R.string.regist_day_list_alert_content_fail_2);
                     }
                 });

@@ -31,7 +31,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
@@ -162,7 +162,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                             Net.getInstance().getFactoryIm().deleteTirp(model.getTrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                                 @Override
                                                 public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-//                                            Log_HR.log(HomeListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                                            LogManager.log(HomeListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                                     sweetAlertDialog.dismiss();
                                                     if (response.isSuccessful()) {
                                                         switch (response.body().getSuccess()) {
@@ -170,7 +170,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                                 HandlerManager.getInstance().post(new Runnable() {
                                                                     @Override
                                                                     public void run() {
-                                                                        Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onChange running");
+                                                                        LogManager.log(LogManager.LOG_INFO, HomeListAdapter.class, "onResponse", "onChange running");
                                                                         items.remove(model);
                                                                         onItemDeleteListener.onChange();
                                                                         sweetAlertDialog.dismissWithAnimation();
@@ -184,7 +184,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                                                 @Override
                                                 public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                                                     sweetAlertDialog.dismiss();
-                                                    Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                                                    LogManager.log(HomeListAdapter.class, "onFailure", t);
                                                 }
                                             });
                                         }
@@ -224,13 +224,13 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, HomeListAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, HomeListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(HomeListAdapter.class, "onFailure", t);
+                        LogManager.log(HomeListAdapter.class, "onFailure", t);
                     }
                 });
             } else {

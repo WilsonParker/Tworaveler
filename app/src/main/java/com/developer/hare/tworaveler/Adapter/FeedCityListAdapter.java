@@ -25,7 +25,7 @@ import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -153,7 +153,7 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(FeedCityListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                        LogManager.log(FeedCityListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
@@ -166,13 +166,13 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
 
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(FeedCityListAdapter.class, "onFailure", t);
+                        LogManager.log(FeedCityListAdapter.class, "onFailure", t);
                     }
                 });
             } else {
@@ -189,13 +189,13 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
                                     break;
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, FeedCityListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(FeedCityListAdapter.class, "onFailure", t);
+                        LogManager.log(FeedCityListAdapter.class, "onFailure", t);
 
                     }
                 });

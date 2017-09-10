@@ -32,7 +32,7 @@ import com.developer.hare.tworaveler.UI.PhotoManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 
@@ -74,7 +74,6 @@ public class FragmentBag extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_bag, container, false);
-
     }
 
     @Override
@@ -99,7 +98,7 @@ public class FragmentBag extends BaseFragment {
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
+                SessionManager.getInstance().actionAfterSessionCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
                     @Override
                     public void action() {
                         startActivity(new Intent(getActivity(), BagDelete.class));
@@ -128,7 +127,6 @@ public class FragmentBag extends BaseFragment {
             }
         });
 
-        createNavigationBagView();
         itemEmptyCheck(items);
     }
 
@@ -145,7 +143,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     public void onPhoto() {
-        SessionManager.getInstance().actionAfterSessoinCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
+        SessionManager.getInstance().actionAfterSessionCheck(getActivity(), new SessionManager.OnActionAfterSessionCheckListener() {
             @Override
             public void action() {
                 PhotoManager.getInstance().onGallerySingleSelect(getActivity(), new OnPhotoBindListener() {
@@ -162,9 +160,10 @@ public class FragmentBag extends BaseFragment {
         if (SessionManager.getInstance().isLogin()) {
             LL_login.setVisibility(View.VISIBLE);
             LL_noLogin.setVisibility(View.INVISIBLE);
+            createNavigationBagView();
         } else {
-            LL_noLogin.setVisibility(View.VISIBLE);
             LL_login.setVisibility(View.INVISIBLE);
+            LL_noLogin.setVisibility(View.VISIBLE);
         }
     }
 
@@ -190,7 +189,7 @@ public class FragmentBag extends BaseFragment {
             @Override
             public void onResponse(Call<ResponseModel<BagModel>> call, Response<ResponseModel<BagModel>> response) {
                 if (response.isSuccessful()) {
-//                    Log_HR.log(FragmentBag.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                    LogManager.log(FragmentBag.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     ResponseModel<BagModel> rbag = response.body();
                     switch (response.body().getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
@@ -207,13 +206,13 @@ public class FragmentBag extends BaseFragment {
                     }
                 } else {
                     netFailAlert(R.string.fragmentBag_alert_title_fail_2, R.string.fragmentBag_alert_content_fail_3);
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentBag.class, "onResponse", "onResponse is not successful");
+                    LogManager.log(LogManager.LOG_INFO, FragmentBag.class, "onResponse", "onResponse is not successful");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<BagModel>> call, Throwable t) {
-                Log_HR.log(FragmentBag.class, "onFailure()", "addBag err : ", t);
+                LogManager.log(FragmentBag.class, "onFailure()", "addBag err : ", t);
                 netFailAlert(R.string.fragmentBag_alert_title_fail_2, R.string.fragmentBag_alert_content_fail_3);
             }
         });
@@ -224,11 +223,12 @@ public class FragmentBag extends BaseFragment {
             AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentBag_alert_title_fail);
             return;
         }
+
         Net.getInstance().getFactoryIm().selectBagList(userModel.getUser_no(), theme).enqueue(new Callback<ResponseArrayModel<BagModel>>() {
             @Override
             public void onResponse(Call<ResponseArrayModel<BagModel>> call, Response<ResponseArrayModel<BagModel>> response) {
                 if (response.isSuccessful()) {
-//                    Log_HR.log(FragmentBag.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                    LogManager.log(FragmentBag.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     switch (response.body().getSuccess()) {
                         case DataDefinition.Network.CODE_SUCCESS:
                             HandlerManager.getInstance().post(new Runnable() {
@@ -252,14 +252,14 @@ public class FragmentBag extends BaseFragment {
 
                 } else {
                     netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
-                    Log_HR.log(Log_HR.LOG_INFO, FragmentBag.class, "onResponse", "onResponse is not successful");
+                    LogManager.log(LogManager.LOG_INFO, FragmentBag.class, "onResponse", "onResponse is not successful");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseArrayModel<BagModel>> call, Throwable t) {
                 netFailAlert(R.string.fragmentBag_alert_title_fail, R.string.fragmentBag_alert_content_fail);
-                Log_HR.log(FragmentBag.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                LogManager.log(FragmentBag.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
             }
         });
     }

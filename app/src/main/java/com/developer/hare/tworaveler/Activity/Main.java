@@ -67,7 +67,7 @@ public class Main extends AppCompatActivity {
         items.add(customNavigationView.new NavigationItem(R.drawable.icon_add_click, R.drawable.icon_add_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
-                SessionManager.getInstance().actionAfterSessoinCheck(Main.this, new SessionManager.OnActionAfterSessionCheckListener() {
+                SessionManager.getInstance().actionAfterSessionCheck(Main.this, new SessionManager.OnActionAfterSessionCheckListener() {
                     @Override
                     public void action() {
                         startActivityForResult(new Intent(Main.this, Regist.class), REQUEST_CODE_REGIST);

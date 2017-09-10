@@ -26,7 +26,7 @@ import com.developer.hare.tworaveler.UI.AlertManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public class SignIn extends AppCompatActivity {
                 }
             }
         });
-//        Log_HR.log(Log_HR.LOG_INFO, getClass(), "init()", "key hash :  " + KeyManager.getInstance().getKeyHash(this));
+//        LogManager.log(LogManager.LOG_INFO, getClass(), "init()", "key hash :  " + KeyManager.getInstance().getKeyHash(this));
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_email);
         textViews.add(ET_password);
@@ -190,7 +190,7 @@ public class SignIn extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseModel<UserModel> result = response.body();
-//                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
+//                            LogManager.log(LogManager.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "body : " + result.getResult());
                             switch (result.getSuccess()) {
                                 case CODE_SUCCESS:
                                     AlertManager.getInstance().createAlert(SignIn.this, SweetAlertDialog.SUCCESS_TYPE
@@ -242,7 +242,7 @@ public class SignIn extends AppCompatActivity {
 
 
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isFail");
+                            LogManager.log(LogManager.LOG_INFO, SignIn.class, "signIn - onResponse(Call, Response)", "isFail");
                             netFail();
                         }
                     }

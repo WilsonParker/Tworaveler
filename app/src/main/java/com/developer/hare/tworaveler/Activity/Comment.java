@@ -32,7 +32,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
@@ -167,11 +167,11 @@ public class Comment extends AppCompatActivity {
             return;
         }
         CommentModel commentModel = new CommentModel(scheduleModel.getTrip_no(), userModel.getUser_no(), userModel.getNickname(), msg);
-        Log_HR.log(Log_HR.LOG_INFO, Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", "commentModel : " + commentModel);
+        LogManager.log(LogManager.LOG_INFO, Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", "commentModel : " + commentModel);
         Net.getInstance().getFactoryIm().commentUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                Log_HR.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                LogManager.log(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     switch (model.getSuccess()) {
@@ -194,7 +194,7 @@ public class Comment extends AppCompatActivity {
                             break;
                     }
                 } else {
-                    Log_HR.log(Log_HR.LOG_WARN, Comment.class, "onResponse", "onResponse is not successful");
+                    LogManager.log(LogManager.LOG_WARN, Comment.class, "onResponse", "onResponse is not successful");
                     netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail);
                 }
             }
@@ -202,7 +202,7 @@ public class Comment extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                 netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
-                Log_HR.log(Comment.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
+                LogManager.log(Comment.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
             }
         });
 
@@ -215,7 +215,7 @@ public class Comment extends AppCompatActivity {
                 Net.getInstance().getFactoryIm().commentList(scheduleModel.getTrip_no()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
-                        Log_HR.logA(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                        LogManager.logA(Comment.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -244,7 +244,7 @@ public class Comment extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
-                        Log_HR.log(Comment.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
+                        LogManager.log(Comment.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
                     }
                 });
             }

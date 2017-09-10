@@ -25,7 +25,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -114,7 +114,7 @@ public class FragmentMyPageProfile extends BaseFragment {
                 @Override
                 public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
                     ResponseModel<UserModel> result = response.body();
-//                        Log_HR.log(FragmentMyPageProfile.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FragmentMyPageProfile.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                     if (response.isSuccessful()) {
                         switch (result.getSuccess()) {
                             case CODE_SUCCESS:
@@ -138,14 +138,14 @@ public class FragmentMyPageProfile extends BaseFragment {
                         }
                     } else {
                         AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
-                        Log_HR.log(Log_HR.LOG_INFO, FragmentMyPageProfile.class, "onResponse", "onResponse is not successful");
+                        LogManager.log(LogManager.LOG_INFO, FragmentMyPageProfile.class, "onResponse", "onResponse is not successful");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                     AlertManager.getInstance().showNetFailAlert(getActivity(), R.string.profileSet_info_fail_alert_title, R.string.profileSet_info_fail_alert_content);
-                    Log_HR.log(FragmentMyPageProfile.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                    LogManager.log(FragmentMyPageProfile.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
                 }
             }
         );

@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -194,7 +194,7 @@ public class Regist extends AppCompatActivity {
                             progressManager.endRunning();
                             if (response.isSuccessful()) {
                                 ResponseModel<ScheduleModel> result = response.body();
-                                Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
+                                LogManager.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
 
@@ -210,7 +210,7 @@ public class Regist extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t) {
-                            Log_HR.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                            LogManager.log(Regist.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                             netFail(R.string.regist_alert_title_fail, R.string.regist_alert_content_fail_5);
                         }
                     });
@@ -221,7 +221,7 @@ public class Regist extends AppCompatActivity {
                             progressManager.endRunning();
                             if (response.isSuccessful()) {
                                 ResponseModel<ScheduleModel> result = response.body();
-                                Log_HR.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
+                                LogManager.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
                                         Intent intent = new Intent();

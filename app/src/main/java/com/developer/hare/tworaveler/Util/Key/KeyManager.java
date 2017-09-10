@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
 
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,7 +35,7 @@ public class KeyManager {
                 md.update(signature.toByteArray());
                 return Base64.encodeToString(md.digest(), Base64.NO_WRAP);
             } catch (NoSuchAlgorithmException e) {
-                Log_HR.log(getClass(), "getKeyHash(Context)", "Unable to get MessageDigest. signature=" + signature, e);
+                LogManager.log(getClass(), "getKeyHash(Context)", "Unable to get MessageDigest. signature=" + signature, e);
             }
         }
         return null;

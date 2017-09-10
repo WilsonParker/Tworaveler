@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -92,7 +92,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             TV_memo = uiFactory.createView(R.id.item_mypage_detail$TV_memo);
             TV_like = uiFactory.createView(R.id.item_mypage_detail$TV_like);
             TV_commenet = uiFactory.createView(R.id.item_mypage_detail$TV_comment);
-            IV_btn = uiFactory.createView(R.id.item_mypage_detail$IV_more);
+//            IV_btn = uiFactory.createView(R.id.item_mypage_detail$IV_more);
             IV_like = uiFactory.createView(R.id.item_mypage_detail$IV_like);
             LL_comment = uiFactory.createView(R.id.item_mypage_detail$LL_comment);
             LL_like = uiFactory.createView(R.id.item_mypage_detail$LL_like);
@@ -168,7 +168,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                                 Net.getInstance().getFactoryIm().deleteDetailTirp(model.getDtrip_no()).enqueue(new Callback<ResponseModel<String>>() {
                                                     @Override
                                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-//                                                Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                                                LogManager.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                                             sweetAlertDialog.dismiss();
                                                         if (response.isSuccessful()) {
                                                             switch (response.body().getSuccess()) {
@@ -184,13 +184,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                                                     break;
                                                             }
                                                         } else
-                                                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
+                                                            LogManager.log(LogManager.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                                                     }
 
                                                     @Override
                                                     public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                                                         sweetAlertDialog.dismiss();
-                                                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                                                        LogManager.log(MypageDetailAdapter.class, "onFailure", t);
                                                     }
                                                 });
                                             }
@@ -222,7 +222,7 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                 Net.getInstance().getFactoryIm().modifyDetailUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getDtrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-                        Log_HR.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                        LogManager.log(MypageDetailAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
@@ -240,13 +240,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
 
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                        LogManager.log(MypageDetailAdapter.class, "onFailure", t);
                     }
                 });
             } else {
@@ -268,13 +268,13 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
                                     break;
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, MypageDetailAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(MypageDetailAdapter.class, "onFailure", t);
+                        LogManager.log(MypageDetailAdapter.class, "onFailure", t);
                     }
                 });
             }

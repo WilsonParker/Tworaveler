@@ -1,6 +1,6 @@
 package com.developer.hare.tworaveler.Net;
 
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -105,15 +105,15 @@ public class Net {
             }
             bufferedReader.close();
 
-            Log_HR.log(Log_HR.LOG_INFO, getClass(), "urlConnect()", "result : " + result);
+            LogManager.log(LogManager.LOG_INFO, getClass(), "urlConnect()", "result : " + result);
 
             Map<String, List<String>> resMap = httpUrlConnection.getHeaderFields();
             for (String key : resMap.keySet()) {
-                Log_HR.log(Log_HR.LOG_INFO, getClass(), "urlConnect()", "key :  : " + key + " / " + resMap.get(key));
+                LogManager.log(LogManager.LOG_INFO, getClass(), "urlConnect()", "key :  : " + key + " / " + resMap.get(key));
             }
 
         } catch (Exception e) {
-            Log_HR.log(getClass(), "urlConnect()", e);
+            LogManager.log(getClass(), "urlConnect()", e);
         }
     }
 }

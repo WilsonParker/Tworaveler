@@ -48,18 +48,20 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView TV_name;
+        private TextView TV_country, TV_city;
 
         public ViewHolder(View itemView) {
             super(itemView);
             UIFactory uiFactory = UIFactory.getInstance(itemView);
-            TV_name = uiFactory.createView(R.id.item_search_city$TV_name);
+            TV_country = uiFactory.createView(R.id.item_search_city$TV_country);
+            TV_city = uiFactory.createView(R.id.item_search_city$TV_city);
         }
 
         public void toBind(CityModel model) {
-            TV_name.setText(model.getCity());
-            FontManager.getInstance().setFont(TV_name, "NotoSansCJKkr-Medium.otf");
-            TV_name.setOnClickListener(new View.OnClickListener() {
+            TV_country.setText(model.getCountry());
+            TV_city.setText(model.getCity());
+            FontManager.getInstance().setFont(TV_country, "NotoSansCJKkr-Medium.otf");
+            TV_country.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onSelectCityModel.onSelectCity(model);

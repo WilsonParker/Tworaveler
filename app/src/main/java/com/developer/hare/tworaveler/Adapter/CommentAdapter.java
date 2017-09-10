@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -115,7 +115,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     ET_comment.findFocus();
                                     keyboardManager.showInputKeyboard(context);
                                     ET_comment.setText(model.getContent());
-//                                    Log_HR.log(Log_HR.LOG_INFO,CommentAdapter.class,"ET_comment","count" + ET_comment.getLineCount());
+//                                    LogManager.log(LogManager.LOG_INFO,CommentAdapter.class,"ET_comment","count" + ET_comment.getLineCount());
                                     ET_comment.setOnKeyListener(new View.OnKeyListener() {
                                         @Override
                                         public boolean onKey(View view, int i, KeyEvent keyEvent) {
@@ -179,14 +179,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         private void changeComment() {
             model.setContent(ET_comment.getText().toString());
-            Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "CommentModel : " + model);
+            LogManager.log(LogManager.LOG_INFO, CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", "CommentModel : " + model);
 
             switch (type) {
                 case COMMENT:
                     Net.getInstance().getFactoryIm().commentModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
+                            LogManager.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
@@ -202,14 +202,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             } else {
                                 netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_2);
-                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                             netFail(R.string.comment_alert_title_fail_3, R.string.comment_alert_content_fail_5);
-                            Log_HR.log(CommentAdapter.class, "onFailure", t);
+                            LogManager.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;
@@ -217,7 +217,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     Net.getInstance().getFactoryIm().commentDetailModify(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
+                            LogManager.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
@@ -232,14 +232,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             } else {
                                 netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_2);
-                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                             netFail(R.string.comment_detail_alert_title_fail_3, R.string.comment_alert_content_fail_5);
-                            Log_HR.log(CommentAdapter.class, "onFailure", t);
+                            LogManager.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;
@@ -252,7 +252,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     Net.getInstance().getFactoryIm().commentDelete(model).enqueue(new Callback<ResponseModel<String>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
+                            LogManager.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if (response.isSuccessful()) {
                                 switch (response.body().getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
@@ -270,14 +270,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             } else {
                                 netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_4);
-                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<String>> call, Throwable t) {
                             netFail(R.string.comment_alert_title_fail_4, R.string.comment_alert_content_fail_5);
-                            Log_HR.log(CommentAdapter.class, "onFailure", t);
+                            LogManager.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;
@@ -285,7 +285,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     Net.getInstance().getFactoryIm().commentDetailDelete(model).enqueue(new Callback<ResponseModel<CommentModel>>() {
                         @Override
                         public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                            Log_HR.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
+                            LogManager.log(CommentAdapter.class, "onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response)", response);
                             if (response.isSuccessful()) {
                                 if (response.body().getSuccess() == DataDefinition.Network.CODE_SUCCESS) {
                                     HandlerManager.getInstance().post(new Runnable() {
@@ -298,14 +298,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 }
                             } else {
                                 netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_4);
-                                Log_HR.log(Log_HR.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
+                                LogManager.log(LogManager.LOG_INFO, CommentAdapter.class, "onResponse", "response is not successful");
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                             netFail(R.string.comment_detail_alert_title_fail_4, R.string.comment_alert_content_fail_5);
-                            Log_HR.log(CommentAdapter.class, "onFailure", t);
+                            LogManager.log(CommentAdapter.class, "onFailure", t);
                         }
                     });
                     break;

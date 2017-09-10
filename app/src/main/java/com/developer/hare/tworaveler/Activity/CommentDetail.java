@@ -30,7 +30,7 @@ import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import java.util.ArrayList;
@@ -154,7 +154,7 @@ public class CommentDetail extends AppCompatActivity {
         Net.getInstance().getFactoryIm().commentDetailUpload(commentModel).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
-                Log_HR.log(CommentDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                LogManager.log(CommentDetail.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                 if (response.isSuccessful()) {
                     ResponseModel<CommentModel> model = response.body();
                     switch (model.getSuccess()) {
@@ -184,7 +184,7 @@ public class CommentDetail extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseModel<CommentModel>> call, Throwable t) {
                 netFail(R.string.comment_alert_title_fail, R.string.comment_alert_content_fail_5);
-                Log_HR.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
+                LogManager.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
             }
         });
 
@@ -197,7 +197,7 @@ public class CommentDetail extends AppCompatActivity {
                 Net.getInstance().getFactoryIm().commentDetailList(scheduleDayModel.getDtrip_no(), scheduleDayModel.getTrip_date()).enqueue(new Callback<ResponseArrayModel<CommentModel>>() {
                     @Override
                     public void onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response) {
-                        Log_HR.logA(CommentDetail.class, "onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response)", response);
+                        LogManager.logA(CommentDetail.class, "onResponse(Call<ResponseArrayModel<CommentModel>> call, Response<ResponseArrayModel<CommentModel>> response)", response);
                         if (response.isSuccessful()) {
                             progressManager.endRunning();
                             ResponseArrayModel<CommentModel> model = response.body();
@@ -226,7 +226,7 @@ public class CommentDetail extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t) {
-                        Log_HR.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
+                        LogManager.log(CommentDetail.class, "onFailure(Call<ResponseModel<CommentModel>> call, Throwable t)", t);
                         netFail(R.string.comment_alert_title_fail_2, R.string.comment_alert_content_fail_5);
                     }
                 });

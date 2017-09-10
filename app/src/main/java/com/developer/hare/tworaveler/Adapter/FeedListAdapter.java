@@ -28,7 +28,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ScrollEndMethod;
 
 import java.util.ArrayList;
@@ -179,7 +179,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                 Net.getInstance().getFactoryIm().modifyUnLike(userModel.getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-//                        Log_HR.log(FeedListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FeedListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
                                 case DataDefinition.Network.CODE_SUCCESS:
@@ -191,13 +191,13 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
 
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, FeedListAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, FeedListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(FeedListAdapter.class, "onFailure", t);
+                        LogManager.log(FeedListAdapter.class, "onFailure", t);
                     }
                 });
             } else {
@@ -214,13 +214,13 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
                                     break;
                             }
                         } else {
-                            Log_HR.log(Log_HR.LOG_INFO, FeedListAdapter.class, "onResponse", "onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO, FeedListAdapter.class, "onResponse", "onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(FeedListAdapter.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
+                        LogManager.log(FeedListAdapter.class, "onFailure(Call<ResponseArrayModel<CommentModel>> call, Throwable t)", t);
                     }
                 });
             }

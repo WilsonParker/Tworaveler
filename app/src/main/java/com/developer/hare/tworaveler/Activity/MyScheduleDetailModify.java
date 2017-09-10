@@ -26,7 +26,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -199,9 +199,9 @@ public class MyScheduleDetailModify extends AppCompatActivity {
                 public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
                         ResponseModel<ScheduleDayModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 AlertManager.getInstance().createAlert(MyScheduleDetailModify.this, SweetAlertDialog.SUCCESS_TYPE, R.string.myscheduleDetailModify_alert_title_success, R.string.myscheduleDetailModify_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
@@ -222,7 +222,7 @@ public class MyScheduleDetailModify extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseModel<ScheduleDayModel>> call, Throwable t) {
-                    Log_HR.log(MyScheduleDetailModify.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
+                    LogManager.log(MyScheduleDetailModify.class, "onFailure(Call<ResponseModel<ScheduleModel>> call, Throwable t)", t);
                     netFail(R.string.myscheduleDetailModify_alert_title_fail, R.string.myscheduleDetailModify_alert_content_fail_2);
                 }
             });
@@ -232,9 +232,9 @@ public class MyScheduleDetailModify extends AppCompatActivity {
                 public void onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response) {
                     if (response.isSuccessful()) {
                         ResponseModel<ScheduleDayModel> result = response.body();
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
-                        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getSuccess());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getMessage());
+                        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "onResponse(Call<ResponseModel<ScheduleDayModel>> call, Response<ResponseModel<ScheduleDayModel>> response)", "body : " + result.getResult());
                         switch (result.getSuccess()) {
                             case DataDefinition.Network.CODE_SUCCESS:
                                 AlertManager.getInstance().createAlert(MyScheduleDetailModify.this, SweetAlertDialog.SUCCESS_TYPE, R.string.regist_day_detail_alert_title_success, R.string.regist_day_detail_alert_content_success, new SweetAlertDialog.OnSweetClickListener() {
@@ -268,8 +268,8 @@ public class MyScheduleDetailModify extends AppCompatActivity {
         boolean result = false;
         String starDate = TV_startTime.getText().toString();
         String endDate = TV_endTime.getText().toString();
-//        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate + " / " + endDate);
-//        Log_HR.log(Log_HR.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
+//        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate + " / " + endDate);
+//        LogManager.log(LogManager.LOG_INFO, MyScheduleDetailModify.class, "checkValidation", "time : " + starDate.matches(DataDefinition.RegularExpression.REG_TIME) + " / " + endDate.matches(DataDefinition.RegularExpression.REG_TIME));
 
         if (TV_locationName.getText().toString().isEmpty()) {
             AlertManager.getInstance().createAlert(this, SweetAlertDialog.WARNING_TYPE, resourceManager.getResourceString(R.string.regist_day_detail_alert_title_fail), resourceManager.getResourceString(R.string.regist_day_detail_alert_content_fail_2)).show();

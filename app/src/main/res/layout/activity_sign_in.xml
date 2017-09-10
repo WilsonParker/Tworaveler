@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_background"
@@ -18,211 +16,205 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:weightSum="616">
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="110" />
+                android:layout_weight="16" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="75"
-                android:weightSum="@string/DEVICE_WIDTH">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="145" />
-
-                <ImageView
-                    android:onClick="goToMain"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="70" />
-            </LinearLayout>
-
-            <ImageView
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="85.7" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_weight="160"
-                android:minHeight="300dp"
+                android:layout_height="match_parent"
+                android:layout_weight="584"
                 android:orientation="vertical"
-                android:weightSum="160">
+                android:weightSum="616">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="110" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="48">
+                    android:layout_weight="75"
+                    android:weightSum="@string/DEVICE_WIDTH">
 
-                    <EditText
-                        android:id="@+id/activty_login$ET_email"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="129" />
+
+                    <ImageView
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/btn_email"
-                        android:hint="@string/activity_login$hint_ET_email"
-                        android:inputType="textEmailAddress|textAutoComplete"
-                        android:nextFocusDown="@+id/activty_login$ET_password"
-                        android:paddingLeft="@dimen/EditText_Padding"
-                        android:paddingRight="@dimen/EditText_Padding"
-                        android:maxLength="29"
-                        android:textCursorDrawable="@drawable/cursor_edittext" />
+                        android:layout_weight="70"
+                        android:onClick="goToMain" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="8" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="48">
-
-                    <EditText
-                        android:id="@+id/activty_login$ET_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/btn_password"
-                        android:imeOptions="actionNext"
-                        android:hint="@string/activity_login$hint_ET_password"
-                        android:inputType="textPassword"
-                        android:paddingLeft="@dimen/EditText_Padding"
-                        android:paddingRight="@dimen/EditText_Padding"
-                        android:maxLength="32"
-                        android:textCursorDrawable="@drawable/cursor_edittext" />
-                </LinearLayout>
+                    android:layout_weight="85.7" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="8" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="48">
-
-                    <ImageButton
-                        android:id="@+id/activity_login$IV_signIn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/btn_login" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="185.3"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_weight="160"
+                    android:minHeight="300dp"
                     android:orientation="vertical"
-                    android:weightSum="185.3">
+                    android:weightSum="160">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="47" />
+                        android:layout_weight="48">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="48"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <!-- 페이스북 버튼은 무조건 이 View를 사용해야
-                            해요  그럼 못바꿔? 예 다른애들은 어케바꾼거?
-                            -->
-                            <Button
-                                android:id="@+id/activity_login$BT_facebook"
-                                android:layout_width="157dp"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/btn_facebook" />
-
-                        </LinearLayout>
-
-                        <RelativeLayout
-                            android:layout_width="0dp"
+                        <EditText
+                            android:id="@+id/activty_login$ET_email"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal">
-
-                            <Button
-                                android:id="@+id/activity_login$BT_kakao_logout"
-                                android:layout_width="157dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/btn_kakao"
-                                android:text="kakao logout"
-                                android:visibility="invisible" />
-
-                            <Button
-                                android:id="@+id/activity_login$BT_kakao"
-                                android:layout_width="157dp"
-                                android:layout_height="48dp"
-                                android:layout_alignLeft="@+id/activity_login$BT_kakao_logout"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignStart="@+id/activity_login$BT_kakao_logout"
-                                android:background="@drawable/btn_kakao" />
-
-                        </RelativeLayout>
+                            android:background="@drawable/btn_email"
+                            android:hint="@string/activity_login$hint_ET_email"
+                            android:inputType="textEmailAddress|textAutoComplete"
+                            android:maxLength="29"
+                            android:nextFocusDown="@+id/activty_login$ET_password"
+                            android:paddingLeft="@dimen/EditText_Padding"
+                            android:paddingRight="@dimen/EditText_Padding"
+                            android:textCursorDrawable="@drawable/cursor_edittext" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="90.3"
-                        android:orientation="vertical">
+                        android:layout_weight="8" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="48">
+
+                        <EditText
+                            android:id="@+id/activty_login$ET_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btn_password"
+                            android:hint="@string/activity_login$hint_ET_password"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"
+                            android:maxLength="32"
+                            android:paddingLeft="@dimen/EditText_Padding"
+                            android:paddingRight="@dimen/EditText_Padding"
+                            android:textCursorDrawable="@drawable/cursor_edittext" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="8" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="48">
+
+                        <ImageButton
+                            android:id="@+id/activity_login$IV_signIn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/btn_login" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="185.3"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:weightSum="185.3">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="47" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:weightSum="90.3">
+                            android:layout_height="0dp"
+                            android:layout_weight="48"
+                            android:orientation="horizontal"
+                            android:weightSum="328">
+
+                            <Button
+                                android:id="@+id/activity_login$BT_facebook"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="157"
+                                android:background="@drawable/btn_facebook" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="14.3" />
+
+                            <Button
+                                android:id="@+id/activity_login$BT_kakao"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="157"
+                                android:background="@drawable/btn_kakao" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="90.3"
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="25" />
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:weightSum="90.3">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="65.3">
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="25" />
 
-                                <TextView
-                                    android:id="@+id/login$BT_signUp"
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="top|center_horizontal"
-                                    android:text="@string/activity_login$text_signUp"
-                                    android:textColor="@color/colorWhite"
-                                    android:textSize="11sp"
-                                    android:textStyle="italic" />
+                                    android:layout_height="0dp"
+                                    android:layout_weight="65.3">
+
+                                    <TextView
+                                        android:id="@+id/login$BT_signUp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="top|center_horizontal"
+                                        android:text="@string/activity_login$text_signUp"
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="11sp"
+                                        android:textStyle="italic" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="16" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

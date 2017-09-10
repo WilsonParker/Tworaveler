@@ -25,7 +25,7 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Date.DateManager;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -169,8 +169,8 @@ public class MyScheduleModify extends AppCompatActivity {
             Net.getInstance().getFactoryIm().modifySchedule(retrofitBodyParser.createImageMultipartBodyPart(DataDefinition.Key.KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(model)).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
-                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
+                    LogManager.log(LogManager.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
+                    LogManager.log(LogManager.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
                     if (response.isSuccessful()) {
                         ResponseModel<ScheduleModel> result = response.body();
                         switch (result.getSuccess()) {
@@ -194,8 +194,8 @@ public class MyScheduleModify extends AppCompatActivity {
             Net.getInstance().getFactoryIm().modifySchedule(model).enqueue(new Callback<ResponseModel<ScheduleModel>>() {
                 @Override
                 public void onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response) {
-                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
-                    Log_HR.log(Log_HR.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
+                    LogManager.log(LogManager.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getSuccess());
+                    LogManager.log(LogManager.LOG_INFO, MyScheduleModify.class, "onResponse", "body : " + response.body().getMessage());
                     if (response.isSuccessful()) {
                         ResponseModel<ScheduleModel> result = response.body();
                         switch (result.getSuccess()) {

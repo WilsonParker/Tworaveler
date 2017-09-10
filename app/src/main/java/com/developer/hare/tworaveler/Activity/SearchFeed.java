@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -101,7 +101,7 @@ public class SearchFeed extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if(isCity) {
-                    Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running city");
+                    LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running city");
                     Net.getInstance().getFactoryIm().searchCity( ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<CityModel>>() {
                         @Override
                         public void onResponse(Call<ResponseArrayModel<CityModel>> call, Response<ResponseArrayModel<CityModel>> response) {
@@ -129,17 +129,17 @@ public class SearchFeed extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseArrayModel<CityModel>> call, Throwable t) {
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "onFail : " + t);
+                            LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseArrayModel<ScheduleDayModel>> call, Response<ResponseArrayModel<ScheduleDayModel>> response)", "onFail : " + t);
                         }
                     });
                 }else{
                     Net.getInstance().getFactoryIm().searchNickname(SessionManager.getInstance().getUserModel().getUser_no(), ET_city.getText().toString()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                         @Override
                         public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                           /* Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "ScheduleModel", "" + nicknameItems);
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)",response.body().toString());
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.isSuccessful());
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());*/
+                           /* LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "ScheduleModel", "" + nicknameItems);
+                            LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)",response.body().toString());
+                            LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.isSuccessful());
+                            LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "afterTextChanged(Editable)", "running nickname"+ response.message());*/
                             if (response.isSuccessful()) {
                                 ResponseArrayModel<ScheduleModel> result = response.body();
                                 nicknameItems = result.getResult();
@@ -162,7 +162,7 @@ public class SearchFeed extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseArrayModel<ScheduleModel>> call, Throwable t) {
-                            Log_HR.log(Log_HR.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response)", "onFail : " + t);
+                            LogManager.log(LogManager.LOG_INFO, SearchFeed.class, "onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response)", "onFail : " + t);
                         }
                     });
                 }
@@ -190,7 +190,7 @@ public class SearchFeed extends AppCompatActivity {
 
     private void selectFeed(boolean isCity){
         if(isCity){
-            SessionManager.getInstance().actionAfterSessoinCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
+            SessionManager.getInstance().actionAfterSessionCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
                 @Override
                 public void action() {
                     city.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));
@@ -200,7 +200,7 @@ public class SearchFeed extends AppCompatActivity {
                 }
             });
         }else {
-            SessionManager.getInstance().actionAfterSessoinCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
+            SessionManager.getInstance().actionAfterSessionCheck(SearchFeed.this, new SessionManager.OnActionAfterSessionCheckListener() {
                 @Override
                 public void action() {
                     nickname.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.menu_top_title_color));

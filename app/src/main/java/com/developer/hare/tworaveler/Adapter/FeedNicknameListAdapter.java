@@ -23,7 +23,7 @@ import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.util.ArrayList;
 
@@ -137,7 +137,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
                 Net.getInstance().getFactoryIm().modifyUnLike(SessionManager.getInstance().getUserModel().getUser_no(), model.getTrip_no()).enqueue(new Callback<ResponseModel<LikeModel>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<LikeModel>> call, Response<ResponseModel<LikeModel>> response) {
-//                        Log_HR.log(FeedNicknameListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+//                        LogManager.log(FeedNicknameListAdapter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
 
                         if (response.isSuccessful()) {
                             switch (response.body().getSuccess()) {
@@ -150,13 +150,13 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
 
                             }
                         }else{
-                            Log_HR.log(Log_HR.LOG_INFO,FeedNicknameListAdapter.class, "onResponse","onResponse is not successful");
+                            LogManager.log(LogManager.LOG_INFO,FeedNicknameListAdapter.class, "onResponse","onResponse is not successful");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseModel<LikeModel>> call, Throwable t) {
-                        Log_HR.log(FeedNicknameListAdapter.class, "onFailure", t);
+                        LogManager.log(FeedNicknameListAdapter.class, "onFailure", t);
                     }
                 });
             }else {

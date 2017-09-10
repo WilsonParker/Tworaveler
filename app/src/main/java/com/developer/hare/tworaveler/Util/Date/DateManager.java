@@ -8,7 +8,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -104,7 +104,7 @@ public class DateManager {
         try {
             result = new SimpleDateFormat(pattern).parse(date);
         } catch (ParseException e) {
-            Log_HR.log(getClass(), "parseDate(String, String)", "ParseException", e);
+            LogManager.log(getClass(), "parseDate(String, String)", "ParseException", e);
         }
         return result;
     }

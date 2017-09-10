@@ -29,7 +29,7 @@ import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.Parser.RetrofitBodyParser;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
@@ -171,7 +171,7 @@ public class MyProfileSet extends AppCompatActivity {
                                 Net.getInstance().getFactoryIm().userLogout().enqueue(new Callback<ResponseModel<String>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<String>> call, Response<ResponseModel<String>> response) {
-                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response);
+                                        LogManager.log(LogManager.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + response);
                                         if (response.isSuccessful()) {
                                             switch (response.body().getSuccess()) {
                                                 case CODE_NOT_LOGIN:
@@ -222,12 +222,12 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void onConfirmClick(String input) {
 //                                String cookie = FileManager.getInstance().getPreference().getStringSet(FileManager.KEY_SESSION, new HashSet<>()).iterator().next();
-//                                Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
+//                                LogManager.log(LogManager.LOG_INFO, MyProfileSet.class, "onResponse()", "Cookie : " + cookie);
                                 Net.getInstance().getFactoryIm().userSignOut(new UserReqModel(userModel.getEmail(), input)).enqueue(new Callback<ResponseModel<ResponseModel<String>>>() {
                                     @Override
                                     public void onResponse(Call<ResponseModel<ResponseModel<String>>> call, Response<ResponseModel<ResponseModel<String>>> response) {
                                         ResponseModel<ResponseModel<String>> resModel = response.body();
-                                        Log_HR.log(Log_HR.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + resModel);
+                                        LogManager.log(LogManager.LOG_INFO, MyProfileSet.class, "onResponse()", "body : " + resModel);
                                         int successCode;
                                         if (response.isSuccessful()) {
                                             progressManager.endRunning();
@@ -303,7 +303,7 @@ public class MyProfileSet extends AppCompatActivity {
                         Net.getInstance().getFactoryIm().modifyProfile(userReqModel).enqueue(new Callback<ResponseModel<UserModel>>() {
                             @Override
                             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                                LogManager.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 if (response.isSuccessful()) {
                                     progressManager.endRunning();
                                     ResponseModel<UserModel> result = response.body();
@@ -330,7 +330,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                                 netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
-                                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+                                LogManager.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
                             }
                         });
                         break;
@@ -339,7 +339,7 @@ public class MyProfileSet extends AppCompatActivity {
                         Net.getInstance().getFactoryIm().modifyProfile(retrofitBodyParser.createImageMultipartBodyPart(KEY_USER_FILE, imageFile), retrofitBodyParser.parseMapRequestBody(userReqModel)).enqueue(new Callback<ResponseModel<UserModel>>() {
                             @Override
                             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
-                                Log_HR.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                                LogManager.log(MyProfileSet.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 progressManager.endRunning();
                                 if (response.isSuccessful()) {
                                     ResponseModel<UserModel> result = response.body();
@@ -372,7 +372,7 @@ public class MyProfileSet extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<ResponseModel<UserModel>> call, Throwable t) {
                                 netFail(R.string.profileSet_mod_fail_alert_title, R.string.profileSet_mod_fail_alert_content);
-                                Log_HR.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
+                                LogManager.log(MyProfileSet.class, "onFailure(Call<ResponseModel<UserModel>> call, Throwable t)", t);
                             }
                         });
                         break;

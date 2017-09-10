@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat;
 import com.developer.hare.tworaveler.Listener.OnPhotoBindListener;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.Util.File.FileManager;
-import com.developer.hare.tworaveler.Util.Log_HR;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
@@ -91,7 +91,7 @@ public class PhotoManager {
                 .onErrorReturn(new Function<Throwable, Response<Activity, FileData>>() {
                     @Override
                     public Response<Activity, FileData> apply(@NonNull Throwable throwable) throws Exception {
-                        Log_HR.log(PhotoManager.class,"apply(@NonNull Throwable throwable)", throwable);
+                        LogManager.log(PhotoManager.class, "apply(@NonNull Throwable throwable)", throwable);
                         return null;
                     }
                 })
@@ -107,30 +107,15 @@ public class PhotoManager {
     private void bindData(FileData fileData) {
         onPhotoBindListener.bindData(fileData);
     }
-    /*public Bitmap rotate(Bitmap bitmap) {
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(FileManager.getInstance().getFilePath());
-        } catch (IOException e) {
-            Log_HR.log(getClass(), "rotate(Bitmap bitmap)", e);
-        }
-        int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED);
 
-        Bitmap bmRotated = rotateBitmap(bitmap, orientation);
-        return bmRotated;
-    }*/
     public Bitmap rotate(File file) {
         FileManager fileManager = FileManager.getInstance();
         Bitmap bitmap = fileManager.encodeFileToBitmap(file);
         ExifInterface exif = null;
         try {
-            Log_HR.log(Log_HR.LOG_INFO,getClass(),"rotate(File)",fileManager.getFilePath()+"/RxPaparazzo"+file.getName());
-            Log_HR.log(Log_HR.LOG_INFO,getClass(),"rotate(File)",file.getAbsolutePath()+"/RxPaparazzo"+file.getName());
-            Log_HR.log(Log_HR.LOG_INFO,getClass(),"rotate(File)",file.getCanonicalPath()+"/RxPaparazzo"+file.getName());
             exif = new ExifInterface(file.getCanonicalPath());
         } catch (Exception e) {
-            Log_HR.log(getClass(),"rotate(File)",e);
+            LogManager.log(getClass(), "rotate(File)", e);
         }
         int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_UNDEFINED);
@@ -138,8 +123,8 @@ public class PhotoManager {
         Bitmap bmRotated = rotateBitmap(bitmap, orientation);
         return bmRotated;
     }
-    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
 
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
         Matrix matrix = new Matrix();
         switch (orientation) {
             case ExifInterface.ORIENTATION_NORMAL:
@@ -175,8 +160,7 @@ public class PhotoManager {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             bitmap.recycle();
             return bmRotated;
-        }
-        catch (OutOfMemoryError e) {
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
             return null;
         }
