@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorDark"
     tools:context="com.developer.hare.tworaveler.Activity.BigImage">
-
+<!---->
     <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
         android:id="@+id/activity_big_image$RV"
         android:layout_width="match_parent"
