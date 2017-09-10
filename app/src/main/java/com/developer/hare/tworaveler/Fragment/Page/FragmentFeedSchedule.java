@@ -63,7 +63,7 @@ public class FragmentFeedSchedule extends BaseFragment {
     private ImageView IV_cover, IV_like, IV_follow;
     private View scheduleItem;
     private CircleImageView CV_profile;
-    private LinearLayout LL_like, LL_comment;
+    private LinearLayout LL_like, LL_comment, LL_profile;
 
     public static FragmentFeedSchedule newInstance(ScheduleModel scheduleModel) {
         FragmentFeedSchedule fragmentFeedSchedule = new FragmentFeedSchedule();
@@ -96,6 +96,13 @@ public class FragmentFeedSchedule extends BaseFragment {
         imageManager = ImageManager.getInstance();
         scheduleItem = uiFactory.createViewWithRateParams(R.id.fragment_feed_schedule$IC_schedul_item);
         CV_profile = uiFactory.createView(R.id.fragment_feed_schedule$CV_profile);
+        LL_profile = uiFactory.createView(R.id.fragment_feed_schedule$LL_profile);
+        LL_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager.getInstance().setFragmentContent(FragmentFeedProfile.newInstance(scheduleModel.getUser_no()));
+            }
+        });
         menuTopTitle = uiFactory.createView(R.id.fragment_feed_schedule$menuToptitle);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
