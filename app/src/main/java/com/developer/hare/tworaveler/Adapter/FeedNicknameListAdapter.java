@@ -75,6 +75,7 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
             super(itemView);
             this.context = context;
             UIFactory uiFactory = UIFactory.getInstance(itemView);
+            uiFactory.createViewWithRateParams(R.id.item_mypage$Root);
             TV_title = uiFactory.createView(R.id.item_mypage$TV_title);
             TV_date = uiFactory.createView(R.id.item_mypage$TV_date);
             TV_like = uiFactory.createView(R.id.item_mypage$TV_like);

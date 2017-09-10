@@ -97,7 +97,7 @@ public class FragmentFeedFilter extends BaseFragment {
             cityModel = (CityModel) getArguments().getSerializable(KEY_SERIALIZABLE);
         } else if (type == TYPE_NICKNAME) {
             scheduleModel = (ScheduleModel) getArguments().getSerializable(KEY_SERIALIZABLE);
-        }else{
+        } else {
             FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());
         }
 
@@ -114,6 +114,7 @@ public class FragmentFeedFilter extends BaseFragment {
             }
         });
         menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
+        menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
         recyclerView = uiFactory.createView(R.id.fragment_feed$RV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
@@ -139,7 +140,7 @@ public class FragmentFeedFilter extends BaseFragment {
     }
 
     private void updateList(int type) {
-        if (!sessionCheck()){
+        if (!sessionCheck()) {
             AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeed_alert_title_fail);
             return;
         }
@@ -154,7 +155,7 @@ public class FragmentFeedFilter extends BaseFragment {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
                                 if (response.isSuccessful()) {
-//                                   LogManager.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
+                                    LogManager.logA(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                     progressManager.endRunning();
                                     ResponseArrayModel<ScheduleModel> model = response.body();
                                     if (model.getSuccess() == CODE_SUCCESS) {
@@ -206,13 +207,15 @@ public class FragmentFeedFilter extends BaseFragment {
                     }
                 });
                 menuTopTitle.getTV_title().setText(scheduleModel.getNickname());
+                LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call", "net running before");
+
                 progressManager.actionWithState(new OnProgressAction() {
                     @Override
                     public void run() {
                         Net.getInstance().getFactoryIm().searchFeedNickname(user_no, scheduleModel.getUser_no()).enqueue(new Callback<ResponseArrayModel<ScheduleModel>>() {
                             @Override
                             public void onResponse(Call<ResponseArrayModel<ScheduleModel>> call, Response<ResponseArrayModel<ScheduleModel>> response) {
-                            LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
+                                LogManager.logA(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 // LogManager.log(FragmentFeedFilter.class, "onResponse(Call<ResponseArrayModel<String>> call, Response<ResponseArrayModel<String>> response)", response);
                                 if (response.isSuccessful()) {
                                     progressManager.endRunning();
@@ -238,6 +241,7 @@ public class FragmentFeedFilter extends BaseFragment {
                 break;
         }
     }
+
     public void changeFollow(boolean isFollow) {
         if (isFollow) {
             ImageManager.getInstance().loadImage(getActivity(), R.drawable.icon_follow_complete, IV_follow, ImageManager.FIT_TYPE);
@@ -245,6 +249,7 @@ public class FragmentFeedFilter extends BaseFragment {
             ImageManager.getInstance().loadImage(getActivity(), R.drawable.icon_follow, IV_follow, ImageManager.FIT_TYPE);
         }
     }
+
     public void followSelect(boolean isFollow) {
         if (!sessionCheck()) {
             AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentFeedSchedule_alert_title_fail);

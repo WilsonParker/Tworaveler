@@ -12,6 +12,7 @@ import com.developer.hare.tworaveler.Model.AlarmModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.Util.Exception.NullChecker;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.View
             this.model = model;
             String pic_url = SessionManager.getInstance().getUserModel().getProfile_pic_thumbnail_url();
             ImageManager imageManager = ImageManager.getInstance();
-            if (pic_url == null && pic_url.isEmpty()) {
+            if (NullChecker.getInstance().nullCheck(pic_url)) {
                 imageManager.loadImage(imageManager.createRequestCreator(context, R.drawable.image_profile, ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);
             } else {
                 imageManager.loadImage(imageManager.createRequestCreator(context, pic_url, ImageManager.FIT_TYPE).placeholder(R.drawable.image_history_profile).centerCrop(), CV_profile);

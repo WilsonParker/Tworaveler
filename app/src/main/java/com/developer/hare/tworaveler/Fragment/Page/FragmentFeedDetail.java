@@ -97,6 +97,7 @@ public class FragmentFeedDetail extends BaseFragment {
             }
         });
         menuTopTitle.setTitleText(scheduleModel.getNickname());
+        menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
 
         recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

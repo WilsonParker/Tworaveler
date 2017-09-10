@@ -84,7 +84,7 @@ public class FragmentMyPageSchedule extends BaseFragment {
         uiFactory = UIFactory.getInstance(getActivity());
         imageManager = ImageManager.getInstance();
 
-        scheduleItem = uiFactory.createView(R.id.fragment_mypage_schedule$IC_schedul_item);
+        scheduleItem = uiFactory.createViewWithRateParams(R.id.fragment_mypage_schedule$IC_schedul_item);
         menuTopTitle = uiFactory.createView(R.id.fragment_mypage_schedule$menuToptitle);
         menuTopTitle.setIBLeftOnClickListener(new View.OnClickListener() {
             @Override

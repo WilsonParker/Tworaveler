@@ -21,7 +21,7 @@ public class NullChecker {
             result = true;
         } else if (obj instanceof String) {
             String s = (String) obj;
-            if (s == null | s.isEmpty())
+            if (s == null | s.isEmpty() | s.trim().equals(""))
                 result = true;
         }
         return result;

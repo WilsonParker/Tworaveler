@@ -22,8 +22,8 @@ android {
         applicationId "com.developer.hare.tworaveler"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 7
-        versionName '1.0.2'
+        versionCode 8
+        versionName '1.0.3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -51,36 +51,6 @@ dependencies {
     compile group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     // 카카오톡 sdk를 사용하기 위해 필요.
     compile group: 'com.kakao.sdk', name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
-    // 카카오링크 sdk를 사용하기 위해 필요.
-    //    compile group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
-    // 카카오내비 sdk를 사용하기 위해 필요.
-    //    compile group: 'com.kakao.sdk', name: 'kakaonavi', version: project.KAKAO_SDK_VERSION
-    // 카카오스토리 sdk를 사용하기 위해 필요.
-    //    compile group: 'com.kakao.sdk', name: 'kakaostory', version: project.KAKAO_SDK_VERSION
-    // push sdk를 사용하기 위해 필요.
-    //    compile group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
-    // Facebook SignIn
-    //    compile 'com.facebook.android:facebook-android-sdk:4.+'
-    //    compile 'com.facebook.android:facebook-android-sdk:4.5.+'
-    //    compile 'com.android.support:appcompat-v7:26.+'
-    //    compile 'com.android.support:customtabs:26.+'
-    //    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
-    //    compile 'com.android.support:design:26.+'
-    /*compile(group: 'com.google.android.gms', name: 'play-services-gcm', version: "8.4.0") {
-                                exclude(group: 'com.google.android.gms', module: 'play-services-base')
-                                exclude(group: 'com.google.android.gms', module: 'play-services-basement')
-                            }*/
-    //    compile 'com.squareup.retrofit2:retrofit-converters:2.3.0'
-    //    compile 'com.android.support:multidex:0.0.+'
-    // 카메라 처리 lib
-    // RxJava 처리를 위한 lib (파파라조가 RxJava로 만들어져서)
-    // TimeSquare
-    //    compile 'com.github.VictorAlbertos:RxActivityResult:0.4.5-2.x'
-    //    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
-    //    compile 'com.hendraanggrian:rx-activity:0.5'
-    //    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-    //    compile 'com.facebook.android:audience-network-sdk:4.+'
-    //    compile 'com.android.support:multidex:1.0.1'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.github.miguelbcr:RxPaparazzo:0.5.4-2.x'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
@@ -108,5 +78,3 @@ dependencies {
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
     testCompile 'junit:junit:4.12'
 }
-
-//apply plugin: 'com.google.gms.google-services'

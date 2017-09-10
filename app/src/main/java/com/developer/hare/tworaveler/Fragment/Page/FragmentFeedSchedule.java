@@ -127,6 +127,7 @@ public class FragmentFeedSchedule extends BaseFragment {
         setDatas();
 
         menuTopTitle.setTitleText(scheduleModel.getNickname());
+        menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
 
         ArrayList<TextView> textlist1 = new ArrayList<>();
         textlist1.add(TV_date);

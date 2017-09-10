@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="@string/FRAGMENT_HEIGHT"
+    android:weightSum="@string/FRAGMENT_HEIGHT"
     android:orientation="vertical">
 
     <com.developer.hare.tworaveler.UI.Layout.MenuTopTitle
@@ -53,22 +53,23 @@
                 <LinearLayout
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/fragment_feed_schedule$TV_nickname"
                         android:layout_width="match_parent"
-                        android:layout_height="33dp"
-                        android:textColor="@color/feed_nickname_color"
+                        android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="에비츄~"
+                        android:textColor="@color/feed_nickname_color"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/fragment_feed_schedule$TV_message"
                         android:layout_width="match_parent"
-                        android:layout_height="27dp"
+                        android:layout_height="wrap_content"
                         android:gravity="top"
                         android:paddingTop="1.5dp"
                         android:text="여행자 에비츄 입니다. 저와 함께 여행하실래요?"

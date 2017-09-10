@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.developer.hare.tworaveler.Listener.OnSelectCityListener;
@@ -48,11 +49,13 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private LinearLayout LL_form;
         private TextView TV_country, TV_city;
 
         public ViewHolder(View itemView) {
             super(itemView);
             UIFactory uiFactory = UIFactory.getInstance(itemView);
+            LL_form = uiFactory.createView(R.id.item_search_city$LL_form);
             TV_country = uiFactory.createView(R.id.item_search_city$TV_country);
             TV_city = uiFactory.createView(R.id.item_search_city$TV_city);
         }
@@ -61,7 +64,7 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.ViewHo
             TV_country.setText(model.getCountry());
             TV_city.setText(model.getCity());
             FontManager.getInstance().setFont(TV_country, "NotoSansCJKkr-Medium.otf");
-            TV_country.setOnClickListener(new View.OnClickListener() {
+            LL_form.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onSelectCityModel.onSelectCity(model);
