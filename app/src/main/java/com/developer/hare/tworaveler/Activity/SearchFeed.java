@@ -26,8 +26,8 @@ import com.developer.hare.tworaveler.Model.Response.ResponseArrayModel;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
-import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.UI.FontManager;
+import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.LogManager;
 
@@ -41,6 +41,7 @@ import static android.R.color.black;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_CITYMODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_CITY_MODEL;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_FAIL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SCHEDULE_MODEL;
 
 public class SearchFeed extends AppCompatActivity {
@@ -210,5 +211,13 @@ public class SearchFeed extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_CODE_FAIL, intent);
+        finish();
+        super.onBackPressed();
     }
 }
