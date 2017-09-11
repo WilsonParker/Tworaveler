@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Activity.Comment;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedProfile;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedFilter;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentFeedSchedule;
 import com.developer.hare.tworaveler.Listener.OnListScrollListener;
 import com.developer.hare.tworaveler.Model.LikeModel;
@@ -23,10 +23,10 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Exception.NullChecker;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.Image.ImageManager;
 import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ScrollEndMethod;
@@ -78,6 +78,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
         private TextView TV_nickname, TV_message, TV_title, TV_date, TV_like, TV_comment;
         private LinearLayout LL_like, LL_comment, LL_profile;
         private ScheduleModel model;
+        private int type;
 
         public ViewHolder(View itemView, Context context) {
             super(itemView);
@@ -97,6 +98,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             LL_comment = uiFactory.createView(R.id.item_feed$LL_comment);
             IV_like = uiFactory.createView(R.id.item_feed$IV_like);
             LL_profile = uiFactory.createView(R.id.item_feed$LL_profile);
+            type = FragmentFeedFilter.TYPE_NICKNAME;
 
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,7 +119,6 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             FontManager.getInstance().setFont(TV_nickname, "Roboto-Bold.ttf");
             FontManager.getInstance().setFont(TV_message, "NotoSansCJKkr-Medium.otf");
             FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Bold.otf");
-
         }
 
         public void toBind(ScheduleModel model) {
@@ -131,7 +132,7 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             LL_profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    FragmentManager.getInstance().setFragmentContent(FragmentFeedProfile.newInstance(model.getUser_no()));
+                    FragmentManager.getInstance().setFragmentContent(FragmentFeedFilter.newInstance(type, model));
                 }
             });
 

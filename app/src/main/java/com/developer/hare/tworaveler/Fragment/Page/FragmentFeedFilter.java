@@ -193,6 +193,12 @@ public class FragmentFeedFilter extends BaseFragment {
                 break;
             case TYPE_NICKNAME:
                 LL_info.setVisibility(View.VISIBLE);
+                LL_info.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FragmentManager.getInstance().setFragmentContent(FragmentFeedProfile.newInstance(scheduleModel.getUser_no()));
+                    }
+                });
                 TV_nickname.setText(scheduleModel.getNickname() + "");
                 TV_message.setText(scheduleModel.getStatus_message() + "");
 //                LogManager.log(LogManager.LOG_INFO, FragmentFeedFilter.class, "데이터 확인", "nickname :" + scheduleModel.toString());
