@@ -103,7 +103,6 @@ public class FeedNicknameListAdapter extends RecyclerView.Adapter<FeedNicknameLi
         }
 
         public void toBind(ScheduleModel model) {
-
             this.model = model;
             IV_cover.setOnClickListener(new View.OnClickListener() {
                 @Override

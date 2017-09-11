@@ -44,6 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_FAIL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SUCCESS;
 import static com.developer.hare.tworaveler.R.id.activity_regist$TV_start;
 
@@ -197,10 +198,9 @@ public class Regist extends AppCompatActivity {
                                 LogManager.log(Regist.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                                 switch (result.getSuccess()) {
                                     case DataDefinition.Network.CODE_SUCCESS:
-
-                                        Intent intent = new Intent(Regist.this, RegistDetail.class);
+                                        Intent intent = new Intent();
                                         intent.putExtra(DataDefinition.Intent.KEY_SCHEDULE_MODEL, result.getResult());
-                                        startActivity(intent);
+                                        setResult(RESULT_CODE_SUCCESS, intent);
                                         finish();
                                         break;
                                 }
@@ -309,4 +309,10 @@ public class Regist extends AppCompatActivity {
         IV_camera.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_CODE_FAIL, intent);
+        super.onBackPressed();
+    }
 }

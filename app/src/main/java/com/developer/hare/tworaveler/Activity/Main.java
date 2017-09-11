@@ -103,9 +103,10 @@ public class Main extends AppCompatActivity {
 //        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_CODE_REGIST:
-                if (requestCode == RESULT_CODE_SUCCESS) {
+                if (resultCode == RESULT_CODE_SUCCESS) {
                     ScheduleModel model = (ScheduleModel) data.getSerializableExtra(KEY_SCHEDULE_MODEL);
-                    FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(model));
+                    if (model != null)
+                        FragmentManager.getInstance().setFragmentContent(FragmentMyPageSchedule.newInstance(model));
                 }
                 break;
         }

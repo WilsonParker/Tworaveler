@@ -92,16 +92,18 @@ public class FragmentFeedFilter extends BaseFragment {
     @Override
     protected void init(View view) {
         type = (int) getArguments().get(KEY_FILTER_TYPE);
+        uiFactory = UIFactory.getInstance(view);
 
         if (type == TYPE_CITY) {
             cityModel = (CityModel) getArguments().getSerializable(KEY_SERIALIZABLE);
+            recyclerView = uiFactory.createView(R.id.fragment_feed$RV_1);
         } else if (type == TYPE_NICKNAME) {
             scheduleModel = (ScheduleModel) getArguments().getSerializable(KEY_SERIALIZABLE);
+            recyclerView = uiFactory.createView(R.id.fragment_feed$RV_2);
         } else {
             FragmentManager.getInstance().setFragmentContent(FragmentFeed.newInstance());
         }
 
-        uiFactory = UIFactory.getInstance(view);
         progressManager = new ProgressManager(getActivity());
         LL_feed = uiFactory.createView(R.id.fragment_feed$LL_feed);
         LL_feed.setVisibility(View.GONE);
@@ -115,7 +117,6 @@ public class FragmentFeedFilter extends BaseFragment {
         });
         menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
         menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
-        recyclerView = uiFactory.createView(R.id.fragment_feed$RV_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         LL_info = uiFactory.createView(R.id.fragment_feed$LL_info);
