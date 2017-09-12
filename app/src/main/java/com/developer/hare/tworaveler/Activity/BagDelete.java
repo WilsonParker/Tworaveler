@@ -118,7 +118,7 @@ public class BagDelete extends AppCompatActivity {
     }
 
     private void createList(String theme) {
-        if (!sessionCheck()){
+        if (!sessionCheck()) {
             AlertManager.getInstance().showNotLoginAlert(this, R.string.bagDelete_alert_title_fail);
             return;
         }
@@ -170,17 +170,16 @@ public class BagDelete extends AppCompatActivity {
                     switch (response.body().getSuccess()) {
                         case CODE_SUCCESS:
                             for (String id : BAG_CATEGORYS) {
-                                ArrayList<BagModel> l1 = bags.get(id);
-                                if (l1 == null)
-                                    break;
-                                for (BagModel bdm : selected_items) {
-                                    if (l1.contains(bdm))
-                                        l1.remove(bdm);
+                                ArrayList<BagModel> bagList = bags.get(id);
+                                if (bagList == null)
+                                    continue;
+                                for (BagModel selectedModel : selected_items) {
+                                    if (bagList.contains(selectedModel))
+                                    bagList.remove(selectedModel);
                                 }
                             }
-
-                            bagDeleteAdapter.notifyDataSetChanged();
                             createList(selected_theme);
+                            bagDeleteAdapter.notifyDataSetChanged();
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
