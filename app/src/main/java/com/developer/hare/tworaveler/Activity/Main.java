@@ -10,7 +10,6 @@ import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
 import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
@@ -43,8 +42,9 @@ public class Main extends AppCompatActivity {
         new TestManager(this, new OnItemDataChangeListener() {
             @Override
             public void onChange() {
-                FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
-                customNavigationView.setItemSelect(0);
+//                FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
+//                customNavigationView.setItemSelect(0);
+                customNavigationView.actionItem(0);
             }
         }).testLogin();
     }

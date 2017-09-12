@@ -49,6 +49,7 @@ public class BagDelete extends AppCompatActivity {
     private MenuTopTitle menuTopTitle;
     private final int imageCount = 3;
 
+    private String selected_theme;
     private Activity activity;
     private UserModel userModel;
     private UIFactory uiFactory;
@@ -76,10 +77,10 @@ public class BagDelete extends AppCompatActivity {
         textView = uiFactory.createView(R.id.bag_delete$name);
         FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(BagDelete.this, imageCount);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, imageCount);
         RV_deletelist.setLayoutManager(gridLayoutManager);
 
-        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, BagDelete.this);
+        bagDeleteAdapter = new BagDeleteAdapter(items, selected_items, activity);
         RV_deletelist.setAdapter(bagDeleteAdapter);
         menuTopTitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,15 +178,14 @@ public class BagDelete extends AppCompatActivity {
                                         l1.remove(bdm);
                                 }
                             }
+
                             bagDeleteAdapter.notifyDataSetChanged();
-                            RV_deletelist.setAdapter(bagDeleteAdapter);
-                            selected_items = new ArrayList<BagModel>();
+                            createList(selected_theme);
                             break;
                         case DataDefinition.Network.CODE_BAG_ITEM_FIND_FAIL:
                             netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
                             break;
                     }
-
                 } else {
                     netFailAlert(R.string.bagDelete_alert_title_fail, R.string.bagDelete_alert_content_fail);
                 }
@@ -209,7 +209,7 @@ public class BagDelete extends AppCompatActivity {
     }
 
     private void netFailAlert(int title, int content) {
-        AlertManager.getInstance().showNetFailAlert(BagDelete.this, title, content);
+        AlertManager.getInstance().showNetFailAlert(activity, title, content);
     }
 
     private void createNavigationBagView() {
@@ -218,30 +218,35 @@ public class BagDelete extends AppCompatActivity {
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_ticket_click, R.drawable.icon_ticket_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                selected_theme = CATEGORY_TICKET;
                 createList(CATEGORY_TICKET);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_map_click, R.drawable.icon_map_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                selected_theme = CATEGORY_MAP;
                 createList(CATEGORY_MAP);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_subway_click, R.drawable.icon_subway_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                selected_theme = CATEGORY_SUBWAY;
                 createList(CATEGORY_SUBWAY);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_shop_click, R.drawable.icon_shop_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                selected_theme = CATEGORY_SHOP;
                 createList(CATEGORY_SHOP);
             }
         }));
         items.add(customNavigationBagView.new NavigationItem(R.drawable.icon_sale_click, R.drawable.icon_sale_unclick, new CustomNavigationView.NavigationOnClickListener() {
             @Override
             public void onClick() {
+                selected_theme = CATEGORY_SALE;
                 createList(CATEGORY_SALE);
             }
         }));
