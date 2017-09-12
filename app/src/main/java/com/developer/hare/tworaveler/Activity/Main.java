@@ -44,7 +44,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onChange() {
                 FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
-                customNavigationView.setFirstClickItem(0);
+                customNavigationView.setItemSelect(0);
             }
         }).testLogin();
     }
@@ -101,7 +101,7 @@ public class Main extends AppCompatActivity {
             }
         }));
         customNavigationView.bindItemView(this, items);
-        customNavigationView.setFirstClickItem(1);
+        customNavigationView.actionItem(1);
 
     }
 

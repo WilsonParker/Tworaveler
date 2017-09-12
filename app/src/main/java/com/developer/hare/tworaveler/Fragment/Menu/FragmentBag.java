@@ -307,6 +307,6 @@ public class FragmentBag extends BaseFragment {
             }
         }));
         customNavigationBagView.bindItemView(getActivity(), items);
-        customNavigationBagView.setFirstClickItem(0);
+        customNavigationBagView.actionItem(0);
     }
 }

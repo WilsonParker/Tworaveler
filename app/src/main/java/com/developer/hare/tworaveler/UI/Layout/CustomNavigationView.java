@@ -76,8 +76,16 @@ public class CustomNavigationView extends LinearLayout {
         return view;
     }
 
-    public void setFirstClickItem(int position) {
+    public void actionItem(int position) {
         children.get(position).actionClickEvent();
+    }
+
+    public void setItemSelect(int position) {
+        NavigationItemView navigationItemView= children.get(position);
+        navigationItemView.setState(true);
+        clickedItemView.setState(false);
+        clickedItemView = navigationItemView;
+
     }
 
     public class NavigationItemView {

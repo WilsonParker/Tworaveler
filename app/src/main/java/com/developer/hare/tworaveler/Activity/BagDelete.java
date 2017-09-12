@@ -246,7 +246,7 @@ public class BagDelete extends AppCompatActivity {
             }
         }));
         customNavigationBagView.bindItemView(this, items);
-        customNavigationBagView.setFirstClickItem(0);
+        customNavigationBagView.actionItem(0);
     }
 
 }
