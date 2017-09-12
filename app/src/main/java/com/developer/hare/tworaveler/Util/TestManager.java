@@ -28,6 +28,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
  */
 
 public class TestManager {
+    private boolean isLogin = false;
     private Activity activity;
     private OnItemDataChangeListener onItemDataChangeListener;
 
@@ -40,6 +41,9 @@ public class TestManager {
 
     }
     public void testLogin() {
+        if(isLogin)
+            return;
+        isLogin = true;
         ResourceManager resourceManager = ResourceManager.getInstance();
         UserReqModel signIn = new UserReqModel("tworaveler@gmail.com", "00000000");
         Net.getInstance().getFactoryIm().userSignIn(signIn).enqueue(new Callback<ResponseModel<UserModel>>() {
