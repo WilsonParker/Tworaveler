@@ -38,7 +38,6 @@ public class Intro extends AppCompatActivity {
 
     private void init() {
         activity = this;
-
         HandlerManager.getInstance().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {

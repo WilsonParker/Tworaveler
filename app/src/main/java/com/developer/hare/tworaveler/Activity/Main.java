@@ -10,16 +10,20 @@ import com.developer.hare.tworaveler.Fragment.Menu.FragmentAlarm;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentBag;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentFeed;
 import com.developer.hare.tworaveler.Fragment.Menu.FragmentMyPage;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageSchedule;
+import com.developer.hare.tworaveler.Listener.OnItemDataChangeListener;
 import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.CustomNavigationView;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.Key.BackClickManager;
+import com.developer.hare.tworaveler.Util.TestManager;
 
 import java.util.ArrayList;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_FRAGEMNT;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.REQUEST_CODE_REGIST;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SUCCESS;
@@ -36,12 +40,21 @@ public class Main extends AppCompatActivity {
 
         init();
         initFnc();
+        new TestManager(this, new OnItemDataChangeListener() {
+            @Override
+            public void onChange() {
+                FragmentManager.getInstance().setFragmentContent(FragmentMyPageHome.newInstance());
+                customNavigationView.setFirstClickItem(0);
+            }
+        }).testLogin();
     }
 
     private void init() {
         FragmentManager.getInstance().setActivity(this);
         uiFactory = UIFactory.getInstance(this);
-
+        Fragment fragment = (Fragment) getIntent().getSerializableExtra(KEY_FRAGEMNT);
+        if(fragment != null)
+            FragmentManager.getInstance().setFragmentContent(fragment);
         createNavigationView();
     }
 

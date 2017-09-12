@@ -23,14 +23,15 @@ import com.developer.hare.tworaveler.Model.ScheduleModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.FragmentManager;
 import com.developer.hare.tworaveler.UI.Layout.MenuTopTitle;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.LogManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
-public class FragmentMyPageHome extends BaseFragment {
+public class FragmentMyPageHome extends BaseFragment implements Serializable {
     private static FragmentMyPageHome fragment = new FragmentMyPageHome();
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;

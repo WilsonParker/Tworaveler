@@ -15,17 +15,18 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
+import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
-import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
+import com.developer.hare.tworaveler.Model.Response.ResponseModel;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.UI.ProgressManager;
 import com.developer.hare.tworaveler.UI.UIFactory;
-import com.developer.hare.tworaveler.UI.FontManager;
 import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
@@ -36,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_FRAGEMNT;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_EMAIL_PW_INCORRECT;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SIGNOUT_USER;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
@@ -210,6 +212,7 @@ public class SignIn extends AppCompatActivity {
 //                                                    onBackPressed();
                                                     Intent  intent = new Intent(SignIn.this, Main.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    intent.putExtra(KEY_FRAGEMNT, FragmentMyPageHome.newInstance());
                                                     startActivity(intent);
                                                     finish();
                                                 }

@@ -36,12 +36,12 @@ public class TestManager {
         this.onItemDataChangeListener = onItemDataChangeListener;
     }
 
-    public void testLogin() {
+    public void testLogin2() {
 
     }
-    public void testLogin2() {
+    public void testLogin() {
         ResourceManager resourceManager = ResourceManager.getInstance();
-        UserReqModel signIn = new UserReqModel("a14@naver.com", "aaaa1111");
+        UserReqModel signIn = new UserReqModel("tworaveler@gmail.com", "00000000");
         Net.getInstance().getFactoryIm().userSignIn(signIn).enqueue(new Callback<ResponseModel<UserModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<UserModel>> call, Response<ResponseModel<UserModel>> response) {
