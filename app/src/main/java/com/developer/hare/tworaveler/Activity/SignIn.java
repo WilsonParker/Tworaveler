@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.developer.hare.tworaveler.Data.DataDefinition;
 import com.developer.hare.tworaveler.Data.SessionManager;
 import com.developer.hare.tworaveler.FaceBook.Util.FaceBookLoginManager;
-import com.developer.hare.tworaveler.Fragment.Page.FragmentMyPageHome;
 import com.developer.hare.tworaveler.Kakao.Util.KakaoSignManager;
 import com.developer.hare.tworaveler.Listener.OnProgressAction;
 import com.developer.hare.tworaveler.Model.Request.UserReqModel;
@@ -37,7 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_FRAGEMNT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_MAIN_FRAGMENT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.VALUE_MY_PAGE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_EMAIL_PW_INCORRECT;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SIGNOUT_USER;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
@@ -110,7 +110,7 @@ public class SignIn extends AppCompatActivity {
         ET_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_NEXT){
+                if (i == EditorInfo.IME_ACTION_NEXT) {
                     IV_signIn.callOnClick();
                 }
                 return true;
@@ -166,7 +166,7 @@ public class SignIn extends AppCompatActivity {
 //        kakaoSignInManager.setLoginButton();
         ET_email.setText("");
         ET_password.setText("");
-        if(SessionManager.getInstance().isLogin())
+        if (SessionManager.getInstance().isLogin())
             finish();
     }
 
@@ -210,9 +210,9 @@ public class SignIn extends AppCompatActivity {
                                                         model.setFollowers(new ArrayList<>());
                                                     SessionManager.getInstance().setUserModel(model);
 //                                                    onBackPressed();
-                                                    Intent  intent = new Intent(SignIn.this, Main.class);
+                                                    Intent intent = new Intent(SignIn.this, Main.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    intent.putExtra(KEY_FRAGEMNT, FragmentMyPageHome.newInstance());
+                                                    intent.putExtra(KEY_MAIN_FRAGMENT, VALUE_MY_PAGE);
                                                     startActivity(intent);
                                                     finish();
                                                 }

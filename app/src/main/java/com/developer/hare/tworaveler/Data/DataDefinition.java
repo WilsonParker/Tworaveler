@@ -55,7 +55,9 @@ public class DataDefinition {
                 ,KEY_SERIALIZABLE= "serializable"
                 ,KEY_NICKNAME= "ScheduleModel"
                 ,KEY_USER_NO= "user_no"
-                ,KEY_FRAGEMNT= "fragment"
+                , KEY_MAIN_FRAGMENT = "main_fragment"
+
+                , VALUE_MY_PAGE= "my_page"
                 ;
     }
 

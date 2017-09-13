@@ -31,7 +31,6 @@ import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.HandlerManager;
 import com.developer.hare.tworaveler.Util.LogManager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -40,7 +39,7 @@ import retrofit2.Response;
 
 import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUCCESS;
 
-public class FragmentMyPageHome extends BaseFragment implements Serializable {
+public class FragmentMyPageHome extends BaseFragment {
     private static FragmentMyPageHome fragment = new FragmentMyPageHome();
     private MenuTopTitle menuTopTitle;
     private RecyclerView recyclerView;

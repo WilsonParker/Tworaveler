@@ -22,7 +22,8 @@ import com.developer.hare.tworaveler.Util.TestManager;
 
 import java.util.ArrayList;
 
-import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_FRAGEMNT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_MAIN_FRAGMENT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.VALUE_MY_PAGE;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.KEY_SCHEDULE_MODEL;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.REQUEST_CODE_REGIST;
 import static com.developer.hare.tworaveler.Data.DataDefinition.Intent.RESULT_CODE_SUCCESS;
@@ -49,13 +50,28 @@ public class Main extends AppCompatActivity {
         }).testLogin();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initFragment();
+    }
+
     private void init() {
         FragmentManager.getInstance().setActivity(this);
         uiFactory = UIFactory.getInstance(this);
-        Fragment fragment = (Fragment) getIntent().getSerializableExtra(KEY_FRAGEMNT);
-        if(fragment != null)
-            FragmentManager.getInstance().setFragmentContent(fragment);
         createNavigationView();
+    }
+
+    private void initFragment() {
+        Intent intent = getIntent();
+        if (!intent.hasExtra(KEY_MAIN_FRAGMENT))
+            return;
+        switch (intent.getStringExtra(KEY_MAIN_FRAGMENT)) {
+            case VALUE_MY_PAGE:
+                customNavigationView.actionItem(0);
+                break;
+        }
+        intent.removeExtra(KEY_MAIN_FRAGMENT);
     }
 
     private void initFnc() {
