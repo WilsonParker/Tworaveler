@@ -107,7 +107,7 @@ public class FeedCityListAdapter extends RecyclerView.Adapter<FeedCityListAdapte
             FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
             textlist2.add(TV_message);
             textlist2.add(TV_title);
-            FontManager.getInstance().setFont(textlist2, "NotoSansCJKkr-Medium.otf");
+            FontManager.getInstance().setFont(textlist2, "NotoSansKR-Medium-Hestia.otf");
         }
 
         public void toBind(ScheduleModel model) {

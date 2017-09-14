@@ -97,7 +97,7 @@ public class FragmentFeedDetail extends BaseFragment {
             }
         });
         menuTopTitle.setTitleText(scheduleModel.getNickname());
-        menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
+        menuTopTitle.setTitleFont("NotoSansKR-Regular-Hestia.otf");
 
         recyclerView = uiFactory.createView(R.id.fragment_feed_detail$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -110,7 +110,7 @@ public class FragmentFeedDetail extends BaseFragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(TV_noItem, "NotoSansKR-Regular-Hestia.otf");
         updateList();
     }
 

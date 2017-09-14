@@ -103,12 +103,12 @@ public class MypageDetailAdapter extends RecyclerView.Adapter<MypageDetailAdapte
             ArrayList<TextView> textlist2 = new ArrayList<>();
             textlist1.add(TV_time);
             textlist1.add(TV_memo);
-            FontManager.getInstance().setFont(textlist1, "NotoSansCJKkr-Regular.otf");
+            FontManager.getInstance().setFont(textlist1, "NotoSansKR-Regular-Hestia.otf");
             textlist2.add(TV_like);
             textlist2.add(TV_commenet);
             FontManager.getInstance().setFont(textlist2, "Roboto-Medium.ttf");
-            FontManager.getInstance().setFont(TV_address, "NotoSansCJKkr-Medium.otf");
-            FontManager.getInstance().setFont(TV_city, "NotoSansCJKkr-Bold.otf");
+            FontManager.getInstance().setFont(TV_address, "NotoSansKR-Medium-Hestia.otf");
+            FontManager.getInstance().setFont(TV_city, "NotoSansKR-Bold-Hestia.otf");
 
             LL_comment.setOnClickListener(new View.OnClickListener() {
                 @Override

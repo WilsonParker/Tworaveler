@@ -147,7 +147,7 @@ public class MyProfileSet extends AppCompatActivity {
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(ET_nickname);
         textViews.add(ET_message);
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(textViews, "NotoSansKR-Medium-Hestia.otf");
     }
 
     public void onLogout(View view) {

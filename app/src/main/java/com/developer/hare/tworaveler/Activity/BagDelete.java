@@ -75,7 +75,7 @@ public class BagDelete extends AppCompatActivity {
         customNavigationBagView = uiFactory.createView(R.id.bag_delete$BN_navigation);
         linearLayout = uiFactory.createView(R.id.bag_delete$LL_empty);
         textView = uiFactory.createView(R.id.bag_delete$name);
-        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(textView, "NotoSansKR-Regular-Hestia.otf");
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(activity, imageCount);
         RV_deletelist.setLayoutManager(gridLayoutManager);

@@ -60,7 +60,7 @@ public class SearchCity extends AppCompatActivity {
         cityListAdapter = new CityListAdapter(onSelectCityListener, items, getBaseContext());
         RV_list.setAdapter(cityListAdapter);
         ET_city = uiFactory.createView(R.id.search_city$ET_city);
-        FontManager.getInstance().setFont(ET_city, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(ET_city, "NotoSansKR-Medium-Hestia.otf");
         ET_city.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

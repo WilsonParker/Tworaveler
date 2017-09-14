@@ -89,7 +89,7 @@ public class FragmentMyPageHome extends BaseFragment {
         recyclerView = uiFactory.createView(R.id.fragment_mypage_home$RV_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         TV_noItem = uiFactory.createView(R.id.fragment_mypage_home$TV_noitem);
-        FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(TV_noItem, "NotoSansKR-Regular-Hestia.otf");
 
         LL_empty = uiFactory.createView(R.id.fragment_mypage_home$LL_empty);
         itemEmptyCheck(items);

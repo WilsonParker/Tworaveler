@@ -66,7 +66,7 @@ public class RegistDayDetailListAdapter extends RecyclerView.Adapter<RegistDayDe
             LL_like = uiFactory.createView(R.id.item_mypage_detail$LL_like);
             LL_comment = uiFactory.createView(R.id.item_mypage_detail$LL_comment);
 
-            FontManager.getInstance().setFont(TV_city, "NotoSansCJKkr-Bold.otf");
+            FontManager.getInstance().setFont(TV_city, "NotoSansKR-Bold-Hestia.otf");
             ArrayList<TextView> textlist1 = new ArrayList<>();
             textlist1.add(TV_like);
             textlist1.add(TV_comment);

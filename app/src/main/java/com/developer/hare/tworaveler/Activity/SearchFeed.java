@@ -90,7 +90,7 @@ public class SearchFeed extends AppCompatActivity {
         });
 
         ET_city = uiFactory.createView(R.id.search_feed$ET_city);
-        FontManager.getInstance().setFont(ET_city, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(ET_city, "NotoSansKR-Medium-Hestia.otf");
         ET_city.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

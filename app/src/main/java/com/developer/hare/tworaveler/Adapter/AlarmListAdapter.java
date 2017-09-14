@@ -57,7 +57,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.View
             UIFactory uiFactory = UIFactory.getInstance(itemView);
             CV_profile = uiFactory.createView(R.id.item_alam$CV_profile);
             TV_alam = uiFactory.createView(R.id.item_alam$TV_alam);
-            FontManager.getInstance().setFont(TV_alam, "NotoSansCJKkr-Medium.otf");
+            FontManager.getInstance().setFont(TV_alam, "NotoSansKR-Medium-Hestia.otf");
 
         }
 

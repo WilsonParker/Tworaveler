@@ -117,8 +117,8 @@ public class FeedListAdapter extends RecyclerView.Adapter<FeedListAdapter.ViewHo
             textlist1.add(TV_comment);
             FontManager.getInstance().setFont(textlist1, "Roboto-Medium.ttf");
             FontManager.getInstance().setFont(TV_nickname, "Roboto-Bold.ttf");
-            FontManager.getInstance().setFont(TV_message, "NotoSansCJKkr-Medium.otf");
-            FontManager.getInstance().setFont(TV_title, "NotoSansCJKkr-Bold.otf");
+            FontManager.getInstance().setFont(TV_message, "NotoSansKR-Medium-Hestia.otf");
+            FontManager.getInstance().setFont(TV_title, "NotoSansKR-Bold-Hestia.otf");
         }
 
         public void toBind(ScheduleModel model) {

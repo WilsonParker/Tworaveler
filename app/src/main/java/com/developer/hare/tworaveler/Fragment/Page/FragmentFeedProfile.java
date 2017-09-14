@@ -93,11 +93,11 @@ public class FragmentFeedProfile extends BaseFragment {
         textViews.add(TV_cntFollowing);
         textViews.add(TV_nickname);
         textViews.add(TV_message);
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(textViews, "NotoSansKR-Medium-Hestia.otf");
         textViews.clear();
         textViews.add(TV_cntFollower);
         textViews.add(TV_cntFollowing);
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
+        FontManager.getInstance().setFont(textViews, "NotoSansKR-Bold-Hestia.otf");
     }
 
     @Override

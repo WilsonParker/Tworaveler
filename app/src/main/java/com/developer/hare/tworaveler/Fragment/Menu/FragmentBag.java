@@ -113,9 +113,9 @@ public class FragmentBag extends BaseFragment {
             }
         });
         TV_bag = uiFactory.createView(R.id.fragment_bag$TV_bag);
-        FontManager.getInstance().setFont(TV_bag, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(TV_bag, "NotoSansKR-Regular-Hestia.otf");
         textView = uiFactory.createView(R.id.fragment_bag$TV_noItem);
-        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(textView, "NotoSansKR-Regular-Hestia.otf");
         linearLayout = uiFactory.createView(R.id.fragment_bag$LL_empty);
         LL_noLogin = uiFactory.createView(R.id.fragment_bag$LL_noLogin);
         LL_login = uiFactory.createView(R.id.fragment_bag$LL_login);

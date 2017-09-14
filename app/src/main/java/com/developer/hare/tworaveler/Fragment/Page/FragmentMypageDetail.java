@@ -126,7 +126,7 @@ public class FragmentMypageDetail extends BaseFragment {
                                                                                          }
                                                                                      }
         );
-        FontManager.getInstance().setFont(TV_noItem, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(TV_noItem, "NotoSansKR-Regular-Hestia.otf");
     }
 
     // 세부 일정 List Update

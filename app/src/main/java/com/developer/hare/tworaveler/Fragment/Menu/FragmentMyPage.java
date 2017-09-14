@@ -62,7 +62,7 @@ public class FragmentMyPage extends BaseFragment {
         });
         textView = uiFactory.createView(R.id.fragment_mypage$TV);
 
-        FontManager.getInstance().setFont(textView, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(textView, "NotoSansKR-Regular-Hestia.otf");
     }
 
 

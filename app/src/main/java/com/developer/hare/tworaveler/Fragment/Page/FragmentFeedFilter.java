@@ -116,7 +116,7 @@ public class FragmentFeedFilter extends BaseFragment {
             }
         });
         menuTopTitle.getIB_right().setVisibility(View.INVISIBLE);
-        menuTopTitle.setTitleFont("NotoSansCJKkr-Regular.otf");
+        menuTopTitle.setTitleFont("NotoSansKR-Regular-Hestia.otf");
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
         LL_info = uiFactory.createView(R.id.fragment_feed$LL_info);
@@ -125,7 +125,7 @@ public class FragmentFeedFilter extends BaseFragment {
         TV_message = uiFactory.createView(R.id.fragment_feed$TV_message);
         IV_follow = uiFactory.createView(R.id.fragment_feed$IV_follow);
         FontManager.getInstance().setFont(TV_nickname, "Roboto-Bold.ttf");
-        FontManager.getInstance().setFont(TV_message, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(TV_message, "NotoSansKR-Medium-Hestia.otf");
 
     }
 

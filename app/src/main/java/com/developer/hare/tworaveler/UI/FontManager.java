@@ -15,7 +15,7 @@ import java.util.Map;
 public class FontManager {
     private AssetManager assetManager;
     private final String FontPath = "fonts/";
-    private final String[] strFonts = {"NotoSansCJKkr-Bold.otf", "NotoSansCJKkr-Medium.otf","SCRIPTBL.TTF","NotoSansCJKkr-Regular.otf"
+    private final String[] strFonts = {"NotoSansKR-Bold-Hestia.otf", "NotoSansKR-Medium-Hestia.otf","SCRIPTBL.TTF","NotoSansKR-Regular-Hestia.otf"
                                         ,"Roboto-Medium.ttf","Roboto-Bold.ttf"};
     private static FontManager fontManager = new FontManager();
     private static Map<String, Typeface> fonts = new HashMap<>();

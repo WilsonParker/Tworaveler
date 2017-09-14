@@ -185,14 +185,14 @@ public class RegistDayDetail extends AppCompatActivity {
 //        textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_2));
         textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_3));
         textViews.add(uiFactory.createView(R.id.activity_regist_day_detail$TV_txt_4));
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Bold.otf");
+        FontManager.getInstance().setFont(textViews, "NotoSansKR-Bold-Hestia.otf");
         textViews.clear();
         textViews.add(TV_locationName);
 //        textViews.add(TV_locationSearch);
         textViews.add(TV_startTime);
         textViews.add(TV_endTime);
         textViews.add(ET_memo);
-        FontManager.getInstance().setFont(textViews, "NotoSansCJKkr-Medium.otf");
+        FontManager.getInstance().setFont(textViews, "NotoSansKR-Medium-Hestia.otf");
     }
 
     // 세부 일정 등록

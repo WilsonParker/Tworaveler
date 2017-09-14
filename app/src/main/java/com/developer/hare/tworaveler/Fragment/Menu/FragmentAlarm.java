@@ -59,7 +59,7 @@ public class FragmentAlarm extends BaseFragment {
             }
         });
         textView = uiFactory.createView(R.id.fragment_alarm$TV_alarm);
-        FontManager.getInstance().setFont(textView,  "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(textView,  "NotoSansKR-Regular-Hestia.otf");
 
         alamListAdapter = new AlarmListAdapter(items);
         RV_list.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

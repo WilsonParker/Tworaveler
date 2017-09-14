@@ -116,7 +116,7 @@ public class Comment extends AppCompatActivity {
         up_btn = uiFactory.createView(R.id.activity_comment$up_btn);
         ET_comment = uiFactory.createView(R.id.activity_comment$ET_comment);
         menuToptitle = uiFactory.createView(R.id.activity_comment$menuToptitle);
-        FontManager.getInstance().setFont(TV_noitem, "NotoSansCJKkr-Regular.otf");
+        FontManager.getInstance().setFont(TV_noitem, "NotoSansKR-Regular-Hestia.otf");
 
         menuToptitle.getIB_left().setOnClickListener(new View.OnClickListener() {
             @Override
