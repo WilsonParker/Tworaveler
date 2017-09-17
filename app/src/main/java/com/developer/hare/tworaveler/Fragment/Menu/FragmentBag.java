@@ -67,7 +67,7 @@ public class FragmentBag extends BaseFragment {
     private UserModel userModel;
 
     public static FragmentBag newInstance() {
-        return  new FragmentBag();
+        return new FragmentBag();
     }
 
     @Nullable
@@ -136,6 +136,10 @@ public class FragmentBag extends BaseFragment {
         super.onResume();
         itemLoginCheck();
         itemEmptyCheck(items);
+        if (!sessionCheck()) {
+            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentBag_alert_title_fail);
+            return;
+        }
         setList(theme);
     }
 
@@ -220,8 +224,7 @@ public class FragmentBag extends BaseFragment {
     }
 
     private void setList(String theme) {
-        if (!sessionCheck()){
-            AlertManager.getInstance().showNotLoginAlert(getActivity(), R.string.fragmentBag_alert_title_fail);
+        if (!sessionCheck()) {
             return;
         }
 

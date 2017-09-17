@@ -22,8 +22,8 @@ android {
         applicationId "com.developer.hare.tworaveler"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 15
-        versionName '1.0.33'
+        versionCode 16
+        versionName '1.0.34'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
