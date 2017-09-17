@@ -13,10 +13,13 @@ import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.Net.Net;
 import com.developer.hare.tworaveler.UI.UIFactory;
 import com.developer.hare.tworaveler.Util.LogManager;
+import com.kakao.auth.ApiResponseCallback;
+import com.kakao.auth.AuthService;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
+import com.kakao.auth.network.response.AccessTokenInfoResponse;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.LoginButton;
 import com.kakao.usermgmt.UserManagement;
@@ -31,6 +34,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_MAIN_FRAGMENT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.VALUE_MY_PAGE;
 
 /**
  * Created by Hare on 2017-07-26.
@@ -61,7 +67,6 @@ public class KakaoSignManager {
 
         uiFactory = UIFactory.getInstance(activity);
         BT_kakaoLogin = new KakaoLoginButton(activity);
-        requestMe();
     }
 
     public void onLoginClick() {
@@ -69,11 +74,24 @@ public class KakaoSignManager {
     }
 
     public void onLogOut() {
+        LogManager.log(LogManager.LOG_INFO, selfCls, "onLogOut()", "kakao logout");
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
                 LogManager.log(LogManager.LOG_INFO, selfCls, "onCompleteLogout()", "kakao logout");
                 SessionManager.getInstance().logout(activity);
+            }
+
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                super.onFailure(errorResult);
+                LogManager.log(LogManager.LOG_INFO, selfCls, "onLogOut onFailure(ErrorResult errorResult)", "kakao logout");
+            }
+
+            @Override
+            public void onNotSignedUp() {
+                super.onNotSignedUp();
+                LogManager.log(LogManager.LOG_INFO, selfCls, "onLogOut onNotSignedUp()", "kakao logout");
             }
         });
     }
@@ -129,9 +147,10 @@ public class KakaoSignManager {
             public void onSuccess(UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
 //                LogManager.log(LogManager.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", "UserProfile : " + userProfile);
 //                LogManager.log(LogManager.LOG_INFO, KakaoSignManager.class, "onSuccess(userProfile)", String.format("%s, %s",userProfile.getId(),userProfile.getUUID()));
+                LogManager.log(LogManager.LOG_INFO, selfCls, "requestMe onSuccess(UserProfile userProfile) ()", "onSuccess");
                 String accessToken, refreshToken = "", thirdParty;
                 accessToken = Session.getCurrentSession().getAccessToken();
-//                refreshToken = Session.getCurrentSession().getRefreshToken();
+                refreshToken = Session.getCurrentSession().getRefreshToken();
                 thirdParty = "K";
 //                LogManager.log(LogManager.LOG_INFO, getClass(), "onSuccess(UserProfile userProfile)", String.format("%s , %s, %s", accessToken, refreshToken, thirdParty));
 //                redirectMainActivity(); // 로그인 성공시 MainActivity로
@@ -150,6 +169,7 @@ public class KakaoSignManager {
                 LogManager.log(KakaoSignManager.class, "onResponse(Call<ResponseModel<ScheduleModel>> call, Response<ResponseModel<ScheduleModel>> response)", response);
                 if (response.isSuccessful()) {
                     SessionManager.getInstance().setUserModel(response.body().getResult());
+                    redirectMainActivity();
                 } else {
                     LogManager.log(LogManager.LOG_INFO, selfCls, "onResponse(Call<ResponseModel<ScheduleModel>> call", "response is not successful");
                 }
@@ -170,6 +190,7 @@ public class KakaoSignManager {
 //        activity.startActivity(intent);
 //        activity.finish();
         Intent intent = new Intent(activity, Main.class);
+        intent.putExtra(KEY_MAIN_FRAGMENT, VALUE_MY_PAGE);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
         activity.finish();
@@ -190,15 +211,32 @@ public class KakaoSignManager {
             LogManager.log(LogManager.LOG_INFO, selfCls, "onSessionOpened()", "sessionOpen");
 //            redirectSignupActivity();
             requestMe();
-            redirectMainActivity();
+//            redirectMainActivity();
         }
 
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
-            LogManager.log(LogManager.LOG_INFO, selfCls, "onSessionOpened(KakaoException)", "sessionOpen");
+            LogManager.log(LogManager.LOG_ERROR, selfCls, "onSessionOpenFailed(KakaoException)", "onSessionOpenFailed");
             if (exception != null) {
-                LogManager.log(getClass(), "onSessionOpenFailed(KaKaoException)", exception);
+                LogManager.log(selfCls, "onSessionOpenFailed onSessionOpenFailed(KaKaoException)", exception);
+                AuthService.requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        LogManager.log(LogManager.LOG_ERROR, selfCls, "onSessionOpenFailed onSessionClosed(ErrorResult errorResult)", errorResult.getErrorMessage());
+                    }
+
+                    @Override
+                    public void onNotSignedUp() {
+                        LogManager.log(LogManager.LOG_INFO, selfCls, "onSessionOpenFailed onNotSignedUp()", "onNotSignedUp");
+                    }
+
+                    @Override
+                    public void onSuccess(AccessTokenInfoResponse result) {
+                        LogManager.log(LogManager.LOG_INFO, selfCls, "onSessionOpenFailed onSuccess(AccessTokenInfoResponse result)", "onSuccess");
+                    }
+                });
             }
+            SessionManager.getInstance().logout(activity);
         }
     }
 

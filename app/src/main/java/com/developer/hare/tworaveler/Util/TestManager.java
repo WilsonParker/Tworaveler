@@ -28,7 +28,7 @@ import static com.developer.hare.tworaveler.Data.DataDefinition.Network.CODE_SUC
  */
 
 public class TestManager {
-    private boolean isLogin = false;
+    private boolean isLogin = true;
     private Activity activity;
     private OnItemDataChangeListener onItemDataChangeListener;
 

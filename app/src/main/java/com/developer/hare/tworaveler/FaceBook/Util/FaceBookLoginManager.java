@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.KEY_MAIN_FRAGMENT;
+import static com.developer.hare.tworaveler.Data.DataDefinition.Bundle.VALUE_MY_PAGE;
 import static java.util.Arrays.asList;
 
 /**
@@ -187,6 +189,7 @@ public class FaceBookLoginManager {
                 if (response.isSuccessful()) {
                     SessionManager.getInstance().setUserModel(response.body().getResult());
                     Intent intent = new Intent(activity, Main.class);
+                    intent.putExtra(KEY_MAIN_FRAGMENT, VALUE_MY_PAGE);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     activity.startActivity(intent);
                     activity.finish();

@@ -9,6 +9,7 @@ import com.developer.hare.tworaveler.Activity.SignIn;
 import com.developer.hare.tworaveler.Model.UserModel;
 import com.developer.hare.tworaveler.R;
 import com.developer.hare.tworaveler.UI.AlertManager;
+import com.developer.hare.tworaveler.Util.LogManager;
 import com.developer.hare.tworaveler.Util.ResourceManager;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -32,13 +33,14 @@ public class SessionManager {
     }
 
     public boolean isLogin() {
-        if (USER_MODEL != null)
+        if (this.USER_MODEL != null)
             return true;
         else
             return false;
     }
 
     public void logout(Activity activity) {
+        LogManager.log(LogManager.LOG_INFO, getClass(), "logout(Activity activity)", "sessionManager logout");
         this.USER_MODEL = null;
         Intent intent = new Intent(activity, Main.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
